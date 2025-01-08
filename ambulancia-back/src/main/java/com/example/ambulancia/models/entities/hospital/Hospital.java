@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ import jakarta.persistence.Table;
 public class Hospital extends BaseEntity {
     private String nomeHosp;
 
+    @Builder.Default
     @JsonIgnore
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EnderecoHosp> enderecos = new ArrayList<>();

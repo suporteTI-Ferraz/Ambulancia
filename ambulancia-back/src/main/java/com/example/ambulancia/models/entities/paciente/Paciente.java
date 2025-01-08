@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -28,10 +29,12 @@ public class Paciente extends BaseEntity {
     @Column(nullable = false)
     private String nomePaciente;
 
+    @Builder.Default
     @JsonIgnore
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EnderecoPac> enderecos = new ArrayList<>();
 
+    @Builder.Default
     @JsonIgnore
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TelefonePac> telefones = new ArrayList<>();

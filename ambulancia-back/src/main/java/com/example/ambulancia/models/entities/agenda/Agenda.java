@@ -1,0 +1,25 @@
+package com.example.ambulancia.models.entities.agenda;
+
+import com.example.ambulancia.models.entities.BaseEntity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Builder;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+@Entity
+@Table
+public class Agenda extends BaseEntity {
+    private String dataAgenda;
+    @Builder.Default
+    private Boolean diaFinalizado = false;
+}

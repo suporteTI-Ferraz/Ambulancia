@@ -4,7 +4,7 @@ import AppRoutes from './routes/AppRoutes.tsx'
 import { AuthProvider } from './contexts/AuthProvider.tsx'
 import './styles/Header.css'
 import './styles/Global.css'
-
+import './styles/Dashboard.css'
 import Header from './components/Header.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -1,0 +1,64 @@
+/* Alinhamento do h1 */
+.dashboard-title {
+    color: black;
+}
+
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    height: 100vh; /* Altura total da viewport */
+    margin: 0;
+  }
+
+  .dashboard {
+    text-align: center;
+    padding: 20px;
+    max-width: 900px; /* Máxima largura para o conteúdo */
+    width: 100%; /* A largura será 100% até o máximo especificado */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    background-color:rgb(101, 100, 100);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 220px;
+    transition: transform 0.3s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card h3 {
+    margin: 10px 0;
+  }
+  
+  .card button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .card button:hover {
+    background-color: #0056b3;
+  }
+  

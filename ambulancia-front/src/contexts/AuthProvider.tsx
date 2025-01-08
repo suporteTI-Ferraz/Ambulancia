@@ -27,7 +27,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   useEffect(() => {
-    checkLoginStatus(); // Chama a verificação de login apenas na montagem do componente
+    if(isLoggedIn == false){
+      checkLoginStatus(); // Chama a verificação de login apenas na montagem do componente
+
+    }
   }, []);
 
   if (loading) {
