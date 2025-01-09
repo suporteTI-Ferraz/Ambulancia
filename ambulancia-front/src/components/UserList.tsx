@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { UserType } from '../types/UserType';
-import { fetchUsers, deleteUser } from '../services/UserService';
+import { deleteUser } from '../services/UserService';
 
 interface UserListProps {
     users: UserType[];
