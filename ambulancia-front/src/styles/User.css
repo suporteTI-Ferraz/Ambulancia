@@ -1,0 +1,106 @@
+/* GerenciarUser.css */
+.gerenciar-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  .gerenciar-user h2 {
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .gerenciar-user form {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .gerenciar-user form div {
+    margin-bottom: 15px;
+  }
+  
+  .gerenciar-user label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .gerenciar-user  input,
+  select {
+    color: black;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  .gerenciar-user button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .gerenciar-user button:hover {
+    background-color: #45a049;
+  }
+  
+  .gerenciar-user  button[type="button"] {
+    background-color: #f44336;
+  }
+  
+  .gerenciar-user button[type="button"]:hover {
+    background-color: #e53935;
+  }
+  
+  .gerenciar-user table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .gerenciar-user  thead {
+    background-color: #f4f4f4;
+  }
+  
+  .gerenciar-user  th, td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+    color: black;
+  }
+  
+  .gerenciar-user th {
+    font-weight: bold;
+  }
+  
+  .gerenciar-user  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .gerenciar-user  tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .gerenciar-user button {
+    margin-right: 5px;
+  }
+  

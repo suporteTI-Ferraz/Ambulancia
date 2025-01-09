@@ -6,7 +6,7 @@ import Login from '../pages/Login';
 import Perfil from '../pages/Perfil';
 import Dashboard from '../pages/Dashboard';
 import PageTitle from '../components/PageTitle'; // Importando o PageTitle
-
+import GerenciarUser from '../pages/GerenciarUser';
 const AppRoutes: React.FC = () => {
   return (
     <Router>
@@ -20,6 +20,7 @@ const AppRoutes: React.FC = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<><PageTitle /><Perfil /></>} />
           <Route path="/dashboard" element={<><PageTitle /><Dashboard /></>} />
+          <Route path="/gerenciar-funcionarios" element={<><PageTitle /><GerenciarUser /></>} />
         </Route>
 
         {/* Rota de fallback */}

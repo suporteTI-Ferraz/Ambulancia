@@ -14,6 +14,9 @@ const PageTitle = () => {
     case '/profile':
       title = 'Perfil';
       break;
+    case '/gerenciar-funcionarios':
+      title = 'Gerenciar Funcionários';
+      break;
   }
   if(title !== ''){
   return (

@@ -6,7 +6,7 @@ const PublicRoute: React.FC = () => {
   const { isLoggedIn } = useAuth();
 
   if (isLoggedIn) {
-    return <Navigate to="/profile" replace />; // Redireciona para a rota protegida
+    return <Navigate to="/dashboard" replace />; // Redireciona para a rota protegida
   }
 
   return <Outlet />; // Renderiza o conteúdo da rota pública

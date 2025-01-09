@@ -3,15 +3,14 @@ import { useState } from "react";
 import backgroundImage from "../assets/ferraz-predio-imagem.jpeg";
 import "../styles/Login.css";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const navigate = useNavigate()
+  const { checkLoginStatus } = useAuth(); // Use apenas aqui, fora de funções assíncronas
 
-  const handleRedirect = async ()=>{
-    navigate('/dashboard')
-  }
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault(); // Evita recarregar a página
     try {
@@ -26,7 +25,10 @@ const Login = () => {
 
       if (response.status === 200) {
         console.log("Login bem-sucedido");
-        await handleRedirect()
+        checkLoginStatus(); // Atualiza o estado de autenticação no contexto
+        navigate("/dashboard", { replace: true }); // Redireciona para a rota protegida
+                
+        //await handleRedirect()
       } else {
         console.error("Login falhou");
       }
@@ -37,6 +39,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      
       {/* Background */}
       <div
         className="background-image"

@@ -1,7 +1,15 @@
 import React from "react";
 import { FaUser, FaHeartbeat, FaUserNurse, FaAmbulance  } from "react-icons/fa"; // Ícones para funcionários, motoristas, pacientes
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+
+  const navigate = useNavigate()
+
+  const handleUserRoute= () =>{
+    navigate("/gerenciar-funcionarios")
+  }
+
   return (
     <div className="dashboard-container">
 {/* <h1 className="dashboard-title">Bem-vindo ao Sistema de Ambulância</h1> */}
@@ -10,7 +18,7 @@ const Dashboard = () => {
         <div className="card">
           <FaUser size={60} color="black" />
           <h3>Funcionários</h3>
-          <button onClick={() => alert("Gerenciar Funcionários")}>Gerenciar</button>
+          <button onClick={handleUserRoute}>Gerenciar</button>
         </div>
         <div className="card">
           <FaUserNurse size={60} />
