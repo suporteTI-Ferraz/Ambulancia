@@ -33,7 +33,7 @@ public enum Role {
 
         )
     ),
-    CLIENT(
+    EMPLOYEE(
         Set.of(
             EMPLOYEE_CREATE,
             EMPLOYEE_READ,

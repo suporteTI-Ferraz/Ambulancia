@@ -66,7 +66,7 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onUserSaved }) => {
           />
         </div>
         <div>
-          <label>Username</label>
+          <label>Email</label>
           <input
             type="email"
             name="email"

@@ -11,6 +11,7 @@ import com.example.ambulancia.models.entities.role.Role;
 import com.example.ambulancia.models.entities.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,6 +37,7 @@ public class User extends BaseEntity implements UserDetails {
     private String nome;
     @Column(nullable = false, unique = true)
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String senha;
     @Enumerated(EnumType.STRING)
@@ -49,6 +51,7 @@ public class User extends BaseEntity implements UserDetails {
         return role.getAuthorities();
     }
 
+    @JsonIgnore
     @Override
     public String getPassword() {
       return senha;

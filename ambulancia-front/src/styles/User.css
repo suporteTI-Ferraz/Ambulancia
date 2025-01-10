@@ -36,7 +36,8 @@
   }
   
   .gerenciar-user  input,
-  select {
+  select,
+  option {
     color: black;
     width: 100%;
     padding: 8px;

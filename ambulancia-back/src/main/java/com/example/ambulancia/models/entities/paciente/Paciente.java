@@ -28,6 +28,12 @@ import jakarta.persistence.Table;
 public class Paciente extends BaseEntity {
     @Column(nullable = false)
     private String nomePaciente;
+    @Column(nullable = false, unique = true)
+    private String cpf;
+    @Column(nullable = false, unique = true)
+    private String sus;
+    @Column
+    private String condicoesEspecificas;  // Ex: "cadeirante", "obeso", "mobilidade reduzida"
 
     @Builder.Default
     @JsonIgnore

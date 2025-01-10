@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +38,13 @@ public class UserController {
     public ResponseEntity<User> findById(@PathVariable Long id){
         User user = service.findById(id);
         return ResponseEntity.ok().body(user);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<User> updateById(@PathVariable Long id, @RequestBody User user){
+        User obj = service.update(id, user);
+        return ResponseEntity.ok(obj);
+
     }
 
 

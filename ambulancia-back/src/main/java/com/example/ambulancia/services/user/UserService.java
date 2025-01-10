@@ -5,15 +5,21 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.ambulancia.models.entities.user.User;
 import com.example.ambulancia.repositories.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     @Autowired
     UserRepository repository;
+
+    private final PasswordEncoder passwordEncoder;
 
 
     public List<User> findAll() {
@@ -39,6 +45,8 @@ public class UserService {
     public void updateData(User entity, User user){
         entity.setNome(user.getNome());
         entity.setEmail(user.getEmail());
+        entity.setSenha(passwordEncoder.encode(user.getSenha()));
+        entity.setRole(user.getRole());
         entity.setUpdatedAt(LocalDateTime.now());
     }
 
