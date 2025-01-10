@@ -13,7 +13,7 @@ import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.ambulancia.models.entities.user.User;
-import com.example.ambulancia.repositories.UserRepository;
+import com.example.ambulancia.repositories.user.UserRepository;
 import com.example.ambulancia.services.authentication.requests.AuthenticationRequest;
 import com.example.ambulancia.services.authentication.requests.RegisterRequest;
 import com.example.ambulancia.services.authentication.responses.AuthenticationResponse;

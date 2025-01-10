@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.ambulancia.models.entities.user.User;
-import com.example.ambulancia.repositories.UserRepository;
+import com.example.ambulancia.repositories.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 @Service
@@ -49,5 +49,12 @@ public class UserService {
         entity.setRole(user.getRole());
         entity.setUpdatedAt(LocalDateTime.now());
     }
+
+    public User deleteById(Long id){
+        User entity = repository.getReferenceById(id);
+        entity.setDeleted(true);
+        entity.setUpdatedAt(LocalDateTime.now());
+        return repository.save(entity);
+    }   
 
 }

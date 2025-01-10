@@ -1,8 +1,5 @@
 package com.example.ambulancia.configs;
 
-import com.example.ambulancia.repositories.UserRepository;
-
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.ambulancia.repositories.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

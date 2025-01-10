@@ -1,4 +1,4 @@
-package com.example.ambulancia.repositories;
+package com.example.ambulancia.repositories.user;
 
 import java.util.Optional;
 
