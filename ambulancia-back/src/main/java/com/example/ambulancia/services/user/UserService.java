@@ -47,14 +47,12 @@ public class UserService {
         entity.setEmail(user.getEmail());
         entity.setSenha(passwordEncoder.encode(user.getSenha()));
         entity.setRole(user.getRole());
-        entity.setUpdatedAt(LocalDateTime.now());
     }
 
     public User deleteById(Long id){
         User entity = repository.getReferenceById(id);
-        entity.setDeleted(true);
-        entity.setUpdatedAt(LocalDateTime.now());
-        return repository.save(entity);
+        entity.setDeletedAt(LocalDateTime.now());
+        return repository.saveAndFlush(entity);
     }   
 
 }

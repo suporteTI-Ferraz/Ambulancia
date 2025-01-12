@@ -32,7 +32,7 @@ public class Paciente extends BaseEntity {
     private String cpf;
     @Column(nullable = false, unique = true)
     private String sus;
-    @Column
+    @Column(nullable = true)
     private String condicoesEspecificas;  // Ex: "cadeirante", "obeso", "mobilidade reduzida"
 
     @Builder.Default

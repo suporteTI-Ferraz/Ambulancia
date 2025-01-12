@@ -2,21 +2,20 @@ package com.example.ambulancia.services.authentication;
 
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.exc.StreamWriteException;
-import com.fasterxml.jackson.databind.DatabindException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.ambulancia.models.entities.user.User;
 import com.example.ambulancia.repositories.user.UserRepository;
 import com.example.ambulancia.services.authentication.requests.AuthenticationRequest;
 import com.example.ambulancia.services.authentication.requests.RegisterRequest;
 import com.example.ambulancia.services.authentication.responses.AuthenticationResponse;
+import com.fasterxml.jackson.core.exc.StreamWriteException;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,8 +37,6 @@ public class AuthenticationService {
         .email(request.getEmail())
         .senha(passwordEncoder.encode(request.getSenha()))
         .role(request.getRole())
-        .deleted(false) // Definindo como false
-        .createdAt(LocalDateTime.now()) // Definindo a data atual
         .build(); // Não se esqueça de chamar o método build()
         
         var savedUser = repository.save(user);

@@ -36,13 +36,11 @@ public class MotoristaService {
     }
     public void updateData(Motorista entity, Motorista motorista){
         entity.setNomeMotorista(motorista.getNomeMotorista());
-        entity.setUpdatedAt(LocalDateTime.now());
     }
 
     public Motorista deleteById(Long id){
         Motorista entity = repository.getReferenceById(id);
-        entity.setDeleted(true);
-        entity.setUpdatedAt(LocalDateTime.now());
+        entity.setDeletedAt(LocalDateTime.now());
         return repository.save(entity);
     }
 

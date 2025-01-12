@@ -24,7 +24,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 public class Veiculo extends BaseEntity {
-    private String numVeic;
     private String placaVeic;
     private Double kilometragem; 
 

@@ -1,4 +1,4 @@
-package com.example.ambulancia.controllers.motorista;
+package com.example.ambulancia.controllers.paciente;
 
 import java.net.URI;
 import java.util.List;
@@ -15,19 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.ambulancia.models.entities.motorista.Motorista;
-import com.example.ambulancia.services.motorista.MotoristaService;
-
+import com.example.ambulancia.models.entities.paciente.TelefonePac;
+import com.example.ambulancia.services.paciente.TelefonePacService;
 
 @RestController
-@RequestMapping(value = "api/motorista")
-public class MotoristaController {
+@RequestMapping(value = "api/paciente/telefone")
+public class TelefonePacController {
+
     @Autowired
-    MotoristaService service;
+    TelefonePacService service;
 
     @PostMapping
-    public ResponseEntity<Motorista> insert(@RequestBody Motorista motorista){
-        Motorista entity = service.insert(motorista);
+    public ResponseEntity<TelefonePac> insert(@RequestBody TelefonePac telefonePac){
+        TelefonePac entity = service.insert(telefonePac);
         URI location = ServletUriComponentsBuilder
         .fromCurrentRequest() // Baseado na URL da requisição atual
         .path("/{id}") // Adiciona o ID do recurso criado ao caminho
@@ -37,27 +37,27 @@ public class MotoristaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Motorista>> findAll(){
-        List<Motorista> list = service.findAll();
+    public ResponseEntity<List<TelefonePac>> findAll(){
+        List<TelefonePac> list = service.findAll();
         return ResponseEntity.ok().body(list);
         
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Motorista> findById(@PathVariable Long id){
-        Motorista motorista = service.findById(id);
-        return ResponseEntity.ok().body(motorista);
+    public ResponseEntity<TelefonePac> findById(@PathVariable Long id){
+        TelefonePac telefonePac = service.findById(id);
+        return ResponseEntity.ok().body(telefonePac);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Motorista> updateById(@PathVariable Long id, @RequestBody Motorista motorista){
-        Motorista obj = service.update(id, motorista);
+    public ResponseEntity<TelefonePac> updateById(@PathVariable Long id, @RequestBody TelefonePac telefonePac){
+        TelefonePac obj = service.update(id, telefonePac);
         return ResponseEntity.ok(obj);
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<Motorista> deleteById(@PathVariable Long id){
-        Motorista deletado = service.deleteById(id);
+    public ResponseEntity<TelefonePac> deleteById(@PathVariable Long id){
+        TelefonePac deletado = service.deleteById(id);
         return ResponseEntity.ok().body(deletado);
     }
     
