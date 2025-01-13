@@ -54,5 +54,12 @@ public class UserService {
         entity.setDeletedAt(LocalDateTime.now());
         return repository.saveAndFlush(entity);
     }   
+    
+    public User reactivateById(Long id){
+        User entity = repository.getReferenceById(id);
+        entity.setDeletedAt(null);
+        entity.setDeletedBy(null);
+        return repository.saveAndFlush(entity);
+    }
 
 }
