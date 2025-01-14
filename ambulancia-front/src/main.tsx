@@ -6,7 +6,10 @@ import './styles/Header.css'
 import './styles/Global.css'
 import './styles/Dashboard.css'
 import './styles/User.css'
+import './styles/EditUserModal.css'
 import Header from './components/Header.tsx'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>

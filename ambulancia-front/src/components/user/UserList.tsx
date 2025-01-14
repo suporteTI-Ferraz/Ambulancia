@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { UserType } from '../types/UserType';
-import { deleteUser, reactivateUser } from '../services/UserService'; // Adicione reactivateUser se necessário
+import { UserType } from '../../types/UserType';
+import { deleteUser, reactivateUser } from '../../services/UserService'; // Adicione reactivateUser se necessário
 
 interface UserListProps {
   users: UserType[];

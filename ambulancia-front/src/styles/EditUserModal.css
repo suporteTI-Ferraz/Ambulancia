@@ -1,0 +1,48 @@
+/* Modal personalizado */
+.custom-modal {
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-modal-header {
+  background-color: #4caf50;
+  color: white;
+  border-bottom: none;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 15px;
+  text-align: center;
+}
+
+.custom-modal-body {
+  padding: 20px;
+  color: #333;
+}
+
+.custom-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+  background-color: #f4f4f4;
+  border-top: none;
+}
+
+.custom-modal-footer .button-edit {
+  background-color: #f44336;
+  color: white;
+}
+
+.custom-modal-footer .button-edit:hover {
+  background-color: #e53935;
+}
+
+.gerenciar-user .custom-modal .modal-body form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  

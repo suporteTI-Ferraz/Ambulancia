@@ -45,7 +45,9 @@ public class UserService {
     public void updateData(User entity, User user){
         entity.setNome(user.getNome());
         entity.setEmail(user.getEmail());
-        entity.setSenha(passwordEncoder.encode(user.getSenha()));
+        if (user.getSenha() != null && !user.getSenha().isEmpty()) {
+            entity.setSenha(passwordEncoder.encode(user.getSenha()));
+        }
         entity.setRole(user.getRole());
     }
 

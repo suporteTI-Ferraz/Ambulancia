@@ -35,7 +35,7 @@
     color: #555;
   }
   
-  .gerenciar-user  input,
+  .gerenciar-user input,
   select,
   option {
     color: black;
@@ -47,7 +47,7 @@
     box-sizing: border-box;
   }
   
-  .gerenciar-user button {
+  .gerenciar-user button, .edit-userForm {
     background-color: #4caf50;
     color: white;
     border: none;
@@ -57,7 +57,7 @@
     cursor: pointer;
   }
   
-  .gerenciar-user button:hover {
+  .gerenciar-user button:hover, .edit-userForm {
     background-color: #45a049;
   }
   
