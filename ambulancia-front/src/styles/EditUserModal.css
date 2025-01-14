@@ -46,3 +46,16 @@
     border-radius: 8px;
   }
   
+
+  .custom-modal .modal-body {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    height: 100%;            /* Garante que a área do modal ocupe toda a altura disponível */
+  }
+  
+  .gerenciar-user .custom-modal .modal-body form {
+    width: 100%;          /* Garante que o formulário ocupe toda a largura possível */
+    max-width: 500px;     /* Define um limite de largura */
+    margin: 0 auto;       /* Centraliza o formulário */
+  }
