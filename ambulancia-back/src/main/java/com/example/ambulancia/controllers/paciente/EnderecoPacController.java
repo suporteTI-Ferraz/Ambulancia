@@ -19,7 +19,7 @@ import com.example.ambulancia.models.entities.paciente.EnderecoPac;
 import com.example.ambulancia.services.paciente.EnderecoPacService;
 
 @RestController
-@RequestMapping(value = "api/paciente/endereco")
+@RequestMapping(value = "api")
 public class EnderecoPacController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class EnderecoPacController {
     // }
 
     
-    @PostMapping(value = "/{id}")
+    @PostMapping(value = "/paciente/{id}/endereco")
     public ResponseEntity<List<EnderecoPac>> insertMany(@RequestBody List<EnderecoPac> enderecoPac, @PathVariable Long id){
         List<EnderecoPac> entity = service.insertMany(enderecoPac, id);
         // Construir a URI base no recurso do paciente
@@ -49,26 +49,32 @@ public class EnderecoPacController {
     }
 
 
-    @GetMapping
+    @GetMapping(value = "/paciente/endereco")
     public ResponseEntity<List<EnderecoPac>> findAll(){
         List<EnderecoPac> list = service.findAll();
         return ResponseEntity.ok().body(list);
         
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/paciente/endereco/{id}")
     public ResponseEntity<EnderecoPac> findById(@PathVariable Long id){
         EnderecoPac enderecoPac = service.findById(id);
         return ResponseEntity.ok().body(enderecoPac);
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<EnderecoPac> updateById(@PathVariable Long id, @RequestBody EnderecoPac enderecoPac){
-        EnderecoPac obj = service.update(id, enderecoPac);
+    @PutMapping(value = "/paciente/endereco/{id}")
+    public ResponseEntity<EnderecoPac> updateByIdMany(@PathVariable Long id, @RequestBody EnderecoPac novosEnderecos){
+        EnderecoPac obj = service.update(id, novosEnderecos);
         return ResponseEntity.ok(obj);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @PutMapping(value = "/paciente/{id}/endereco")
+    public ResponseEntity<List<EnderecoPac>> updateByIdMany(@PathVariable Long id, @RequestBody List<EnderecoPac> novosEnderecos){
+        List<EnderecoPac> obj = service.updateMany(id, novosEnderecos);
+        return ResponseEntity.ok(obj);
+    }
+
+    @DeleteMapping(value = "/paciente/endereco/{id}")
     public ResponseEntity<EnderecoPac> deleteById(@PathVariable Long id){
         EnderecoPac deletado = service.deleteById(id);
         return ResponseEntity.ok().body(deletado);
