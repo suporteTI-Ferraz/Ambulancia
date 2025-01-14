@@ -1,6 +1,8 @@
 package com.example.ambulancia.models.entities.paciente;
 
 import com.example.ambulancia.models.entities.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +24,7 @@ public class TelefonePac extends BaseEntity {
     private String tipoTel;
     private String numTel;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "paciente_id", referencedColumnName = "id")
     private Paciente paciente;

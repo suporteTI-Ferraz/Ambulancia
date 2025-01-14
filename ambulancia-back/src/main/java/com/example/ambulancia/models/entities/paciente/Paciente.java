@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.ambulancia.models.entities.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import lombok.AllArgsConstructor;
@@ -36,12 +35,10 @@ public class Paciente extends BaseEntity {
     private String condicoesEspecificas;  // Ex: "cadeirante", "obeso", "mobilidade reduzida"
 
     @Builder.Default
-    @JsonIgnore
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EnderecoPac> enderecos = new ArrayList<>();
 
     @Builder.Default
-    @JsonIgnore
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TelefonePac> telefones = new ArrayList<>();
 }

@@ -25,16 +25,29 @@ public class EnderecoPacController {
     @Autowired
     EnderecoPacService service;
 
-    @PostMapping
-    public ResponseEntity<EnderecoPac> insert(@RequestBody EnderecoPac enderecoPac){
-        EnderecoPac entity = service.insert(enderecoPac);
+    // @PostMapping
+    // public ResponseEntity<EnderecoPac> insert(@RequestBody EnderecoPac enderecoPac){
+    //     EnderecoPac entity = service.insert(enderecoPac);
+    //     URI location = ServletUriComponentsBuilder
+    //     .fromCurrentRequest() // Baseado na URL da requisição atual
+    //     .path("/{id}") // Adiciona o ID do recurso criado ao caminho
+    //     .buildAndExpand(entity.getId()) // Substitui o {id} pelo ID do usuário criado
+    //     .toUri();
+    //     return ResponseEntity.created(location).body(entity);
+    // }
+
+    
+    @PostMapping(value = "/{id}")
+    public ResponseEntity<List<EnderecoPac>> insertMany(@RequestBody List<EnderecoPac> enderecoPac, @PathVariable Long id){
+        List<EnderecoPac> entity = service.insertMany(enderecoPac, id);
+        // Construir a URI base no recurso do paciente
         URI location = ServletUriComponentsBuilder
-        .fromCurrentRequest() // Baseado na URL da requisição atual
-        .path("/{id}") // Adiciona o ID do recurso criado ao caminho
-        .buildAndExpand(entity.getId()) // Substitui o {id} pelo ID do usuário criado
+        .fromCurrentRequest() // URL da requisição atual (/{id})
+        .build() // Constrói a URI sem adicionar o ID específico de cada endereço
         .toUri();
         return ResponseEntity.created(location).body(entity);
     }
+
 
     @GetMapping
     public ResponseEntity<List<EnderecoPac>> findAll(){
@@ -55,7 +68,7 @@ public class EnderecoPacController {
         return ResponseEntity.ok(obj);
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<EnderecoPac> deleteById(@PathVariable Long id){
         EnderecoPac deletado = service.deleteById(id);
         return ResponseEntity.ok().body(deletado);

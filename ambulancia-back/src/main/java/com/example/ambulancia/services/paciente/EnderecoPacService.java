@@ -8,13 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ambulancia.models.entities.paciente.EnderecoPac;
+import com.example.ambulancia.models.entities.paciente.Paciente;
 import com.example.ambulancia.repositories.paciente.EnderecoPacRepository;
+import com.example.ambulancia.repositories.paciente.PacienteRepository;
 
 @Service
 public class EnderecoPacService {
     @Autowired
     EnderecoPacRepository repository;
-
+    @Autowired
+    PacienteRepository pacienteRepository;
       public List<EnderecoPac> findAll() {
         return repository.findAll();
     }
@@ -24,9 +27,16 @@ public class EnderecoPacService {
         return obj.orElse(null);
     }
 
-    public EnderecoPac insert(EnderecoPac obj) {
-       
+    public EnderecoPac insert(EnderecoPac obj, Long id) {
+        Paciente paciente = pacienteRepository.getReferenceById(id);
+        obj.setPaciente(paciente);
         return repository.save(obj);
+    }
+
+    public List<EnderecoPac> insertMany(List<EnderecoPac> obj, Long id) {
+        Paciente paciente = pacienteRepository.getReferenceById(id);
+        obj.forEach(endereco -> endereco.setPaciente(paciente));
+        return repository.saveAll(obj);
     }
 
     public EnderecoPac update (Long id, EnderecoPac obj) {

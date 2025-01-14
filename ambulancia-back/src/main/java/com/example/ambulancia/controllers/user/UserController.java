@@ -48,13 +48,13 @@ public class UserController {
 
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<User> deleteById(@PathVariable Long id){
         User deletado = service.deleteById(id);
         return ResponseEntity.ok().body(deletado);
     }
 
-    @PostMapping(value = "{id}")
+    @PostMapping(value = "/reactivate/{id}")
     public ResponseEntity<User> reactivateById(@PathVariable Long id){
         User reativado = service.reactivateById(id);
         return ResponseEntity.ok().body(reativado);

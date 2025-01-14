@@ -1,6 +1,7 @@
 package com.example.ambulancia.models.entities.paciente;
 
 import com.example.ambulancia.models.entities.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +32,7 @@ public class EnderecoPac extends BaseEntity {
     private String numeroPac;
     private String complementoPac;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "paciente_id", referencedColumnName = "id")
     private Paciente paciente;
