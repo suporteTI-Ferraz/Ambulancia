@@ -15,6 +15,7 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onUserSaved }) => {
     senha: '',
     role: '',
     deletedAt: null,
+    createdAt: '',
   };
 
   const [user, setUser] = useState<UserType>(initialUserState);

@@ -72,22 +72,56 @@
   .gerenciar-user table {
     border-collapse: collapse;
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 20px 0;
     border: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+
+  
   
   .gerenciar-user  thead {
     background-color: #f4f4f4;
   }
   
   .gerenciar-user  th, td {
-    text-align: left;
+    text-align: center;
     padding: 10px;
     border: 1px solid #ddd;
     color: black;
   }
+  .gerenciar-user td {
+    white-space: normal; /* Permite quebra de linha */
+    word-break: break-word; /* Quebra as palavras longas */
+  }
+  
+  /* Ajuste específico para a última célula (ícones de ação) */
+  .gerenciar-user td:last-child {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente os ícones */
+    align-items: center;    /* Centraliza verticalmente */
+    gap: 10px;              /* Espaçamento entre os ícones */
+    white-space: nowrap;    /* Evita quebra de linha para os ícones */
+  }
+  
+  /* Centralização do conteúdo */
+  .gerenciar-user table {
+    text-align: center;
+  }
+  
+  .gerenciar-user td, .gerenciar-user th {
+    vertical-align: middle;
+  }
+  
+  /* Ajuste de largura mínima */
+  .gerenciar-user th, .gerenciar-user td {
+    min-width: 100px;
+  }
+  
+  .gerenciar-user td:last-child {
+    min-width: 150px;
+  }
+  
   
   .gerenciar-user th {
     font-weight: bold;

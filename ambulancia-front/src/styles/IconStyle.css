@@ -1,0 +1,27 @@
+.icon-action {
+    font-size: 1.5rem !important;
+    margin: 0 8px !important;
+    transition: color 0.2s ease !important;
+}
+
+.icon-action.edit {
+    color: #4caf50 !important;
+    font-size: 1.5rem; /* Removido as aspas */
+    cursor: pointer; /* Removido as aspas */
+}
+
+.icon-action.delete {
+    color: #f44336 !important;
+    font-size: 1.5rem; /* Removido as aspas */
+    cursor: pointer; /* Removido as aspas */
+}
+
+.icon-action.reactivate {
+    color: #2196f3 !important;
+    font-size: 1.5rem; /* Removido as aspas */
+    cursor: pointer; /* Removido as aspas */
+}
+
+.icon-action:hover {
+    opacity: 0.7; /* Adiciona um efeito de hover */
+}

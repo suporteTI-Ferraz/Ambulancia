@@ -7,8 +7,10 @@ import './styles/Global.css'
 import './styles/Dashboard.css'
 import './styles/User.css'
 import './styles/EditUserModal.css'
-import Header from './components/Header.tsx'
+import './styles/IconStyle.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Header from './components/Header.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
