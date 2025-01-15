@@ -1,5 +1,6 @@
 import React from "react";
 import { Paciente } from "../../types/paciente/PacienteType";
+import { TelefonePac } from "../../types/paciente/TelefonePacType";
 import { FiEdit, FiPhone } from "react-icons/fi";
 
 interface PacienteListProps {
@@ -18,6 +19,7 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
           <th>Nome</th>
           <th>CPF</th>
           <th>SUS</th>
+          <th>Telefones</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -28,6 +30,13 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
             <td>{paciente.nomePaciente}</td>
             <td>{paciente.cpf}</td>
             <td>{paciente.sus}</td>
+            <td>
+              {paciente.telefones.map((telefone) => (
+                <div key={telefone.id}>
+                  {telefone.tipoTel}: {telefone.numTel}
+                </div>
+              ))}
+            </td>
             <td>
               <FiEdit title="Editar" onClick={() => onEdit(paciente)} />
               <FiPhone
