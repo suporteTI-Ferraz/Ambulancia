@@ -1,18 +1,18 @@
 /* GerenciarUser.css */
-.gerenciar-user {
+.gerenciar {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 20px;
   }
   
-  .gerenciar-user h2 {
+  .gerenciar h2 {
     color: #333;
     margin-bottom: 10px;
     text-align: center;
   }
   
-  .gerenciar-user form {
+  .gerenciar form {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -23,11 +23,11 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  .gerenciar-user form div {
+  .gerenciar form div {
     margin-bottom: 15px;
   }
   
-  .gerenciar-user label {
+  .gerenciar label {
     display: block;
     font-size: 14px;
     font-weight: bold;
@@ -35,7 +35,7 @@
     color: #555;
   }
   
-  .gerenciar-user input,
+  .gerenciar input,
   select,
   option {
     color: black;
@@ -47,7 +47,7 @@
     box-sizing: border-box;
   }
   
-  .gerenciar-user button, .edit-userForm {
+  .gerenciar button, .edit-userForm {
     background-color: #4caf50;
     color: white;
     border: none;
@@ -57,19 +57,19 @@
     cursor: pointer;
   }
   
-  .gerenciar-user button:hover, .edit-userForm {
+  .gerenciar button:hover, .edit-userForm {
     background-color: #45a049;
   }
   
-  .gerenciar-user  button[type="button"] {
+  .gerenciar  button[type="button"] {
     background-color: #f44336;
   }
   
-  .gerenciar-user button[type="button"]:hover {
+  .gerenciar button[type="button"]:hover {
     background-color: #e53935;
   }
   
-  .gerenciar-user table {
+  .gerenciar table {
     border-collapse: collapse;
     width: 100%;
     max-width: 1200px;
@@ -80,23 +80,23 @@
 
   
   
-  .gerenciar-user  thead {
+  .gerenciar  thead {
     background-color: #f4f4f4;
   }
   
-  .gerenciar-user  th, td {
+  .gerenciar  th, td {
     text-align: center;
     padding: 10px;
     border: 1px solid #ddd;
     color: black;
   }
-  .gerenciar-user td {
+  .gerenciar td {
     white-space: normal; /* Permite quebra de linha */
     word-break: break-word; /* Quebra as palavras longas */
   }
   
   /* Ajuste específico para a última célula (ícones de ação) */
-  .gerenciar-user td:last-child {
+  .gerenciar td:last-child {
     display: flex;
     justify-content: center; /* Centraliza horizontalmente os ícones */
     align-items: center;    /* Centraliza verticalmente */
@@ -105,37 +105,37 @@
   }
   
   /* Centralização do conteúdo */
-  .gerenciar-user table {
+  .gerenciar table {
     text-align: center;
   }
   
-  .gerenciar-user td, .gerenciar-user th {
+  .gerenciar td, .gerenciar th {
     vertical-align: middle;
   }
   
   /* Ajuste de largura mínima */
-  .gerenciar-user th, .gerenciar-user td {
+  .gerenciar th, .gerenciar td {
     min-width: 100px;
   }
   
-  .gerenciar-user td:last-child {
+  .gerenciar td:last-child {
     min-width: 150px;
   }
   
   
-  .gerenciar-user th {
+  .gerenciar th {
     font-weight: bold;
   }
   
-  .gerenciar-user  tbody tr:nth-child(even) {
+  .gerenciar  tbody tr:nth-child(even) {
     background-color: #f9f9f9;
   }
   
-  .gerenciar-user  tbody tr:hover {
+  .gerenciar  tbody tr:hover {
     background-color: #f1f1f1;
   }
   
-  .gerenciar-user button {
+  .gerenciar button {
     margin-right: 5px;
   }
   

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import PacienteList from "../components/paciente/PacienteList";
 import TelefoneModal from "../components/modal/TelefoneModal";
 import { Paciente } from "../types/paciente/PacienteType";
-import { fetchPacientes } from "../services/PacienteService";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { TelefonePac } from "../types/paciente/TelefonePacType";
+import { createManyTelPac, createPaciente, fetchPacientes, updatePaciente } from "../services/PacienteService";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
+import PacienteForm from "../components/paciente/PacienteForm";
 
 const GerenciarPaciente = () => {
   const [pacientes, setPacientes] = useState<Paciente[]>([]);
@@ -46,41 +48,72 @@ const GerenciarPaciente = () => {
     toggleTelefoneModal();
   };
 
+  const handleCreatePaciente = async (newPaciente: Paciente) => {
+    try {
+      // Cria o paciente e obtém o ID gerado
+      const response = await createPaciente(newPaciente);
+      const pacienteId = response.data.id;
+  
+      // Verifica se há telefones para associar ao paciente criado
+      if (newPaciente.telefones.length > 0) {
+        await createManyTelPac(pacienteId, newPaciente.telefones);
+      }
+  
+      // Atualiza a lista de pacientes após a criação
+      handlePacienteSaved();
+    } catch (error) {
+      console.error("Erro ao criar paciente ou associar telefones:", error);
+    }
+  };
+  
+  
+  
+
+  const handleEditPaciente = async (updatedPaciente: Paciente) => {
+    await updatePaciente(updatedPaciente.id, updatedPaciente);
+    handlePacienteSaved();
+  };
+
   return (
-    <div className="gerenciar-paciente">
-      <h3>Gerenciar Pacientes</h3>
+    <div className="gerenciar">
+  <h3>Gerenciar Pacientes</h3>
 
-      {/* Formulário para criação de paciente */}
-      <div>
-      </div>
+  {/* Formulário para criação de paciente fora do modal */}
+  <h4>Criar Paciente</h4>
+  <PacienteForm
+    onSave={handleCreatePaciente}
+    onCancel={() => setEditingPaciente(null)}
+  />
 
-      {/* Lista de pacientes */}
-      <PacienteList
-        pacientes={pacientes}
-        onEdit={handleEdit}
-        onViewTelefones={handleViewTelefones}
-        setPacientes={setPacientes}
-      />
+  {/* Lista de pacientes */}
+  <PacienteList
+    pacientes={pacientes}
+    onEdit={handleEdit}
+    onViewTelefones={handleViewTelefones}
+    setPacientes={setPacientes}
+  />
 
-      {/* Modal para edição */}
-      <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar-paciente">
-        <ModalHeader toggle={toggleEditModal}>Editar Paciente</ModalHeader>
-        <ModalBody>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="secondary" onClick={toggleEditModal}>
-            Cancelar
-          </Button>
-        </ModalFooter>
-      </Modal>
+  {/* Modal para edição */}
+  <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar-paciente">
+    <ModalHeader toggle={toggleEditModal}>Editar Paciente</ModalHeader>
+    <ModalBody>
+      {editingPaciente && (
+        <PacienteForm
+          paciente={editingPaciente}
+          onSave={handleEditPaciente}
+          onCancel={toggleEditModal}
+        />
+      )}
+    </ModalBody>
+  </Modal>
 
-      {/* Modal para exibição de telefones */}
-      <TelefoneModal
-        telefones={selectedTelefones}
-        isOpen={isTelefoneModalOpen}
-        toggle={toggleTelefoneModal}
-      />
-    </div>
+  {/* Modal para exibição de telefones */}
+  <TelefoneModal
+    telefones={selectedTelefones}
+    isOpen={isTelefoneModalOpen}
+    toggle={toggleTelefoneModal}
+  />
+</div>
   );
 };
 
