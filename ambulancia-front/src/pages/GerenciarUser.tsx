@@ -43,7 +43,6 @@ const GerenciarUser = () => {
 
   return (
     <div className="gerenciar-user">
-      <h2>Gerenciar Usuários</h2>
 
       {/* Formulário para criação de usuário */}
       <div>
