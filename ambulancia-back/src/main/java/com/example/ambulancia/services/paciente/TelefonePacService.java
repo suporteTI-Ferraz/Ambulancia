@@ -2,12 +2,17 @@ package com.example.ambulancia.services.paciente;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.ambulancia.models.entities.paciente.Paciente;
 import com.example.ambulancia.models.entities.paciente.TelefonePac;
+import com.example.ambulancia.repositories.paciente.PacienteRepository;
 import com.example.ambulancia.repositories.paciente.TelefonePacRepository;
 
 
@@ -15,6 +20,9 @@ import com.example.ambulancia.repositories.paciente.TelefonePacRepository;
 public class TelefonePacService {
     @Autowired
     TelefonePacRepository repository;
+
+    @Autowired
+    PacienteRepository pacienteRepository;
 
       public List<TelefonePac> findAll() {
         return repository.findAll();
@@ -35,9 +43,37 @@ public class TelefonePacService {
         updateData(entity, obj);
         return repository.save(entity);
     }
-    public void updateData(TelefonePac entity, TelefonePac telefonePac){
+    private void updateData(TelefonePac entity, TelefonePac telefonePac){
         entity.setTipoTel(telefonePac.getTipoTel());
         entity.setNumTel(telefonePac.getNumTel());
+    }
+
+    public List<TelefonePac> updateMany(Long id, List<TelefonePac> novosTelefones){
+        Paciente paciente = pacienteRepository.getReferenceById(id);
+        List<TelefonePac> telefonesAtuais = paciente.getTelefones();
+
+        updateData(telefonesAtuais, novosTelefones);
+
+        paciente.setTelefones(telefonesAtuais);
+        pacienteRepository.save(paciente);
+
+        return paciente.getTelefones();
+    }
+
+    private void updateData(List<TelefonePac> telefonesAtuais, List<TelefonePac> novosTelefones){
+        Map<Long, TelefonePac> mapaNovosTelefones = novosTelefones.stream()
+        .collect(Collectors.toMap(TelefonePac::getId, telefone -> telefone));
+
+        for (TelefonePac telefoneAtual : telefonesAtuais) {
+            TelefonePac novoTelefone = mapaNovosTelefones.get(telefoneAtual.getId());
+            if(!Objects.equals(telefoneAtual.getTipoTel(), novoTelefone.getNumTel())){
+                telefoneAtual.setTipoTel(novoTelefone.getTipoTel());
+            }
+            if(!Objects.equals(telefoneAtual.getNumTel(), novoTelefone.getNumTel())){
+                telefoneAtual.setNumTel(novoTelefone.getNumTel());
+            }
+            
+        }
     }
 
     public TelefonePac deleteById(Long id){
