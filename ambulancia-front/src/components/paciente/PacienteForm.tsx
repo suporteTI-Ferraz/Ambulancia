@@ -6,6 +6,7 @@ interface PacienteFormProps {
   paciente?: Paciente | null; // Para edição, ou null para criação
   onSave: (paciente: Paciente) => void;
   onCancel: () => void;
+  //handleTelefonesChange: () => void;
 }
 
 const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel }) => {
@@ -65,7 +66,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
       </div>
 
       {/* Componente para adicionar telefones */}
-      <TelefonePacForm onTelefonesChange={handleTelefonesChange} />
+      <TelefonePacForm onTelefonesChange={handleTelefonesChange} isModal={false} />
 
       <div>
         <button type="submit">Salvar</button>

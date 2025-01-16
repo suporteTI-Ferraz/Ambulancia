@@ -3,9 +3,10 @@ import { TelefonePac } from "../../types/paciente/TelefonePacType";
 
 interface TelefoneFormProps {
   onTelefonesChange: (telefones: TelefonePac[]) => void;
+  isModal: boolean;
 }
 
-const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange }) => {
+const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, isModal }) => {
   const [telefones, setTelefones] = useState<TelefonePac[]>([
     { id: 0, tipoTel: "", numTel: "", deletedAt: null },
   ]);
@@ -34,6 +35,20 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange }) => 
     onTelefonesChange(updatedTelefones);
   };
 
+  const handleSubmit = () => {
+  const isValid = telefones.every(
+    (telefone) => telefone.tipoTel.trim() !== "" && telefone.numTel.trim() !== ""
+  );
+
+  if (!isValid) {
+    alert("Todos os campos devem ser preenchidos antes de salvar!");
+    return;
+  }
+
+  onTelefonesChange(telefones);
+};
+
+
   return (
     <div>
       <h4>Telefones</h4>
@@ -61,6 +76,7 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange }) => 
       <button type="button" onClick={handleAddTelefone}>
         Adicionar Telefone
       </button>
+      {isModal &&       <button className='edit' type="submit">Salvar</button>    }
     </div>
   );
 };

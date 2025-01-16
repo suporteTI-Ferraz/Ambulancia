@@ -65,6 +65,20 @@ const GerenciarPaciente = () => {
       console.error("Erro ao criar paciente ou associar telefones:", error);
     }
   };
+
+  const handleSaveTelefones = async (updatedTelefones: TelefonePac[]) => {
+    try {
+      if (editingPaciente) {
+        await createManyTelPac(editingPaciente.id, updatedTelefones); // Salva no backend
+        handlePacienteSaved(); // Recarrega os pacientes
+      }
+    } catch (error) {
+      console.error("Erro ao salvar telefones:", error);
+    }
+  };
+  
+
+
   
   
   
