@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { UserType } from '../../types/UserType';
+import { User } from '../../types/user/UserType';
 import { FiEdit, FiTrash, FiRefreshCw, FiSearch } from 'react-icons/fi'; // Adicione o ícone de busca
 import { deleteUser, reactivateUser } from '../../services/UserService'; // Adicione reactivateUser se necessário
 import DataCriacao from '../itens/DataFormatada';
 
 interface UserListProps {
-  users: UserType[];
-  onEdit: (user: UserType) => void;
-  setUsers: React.Dispatch<React.SetStateAction<UserType[]>>;
+  users: User[];
+  onEdit: (user: User) => void;
+  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
 const UserList: React.FC<UserListProps> = ({ users, onEdit, setUsers }) => {
   const [pesquisarUser, setPesquisarUser] = useState('');
+  
 
   // Função para filtrar os usuários com base no nome ou email
   const filteredUsers = users.filter(user =>

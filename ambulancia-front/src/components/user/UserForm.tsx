@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { UserType } from '../../types/UserType';
+import { User } from '../../types/user/UserType';
 import { createUser, updateUser } from '../../services/UserService';
 
 interface UserFormProps {
-  userToEdit?: UserType | null;
+  userToEdit?: User | null;
   onUserSaved: () => void;
 }
 
 const UserForm: React.FC<UserFormProps> = ({ userToEdit, onUserSaved }) => {
-  const initialUserState: UserType = {
+  const initialUserState: User = {
     id: 0,
     nome: '',
     email: '',
@@ -18,7 +18,7 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onUserSaved }) => {
     createdAt: '',
   };
 
-  const [user, setUser] = useState<UserType>(initialUserState);
+  const [user, setUser] = useState<User>(initialUserState);
 
   useEffect(() => {
     if (userToEdit) {

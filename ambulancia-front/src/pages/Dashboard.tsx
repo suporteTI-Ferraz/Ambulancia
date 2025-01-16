@@ -10,6 +10,10 @@ const Dashboard = () => {
     navigate("/gerenciar-funcionarios")
   }
 
+  const handlePacienteRoute= () =>{
+    navigate("/gerenciar-pacientes")
+  }
+
   return (
     <div className="dashboard-container">
 {/* <h1 className="dashboard-title">Bem-vindo ao Sistema de Ambulância</h1> */}
@@ -33,7 +37,7 @@ const Dashboard = () => {
         <div className="card">
           <FaHeartbeat size={60} />
           <h3>Pacientes</h3>
-          <button onClick={() => alert("Gerenciar Pacientes")}>Gerenciar</button>
+          <button onClick={handlePacienteRoute}>Gerenciar</button>
         </div>
 
       </div>

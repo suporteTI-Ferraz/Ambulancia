@@ -7,6 +7,7 @@ import Perfil from '../pages/Perfil';
 import Dashboard from '../pages/Dashboard';
 import PageTitle from '../components/PageTitle'; // Importando o PageTitle
 import GerenciarUser from '../pages/GerenciarUser';
+import GerenciarPaciente from '../pages/GerenciarPaciente';
 const AppRoutes: React.FC = () => {
   return (
     <Router>
@@ -21,6 +22,7 @@ const AppRoutes: React.FC = () => {
           <Route path="/profile" element={<><PageTitle /><Perfil /></>} />
           <Route path="/dashboard" element={<><PageTitle /><Dashboard /></>} />
           <Route path="/gerenciar-funcionarios" element={<><PageTitle /><GerenciarUser /></>} />
+          <Route path="/gerenciar-pacientes" element={<><PageTitle /><GerenciarPaciente /></>} />
         </Route>
 
         {/* Rota de fallback */}

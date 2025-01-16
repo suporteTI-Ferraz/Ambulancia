@@ -38,6 +38,12 @@ public class TelefonePacService {
         return repository.save(obj);
     }
 
+    public List<TelefonePac> insertMany(List<TelefonePac> obj, Long id) {
+        Paciente paciente = pacienteRepository.getReferenceById(id);
+        obj.forEach(telefone -> telefone.setPaciente(paciente));
+        return repository.saveAll(obj);
+    }
+
     public TelefonePac update (Long id, TelefonePac obj) {
         TelefonePac entity = repository.getReferenceById(id);
         updateData(entity, obj);

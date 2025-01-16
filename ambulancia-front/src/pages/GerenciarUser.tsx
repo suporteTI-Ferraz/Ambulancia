@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import UserList from "../components/user/UserList";
 import UserForm from "../components/user/UserForm";
-import { UserType } from "../types/UserType";
+import { User } from "../types/user/UserType";
 import { fetchUsers } from "../services/UserService";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 
 const GerenciarUser = () => {
-  const [users, setUsers] = useState<UserType[]>([]);
-  const [editingUser, setEditingUser] = useState<UserType | null>(null);
+  const [users, setUsers] = useState<User[]>([]);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const GerenciarUser = () => {
   };
   
 
-  const handleEdit = (user: UserType) => {
+  const handleEdit = (user: User) => {
     setEditingUser(user);
     toggleModal(); // Abre o modal para edição
   };

@@ -36,6 +36,17 @@ public class TelefonePacController {
         return ResponseEntity.created(location).body(entity);
     }
 
+    
+    @PostMapping(value = "/{id}")
+    public ResponseEntity<List<TelefonePac>> insertMany(@RequestBody List<TelefonePac> telefones,  @PathVariable Long id){
+        List<TelefonePac> entity = service.insertMany(telefones, id);
+        URI location = ServletUriComponentsBuilder
+        .fromCurrentRequest() // URL da requisição atual (/{id})
+        .build() // Constrói a URI sem adicionar o ID específico de cada endereço
+        .toUri();
+        return ResponseEntity.created(location).body(entity);
+    }
+
     @GetMapping
     public ResponseEntity<List<TelefonePac>> findAll(){
         List<TelefonePac> list = service.findAll();
