@@ -98,7 +98,7 @@ const GerenciarPaciente = () => {
       await createManyEndPac(editingPaciente.id, enderecos); // Salva os telefones no backend
       handlePacienteSaved(); // Recarrega a lista de pacientes
     } catch (error) {
-      console.error("Erro ao salvar os telefones:", error);
+      console.error("Erro ao salvar os endereços:", error);
     } finally {
       toggleEnderecoModal(); // Fecha o modal
     }
@@ -111,6 +111,11 @@ const GerenciarPaciente = () => {
       const response = await createPaciente(newPaciente);
       const pacienteId = response.data.id;
   
+      // Verifica se há endereços para associar ao paciente criado
+      if (newPaciente.enderecos.length > 0) {
+        await createManyEndPac(pacienteId, newPaciente.enderecos);
+      }
+
       // Verifica se há telefones para associar ao paciente criado
       if (newPaciente.telefones.length > 0) {
         await createManyTelPac(pacienteId, newPaciente.telefones);
@@ -150,7 +155,7 @@ const GerenciarPaciente = () => {
   />
 
   {/* Modal para edição */}
-  <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar-paciente">
+  <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar">
     <ModalHeader toggle={toggleEditModal}>Editar Paciente</ModalHeader>
     <ModalBody>
       {editingPaciente && (

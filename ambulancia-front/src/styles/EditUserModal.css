@@ -1,13 +1,13 @@
 /* Modal personalizado */
-.custom-modal {
+.gerenciar  .custom-modal {
   max-width: 500px;
   margin: 0 auto;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color:rgb(224, 15, 15);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.custom-modal-header {
+.gerenciar .custom-modal-header {
   background-color: #4caf50;
   color: white;
   border-bottom: none;
@@ -22,7 +22,7 @@
   color: #333;
 }
 
-.custom-modal-footer {
+.gerenciar .custom-modal-footer {
   display: flex;
   justify-content: flex-end;
   padding: 15px;
@@ -30,12 +30,12 @@
   border-top: none;
 }
 
-.custom-modal-footer .button-edit {
+.gerenciar .custom-modal-footer .button-edit {
   background-color: #f44336;
   color: white;
 }
 
-.custom-modal-footer .button-edit:hover {
+.gerenciar .custom-modal-footer .button-edit:hover {
   background-color: #e53935;
 }
 
@@ -47,15 +47,48 @@
   }
   
 
-  .custom-modal .modal-body {
+  .gerenciar  .custom-modal .modal-body {
     display: flex;
     justify-content: center; /* Centraliza horizontalmente */
     align-items: center;     /* Centraliza verticalmente */
     height: 100%;            /* Garante que a área do modal ocupe toda a altura disponível */
   }
   
-  .gerenciar .custom-modal .modal-body form {
+  .gerenciar .gerenciar .custom-modal .modal-body form {
     width: 100%;          /* Garante que o formulário ocupe toda a largura possível */
     max-width: 500px;     /* Define um limite de largura */
     margin: 0 auto;       /* Centraliza o formulário */
   }
+
+
+  /* Estilo para a lista de endereços */
+.gerenciar ul {
+  list-style-type: none; /* Remove os marcadores de lista */
+  padding: 0;
+  margin: 0;
+}
+
+.gerenciar ul li {
+  background-color: #f4f4f4; /* Fundo cinza claro para os itens */
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  color: #333;
+}
+
+.gerenciar ul li:hover {
+  background-color: #e7e7e7; /* Cor de fundo ao passar o mouse */
+  cursor: pointer;
+}
+
+.gerenciar ul li span {
+  font-weight: bold; /* Deixa as labels em negrito */
+}
+
+.gerenciar ul li .status {
+  font-style: italic;
+  color: #888; /* Cor cinza para o status */
+}
+

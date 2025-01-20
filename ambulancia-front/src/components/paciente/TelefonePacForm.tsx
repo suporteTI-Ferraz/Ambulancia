@@ -36,37 +36,44 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange }) => 
     onTelefonesChange(updatedTelefones);
   };
 
-
-
   return (
-    <div>
+    <div className="form-container">
       <h4>Telefones</h4>
       {telefones.map((telefone, index) => (
-        <div key={index} style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-          <input
-            type="text"
-            placeholder="Tipo (ex: Celular)"
-            value={telefone.tipoTel}
-            onChange={(e) => handleTelefoneChange(index, "tipoTel", e.target.value)}
-            style={{ marginRight: "10px" }}
-          />
-          <input
-            type="text"
-            placeholder="Número"
-            value={telefone.numTel}
-            onChange={(e) => handleTelefoneChange(index, "numTel", e.target.value)}
-            style={{ marginRight: "10px" }}
-          />
+        <div key={index} className="forms-sec-container">
+          <div>
+            <label>Tipo</label>
+            <input
+              type="text"
+              placeholder="(EX: Celular, Fixo)"
+              value={telefone.tipoTel}
+              onChange={(e) =>
+                handleTelefoneChange(index, "tipoTel", e.target.value)
+              }
+            />
+          </div>
+          <div>
+            <label>Número</label>
+            <input
+              type="text"
+              value={telefone.numTel}
+              onChange={(e) =>
+                handleTelefoneChange(index, "numTel", e.target.value)
+              }
+            />
+          </div>
           <button type="button" onClick={() => handleRemoveTelefone(index)}>
             Remover
           </button>
         </div>
       ))}
-      <button type="button" onClick={handleAddTelefone}>
-        Adicionar Telefone
+
+      <button type="button" className="btn-add" onClick={handleAddTelefone}>
+        Adicionar Novo Telefone
       </button>
     </div>
   );
 };
+
 
 export default TelefonePacForm;

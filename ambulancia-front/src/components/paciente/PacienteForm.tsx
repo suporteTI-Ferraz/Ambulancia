@@ -39,10 +39,14 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
     onSave(formData);
   };
 
+  
+
   return (
+    
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Nome do Paciente</label>
+      <h4>Paciente</h4>
+        <label>Nome Completo</label>
         <input
           type="text"
           name="nomePaciente"
@@ -76,6 +80,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
         <input
           type="text"
           name="condicoesEspecificas"
+          placeholder="(EX: Cadeirante)"
           value={formData.condicoesEspecificas}
           onChange={handleInputChange}
         />
@@ -91,6 +96,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
         </button>
       </div>
     </form>
+    
   );
 };
 

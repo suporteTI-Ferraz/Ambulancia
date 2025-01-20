@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 import CustomModal from "./CustomModal";
 import EnderecoPacForm from "../paciente/EnderecoPacForm";
+
 interface EnderecoModalProps {
   enderecos: EnderecoPac[]; // Deve ser um array de objetos do tipo TelefonePac
   isOpen: boolean;          // Define se o modal está aberto
@@ -49,8 +50,9 @@ const EnderecoPacModal: React.FC<EnderecoModalProps> =  ({
         <ul>
           {currentEnderecos.map((endereco, index) => (
             <li key={index}>
-              CEP: {endereco.bairroPac}, Rua: {endereco.ruaPac}, Bairro: {endereco.bairroPac}, 
-              Complemento: {endereco.complementoPac}, Número: {endereco.numeroPac}
+              CEP: {endereco.cepPac}, Rua: {endereco.ruaPac}, Bairro: {endereco.bairroPac}, 
+              Complemento: {endereco.complementoPac}, Número: {endereco.numeroPac}, Status: {endereco.deletedAt ? "Desativado": "Ativo"}
+
 
             </li>
           ))}

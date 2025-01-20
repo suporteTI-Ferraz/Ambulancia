@@ -56,7 +56,7 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, setUsers }) => {
         <FiSearch style={{ marginRight: '8px', fontSize: '20px', color: '#007BFF' }} />
         <input
           type="text"
-          placeholder="Pesquisar por nome ou email"
+          placeholder="Pesquisar por Nome ou Email"
           value={pesquisarUser}
           onChange={e => setPesquisarUser(e.target.value)}
           style={{

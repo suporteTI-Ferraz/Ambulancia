@@ -21,7 +21,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
   cancelText = "Cancelar",
 }) => {
   return (
-    <Modal isOpen={isOpen} toggle={toggle}>
+    <Modal className="gerenciar custom-modal" isOpen={isOpen} toggle={toggle}>
       <ModalHeader toggle={toggle}>{title}</ModalHeader>
       <ModalBody>{children}</ModalBody>
       <ModalFooter>

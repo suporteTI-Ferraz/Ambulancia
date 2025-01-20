@@ -1,27 +1,36 @@
 .icon-action {
-    font-size: 1.5rem !important;
-    margin: 0 8px !important;
+    font-size: 1.2rem !important; /* Diminuído o tamanho do ícone */
+    margin: 0 1px !important;
     transition: color 0.2s ease !important;
 }
 
 .icon-action.edit {
-    color: #4caf50 !important;
-    font-size: 1.5rem; /* Removido as aspas */
-    cursor: pointer; /* Removido as aspas */
+    color: #4caf50 !important; /* Cor verde para o ícone de editar */
+    cursor: pointer;
 }
 
 .icon-action.delete {
-    color: #f44336 !important;
-    font-size: 1.5rem; /* Removido as aspas */
-    cursor: pointer; /* Removido as aspas */
+    color: #f44336 !important; /* Cor vermelha para o ícone de excluir */
+    cursor: pointer;
 }
 
 .icon-action.reactivate {
-    color: #2196f3 !important;
-    font-size: 1.5rem; /* Removido as aspas */
-    cursor: pointer; /* Removido as aspas */
+    color: #2196f3 !important; /* Cor azul para o ícone de reativar */
+    cursor: pointer;
+}
+
+.icon-action.endereco {
+    color:rgb(14, 88, 17) !important; /* Cor verde para o ícone de endereço */
+    font-size: 1.2rem !important; /* Ícone de endereço com tamanho reduzido */
+    cursor: pointer;
+}
+
+.icon-action.telefone {
+    color: #FF9800 !important; /* Cor laranja para o ícone de telefone */
+    font-size: 1.2rem !important; /* Ícone de telefone com tamanho reduzido */
+    cursor: pointer;
 }
 
 .icon-action:hover {
-    opacity: 0.7; /* Adiciona um efeito de hover */
+    opacity: 0.7; /* Efeito de hover */
 }
