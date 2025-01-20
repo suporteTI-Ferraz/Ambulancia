@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Paciente } from "../../types/paciente/PacienteType";
 import TelefonePacForm from "./TelefonePacForm";
-
+import EnderecoPacForm from "./EnderecoPacForm";
 interface PacienteFormProps {
   paciente?: Paciente | null; // Para edição, ou null para criação
   onSave: (paciente: Paciente) => void;
@@ -30,6 +30,9 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
   const handleTelefonesChange = (telefones: Paciente["telefones"]) => {
     setFormData({ ...formData, telefones });
   };
+  const handleEnderecosChange = (enderecos: Paciente["enderecos"]) =>{
+    setFormData({...formData, enderecos})
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,15 +48,28 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
           name="nomePaciente"
           value={formData.nomePaciente}
           onChange={handleInputChange}
+          required
         />
       </div>
       <div>
         <label>CPF</label>
-        <input type="text" name="cpf" value={formData.cpf} onChange={handleInputChange} />
+        <input 
+          type="text"
+          name="cpf"
+           value={formData.cpf}
+           onChange={handleInputChange}
+           required
+        />
       </div>
       <div>
         <label>SUS</label>
-        <input type="text" name="sus" value={formData.sus} onChange={handleInputChange} />
+        <input 
+          type="text" 
+          name="sus" 
+          value={formData.sus} 
+          onChange={handleInputChange}
+          required 
+        />
       </div>
       <div>
         <label>Condições Específicas</label>
@@ -66,8 +82,8 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
       </div>
 
       {/* Componente para adicionar telefones */}
-      <TelefonePacForm telefones={formData.telefones} onTelefonesChange={handleTelefonesChange} isModal={false} />
-
+      <TelefonePacForm telefones={formData.telefones} onTelefonesChange={handleTelefonesChange} />
+      <EnderecoPacForm enderecos={formData.enderecos} onEnderecosChange={handleEnderecosChange} />
       <div>
         <button type="submit">Salvar</button>
         <button type="button" onClick={onCancel}>

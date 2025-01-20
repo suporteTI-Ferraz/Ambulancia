@@ -44,7 +44,6 @@ const TelefoneModal: React.FC<TelefoneModalProps> = ({
       <TelefonePacForm
         telefones={currentTelefones}
         onTelefonesChange={setCurrentTelefones}
-        isModal={true}
       />
       <button onClick={handleSave}>Salvar</button>
       {currentTelefones.length > 0 ? (

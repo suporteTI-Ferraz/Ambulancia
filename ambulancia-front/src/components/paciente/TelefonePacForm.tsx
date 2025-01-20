@@ -4,11 +4,10 @@ import { TelefonePac } from "../../types/paciente/TelefonePacType";
 interface TelefoneFormProps {
   telefones: TelefonePac[]; // Adiciona a propriedade `telefones`
   onTelefonesChange: (telefones: TelefonePac[]) => void; // Callback para alterações
-  isModal: boolean;
 }
 
 
-const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, isModal }) => {
+const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange }) => {
   const [telefones, setTelefones] = useState<TelefonePac[]>([
     { id: 0, tipoTel: "", numTel: "", deletedAt: null },
   ]);
@@ -66,7 +65,6 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, isMod
       <button type="button" onClick={handleAddTelefone}>
         Adicionar Telefone
       </button>
-      {isModal &&       <button className='edit' type="submit">Salvar</button>    }
     </div>
   );
 };

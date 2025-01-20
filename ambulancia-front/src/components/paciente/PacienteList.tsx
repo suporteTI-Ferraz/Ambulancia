@@ -2,16 +2,19 @@ import React from "react";
 import { Paciente } from "../../types/paciente/PacienteType";
 import { TelefonePac } from "../../types/paciente/TelefonePacType";
 import { FiEdit, FiPhone } from "react-icons/fi";
+import { FaMapLocationDot } from "react-icons/fa6";
+
 
 interface PacienteListProps {
   pacientes: Paciente[];
   onEdit: (paciente: Paciente) => void;
   onViewTelefones: (paciente: Paciente) => void;
+  onViewEnderecos: (paciente: Paciente) => void;
   setPacientes: React.Dispatch<React.SetStateAction<Paciente[]>>;
 }
 
 
-const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTelefones }) => {
+const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTelefones, onViewEnderecos }) => {
   return (
     <table>
       <thead>
@@ -40,6 +43,10 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
             </td>
             <td>
               <FiEdit title="Editar" onClick={() => onEdit(paciente)} />
+              <FaMapLocationDot
+                title="Visualizar Endereços"
+                onClick={() => onViewEnderecos(paciente)}
+              />
               <FiPhone
                 title="Visualizar Telefones"
                 onClick={() => onViewTelefones(paciente)}

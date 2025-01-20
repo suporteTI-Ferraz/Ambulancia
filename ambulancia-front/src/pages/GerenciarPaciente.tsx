@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
 import PacienteList from "../components/paciente/PacienteList";
 import TelefoneModal from "../components/modal/TelefoneModal";
+import EnderecoPacModal from "../components/modal/EnderecoPacModal";
 import { Paciente } from "../types/paciente/PacienteType";
 import { TelefonePac } from "../types/paciente/TelefonePacType";
-import { createManyTelPac, createPaciente, fetchPacientes, updatePaciente } from "../services/PacienteService";
+import { createManyTelPac, createManyEndPac, createPaciente, fetchPacientes, updatePaciente } from "../services/PacienteService";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import PacienteForm from "../components/paciente/PacienteForm";
+import { EnderecoPac } from "../types/paciente/EnderecoPacType";
 
 const GerenciarPaciente = () => {
   const [pacientes, setPacientes] = useState<Paciente[]>([]);
   const [editingPaciente, setEditingPaciente] = useState<Paciente | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
   const [isTelefoneModalOpen, setIsTelefoneModalOpen] = useState(false);
   const [selectedTelefones, setSelectedTelefones] = useState<Paciente["telefones"]>([]);
+
+  const [isEnderecoModalOpen, setIsEnderecoModalOpen] = useState(false);
+  const [selectedEnderecos, setSelectedEnderecos] = useState<Paciente["enderecos"]>([]);
 
   useEffect(() => {
     const loadPacientes = async () => {
@@ -24,6 +30,8 @@ const GerenciarPaciente = () => {
 
   const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen);
   const toggleTelefoneModal = () => setIsTelefoneModalOpen(!isTelefoneModalOpen);
+  const toggleEnderecoModal = () => setIsEnderecoModalOpen(!isEnderecoModalOpen);
+
 
   const handlePacienteSaved = () => {
     const reloadPacientes = async () => {
@@ -33,7 +41,7 @@ const GerenciarPaciente = () => {
     reloadPacientes();
 
     if (editingPaciente) {
-      toggleEditModal();
+      //toggleEditModal();
     }
     setEditingPaciente(null);
   };
@@ -52,8 +60,8 @@ const GerenciarPaciente = () => {
     setSelectedTelefones(paciente.telefones || []);
     toggleTelefoneModal();
   };
-  
-  
+
+
   const handleSaveTelefonesFromModal = async (telefones: TelefonePac[]) => {
     if (!editingPaciente) {
       alert("Nenhum paciente está sendo editado para associar os telefones.");
@@ -67,6 +75,32 @@ const GerenciarPaciente = () => {
       console.error("Erro ao salvar os telefones:", error);
     } finally {
       toggleTelefoneModal(); // Fecha o modal
+    }
+  };
+
+  const handleViewEnderecos = (paciente: Paciente) => {
+    if (!paciente) {
+      alert("Selecione um paciente antes de gerenciar os endereços.");
+      return;
+    }
+    setEditingPaciente(paciente);
+    setSelectedEnderecos(paciente.enderecos || []);
+    toggleEnderecoModal();
+  }
+
+  const handleSaveEnderecosFromModal = async (enderecos: EnderecoPac[]) => {
+    if (!editingPaciente) {
+      alert("Nenhum paciente está sendo editado para associar os telefones.");
+      return;
+    }
+  
+    try {
+      await createManyEndPac(editingPaciente.id, enderecos); // Salva os telefones no backend
+      handlePacienteSaved(); // Recarrega a lista de pacientes
+    } catch (error) {
+      console.error("Erro ao salvar os telefones:", error);
+    } finally {
+      toggleEnderecoModal(); // Fecha o modal
     }
   };
   
@@ -89,26 +123,7 @@ const GerenciarPaciente = () => {
     }
   };
 
-  const handleSaveTelefones = async (updatedTelefones: TelefonePac[]) => {
-    try {
-      if (editingPaciente) {
-        // Paciente existente
-        await createManyTelPac(editingPaciente.id, updatedTelefones);
-        handlePacienteSaved();
-      } else {
-        console.error("Tentativa de salvar telefones sem um paciente selecionado.");
-      }
-    } catch (error) {
-      console.error("Erro ao salvar telefones:", error);
-    }
-  };
   
-
-
-  
-  
-  
-
   const handleEditPaciente = async (updatedPaciente: Paciente) => {
     await updatePaciente(updatedPaciente.id, updatedPaciente);
     handlePacienteSaved();
@@ -130,6 +145,7 @@ const GerenciarPaciente = () => {
     pacientes={pacientes}
     onEdit={handleEdit}
     onViewTelefones={handleViewTelefones}
+    onViewEnderecos={handleViewEnderecos}
     setPacientes={setPacientes}
   />
 
@@ -154,6 +170,14 @@ const GerenciarPaciente = () => {
   toggle={toggleTelefoneModal}
   onTelefonesChange={handleSaveTelefonesFromModal}
 />
+  {/* Modal para exibição de endereços */}
+  <EnderecoPacModal
+  enderecos={selectedEnderecos}
+  isOpen={isEnderecoModalOpen}
+  toggle={toggleEnderecoModal}
+  onEnderecosChange={handleSaveEnderecosFromModal}
+  />
+
 
 </div>
   );

@@ -138,4 +138,15 @@
   .gerenciar button {
     margin-right: 5px;
   }
+
+  .gerenciar .endereco-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Duas colunas */
+    gap: 15px; /* Espaçamento entre os campos */
+  }
+  
+  .gerenciar .endereco-container .endereco-completo {
+    grid-column: span 2; /* Ocupa as duas colunas */
+  }
+  
   

@@ -19,25 +19,25 @@ import com.example.ambulancia.models.entities.paciente.TelefonePac;
 import com.example.ambulancia.services.paciente.TelefonePacService;
 
 @RestController
-@RequestMapping(value = "api/paciente/telefone")
+@RequestMapping(value = "api")
 public class TelefonePacController {
 
     @Autowired
     TelefonePacService service;
 
-    @PostMapping
-    public ResponseEntity<TelefonePac> insert(@RequestBody TelefonePac telefonePac){
-        TelefonePac entity = service.insert(telefonePac);
-        URI location = ServletUriComponentsBuilder
-        .fromCurrentRequest() // Baseado na URL da requisição atual
-        .path("/{id}") // Adiciona o ID do recurso criado ao caminho
-        .buildAndExpand(entity.getId()) // Substitui o {id} pelo ID do usuário criado
-        .toUri();
-        return ResponseEntity.created(location).body(entity);
-    }
+    // @PostMapping(value = "/paciente/{id}/telefone")
+    // public ResponseEntity<TelefonePac> insert(@RequestBody TelefonePac telefonePac){
+    //     TelefonePac entity = service.insert(telefonePac);
+    //     URI location = ServletUriComponentsBuilder
+    //     .fromCurrentRequest() // Baseado na URL da requisição atual
+    //     .path("/{id}") // Adiciona o ID do recurso criado ao caminho
+    //     .buildAndExpand(entity.getId()) // Substitui o {id} pelo ID do usuário criado
+    //     .toUri();
+    //     return ResponseEntity.created(location).body(entity);
+    // }
 
     
-    @PostMapping(value = "/{id}")
+    @PostMapping(value = "/paciente/{id}/telefone")
     public ResponseEntity<List<TelefonePac>> insertMany(@RequestBody List<TelefonePac> telefones,  @PathVariable Long id){
         List<TelefonePac> entity = service.insertMany(telefones, id);
         URI location = ServletUriComponentsBuilder
@@ -47,20 +47,20 @@ public class TelefonePacController {
         return ResponseEntity.created(location).body(entity);
     }
 
-    @GetMapping
+    @GetMapping(value = "/paciente/telefone")
     public ResponseEntity<List<TelefonePac>> findAll(){
         List<TelefonePac> list = service.findAll();
         return ResponseEntity.ok().body(list);
         
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/paciente/telefone/{id}")
     public ResponseEntity<TelefonePac> findById(@PathVariable Long id){
         TelefonePac telefonePac = service.findById(id);
         return ResponseEntity.ok().body(telefonePac);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/paciente/telefone/{id}")
     public ResponseEntity<TelefonePac> updateById(@PathVariable Long id, @RequestBody TelefonePac telefonePac){
         TelefonePac obj = service.update(id, telefonePac);
         return ResponseEntity.ok(obj);

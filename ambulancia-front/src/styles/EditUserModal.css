@@ -39,7 +39,7 @@
   background-color: #e53935;
 }
 
-.gerenciar-user .custom-modal .modal-body form {
+.gerenciar .custom-modal .modal-body form {
     background-color: #f9f9f9;
     padding: 20px;
     border: 1px solid #ddd;
@@ -54,7 +54,7 @@
     height: 100%;            /* Garante que a área do modal ocupe toda a altura disponível */
   }
   
-  .gerenciar-user .custom-modal .modal-body form {
+  .gerenciar .custom-modal .modal-body form {
     width: 100%;          /* Garante que o formulário ocupe toda a largura possível */
     max-width: 500px;     /* Define um limite de largura */
     margin: 0 auto;       /* Centraliza o formulário */
