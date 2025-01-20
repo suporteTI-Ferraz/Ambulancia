@@ -43,10 +43,33 @@ const GerenciarPaciente = () => {
     toggleEditModal();
   };
 
-  const handleViewTelefones = (telefones: Paciente["telefones"]) => {
-    setSelectedTelefones(telefones);
+  const handleViewTelefones = (paciente: Paciente) => {
+    if (!paciente) {
+      alert("Selecione um paciente antes de gerenciar os telefones.");
+      return;
+    }
+    setEditingPaciente(paciente);
+    setSelectedTelefones(paciente.telefones || []);
     toggleTelefoneModal();
   };
+  
+  
+  const handleSaveTelefonesFromModal = async (telefones: TelefonePac[]) => {
+    if (!editingPaciente) {
+      alert("Nenhum paciente está sendo editado para associar os telefones.");
+      return;
+    }
+  
+    try {
+      await createManyTelPac(editingPaciente.id, telefones); // Salva os telefones no backend
+      handlePacienteSaved(); // Recarrega a lista de pacientes
+    } catch (error) {
+      console.error("Erro ao salvar os telefones:", error);
+    } finally {
+      toggleTelefoneModal(); // Fecha o modal
+    }
+  };
+  
 
   const handleCreatePaciente = async (newPaciente: Paciente) => {
     try {
@@ -69,8 +92,11 @@ const GerenciarPaciente = () => {
   const handleSaveTelefones = async (updatedTelefones: TelefonePac[]) => {
     try {
       if (editingPaciente) {
-        await createManyTelPac(editingPaciente.id, updatedTelefones); // Salva no backend
-        handlePacienteSaved(); // Recarrega os pacientes
+        // Paciente existente
+        await createManyTelPac(editingPaciente.id, updatedTelefones);
+        handlePacienteSaved();
+      } else {
+        console.error("Tentativa de salvar telefones sem um paciente selecionado.");
       }
     } catch (error) {
       console.error("Erro ao salvar telefones:", error);
@@ -123,10 +149,12 @@ const GerenciarPaciente = () => {
 
   {/* Modal para exibição de telefones */}
   <TelefoneModal
-    telefones={selectedTelefones}
-    isOpen={isTelefoneModalOpen}
-    toggle={toggleTelefoneModal}
-  />
+  telefones={selectedTelefones} // Este é um array de `TelefonePac`
+  isOpen={isTelefoneModalOpen}
+  toggle={toggleTelefoneModal}
+  onTelefonesChange={handleSaveTelefonesFromModal}
+/>
+
 </div>
   );
 };

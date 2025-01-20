@@ -66,7 +66,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
       </div>
 
       {/* Componente para adicionar telefones */}
-      <TelefonePacForm onTelefonesChange={handleTelefonesChange} isModal={false} />
+      <TelefonePacForm telefones={formData.telefones} onTelefonesChange={handleTelefonesChange} isModal={false} />
 
       <div>
         <button type="submit">Salvar</button>

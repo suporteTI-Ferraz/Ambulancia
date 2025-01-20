@@ -6,9 +6,10 @@ import { FiEdit, FiPhone } from "react-icons/fi";
 interface PacienteListProps {
   pacientes: Paciente[];
   onEdit: (paciente: Paciente) => void;
-  onViewTelefones: (telefones: Paciente["telefones"]) => void;
+  onViewTelefones: (paciente: Paciente) => void;
   setPacientes: React.Dispatch<React.SetStateAction<Paciente[]>>;
 }
+
 
 const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTelefones }) => {
   return (
@@ -41,7 +42,7 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
               <FiEdit title="Editar" onClick={() => onEdit(paciente)} />
               <FiPhone
                 title="Visualizar Telefones"
-                onClick={() => onViewTelefones(paciente.telefones)}
+                onClick={() => onViewTelefones(paciente)}
               />
             </td>
           </tr>
