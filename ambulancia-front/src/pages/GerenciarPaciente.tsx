@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PacienteList from "../components/paciente/PacienteList";
 import TelefoneModal from "../components/modal/paciente/TelefoneModal";
 import EnderecoPacModal from "../components/modal/paciente/EnderecoPacModal";

@@ -5,6 +5,8 @@
     align-items: center;
     margin: 20px;
   }
+
+
   
   .gerenciar h2 {
     color: #333;
@@ -192,3 +194,11 @@
   background-color: #1e88e5; /* Azul mais escuro ao passar o mouse */
 }
   
+
+.custom-modal button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+

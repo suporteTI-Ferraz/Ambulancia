@@ -1,38 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TelefonePac } from "../../types/paciente/TelefonePacType";
 
 interface TelefoneFormProps {
   telefones: TelefonePac[]; // Adiciona a propriedade `telefones`
   onTelefonesChange: (telefones: TelefonePac[]) => void; // Callback para alterações
+  isModal: Boolean; //Se for preciso no futuro, estiliza o botão de adicionar telefones inline se for modal
+
 }
 
 
-const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange }) => {
-  const [telefones, setTelefones] = useState<TelefonePac[]>([
-    { id: 0, tipoTel: "", numTel: "", deletedAt: null },
-  ]);
-
+const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, telefones }) => {
+  const [localTelefones, setLocalTelefones] = useState<TelefonePac[]>(telefones);
   // Função para adicionar um novo telefone à lista
-  const handleAddTelefone = () => {
-    setTelefones([
-      ...telefones,
-      { id: telefones.length, tipoTel: "", numTel: "", deletedAt: null },
-    ]);
-  };
+  useEffect(() => {
+    if (telefones.length === 0) {
+      const inicialTelefone = { id: 0, tipoTel: "", numTel: "", deletedAt: null };
+      setLocalTelefones([inicialTelefone]);
+      onTelefonesChange([inicialTelefone]);
+    } else {
+      setLocalTelefones(telefones);
+    }
+  }, [telefones, onTelefonesChange]);
 
-  // Função para atualizar um telefone na lista
-  const handleTelefoneChange = (index: number, field: keyof TelefonePac, value: string) => {
-    const updatedTelefones = telefones.map((telefone, i) =>
-      i === index ? { ...telefone, [field]: value } : telefone
-    );
-    setTelefones(updatedTelefones);
+  const handleAddTelefone = () => {
+    const novoTelefone = { id: localTelefones.length, tipoTel: "", numTel: "", deletedAt: null };
+    const updatedTelefones = [...localTelefones, novoTelefone];
+    setLocalTelefones(updatedTelefones);
     onTelefonesChange(updatedTelefones);
   };
 
-  // Função para remover um telefone da lista
+
+  // Função para atualizar um telefone na lista
+  const handleTelefoneChange = (index: number, field: keyof TelefonePac, value: string) => {
+    const updatedTelefones = localTelefones.map((telefone, i) =>
+      i === index ? { ...telefone, [field]: value } : telefone
+    );
+    setLocalTelefones(updatedTelefones);
+    onTelefonesChange(updatedTelefones);
+  };
+
   const handleRemoveTelefone = (index: number) => {
-    const updatedTelefones = telefones.filter((_, i) => i !== index);
-    setTelefones(updatedTelefones);
+    const updatedTelefones = localTelefones.filter((_, i) => i !== index);
+    setLocalTelefones(updatedTelefones);
     onTelefonesChange(updatedTelefones);
   };
 

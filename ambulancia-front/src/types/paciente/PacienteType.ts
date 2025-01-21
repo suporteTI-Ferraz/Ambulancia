@@ -1,6 +1,5 @@
 import { EnderecoPac } from "./EnderecoPacType";
 import { TelefonePac } from "./TelefonePacType";
-import TelefoneModal from "../../components/modal/TelefoneModal";
 export interface Paciente{
     id: number;
     nomePaciente: string;

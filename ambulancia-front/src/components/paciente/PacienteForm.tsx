@@ -10,7 +10,7 @@ interface PacienteFormProps {
 }
 
 const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel }) => {
-  const [formData, setFormData] = useState<Paciente>({
+  const initialFormData: Paciente = {
     id: paciente?.id || 0,
     nomePaciente: paciente?.nomePaciente || "",
     cpf: paciente?.cpf || "",
@@ -20,7 +20,9 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
     telefones: paciente?.telefones || [],
     deletedAt: paciente?.deletedAt || null,
     createdAt: paciente?.createdAt || "",
-  });
+  };
+
+  const [formData, setFormData] = useState<Paciente>(initialFormData);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,6 +35,30 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
   const handleEnderecosChange = (enderecos: Paciente["enderecos"]) =>{
     setFormData({...formData, enderecos})
   }
+
+  const handleCancel = () => {
+    const resetFormData = {
+      ...initialFormData,
+      telefones: [
+        { id: 0, tipoTel: "", numTel: "", deletedAt: null },
+      ],
+      enderecos: initialFormData.enderecos.map(() => ({
+        id: 0,
+        cepPac: "",
+        complementoPac: "",
+        numeroPac: "",
+        ruaPac: "",
+        bairroPac: "",
+        cidadePac: "",
+        estadoPac: "",
+        deletedAt: null,
+        createdAt: "",
+      })),
+    };
+  
+    setFormData(resetFormData); // Atualiza o estado no componente pai
+    onCancel(); // Executa qualquer lógica adicional passada como prop
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,11 +113,11 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
       </div>
 
       {/* Componente para adicionar telefones */}
-      <TelefonePacForm telefones={formData.telefones} onTelefonesChange={handleTelefonesChange} />
-      <EnderecoPacForm enderecos={formData.enderecos} onEnderecosChange={handleEnderecosChange} />
+      <TelefonePacForm telefones={formData.telefones} onTelefonesChange={handleTelefonesChange} isModal={false} />
+      <EnderecoPacForm enderecos={formData.enderecos} onEnderecosChange={handleEnderecosChange} isModal={false} />
       <div>
         <button type="submit">Salvar</button>
-        <button type="button" onClick={onCancel}>
+        <button type="button" onClick={handleCancel}>
           Cancelar
         </button>
       </div>

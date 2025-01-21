@@ -4,9 +4,10 @@ import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 interface EnderecoFormProps {
   enderecos: EnderecoPac[]; // Adiciona a propriedade `telefones`
   onEnderecosChange: (enderecos: EnderecoPac[]) => void; // Callback para alterações
+  isModal: Boolean; //Estiliza o botão de adicionar endereços inline se for modal
 }
 
-const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange}) =>{
+const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModal}) =>{
     const [enderecos, setEnderecos] = useState<EnderecoPac[]>([
         {
             id: 0, ruaPac: "", bairroPac: "", cepPac: "", complementoPac: "", numeroPac: "", deletedAt: null,
@@ -93,7 +94,11 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange}) =>{
               
             ))}
             
-            <button type="button" className="btn-add" onClick={handleAddEnderecos}>
+            <button 
+            type="button" 
+            className="btn-add" 
+            style={{ marginTop: isModal ? "20px" : "0" }}
+            onClick={handleAddEnderecos}>
               Adicionar Novo Endereço
             </button>
           </div>

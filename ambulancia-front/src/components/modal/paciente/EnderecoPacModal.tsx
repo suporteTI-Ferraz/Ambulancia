@@ -44,6 +44,7 @@ const EnderecoPacModal: React.FC<EnderecoModalProps> =  ({
             <EnderecoPacForm
             enderecos={currentEnderecos}
             onEnderecosChange={setCurrentEnderecos}
+            isModal={true}
             />
             <button onClick={handleSave}>Salvar</button>
             {currentEnderecos.length > 0 ? (
