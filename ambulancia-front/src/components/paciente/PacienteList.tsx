@@ -8,13 +8,14 @@ import { deletePaciente, reactivatePaciente } from "../../services/PacienteServi
 interface PacienteListProps {
   pacientes: Paciente[];
   onEdit: (paciente: Paciente) => void;
+  onDelete: (id: number, deletedAt: string | null) => void;
   onViewTelefones: (paciente: Paciente) => void;
   onViewEnderecos: (paciente: Paciente) => void;
   setPacientes: React.Dispatch<React.SetStateAction<Paciente[]>>;
 }
 
 
-const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTelefones, onViewEnderecos, setPacientes }) => {
+const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTelefones, onViewEnderecos, setPacientes, onDelete }) => {
     const [pesquisarPaciente, setPesquisarPaciente] = useState('');
 
     const filteredPacientes = pacientes.filter(paciente =>
@@ -22,33 +23,7 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
       paciente.cpf.toLowerCase().includes(pesquisarPaciente.toLowerCase())
     );
 
-      const toggleDelete = async (id: number, deletedAt: string | null) => {
-        try {
-          let response;
-          if (deletedAt) {
-            // Reativar usuário
-            response = await reactivatePaciente(id);
-          } else {
-            // Deletar usuário
-            response = await deletePaciente(id);
-          }
     
-          if (response.status === 200) {
-            setPacientes(prevPacientes =>
-              prevPacientes.map(paciente =>
-                paciente.id === id
-                  ? {
-                      ...paciente,
-                      deletedAt: deletedAt ? null : new Date().toISOString(),
-                    }
-                  : paciente
-              )
-            );
-          }
-        } catch (error) {
-          console.error('Erro ao alternar status do usuário', error);
-        }
-      };
     
   
     return (
@@ -125,13 +100,13 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
                     <FiRefreshCw
                       className="icon-action reactivate"
                       title="Reativar"
-                      onClick={() => toggleDelete(paciente.id, paciente.deletedAt)}
+                      onClick={() => onDelete(paciente.id, paciente.deletedAt)}
                     />
                   ) : (
                     <FiTrash
                       className="icon-action delete"
                       title="Desativar"
-                      onClick={() => toggleDelete(paciente.id, null)}
+                      onClick={() => onDelete(paciente.id, null)}
                     />
                   )}
                 </td>

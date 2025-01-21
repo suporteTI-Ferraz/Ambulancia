@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import PacienteList from "../components/paciente/PacienteList";
-import TelefoneModal from "../components/modal/TelefoneModal";
-import EnderecoPacModal from "../components/modal/EnderecoPacModal";
+import TelefoneModal from "../components/modal/paciente/TelefoneModal";
+import EnderecoPacModal from "../components/modal/paciente/EnderecoPacModal";
 import { Paciente } from "../types/paciente/PacienteType";
 import { TelefonePac } from "../types/paciente/TelefonePacType";
-import { createManyTelPac, createManyEndPac, createPaciente, fetchPacientes, updatePaciente } from "../services/PacienteService";
+import { createManyTelPac, createManyEndPac, createPaciente, fetchPacientes, updatePaciente, reactivatePaciente, deletePaciente } from "../services/PacienteService";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import PacienteForm from "../components/paciente/PacienteForm";
 import { EnderecoPac } from "../types/paciente/EnderecoPacType";
@@ -110,6 +110,7 @@ const GerenciarPaciente = () => {
       // Cria o paciente e obtém o ID gerado
       const response = await createPaciente(newPaciente);
       const pacienteId = response.data.id;
+      console.log("Paciente criado: "+ response.data)
   
       // Verifica se há endereços para associar ao paciente criado
       if (newPaciente.enderecos.length > 0) {
@@ -134,6 +135,35 @@ const GerenciarPaciente = () => {
     handlePacienteSaved();
   };
 
+   const handleDeletePaciente = async (id: number, deletedAt: string | null) => {
+          try {
+            let response;
+            if (deletedAt) {
+              // Reativar usuário
+              response = await reactivatePaciente(id);
+            } else {
+              // Deletar usuário
+              response = await deletePaciente(id);
+            }
+      
+            if (response.status === 200) {
+              setPacientes(prevPacientes =>
+                prevPacientes.map(paciente =>
+                  paciente.id === id
+                    ? {
+                        ...paciente,
+                        deletedAt: deletedAt ? null : new Date().toISOString(),
+                      }
+                    : paciente
+                )
+              );
+              handlePacienteSaved()
+            }
+          } catch (error) {
+            console.error('Erro ao alternar status do usuário', error);
+          }
+        };
+
   return (
     <div className="gerenciar">
   <h3>Gerenciar Pacientes</h3>
@@ -149,6 +179,7 @@ const GerenciarPaciente = () => {
   <PacienteList
     pacientes={pacientes}
     onEdit={handleEdit}
+    onDelete={handleDeletePaciente}
     onViewTelefones={handleViewTelefones}
     onViewEnderecos={handleViewEnderecos}
     setPacientes={setPacientes}

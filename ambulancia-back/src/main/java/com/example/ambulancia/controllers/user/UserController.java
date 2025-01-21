@@ -49,15 +49,15 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<User> deleteById(@PathVariable Long id){
-        User deletado = service.deleteById(id);
-        return ResponseEntity.ok().body(deletado);
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        service.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping(value = "/reactivate/{id}")
-    public ResponseEntity<User> reactivateById(@PathVariable Long id){
-        User reativado = service.reactivateById(id);
-        return ResponseEntity.ok().body(reativado);
+    public ResponseEntity<Void> reactivateById(@PathVariable Long id) {
+        service.reactivateById(id);
+        return ResponseEntity.ok().build();  // Retorna 200 OK com corpo vazio
     }
 
 

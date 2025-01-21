@@ -42,10 +42,32 @@ public class PacienteService {
         entity.setCondicoesEspecificas(paciente.getCondicoesEspecificas());
     }
 
-    public Paciente deleteById(Long id){
+    public void deleteById(Long id){
         Paciente entity = repository.getReferenceById(id);
         entity.setDeletedAt(LocalDateTime.now());
-        return repository.save(entity);
+        entity.getEnderecos().forEach((e) -> {
+            e.setDeletedAt(LocalDateTime.now());
+        });
+        entity.getTelefones().forEach((e) ->{
+            e.setDeletedAt(LocalDateTime.now());
+        });
+        repository.save(entity);
+    }
+
+      public void reactivateById(Long id){
+        Paciente entity = repository.getReferenceById(id);
+        entity.setDeletedAt(null);
+        entity.setDeletedBy(null);
+
+        entity.getEnderecos().forEach((e) -> {
+            e.setDeletedAt(null);
+            e.setDeletedBy(null);
+        });
+        entity.getTelefones().forEach((e) ->{
+            e.setDeletedAt(null);
+            e.setDeletedBy(null);
+        });
+        repository.saveAndFlush(entity);
     }
 
     

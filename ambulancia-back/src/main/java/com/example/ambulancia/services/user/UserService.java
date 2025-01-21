@@ -57,11 +57,11 @@ public class UserService {
         return repository.saveAndFlush(entity);
     }   
     
-    public User reactivateById(Long id){
-        User entity = repository.getReferenceById(id);
-        entity.setDeletedAt(null);
-        entity.setDeletedBy(null);
-        return repository.saveAndFlush(entity);
+    public void reactivateById(Long id) {
+        User entity = repository.getReferenceById(id); // Busca o usuário
+        entity.setDeletedAt(null); // Limpa o campo 'deletedAt'
+        entity.setDeletedBy(null); // Limpa o campo 'deletedBy'
+        repository.saveAndFlush(entity); // Salva e atualiza o usuário no banco
     }
 
 }

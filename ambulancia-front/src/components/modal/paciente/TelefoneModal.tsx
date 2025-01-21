@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import CustomModal from "./CustomModal";
-import { TelefonePac } from "../../types/paciente/TelefonePacType";
-import TelefonePacForm from "../paciente/TelefonePacForm";
+import CustomModal from "../CustomModal";
+import { TelefonePac } from "../../../types/paciente/TelefonePacType";
+import TelefonePacForm from "../../paciente/TelefonePacForm";
 
 interface TelefoneModalProps {
   telefones: TelefonePac[]; // Deve ser um array de objetos do tipo TelefonePac

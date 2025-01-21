@@ -55,10 +55,17 @@ public class PacienteController {
         return ResponseEntity.ok(obj);
     }
 
-    @DeleteMapping(value = "{id}")
-    public ResponseEntity<Paciente> deleteById(@PathVariable Long id){
-        Paciente deletado = service.deleteById(id);
-        return ResponseEntity.ok().body(deletado);
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        service.deleteById(id);
+        return ResponseEntity.ok().build();  // Retorna 200 OK com corpo vazi
     }
+
+    @PostMapping(value = "/reactivate/{id}")
+    public ResponseEntity<Void> reactivateById(@PathVariable Long id) {
+        service.reactivateById(id);
+        return ResponseEntity.ok().build();  // Retorna 200 OK com corpo vazio
+    }
+
     
 }

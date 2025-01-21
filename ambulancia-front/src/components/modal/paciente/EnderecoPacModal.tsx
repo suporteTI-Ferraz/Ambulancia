@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
-import CustomModal from "./CustomModal";
-import EnderecoPacForm from "../paciente/EnderecoPacForm";
+import { EnderecoPac } from "../../../types/paciente/EnderecoPacType";
+import CustomModal from "../CustomModal";
+import EnderecoPacForm from "../../paciente/EnderecoPacForm";
 
 interface EnderecoModalProps {
   enderecos: EnderecoPac[]; // Deve ser um array de objetos do tipo TelefonePac
