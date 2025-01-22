@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CustomModal from "../CustomModal";
 import { TelefonePac } from "../../../types/paciente/TelefonePacType";
 import TelefonePacForm from "../../paciente/TelefonePacForm";
-
+import ButtonSpinner from "../../itens/ButtonSpinner";
 interface TelefoneModalProps {
   telefones: TelefonePac[]; // Deve ser um array de objetos do tipo TelefonePac
   isOpen: boolean;          // Define se o modal está aberto
@@ -11,21 +11,26 @@ interface TelefoneModalProps {
 }
 
 
-
 const TelefoneModal: React.FC<TelefoneModalProps> = ({
   telefones,
   isOpen,
   toggle,
   onTelefonesChange,
 }) => {
-  const [currentTelefones, setCurrentTelefones] = useState<TelefonePac[]>([]);
+  const [originalTelefones, setOriginalTelefones] = useState<TelefonePac[]>([]); // Telefones cadastrados
+  const [currentTelefones, setCurrentTelefones] = useState<TelefonePac[]>([]); // Telefones no formulário
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setCurrentTelefones(telefones);
+    setOriginalTelefones(telefones); // Telefones para exibição
+    setCurrentTelefones(telefones); // Telefones para edição no formulário
   }, [telefones]);
-  
 
-  const handleSave = () => {
+  const handleSave = async (e?: React.FormEvent) => {
+    e?.preventDefault();
+
+    if (isLoading) return;
+
     const isValid = currentTelefones.every(
       (telefone) => telefone.tipoTel.trim() !== "" && telefone.numTel.trim() !== ""
     );
@@ -35,23 +40,38 @@ const TelefoneModal: React.FC<TelefoneModalProps> = ({
       return;
     }
 
-    onTelefonesChange(currentTelefones); // Atualiza os telefones no componente pai
-    toggle();
+    setIsLoading(true);
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      onTelefonesChange(currentTelefones);
+      setOriginalTelefones(currentTelefones); // Atualiza a exibição apenas após salvar
+      toggle();
+    } catch (error) {
+      console.error("Erro ao salvar telefones:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <CustomModal isOpen={isOpen} toggle={toggle} title="Telefones do Paciente" cancelText="Fechar">
+    <CustomModal
+      isOpen={isOpen}
+      toggle={toggle}
+      title="Telefones do Paciente"
+      cancelText="Fechar"
+    >
       <TelefonePacForm
-        telefones={currentTelefones}
         onTelefonesChange={setCurrentTelefones}
         isModal={true}
       />
-      <button onClick={handleSave}>Salvar</button>
-      {currentTelefones.length > 0 ? (
+      <ButtonSpinner name="Salvar" isLoading={isLoading} onClick={handleSave} />
+      {originalTelefones.length > 0 ? (
         <ul>
-          {currentTelefones.map((telefone, index) => (
+          {originalTelefones.map((telefone, index) => (
             <li key={index}>
-              Tipo: {telefone.tipoTel}, Número: {telefone.numTel}
+              Tipo: {telefone.tipoTel}, Número: {telefone.numTel}, Status:{" "}
+              {telefone.deletedAt ? "Desativado" : "Ativo"}
             </li>
           ))}
         </ul>
@@ -61,6 +81,7 @@ const TelefoneModal: React.FC<TelefoneModalProps> = ({
     </CustomModal>
   );
 };
+
 
 
 export default TelefoneModal;

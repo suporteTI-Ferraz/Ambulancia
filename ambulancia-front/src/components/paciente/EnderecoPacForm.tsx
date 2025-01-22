@@ -1,50 +1,78 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 
 interface EnderecoFormProps {
-  enderecos: EnderecoPac[]; // Adiciona a propriedade `telefones`
   onEnderecosChange: (enderecos: EnderecoPac[]) => void; // Callback para alterações
+  resetEnderecos?: boolean; // Flag para resetar telefones
   isModal: Boolean; //Estiliza o botão de adicionar endereços inline se for modal
 }
 
-const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModal}) =>{
-    const [enderecos, setEnderecos] = useState<EnderecoPac[]>([
-        {
-            id: 0, ruaPac: "", bairroPac: "", cepPac: "", complementoPac: "", numeroPac: "", deletedAt: null,
+const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModal, resetEnderecos}) =>{
+    const [localEnderecos, setLocalEnderecos] = useState<EnderecoPac[]>([{
+      id: 0,
+      ruaPac: "",
+      bairroPac: "",
+      cidadePac: "",
+      estadoPac: "",
+      cepPac: "",
+      numeroPac: "",
+      complementoPac: "",
+      deletedAt: null
+    }]);
+
+
+
+       useEffect(() => {
+          if (resetEnderecos) {
+            setLocalEnderecos([{
+              id: 0,
+              ruaPac: "",
+              bairroPac: "",
+              cidadePac: "",
+              estadoPac: "",
+              cepPac: "",
+              numeroPac: "",
+              complementoPac: "",
+              deletedAt: null
+            }]);
+            onEnderecosChange([]);
+          }
+        }, [resetEnderecos, onEnderecosChange]);
+
+        const handleAddEnderecos = () => {
+          const novoEndereco = { id: localEnderecos.length,
+            ruaPac: "",
+            bairroPac: "",
             cidadePac: "",
-            estadoPac: ""
-        },
-
-    ]);
-
-    const handleAddEnderecos = () =>{
-        setEnderecos([
-            ...enderecos,
-            {id: enderecos.length, ruaPac: "", bairroPac: "", cepPac: "", complementoPac: "", numeroPac: "", deletedAt: null,
-                cidadePac: "",
-                estadoPac: "" }
-        ]);
-    };
+            estadoPac: "",
+            cepPac: "",
+            numeroPac: "",
+            complementoPac: "",
+            deletedAt: null };
+          const updatedEnderecos = [...localEnderecos, novoEndereco];
+          setLocalEnderecos(updatedEnderecos);
+          onEnderecosChange(updatedEnderecos);
+        };
 
     const handleEnderecosChange = (index: number, field: keyof EnderecoPac, value: string) =>{
 
-        const updatedEnderecos = enderecos.map((endereco, i) =>
+        const updatedEnderecos = localEnderecos.map((endereco, i) =>
             i === index ? { ...endereco, [field]: value } : endereco
           );
-          setEnderecos(updatedEnderecos);
+          setLocalEnderecos(updatedEnderecos);
           onEnderecosChange(updatedEnderecos);
         };
 
     const handleRemoveEndereco = (index: number) => {
-        const updatedEnderecos = enderecos.filter((_, i) => i !== index);
-        setEnderecos(updatedEnderecos);
+        const updatedEnderecos = localEnderecos.filter((_, i) => i !== index);
+        setLocalEnderecos(updatedEnderecos);
         onEnderecosChange(updatedEnderecos);
         };
 
         return (
           <div className="form-container">
             <h4>Endereços</h4>
-            {enderecos.map((endereco, index) => (
+            {localEnderecos.map((endereco, index) => (
               <div key={index} className="forms-sec-container">
                 <div>
                   <label>CEP</label>

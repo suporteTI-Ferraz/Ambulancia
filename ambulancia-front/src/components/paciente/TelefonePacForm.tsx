@@ -2,33 +2,29 @@ import React, { useEffect, useState } from "react";
 import { TelefonePac } from "../../types/paciente/TelefonePacType";
 
 interface TelefoneFormProps {
-  telefones: TelefonePac[]; // Adiciona a propriedade `telefones`
   onTelefonesChange: (telefones: TelefonePac[]) => void; // Callback para alterações
+  resetTelefones?: boolean; // Flag para resetar telefones
   isModal: Boolean; //Se for preciso no futuro, estiliza o botão de adicionar telefones inline se for modal
-
 }
 
+const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, resetTelefones }) => {
+  const [localTelefones, setLocalTelefones] = useState<TelefonePac[]>([{ id: 0, tipoTel: "", numTel: "", deletedAt: null }]);
 
-const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, telefones }) => {
-  const [localTelefones, setLocalTelefones] = useState<TelefonePac[]>(telefones);
-  // Função para adicionar um novo telefone à lista
-  useEffect(() => {
-    if (telefones.length === 0) {
-      const inicialTelefone = { id: 0, tipoTel: "", numTel: "", deletedAt: null };
-      setLocalTelefones([inicialTelefone]);
-      onTelefonesChange([inicialTelefone]);
-    } else {
-      setLocalTelefones(telefones);
-    }
-  }, [telefones, onTelefonesChange]);
+    // Resetar telefones ao clicar em "Limpar"
+    useEffect(() => {
+      if (resetTelefones) {
+        setLocalTelefones([{ id: 0, tipoTel: "", numTel: "", deletedAt: null }]);
+        onTelefonesChange([]);
+      }
+    }, [resetTelefones, onTelefonesChange]);
 
+  // Função para adicionar um novo tefone à lista
   const handleAddTelefone = () => {
     const novoTelefone = { id: localTelefones.length, tipoTel: "", numTel: "", deletedAt: null };
     const updatedTelefones = [...localTelefones, novoTelefone];
     setLocalTelefones(updatedTelefones);
     onTelefonesChange(updatedTelefones);
   };
-
 
   // Função para atualizar um telefone na lista
   const handleTelefoneChange = (index: number, field: keyof TelefonePac, value: string) => {
@@ -48,7 +44,7 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, telef
   return (
     <div className="form-container">
       <h4>Telefones</h4>
-      {telefones.map((telefone, index) => (
+      {localTelefones.map((telefone, index) => (
         <div key={index} className="forms-sec-container">
           <div>
             <label>Tipo</label>
@@ -71,9 +67,11 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, telef
               }
             />
           </div>
-          <button type="button" onClick={() => handleRemoveTelefone(index)}>
-            Remover
-          </button>
+          {index > 0 && (
+            <button type="button" onClick={() => handleRemoveTelefone(index)}>
+              Remover
+            </button>
+          )}
         </div>
       ))}
 
@@ -83,6 +81,5 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, telef
     </div>
   );
 };
-
 
 export default TelefonePacForm;

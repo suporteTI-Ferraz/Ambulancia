@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Paciente } from "../../types/paciente/PacienteType";
 import { FiEdit, FiPhone, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
 import { FaMapLocationDot } from "react-icons/fa6";
-import { deletePaciente, reactivatePaciente } from "../../services/PacienteService";
 
 
 interface PacienteListProps {
@@ -15,7 +14,7 @@ interface PacienteListProps {
 }
 
 
-const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTelefones, onViewEnderecos, setPacientes, onDelete }) => {
+const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTelefones, onViewEnderecos, onDelete }) => {
     const [pesquisarPaciente, setPesquisarPaciente] = useState('');
 
     const filteredPacientes = pacientes.filter(paciente =>

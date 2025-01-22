@@ -42,7 +42,6 @@ const EnderecoPacModal: React.FC<EnderecoModalProps> =  ({
     return (
         <CustomModal isOpen={isOpen} toggle={toggle} title="Endereços do Paciente" cancelText="Fechar">
             <EnderecoPacForm
-            enderecos={currentEnderecos}
             onEnderecosChange={setCurrentEnderecos}
             isModal={true}
             />
