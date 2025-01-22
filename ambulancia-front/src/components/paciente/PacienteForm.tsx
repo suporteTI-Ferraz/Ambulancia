@@ -26,6 +26,8 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
   const [formData, setFormData] = useState<Paciente>(initialFormData);
   const [isLoading, setIsLoading] = useState(false); // Estado de carregamento
   const [shouldResetTelefones, setShouldResetTelefones] = useState(false);
+  const [shouldResetEnderecos, setShouldResetEnderecos] = useState(false);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -41,7 +43,8 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
 
   const handleCancel = () => {
     setShouldResetTelefones(true); // Define a flag para resetar telefones
-    setTimeout(() => setShouldResetTelefones(false), 0); // Reseta a flag após o reset
+    setShouldResetEnderecos(true);
+    setTimeout(() => (setShouldResetTelefones(false), setShouldResetEnderecos(false)), 0); // Reseta a flag após o reset
     setFormData(initialFormData); // Redefine o formulário
     onCancel();
   };
@@ -112,7 +115,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
 
       {/* Componente para adicionar telefones */}
       <TelefonePacForm  onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} />
-      <EnderecoPacForm  onEnderecosChange={handleEnderecosChange}  isModal={false} />
+      <EnderecoPacForm  onEnderecosChange={handleEnderecosChange} resetEnderecos={shouldResetEnderecos}  isModal={false} />
       <div>
         <ButtonSpinner name="Salvar" isLoading={isLoading} type="submit"/>
         <button type="button" onClick={handleCancel}>
