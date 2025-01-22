@@ -2,6 +2,14 @@
     font-size: 1.2rem !important; /* Diminuído o tamanho do ícone */
     margin: 0 1px !important;
     transition: color 0.2s ease !important;
+    gap: 20px;              /* Espaçamento entre os ícones */
+    
+}
+
+.icon-container {
+    display: flex;
+    gap: 10px; /* Ajuste o valor conforme necessário */
+    justify-content: center; /* Centraliza os ícones na célula */
 }
 
 .icon-action.edit {

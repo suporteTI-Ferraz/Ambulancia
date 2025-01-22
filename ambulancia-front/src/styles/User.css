@@ -98,13 +98,6 @@
   }
   
   /* Ajuste específico para a última célula (ícones de ação) */
-  .gerenciar td:last-child {
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente os ícones */
-    align-items: center;    /* Centraliza verticalmente */
-    gap: 10px;              /* Espaçamento entre os ícones */
-    white-space: nowrap;    /* Evita quebra de linha para os ícones */
-  }
   
   /* Centralização do conteúdo */
   .gerenciar table {

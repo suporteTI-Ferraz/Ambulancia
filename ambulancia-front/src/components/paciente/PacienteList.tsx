@@ -82,6 +82,7 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
                 </td>
                 <td>{paciente.deletedAt ? 'Desativado' : 'Ativo'}</td>
                 <td>
+                <div className="icon-container">
                   <FiEdit 
                   className="icon-action edit" 
                   title="Editar" 
@@ -109,6 +110,7 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
                       onClick={() => onDelete(paciente.id, null)}
                     />
                   )}
+                  </div>
                 </td>
               </tr>
             ))}
