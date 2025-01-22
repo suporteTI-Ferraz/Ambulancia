@@ -63,7 +63,7 @@ public class EnderecoPacController {
     }
 
     @PutMapping(value = "/paciente/endereco/{id}")
-    public ResponseEntity<EnderecoPac> updateByIdMany(@PathVariable Long id, @RequestBody EnderecoPac novosEnderecos){
+    public ResponseEntity<EnderecoPac> updateById(@PathVariable Long id, @RequestBody EnderecoPac novosEnderecos){
         EnderecoPac obj = service.update(id, novosEnderecos);
         return ResponseEntity.ok(obj);
     }

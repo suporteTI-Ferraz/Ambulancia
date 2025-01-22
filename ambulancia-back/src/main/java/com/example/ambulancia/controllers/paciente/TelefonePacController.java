@@ -42,7 +42,7 @@ public class TelefonePacController {
         List<TelefonePac> entity = service.insertMany(telefones, id);
         URI location = ServletUriComponentsBuilder
         .fromCurrentRequest() // URL da requisição atual (/{id})
-        .build() // Constrói a URI sem adicionar o ID específico de cada endereço
+        .build() // Constrói a URI sem adicionar o ID específico de cada telefone
         .toUri();
         return ResponseEntity.created(location).body(entity);
     }
