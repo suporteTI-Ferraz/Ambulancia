@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ambulancia.models.entities.paciente.Paciente;
 import com.example.ambulancia.models.entities.paciente.TelefonePac;
@@ -38,10 +39,15 @@ public class TelefonePacService {
         return repository.save(obj);
     }
 
-    public List<TelefonePac> insertMany(List<TelefonePac> obj, Long id) {
+
+    @Transactional
+    public List<TelefonePac> insertMany(List<TelefonePac> telefones, Long id) {
         Paciente paciente = pacienteRepository.getReferenceById(id);
-        obj.forEach(telefone -> telefone.setPaciente(paciente));
-        return repository.saveAll(obj);
+        for (TelefonePac telefone : telefones) {
+            telefone.setPaciente(paciente); // Associa o paciente a cada telefone
+            telefone.setId(null); //Como o front manda os id de forma numerada, precisa transmor-los em null para evitar erros
+        }
+        return repository.saveAll(telefones);
     }
 
     public TelefonePac update (Long id, TelefonePac obj) {

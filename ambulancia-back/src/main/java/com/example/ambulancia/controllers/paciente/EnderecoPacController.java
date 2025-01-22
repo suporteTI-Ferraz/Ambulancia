@@ -38,8 +38,8 @@ public class EnderecoPacController {
 
     
     @PostMapping(value = "/paciente/{id}/endereco")
-    public ResponseEntity<List<EnderecoPac>> insertMany(@RequestBody List<EnderecoPac> enderecoPac, @PathVariable Long id){
-        List<EnderecoPac> entity = service.insertMany(enderecoPac, id);
+    public ResponseEntity<List<EnderecoPac>> insertMany(@RequestBody List<EnderecoPac> enderecos, @PathVariable Long id){
+        List<EnderecoPac> entity = service.insertMany(enderecos, id);
         // Construir a URI base no recurso do paciente
         URI location = ServletUriComponentsBuilder
         .fromCurrentRequest() // URL da requisição atual (/{id})

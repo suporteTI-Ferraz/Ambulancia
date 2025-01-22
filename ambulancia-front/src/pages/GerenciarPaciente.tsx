@@ -106,28 +106,29 @@ const GerenciarPaciente = () => {
   
 
   const handleCreatePaciente = async (newPaciente: Paciente) => {
+    console.log("Novo Paciente:", newPaciente); // Verificar se o paciente possui telefones e endereços preenchidos
     try {
-      // Cria o paciente e obtém o ID gerado
-      const response = await createPaciente(newPaciente);
-      const pacienteId = response.data.id;
-      console.log("Paciente criado: "+ response.data)
-  
-      // Verifica se há endereços para associar ao paciente criado
-      if (newPaciente.enderecos.length > 0) {
-        await createManyEndPac(pacienteId, newPaciente.enderecos);
-      }
+        const copiaNewPaciente = { ...newPaciente, enderecos: [], telefones: [] }; //Pacientes são criados com endereços vazios
+        const response = await createPaciente(copiaNewPaciente);
+        console.log("Paciente criado com sucesso:", response.data);
 
-      // Verifica se há telefones para associar ao paciente criado
-      if (newPaciente.telefones.length > 0) {
-        await createManyTelPac(pacienteId, newPaciente.telefones);
-      }
-  
-      // Atualiza a lista de pacientes após a criação
-      handlePacienteSaved();
+        
+        const pacienteId = response.data.id;
+        if (newPaciente.telefones.length > 0) {
+            console.log("Salvando Telefones:", newPaciente.telefones);
+            await createManyTelPac(pacienteId, newPaciente.telefones);
+        }
+
+        if (newPaciente.enderecos.length > 0) {
+            console.log("Salvando Endereços:", newPaciente.enderecos);
+            await createManyEndPac(pacienteId, newPaciente.enderecos);
+        }
+
+        handlePacienteSaved();
     } catch (error) {
-      console.error("Erro ao criar paciente ou associar telefones:", error);
+        console.error("Erro ao criar paciente:", error);
     }
-  };
+};
 
   
   const handleEditPaciente = async (updatedPaciente: Paciente) => {

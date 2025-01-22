@@ -34,6 +34,6 @@ public class EnderecoPac extends BaseEntity {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "paciente_id", referencedColumnName = "id")
+    @JoinColumn(name = "paciente_id", referencedColumnName = "id", nullable = false)
     private Paciente paciente;
 }

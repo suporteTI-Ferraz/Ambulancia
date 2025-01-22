@@ -1,5 +1,5 @@
 export interface EnderecoPac{
-    id: number;
+    id: number | null; // Tornar opcional
     ruaPac: string;
     bairroPac: string;
     cidadePac: string;

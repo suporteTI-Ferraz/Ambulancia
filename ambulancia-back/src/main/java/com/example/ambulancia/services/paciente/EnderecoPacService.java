@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ambulancia.models.entities.paciente.EnderecoPac;
 import com.example.ambulancia.models.entities.paciente.Paciente;
@@ -36,10 +37,14 @@ public class EnderecoPacService {
         return repository.save(obj);
     }
 
-    public List<EnderecoPac> insertMany(List<EnderecoPac> obj, Long id) {
+    @Transactional
+    public List<EnderecoPac> insertMany(List<EnderecoPac> enderecos, Long id) {
         Paciente paciente = pacienteRepository.getReferenceById(id);
-        obj.forEach(endereco -> endereco.setPaciente(paciente));
-        return repository.saveAll(obj);
+        for (EnderecoPac endereco : enderecos) {
+            endereco.setPaciente(paciente); // Associa o paciente a cada telefone
+            endereco.setId(null); //Como o front manda os id de forma numerada, precisa transmor-los em null para evitar erros
+        }
+        return repository.saveAll(enderecos);
     }
 
     public EnderecoPac update(Long id, EnderecoPac obj){
