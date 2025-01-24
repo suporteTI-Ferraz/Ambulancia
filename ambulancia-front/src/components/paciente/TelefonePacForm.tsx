@@ -5,11 +5,22 @@ interface TelefoneFormProps {
   onTelefonesChange: (telefones: TelefonePac[]) => void; // Callback para alterações
   resetTelefones?: boolean; // Flag para resetar telefones
   isModal: Boolean; //Se for preciso no futuro, estiliza o botão de adicionar telefones inline se for modal
+  telefonesIniciais?: TelefonePac[];
 }
 
-const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, resetTelefones }) => {
+const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, resetTelefones, telefonesIniciais = [], }) => {
   const [localTelefones, setLocalTelefones] = useState<TelefonePac[]>([{ id: 0, tipoTel: "", numTel: "", deletedAt: null }]);
+  const [isEditPaciente, setIsEditPaciente] = useState<boolean>()
 
+
+   useEffect(() => {
+        // Inicializar com os endereços existentes, se houver
+        if (telefonesIniciais.length > 0) {
+          setLocalTelefones(telefonesIniciais);
+          setIsEditPaciente(true);
+        }
+      }, [telefonesIniciais]);
+  
     // Resetar telefones ao clicar em "Limpar"
     useEffect(() => {
       if (resetTelefones) {
@@ -67,17 +78,18 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, reset
               }
             />
           </div>
-          {index > 0 && (
+          {!isEditPaciente && index > 0 && (
             <button type="button" onClick={() => handleRemoveTelefone(index)}>
               Remover
             </button>
           )}
         </div>
       ))}
-
+   {!isEditPaciente && (
       <button type="button" className="btn-add" onClick={handleAddTelefone}>
         Adicionar Novo Telefone
       </button>
+   )}
     </div>
   );
 };

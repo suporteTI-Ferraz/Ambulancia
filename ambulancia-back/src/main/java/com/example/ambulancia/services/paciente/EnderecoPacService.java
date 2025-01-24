@@ -98,6 +98,9 @@ private void updateData(List<EnderecoPac> enderecosAtuais, List<EnderecoPac> nov
             if (!Objects.equals(enderecoAtual.getCepPac(), novoEndereco.getCepPac())) {
                 enderecoAtual.setCepPac(novoEndereco.getCepPac());
             }
+            if (!Objects.equals(enderecoAtual.getComplementoPac(), novoEndereco.getComplementoPac())) {
+                enderecoAtual.setComplementoPac(novoEndereco.getComplementoPac());
+            }
         }
     }
 }

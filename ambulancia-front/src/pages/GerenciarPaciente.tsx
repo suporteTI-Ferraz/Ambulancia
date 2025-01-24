@@ -4,7 +4,7 @@ import TelefoneModal from "../components/modal/paciente/TelefoneModal";
 import EnderecoPacModal from "../components/modal/paciente/EnderecoPacModal";
 import { Paciente } from "../types/paciente/PacienteType";
 import { TelefonePac } from "../types/paciente/TelefonePacType";
-import { createManyTelPac, createManyEndPac, createPaciente, fetchPacientes, updatePaciente, reactivatePaciente, deletePaciente } from "../services/PacienteService";
+import { createManyTelPac, createManyEndPac, createPaciente, fetchPacientes, updatePaciente, reactivatePaciente, deletePaciente, updateManyTelPac, updateManyEndPac } from "../services/PacienteService";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import PacienteForm from "../components/paciente/PacienteForm";
 import { EnderecoPac } from "../types/paciente/EnderecoPacType";
@@ -133,8 +133,14 @@ const GerenciarPaciente = () => {
 
   
   const handleEditPaciente = async (updatedPaciente: Paciente) => {
-    await updatePaciente(updatedPaciente.id, updatedPaciente);
-    handlePacienteSaved();
+    try {
+      await updatePaciente(updatedPaciente.id, updatedPaciente);
+      await updateManyTelPac(updatedPaciente.id, updatedPaciente.telefones);
+      await updateManyEndPac(updatedPaciente.id, updatedPaciente.enderecos);
+      handlePacienteSaved();
+    } catch (error) {
+      console.error("Erro ao atualizar paciente:", error);
+    }
   };
 
    const handleDeletePaciente = async (id: number, deletedAt: string | null) => {

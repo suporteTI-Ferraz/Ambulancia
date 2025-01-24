@@ -47,13 +47,7 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCan
     setFormData({...formData, enderecos})
   }
 
-  const handleCancel = () => {
-    setShouldResetTelefones(true); // Define a flag para resetar telefones
-    setShouldResetEnderecos(true);
-    setTimeout(() => (setShouldResetTelefones(false), setShouldResetEnderecos(false)), 0); // Reseta a flag após o reset
-    setFormData(initialFormData); // Redefine o formulário
-    onCancel();
-  };
+
 
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -120,7 +114,14 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCan
       </div>
 
       {/* Componente para adicionar telefones */}
-      <TelefonePacForm  onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} />
+      <TelefonePacForm  
+      onTelefonesChange={handleTelefonesChange} 
+      resetTelefones={shouldResetTelefones} 
+      isModal={true}
+      telefonesIniciais={paciente?.telefones || []} // Passando os endereços existentes
+
+      />
+
       <EnderecoPacForm
   onEnderecosChange={handleEnderecosChange}
   resetEnderecos={shouldResetEnderecos}
