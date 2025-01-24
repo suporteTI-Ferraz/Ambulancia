@@ -26,10 +26,9 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
       // Inicializar com os endereços existentes, se houver
       if (enderecosIniciais.length > 0) {
         setLocalEnderecos(enderecosIniciais);
-        onEnderecosChange(enderecosIniciais);
         setIsEditPaciente(true);
       }
-    }, [enderecosIniciais, onEnderecosChange]);
+    }, [enderecosIniciais]);
 
 
 
