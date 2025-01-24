@@ -32,7 +32,7 @@ const TelefoneModal: React.FC<TelefoneModalProps> = ({
     if (isLoading) return;
 
     const isValid = currentTelefones.every(
-      (telefone) => telefone.tipoTel.trim() !== "" && telefone.numTel.trim() !== ""
+      (telefone) =>  telefone.numTel.trim() !== ""
     );
 
     if (!isValid) {

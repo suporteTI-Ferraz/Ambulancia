@@ -5,8 +5,8 @@ import EnderecoPacForm from "./EnderecoPacForm";
 import ButtonSpinner from "../itens/ButtonSpinner";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 interface PacienteFormProps {
-  paciente?: Paciente | null; // Para edição, ou null para criação
-  onSave: (paciente: Paciente) => void;
+  paciente: Paciente; // Para edição, ou null para criação
+  onSave: (updatedPaciente: Paciente, notUpdatedPaciente: Paciente) => void;
   onCancel: () => void;
   //handleTelefonesChange: () => void;
 }
@@ -58,7 +58,7 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCan
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));  //Para testar o spinner
-      onSave(formData); // Chama a função onSave (criação ou edição)
+      onSave(formData, paciente); // Chama a função onSave (criação ou edição)
     } catch (error) {
       console.error("Erro ao salvar paciente:", error);
     } finally {

@@ -11,14 +11,14 @@ import { EnderecoPac } from "../types/paciente/EnderecoPacType";
 import EditPacienteForm from "../components/paciente/EditPacienteForm";
 
 const GerenciarPaciente = () => {
-  const [pacientes, setPacientes] = useState<Paciente[]>([]);
+  const [pacientes, setPacientes] = useState<Paciente[]>([]); //Lista de pacientes
   const [editingPaciente, setEditingPaciente] = useState<Paciente | null>(null);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false); //Modal para editar o paciente
 
-  const [isTelefoneModalOpen, setIsTelefoneModalOpen] = useState(false);
+  const [isTelefoneModalOpen, setIsTelefoneModalOpen] = useState(false); //Modal para adicionar telefones novos
   const [selectedTelefones, setSelectedTelefones] = useState<Paciente["telefones"]>([]);
 
-  const [isEnderecoModalOpen, setIsEnderecoModalOpen] = useState(false);
+  const [isEnderecoModalOpen, setIsEnderecoModalOpen] = useState(false); //Modal para adicionar endereços novos
   const [selectedEnderecos, setSelectedEnderecos] = useState<Paciente["enderecos"]>([]);
 
   useEffect(() => {
@@ -29,7 +29,8 @@ const GerenciarPaciente = () => {
     loadPacientes();
   }, []);
 
-  const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen);
+//Métodos para fechar modais
+  const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen); 
   const toggleTelefoneModal = () => setIsTelefoneModalOpen(!isTelefoneModalOpen);
   const toggleEnderecoModal = () => setIsEnderecoModalOpen(!isEnderecoModalOpen);
 
@@ -131,17 +132,48 @@ const GerenciarPaciente = () => {
     }
 };
 
-  
-  const handleEditPaciente = async (updatedPaciente: Paciente) => {
+//ATENÇÃO, AS VERIFICAÇÕES ABAIXO FORAM CRIADAS PARA NÂO CHAMAR REQUISIÇÔES DESNECESSÁRIAS NA ATUALIZAÇÂO DO PACIENTE
+  const handleEditPaciente = async (updatedPaciente: Paciente, notUpdatedPaciente: Paciente) => {
     try {
+      const isPacienteChanged = updatedPaciente.nomePaciente !== notUpdatedPaciente.nomePaciente ||
+      updatedPaciente.cpf !== notUpdatedPaciente.cpf ||
+      updatedPaciente.sus !== notUpdatedPaciente.sus ||
+      updatedPaciente.condicoesEspecificas !== notUpdatedPaciente.condicoesEspecificas;
+
+    // Verifica se os telefones no formulário foram alterados 
+    const isTelefonesChanged = JSON.stringify(updatedPaciente.telefones) !== JSON.stringify(notUpdatedPaciente.telefones);
+
+    // Verifica se os endereços no formulário foram alterados 
+    const isEnderecosChanged = JSON.stringify(updatedPaciente.enderecos) !== JSON.stringify(notUpdatedPaciente.enderecos);
+
+    // Se houver alterações no paciente, atualizar paciente
+    if (isPacienteChanged) {
+      console.log("Paciente Atualizado!!!!");
       await updatePaciente(updatedPaciente.id, updatedPaciente);
-      await updateManyTelPac(updatedPaciente.id, updatedPaciente.telefones);
-      await updateManyEndPac(updatedPaciente.id, updatedPaciente.enderecos);
-      handlePacienteSaved();
-    } catch (error) {
-      console.error("Erro ao atualizar paciente:", error);
     }
-  };
+
+    // Se houver alterações nos telefones, atualizar telefones
+    if (isTelefonesChanged) {
+      console.log("Telefones Atualizados!!!!")
+      await updateManyTelPac(updatedPaciente.id, updatedPaciente.telefones);
+    }
+
+    // Se houver alterações nos endereços, atualizar endereços
+    if (isEnderecosChanged) {
+      console.log("Endereços Atualizados!!!!");
+      await updateManyEndPac(updatedPaciente.id, updatedPaciente.enderecos);
+    }
+
+    // Após a atualização, chama a função para indicar que o paciente foi salvo
+    handlePacienteSaved();
+
+  } catch (error) {
+    console.error("Erro ao atualizar paciente:", error);
+  }finally{
+    toggleEditModal(); // Fecha o modal
+
+  }
+};
 
    const handleDeletePaciente = async (id: number, deletedAt: string | null) => {
           try {
@@ -216,9 +248,9 @@ const GerenciarPaciente = () => {
 />
   {/* Modal para exibição de endereços */}
   <EnderecoPacModal
-  enderecos={selectedEnderecos}
-  isOpen={isEnderecoModalOpen}
-  toggle={toggleEnderecoModal}
+  enderecos={selectedEnderecos} // Array de enderecos do paciente selecionado
+  isOpen={isEnderecoModalOpen} //Variável que diz se modal está aberto ou fechado
+  toggle={toggleEnderecoModal} //Método que a
   onEnderecosChange={handleSaveEnderecosFromModal}
   />
 

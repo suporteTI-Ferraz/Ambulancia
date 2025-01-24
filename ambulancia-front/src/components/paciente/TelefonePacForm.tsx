@@ -11,7 +11,10 @@ interface TelefoneFormProps {
 const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, resetTelefones, telefonesIniciais = [], }) => {
   const [localTelefones, setLocalTelefones] = useState<TelefonePac[]>([{ id: 0, tipoTel: "", numTel: "", deletedAt: null }]);
   const [isEditPaciente, setIsEditPaciente] = useState<boolean>()
-
+  const selectOptions = [
+    { value: 'CELULAR', label: 'Celular' },
+    { value: 'FIXO', label: 'Fixo' }
+]
 
    useEffect(() => {
         // Inicializar com os endereços existentes, se houver
@@ -57,16 +60,18 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, reset
       <h4>Telefones</h4>
       {localTelefones.map((telefone, index) => (
         <div key={index} className="forms-sec-container">
-          <div>
+            <div>
             <label>Tipo</label>
-            <input
-              type="text"
-              placeholder="(EX: Celular, Fixo)"
+            <select
               value={telefone.tipoTel}
-              onChange={(e) =>
-                handleTelefoneChange(index, "tipoTel", e.target.value)
-              }
-            />
+              onChange={(e) => handleTelefoneChange(index, "tipoTel", e.target.value)}
+            >
+              {selectOptions.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label>Número</label>

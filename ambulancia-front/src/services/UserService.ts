@@ -5,4 +5,4 @@ export const fetchUserById = (id: number) => API.get(`/user${id}`);
 export const createUser = (user: User) => API.post('/auth/register', user);
 export const updateUser = (id: number, user: User) => API.put(`/user/${id}`, user);
 export const deleteUser = (id: number) => API.delete(`/user/${id}`);
-export const reactivateUser = (id: number) => API.post(`/user/reactivate/${id}`);
+export const reactivateUser = (id: number) => API.patch(`/user/reactivate/${id}`);

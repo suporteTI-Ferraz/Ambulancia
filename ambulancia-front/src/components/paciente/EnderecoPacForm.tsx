@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
-import { buscaCep } from "../../services/PacienteService";
+import { buscaCep } from "../../services/ViaCepService";
 import { Spinner } from "reactstrap";
 interface EnderecoFormProps {
   onEnderecosChange: (enderecos: EnderecoPac[]) => void; // Callback para alterações
@@ -22,7 +22,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
       deletedAt: null
     }]);
     const [isEditPaciente, setIsEditPaciente] = useState<boolean>(false);
-    const [isCepLoading, setIsCepLoading] = useState(false);
+    const [isCepLoading, setIsCepLoading] = useState<boolean[]>([]);
 
 
     useEffect(() => {
@@ -48,6 +48,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
               complementoPac: "",
               deletedAt: null
             }]);
+            setIsCepLoading([])
             onEnderecosChange([]);
           }
         }, [resetEnderecos, onEnderecosChange]);
@@ -64,6 +65,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
             deletedAt: null };
           const updatedEnderecos = [...localEnderecos, novoEndereco];
           setLocalEnderecos(updatedEnderecos);
+          setIsCepLoading([...isCepLoading, false]); // Adiciona um novo estado de carregamento
           onEnderecosChange(updatedEnderecos);
         };
 
@@ -87,7 +89,9 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
         
           // Busca endereço automaticamente se o campo alterado for CEP e tiver 8 dígitos
           if (field === "cepPac" && value.replace(/\D/g, "").length === 8) {
-            setIsCepLoading(true); // Ativa o spinner
+            const newLoadingState = [...isCepLoading]; //Os três pontos servem para dizer que esse objeto é difernete, para não apontar para a mesma memória!!!
+            newLoadingState[index] = true; //Adiciona o estado de load para o índice atual
+            setIsCepLoading(newLoadingState); // Ativa o spinner para o índice atual
             try {
               const enderecoAuto = await buscaCep(value.replace(/\D/g, ""));
               if (enderecoAuto) {
@@ -100,7 +104,9 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
             } catch (error) {
               console.error("Erro ao buscar CEP:", error);
             } finally {
-              setIsCepLoading(false); // Desativa o spinner
+              const newLoadingState = [...isCepLoading];
+              newLoadingState[index] = false; //Remove o estado de load do índice atual
+              setIsCepLoading(newLoadingState); // Desativa o spinner para o índice atual
             }
           }
         };
@@ -108,7 +114,9 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
 
     const handleRemoveEndereco = (index: number) => {
         const updatedEnderecos = localEnderecos.filter((_, i) => i !== index);
+        const updatedLoadingState = isCepLoading.filter((_, i) => i !== index);
         setLocalEnderecos(updatedEnderecos);
+        setIsCepLoading(updatedLoadingState);
         onEnderecosChange(updatedEnderecos);
         };
 
@@ -118,6 +126,8 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
             {localEnderecos.map((endereco, index) => (
               <div key={index} className="forms-sec-container">
          <div>
+         {isCepLoading[index] && <Spinner size="md" />}
+
   <label>CEP</label>
   <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
     <input
@@ -126,8 +136,9 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
       onChange={(e) => handleEnderecosChange(index, "cepPac", e.target.value)}
       maxLength={9} // Limita o tamanho do campo ao formato 00000-000
     />
-    {isCepLoading && <Spinner size="sm" />} {/* Exibe o spinner enquanto carrega */}
+
   </div>
+
 </div>
                 <div>
                   <label>Rua</label>
@@ -157,7 +168,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
                 <div>
                   <label>Número</label>
                   <input
-                    type="text"
+                    type="number"
                     value={endereco.numeroPac}
                     onChange={(e) => handleEnderecosChange(index, "numeroPac", e.target.value)}
                   />
