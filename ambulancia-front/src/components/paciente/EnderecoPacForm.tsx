@@ -3,11 +3,12 @@ import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 
 interface EnderecoFormProps {
   onEnderecosChange: (enderecos: EnderecoPac[]) => void; // Callback para alterações
-  resetEnderecos?: boolean; // Flag para resetar telefones
+  resetEnderecos?: boolean; // Flag para resetar endereços
   isModal: Boolean; //Estiliza o botão de adicionar endereços inline se for modal
+  enderecosIniciais?: EnderecoPac[];
 }
 
-const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModal, resetEnderecos}) =>{
+const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModal, resetEnderecos,   enderecosIniciais = [],}) =>{
     const [localEnderecos, setLocalEnderecos] = useState<EnderecoPac[]>([{
       id: 0,
       ruaPac: "",
@@ -19,6 +20,16 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
       complementoPac: "",
       deletedAt: null
     }]);
+    const [isEditPaciente, setIsEditPaciente] = useState<boolean>()
+
+    useEffect(() => {
+      // Inicializar com os endereços existentes, se houver
+      if (enderecosIniciais.length > 0) {
+        setLocalEnderecos(enderecosIniciais);
+        onEnderecosChange(enderecosIniciais);
+        setIsEditPaciente(true);
+      }
+    }, [enderecosIniciais, onEnderecosChange]);
 
 
 
@@ -115,13 +126,15 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
                     onChange={(e) => handleEnderecosChange(index, "numeroPac", e.target.value)}
                   />
                 </div>
+                {!isEditPaciente && (
                 <button type="button" onClick={() => handleRemoveEndereco(index)}>
                   Remover
                 </button>
+            )}
               </div>
               
             ))}
-            
+            {!isEditPaciente && (
             <button 
             type="button" 
             className="btn-add" 
@@ -129,6 +142,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
             onClick={handleAddEnderecos}>
               Adicionar Novo Endereço
             </button>
+) }
           </div>
         );
 

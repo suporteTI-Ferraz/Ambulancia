@@ -8,6 +8,7 @@ import { createManyTelPac, createManyEndPac, createPaciente, fetchPacientes, upd
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import PacienteForm from "../components/paciente/PacienteForm";
 import { EnderecoPac } from "../types/paciente/EnderecoPacType";
+import EditPacienteForm from "../components/paciente/EditPacienteForm";
 
 const GerenciarPaciente = () => {
   const [pacientes, setPacientes] = useState<Paciente[]>([]);
@@ -191,7 +192,7 @@ const GerenciarPaciente = () => {
     <ModalHeader toggle={toggleEditModal}>Editar Paciente</ModalHeader>
     <ModalBody>
       {editingPaciente && (
-        <PacienteForm
+        <EditPacienteForm
           paciente={editingPaciente}
           onSave={handleEditPaciente}
           onCancel={toggleEditModal}

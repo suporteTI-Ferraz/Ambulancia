@@ -66,6 +66,13 @@ public class TelefonePacController {
         return ResponseEntity.ok(obj);
     }
 
+    
+    @PutMapping(value = "/paciente/{id}/telefone")
+    public ResponseEntity<List<TelefonePac>> updateByIdMany(@PathVariable Long id, @RequestBody List<TelefonePac> novosTelefones){
+        List<TelefonePac> obj = service.updateMany(id, novosTelefones);
+        return ResponseEntity.ok(obj);
+    }
+
     @DeleteMapping(value = "{id}")
     public ResponseEntity<TelefonePac> deleteById(@PathVariable Long id){
         TelefonePac deletado = service.deleteById(id);
