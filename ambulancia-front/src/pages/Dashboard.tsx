@@ -1,4 +1,3 @@
-import React from "react";
 import { FaUser, FaHeartbeat, FaUserNurse, FaAmbulance  } from "react-icons/fa"; // Ícones para funcionários, motoristas, pacientes
 import { useNavigate } from "react-router-dom";
 

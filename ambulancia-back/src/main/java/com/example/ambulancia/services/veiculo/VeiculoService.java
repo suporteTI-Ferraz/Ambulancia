@@ -43,7 +43,14 @@ public class VeiculoService {
     public Veiculo deleteById(Long id){
         Veiculo entity = repository.getReferenceById(id);
         entity.setDeletedAt(LocalDateTime.now());
-        return repository.save(entity);
+        return repository.saveAndFlush(entity);
+    }
+
+     public void reactivateById(Long id) {
+        Veiculo entity = repository.getReferenceById(id); // Busca o usuário
+        entity.setDeletedAt(null); // Limpa o campo 'deletedAt'
+        entity.setDeletedBy(null); // Limpa o campo 'deletedBy'
+        repository.saveAndFlush(entity); // Salva e atualiza o usuário no banco
     }
 
     

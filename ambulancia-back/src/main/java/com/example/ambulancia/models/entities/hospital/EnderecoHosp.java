@@ -3,6 +3,7 @@ package com.example.ambulancia.models.entities.hospital;
 import com.example.ambulancia.models.entities.BaseEntity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -24,11 +25,11 @@ public class EnderecoHosp extends BaseEntity{
     private String numeroHosp;
     private String bairroHosp;
     private String cidadeHosp;
-    private String estadoHosp;
+    @Builder.Default
+    private String estadoHosp = "SP";;
     private String cepHosp;
     
-
     @ManyToOne
-    @JoinColumn(name = "hospital_id", referencedColumnName = "id")
+    @JoinColumn(name = "hospital_id", referencedColumnName = "id", nullable = false)
     private Hospital hospital;
 }

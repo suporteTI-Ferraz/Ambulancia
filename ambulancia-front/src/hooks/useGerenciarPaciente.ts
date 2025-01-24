@@ -231,8 +231,19 @@ export const useGerenciarPaciente = () => {
     }
   
     try {
-      await createManyEndPac(editingPaciente.id, enderecos); // Salva os telefones no backend
-      reloadPacientes(); // Recarrega a lista de pacientes
+      const response = await createManyEndPac(editingPaciente.id, enderecos); // Salva os endereços no backend
+      const createdEnderecos = response.data;
+      setPacientes(prevPacientes =>
+        prevPacientes.map(paciente => 
+          paciente.id === editingPaciente.id 
+          ? {
+            ...paciente,
+            enderecos: [...paciente.enderecos, ...createdEnderecos]
+            
+          }
+          : paciente
+        )
+      );
     } catch (error) {
       console.error("Erro ao salvar os endereços:", error);
     } finally {

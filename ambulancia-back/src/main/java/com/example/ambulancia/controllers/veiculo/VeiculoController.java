@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -54,10 +55,16 @@ public class VeiculoController {
         return ResponseEntity.ok(obj);
     }
 
-    @DeleteMapping(value = "{id}")
-    public ResponseEntity<Veiculo> deleteById(@PathVariable Long id){
-        Veiculo deletado = service.deleteById(id);
-        return ResponseEntity.ok().body(deletado);
+   @DeleteMapping(value = "{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        service.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping(value = "/reactivate/{id}")
+    public ResponseEntity<Void> reactivateById(@PathVariable Long id) {
+        service.reactivateById(id);
+        return ResponseEntity.ok().build();  // Retorna 200 OK com corpo vazio
     }
     
 }

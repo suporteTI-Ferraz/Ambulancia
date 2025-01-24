@@ -1,4 +1,4 @@
-package com.example.ambulancia.controllers.motorista;
+package com.example.ambulancia.controllers.hospital;
 
 import java.net.URI;
 import java.util.List;
@@ -16,19 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.ambulancia.models.entities.motorista.Motorista;
-import com.example.ambulancia.services.motorista.MotoristaService;
-
+import com.example.ambulancia.models.entities.hospital.Hospital;
+import com.example.ambulancia.services.hospital.HospitalService;
 
 @RestController
-@RequestMapping(value = "api/motorista")
-public class MotoristaController {
+@RequestMapping(value = "api/hospital")
+public class HospitalController {
     @Autowired
-    MotoristaService service;
+    HospitalService service;
 
     @PostMapping
-    public ResponseEntity<Motorista> insert(@RequestBody Motorista motorista){
-        Motorista entity = service.insert(motorista);
+    public ResponseEntity<Hospital> insert(@RequestBody Hospital hospital){
+        Hospital entity = service.insert(hospital);
         URI location = ServletUriComponentsBuilder
         .fromCurrentRequest() // Baseado na URL da requisição atual
         .path("/{id}") // Adiciona o ID do recurso criado ao caminho
@@ -38,28 +37,28 @@ public class MotoristaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Motorista>> findAll(){
-        List<Motorista> list = service.findAll();
+    public ResponseEntity<List<Hospital>> findAll(){
+        List<Hospital> list = service.findAll();
         return ResponseEntity.ok().body(list);
         
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Motorista> findById(@PathVariable Long id){
-        Motorista motorista = service.findById(id);
-        return ResponseEntity.ok().body(motorista);
+    public ResponseEntity<Hospital> findById(@PathVariable Long id){
+        Hospital hospital = service.findById(id);
+        return ResponseEntity.ok().body(hospital);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Motorista> updateById(@PathVariable Long id, @RequestBody Motorista motorista){
-        Motorista obj = service.update(id, motorista);
+    public ResponseEntity<Hospital> updateById(@PathVariable Long id, @RequestBody Hospital hospital){
+        Hospital obj = service.update(id, hospital);
         return ResponseEntity.ok(obj);
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
         service.deleteById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().build();  // Retorna 200 OK com corpo vazi
     }
 
     @PatchMapping(value = "/reactivate/{id}")
