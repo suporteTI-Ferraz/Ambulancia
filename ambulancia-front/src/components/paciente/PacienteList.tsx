@@ -22,7 +22,14 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
       paciente.cpf.toLowerCase().includes(pesquisarPaciente.toLowerCase())
     );
 
-    
+     // Ordenar os usuários pela data de criação ou pelo id (ordem decrescente)
+     const sortedPacientes = filteredPacientes.sort((a, b) => {
+      // Opção 1: Ordenar pelo id (decrescente)
+      // return b.id - a.id;
+  
+      // Opção 2: Ordenar pela data de criação (decrescente)
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
     
   
     return (
@@ -62,7 +69,7 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
             </tr>
           </thead>
           <tbody>
-            {filteredPacientes.map((paciente) => (
+            {sortedPacientes.map((paciente) => (
               <tr key={paciente.id} style={{ backgroundColor: paciente.deletedAt ? '#ffcccc' : 'white' }}>
                 <td>{paciente.id}</td>
                 <td><DataCriacao createdAt={paciente.createdAt} /></td>

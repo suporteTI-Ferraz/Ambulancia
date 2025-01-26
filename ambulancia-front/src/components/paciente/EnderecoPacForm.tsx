@@ -127,9 +127,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
               <div key={index} className="forms-sec-container">
          <div>
          {isCepLoading[index] && <Spinner size="sm" />}
-
   <label>CEP</label>
-  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
     <input
       type="text"
       value={endereco.cepPac}
@@ -137,7 +135,6 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
       maxLength={9} // Limita o tamanho do campo ao formato 00000-000
     />
 
-  </div>
 
 </div>
                 <div>
