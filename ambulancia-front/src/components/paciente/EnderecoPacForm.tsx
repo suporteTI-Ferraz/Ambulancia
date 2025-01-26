@@ -22,7 +22,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
       deletedAt: null
     }]);
     const [isEditPaciente, setIsEditPaciente] = useState<boolean>(false);
-    const [isCepLoading, setIsCepLoading] = useState<boolean[]>([]);
+    const [isCepLoading, setIsCepLoading] = useState<boolean[]>([]); //Variável para cuidar do load do cep (api ViaCep)
 
 
     useEffect(() => {

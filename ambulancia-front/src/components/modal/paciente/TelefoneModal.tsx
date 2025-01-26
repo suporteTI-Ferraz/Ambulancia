@@ -3,6 +3,8 @@ import CustomModal from "../CustomModal";
 import { TelefonePac } from "../../../types/paciente/TelefonePacType";
 import TelefonePacForm from "../../paciente/TelefonePacForm";
 import ButtonSpinner from "../../itens/ButtonSpinner";
+import { useLoading } from "../../../contexts/LoadingContext";
+import { useToast } from "../../../hooks/useToast";
 interface TelefoneModalProps {
   telefones: TelefonePac[]; // Deve ser um array de objetos do tipo TelefonePac
   isOpen: boolean;          // Define se o modal está aberto
@@ -19,7 +21,8 @@ const TelefoneModal: React.FC<TelefoneModalProps> = ({
 }) => {
   const [originalTelefones, setOriginalTelefones] = useState<TelefonePac[]>([]); // Telefones cadastrados
   const [currentTelefones, setCurrentTelefones] = useState<TelefonePac[]>([]); // Telefones no formulário
-  const [isLoading, setIsLoading] = useState(false);
+  const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
+  const { handleLoad, dismissLoading } = useToast();  const [shouldResetTelefones, setShouldResetTelefones] = useState(false);
 
   useEffect(() => {
     setOriginalTelefones(telefones); // Telefones para exibição
@@ -28,9 +31,10 @@ const TelefoneModal: React.FC<TelefoneModalProps> = ({
 
   const handleSave = async (e?: React.FormEvent) => {
     e?.preventDefault();
-
-    if (isLoading) return;
-
+    setLoading(true);
+    const toastKey = handleLoad("Carregando...")
+    if (loading) return;
+  
     const isValid = currentTelefones.every(
       (telefone) =>  telefone.numTel.trim() !== ""
     );
@@ -40,8 +44,6 @@ const TelefoneModal: React.FC<TelefoneModalProps> = ({
       return;
     }
 
-    setIsLoading(true);
-
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       onTelefonesChange(currentTelefones);
@@ -50,7 +52,8 @@ const TelefoneModal: React.FC<TelefoneModalProps> = ({
     } catch (error) {
       console.error("Erro ao salvar telefones:", error);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
+      dismissLoading(toastKey);
     }
   };
 
@@ -65,7 +68,7 @@ const TelefoneModal: React.FC<TelefoneModalProps> = ({
         onTelefonesChange={setCurrentTelefones}
         isModal={true}
       />
-      <ButtonSpinner name="Salvar" isLoading={isLoading} onClick={handleSave} />
+      <ButtonSpinner name="Salvar" isLoading={loading} onClick={handleSave} />
       {originalTelefones.length > 0 ? (
         <ul>
           {originalTelefones.map((telefone, index) => (

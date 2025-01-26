@@ -60,20 +60,20 @@ export const useGerenciarPaciente = () => {
     try {
       const copiaNewPaciente = { ...newPaciente, enderecos: [], telefones: [] };
       const response = await createPaciente(copiaNewPaciente);
-      const pacienteCriado = response.data;
+      const createdPaciente = response.data;
       
       if (newPaciente.telefones.length > 0) {
-        const telefones = await createManyTelPac(pacienteCriado.id, newPaciente.telefones);
-        pacienteCriado.telefones = telefones.data;
+        const telefones = await createManyTelPac(createdPaciente.id, newPaciente.telefones);
+        createdPaciente.telefones = telefones.data;
       }
       if (newPaciente.enderecos.length > 0) {
-        const enderecos = await createManyEndPac(pacienteCriado.id, newPaciente.enderecos);
-        pacienteCriado.enderecos = enderecos.data;
+        const enderecos = await createManyEndPac(createdPaciente.id, newPaciente.enderecos);
+        createdPaciente.enderecos = enderecos.data;
 
       }
        // Atualiza o paciente com os dados criados e ID
        const pacienteAtualizado = { 
-        ...pacienteCriado, 
+        ...createdPaciente, 
         createdAt: response.data.createdAt 
       };
       
@@ -126,7 +126,7 @@ export const useGerenciarPaciente = () => {
       handleSuccess("Paciente atualizado com sucesso!");
 
     } catch (error) {
-      console.error("Erro ao editar paciente:", error);
+      handleError("Falha ao Atualizar Paciente: "+ error)
     } finally {
       setLoading(false);
       toggleEditModal(); //Fecha o modal de editar usuários
@@ -190,12 +190,25 @@ export const useGerenciarPaciente = () => {
       alert("Nenhum paciente está sendo editado para associar os telefones.");
       return;
     }
-  
+    
     try {
-      await createManyTelPac(editingPaciente.id, telefones); // Salva os telefones no backend
-      reloadPacientes(); // Recarrega a lista de pacientes
+      const response = await createManyTelPac(editingPaciente.id, telefones); // Salva os telefones no backend
+      const createdTelefones = response.data;
+      setPacientes(prevPacientes =>
+        prevPacientes.map(paciente =>
+          paciente.id === editingPaciente.id
+            ? {
+                ...paciente,
+                telefones: [...paciente.telefones, ...createdTelefones] // Adiciona os novos telefones à lista existente
+              }
+            : paciente
+        )
+      );
+      handleSuccess("Telefones criados com sucesso!");
+      
+      
     } catch (error) {
-      console.error("Erro ao salvar os telefones:", error);
+      handleError("Falha ao criar Telefones: "+ error)
     } finally {
       toggleTelefoneModal(); // Fecha o modal
     }
