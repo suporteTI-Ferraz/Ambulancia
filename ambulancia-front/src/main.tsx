@@ -9,14 +9,21 @@ import './styles/User.css'
 import './styles/EditUserModal.css'
 import './styles/IconStyle.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import Header from './components/Header.tsx'
+import { LoadingProvider } from './contexts/LoadingContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
-      <Header/>
-      <AppRoutes />
+      <Header />
+      <LoadingProvider>
+        <AppRoutes />
+        <ToastContainer />
+      </LoadingProvider>
     </AuthProvider>
   </StrictMode>,
-)
+);

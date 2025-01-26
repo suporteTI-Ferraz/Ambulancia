@@ -30,25 +30,38 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     
-    //Método de cadastro
-    public AuthenticationResponse register(RegisterRequest request){
+    //Método DE CADASTRO JÁ LOGANDO O USUÁRIO (MUDA O COOKIE)
+    // public AuthenticationResponse register(RegisterRequest request){
+    //     var user = User.builder()
+    //     .nome(request.getNome())
+    //     .email(request.getEmail())
+    //     .senha(passwordEncoder.encode(request.getSenha()))
+    //     .role(request.getRole())
+    //     .build(); // Não se esqueça de chamar o método build()
+        
+    //     var savedUser = repository.save(user);
+    //     var jwtToken = jwtService.generateToken(savedUser.getId(), user);
+    //     var refreshToken = jwtService.generateRefreshToken(savedUser.getId(), user);
+        
+    //     return AuthenticationResponse.builder()
+    //     .id(savedUser.getId())
+    //     .role(savedUser.getRole())
+    //     .accessToken(jwtToken)
+    //     .refreshToken(refreshToken)
+    //     .build();
+    // }
+
+    public User register(RegisterRequest request){
         var user = User.builder()
         .nome(request.getNome())
         .email(request.getEmail())
         .senha(passwordEncoder.encode(request.getSenha()))
         .role(request.getRole())
         .build(); // Não se esqueça de chamar o método build()
-        
+
         var savedUser = repository.save(user);
-        var jwtToken = jwtService.generateToken(savedUser.getId(), user);
-        var refreshToken = jwtService.generateRefreshToken(savedUser.getId(), user);
         
-        return AuthenticationResponse.builder()
-        .id(savedUser.getId())
-        .role(savedUser.getRole())
-        .accessToken(jwtToken)
-        .refreshToken(refreshToken)
-        .build();
+        return savedUser;
     }
 
     //Método de login

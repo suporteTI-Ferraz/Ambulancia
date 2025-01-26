@@ -1,52 +1,28 @@
 import React, { useState } from 'react';
 import { User } from '../../types/user/UserType';
 import { FiEdit, FiTrash, FiRefreshCw, FiSearch } from 'react-icons/fi'; // Adicione o ícone de busca
-import { deleteUser, reactivateUser } from '../../services/UserService'; // Adicione reactivateUser se necessário
 import DataCriacao from '../itens/DataFormatada';
 
 interface UserListProps {
   users: User[];
   onEdit: (user: User) => void;
+  onDelete: (id: number, deletedAt: string | null) => void;
   setUsers: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
-const UserList: React.FC<UserListProps> = ({ users, onEdit, setUsers }) => {
+const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete }) => {
   const [pesquisarUser, setPesquisarUser] = useState('');
   
 
   // Função para filtrar os usuários com base no nome ou email
-  const filteredUsers = users.filter(user =>
-    user.nome.toLowerCase().includes(pesquisarUser.toLowerCase()) ||
-    user.email.toLowerCase().includes(pesquisarUser.toLowerCase())
-  );
+  const filteredUsers = users.filter(user => {
+    const nome = user.nome ? user.nome.toLowerCase() : '';
+    const email = user.email ? user.email.toLowerCase() : '';
+    const pesquisa = pesquisarUser.toLowerCase();
+  
+    return nome.includes(pesquisa) || email.includes(pesquisa);
+  });
 
-  const toggleDelete = async (id: number, deletedAt: string | null) => {
-    try {
-      let response;
-      if (deletedAt) {
-        // Reativar usuário
-        response = await reactivateUser(id);
-      } else {
-        // Deletar usuário
-        response = await deleteUser(id);
-      }
-
-      if (response.status === 200) {
-        setUsers(prevUsers =>
-          prevUsers.map(user =>
-            user.id === id
-              ? {
-                  ...user,
-                  deletedAt: deletedAt ? null : new Date().toISOString(),
-                }
-              : user
-          )
-        );
-      }
-    } catch (error) {
-      console.error('Erro ao alternar status do usuário', error);
-    }
-  };
 
   return (
     <div>
@@ -74,7 +50,7 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, setUsers }) => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Data de Criação</th>
+            <th>Criação</th>
             <th>Nome</th>
             <th>Email</th>
             <th>Cargo</th>
@@ -83,7 +59,7 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, setUsers }) => {
           </tr>
         </thead>
         <tbody>
-          {filteredUsers.map(user => (
+          {filteredUsers.map((user) => (
             <tr
               key={user.id}
               style={{ backgroundColor: user.deletedAt ? '#ffcccc' : 'white' }}
@@ -105,13 +81,13 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, setUsers }) => {
                   <FiRefreshCw
                     className="icon-action reactivate"
                     title="Reativar"
-                    onClick={() => toggleDelete(user.id, user.deletedAt)}
+                    onClick={() => onDelete(user.id, user.deletedAt)}
                   />
                 ) : (
                   <FiTrash
                     className="icon-action delete"
                     title="Desativar"
-                    onClick={() => toggleDelete(user.id, null)}
+                    onClick={() => onDelete(user.id, null)}
                   />
                 )}
               </td>

@@ -1,76 +1,54 @@
-import React, { useState, useEffect } from "react";
 import UserList from "../components/user/UserList";
 import UserForm from "../components/user/UserForm";
-import { User } from "../types/user/UserType";
-import { fetchUsers } from "../services/UserService";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
-
+import useGerenciarUser from "../hooks/useGerenciarUser";
 const GerenciarUser = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    const loadUsers = async () => {
-      const response = await fetchUsers();
-      setUsers(response.data);
-    };
-    loadUsers();
-  }, []);
 
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
+  const {
+    users,
+    editingUser,
+    isModalOpen,
+    loading,
+    handleSaveUser,
+    handleUpdateUser,
+    setUsers,
+    handleEdit,
+    toggleModal,
+    handleDeleteUser,
+  } = useGerenciarUser()
 
-  const handleUserSaved = () => {
-    const reloadUsers = async () => {
-      const response = await fetchUsers();
-      setUsers(response.data);
-    };
-    reloadUsers();
   
-    if (editingUser) {
-      // Fecha o modal somente se estiver editando um usuário
-      toggleModal();
-    }
-    
-    setEditingUser(null); // Limpa o usuário em edição
-  };
-  
-
-  const handleEdit = (user: User) => {
-    setEditingUser(user);
-    toggleModal(); // Abre o modal para edição
-  };
-
   return (
     <div className="gerenciar">
 
       {/* Formulário para criação de usuário */}
       <div>
         <h3>Criar Usuário</h3>
-        <UserForm onUserSaved={handleUserSaved} />
+        <UserForm 
+        userToEdit={editingUser} 
+        onSave={handleSaveUser} 
+        onUpdate={handleUpdateUser} 
+        isModal={false}/>
       </div>
 
       {/* Lista de usuários */}
-      <UserList users={users} onEdit={handleEdit} setUsers={setUsers} />
+      <UserList users={users} onEdit={handleEdit} onDelete={handleDeleteUser} setUsers={setUsers} />
 
       {/* Modal para edição */}
-      <Modal
-  isOpen={isModalOpen}
-  toggle={toggleModal}
-  className="gerenciar-user custom-modal"
->
-  <ModalHeader toggle={toggleModal} className="custom-modal-header">
-    Editar Usuário
-  </ModalHeader>
-  <ModalBody className="custom-modal-body">
-    <UserForm userToEdit={editingUser} onUserSaved={handleUserSaved} />
-  </ModalBody>
-  <ModalFooter className="custom-modal-footer">
-    <Button className="button-edit" onClick={toggleModal}>
-      Cancelar
-    </Button>
-  </ModalFooter>
-</Modal>
+      <Modal isOpen={isModalOpen} toggle={toggleModal} className="gerenciar">
+    <ModalHeader toggle={toggleModal}>Editar Usuários</ModalHeader>
+    <ModalBody>
+      {editingUser && (
+        <UserForm
+          userToEdit={editingUser}
+          onSave={handleSaveUser}
+          onUpdate={handleUpdateUser}
+          isModal={true}
+        />
+      )}
+    </ModalBody>
+  </Modal>
 
     </div>
   );

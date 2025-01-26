@@ -33,7 +33,8 @@ public class Paciente extends BaseEntity {
     private String sus;
     @Column(nullable = true)
     private String condicoesEspecificas;  // Ex: "cadeirante", "obeso", "mobilidade reduzida"
-
+    @Builder.Default
+    private boolean falecido = false;
     @Builder.Default
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EnderecoPac> enderecos = new ArrayList<>();

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Paciente } from "../../types/paciente/PacienteType";
 import { FiEdit, FiPhone, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
 import { FaMapLocationDot } from "react-icons/fa6";
-
+import DataCriacao from "../itens/DataFormatada";
 
 interface PacienteListProps {
   pacientes: Paciente[];
@@ -51,6 +51,7 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
           <thead>
             <tr>
               <th>ID</th>
+              <th>Criação</th>
               <th>Nome</th>
               <th>CPF</th>
               <th>SUS</th>
@@ -64,6 +65,7 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
             {filteredPacientes.map((paciente) => (
               <tr key={paciente.id} style={{ backgroundColor: paciente.deletedAt ? '#ffcccc' : 'white' }}>
                 <td>{paciente.id}</td>
+                <td><DataCriacao createdAt={paciente.createdAt} /></td>
                 <td>{paciente.nomePaciente}</td>
                 <td>{paciente.cpf}</td>
                 <td>{paciente.sus}</td>

@@ -126,7 +126,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
             {localEnderecos.map((endereco, index) => (
               <div key={index} className="forms-sec-container">
          <div>
-         {isCepLoading[index] && <Spinner size="md" />}
+         {isCepLoading[index] && <Spinner size="sm" />}
 
   <label>CEP</label>
   <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>

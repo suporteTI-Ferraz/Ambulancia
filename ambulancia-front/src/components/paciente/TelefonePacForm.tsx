@@ -9,12 +9,9 @@ interface TelefoneFormProps {
 }
 
 const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, resetTelefones, telefonesIniciais = [], }) => {
-  const [localTelefones, setLocalTelefones] = useState<TelefonePac[]>([{ id: 0, tipoTel: "", numTel: "", deletedAt: null }]);
+  const [localTelefones, setLocalTelefones] = useState<TelefonePac[]>([{ id: 0, tipoTel: "CELULAR", numTel: "", deletedAt: null }]);
   const [isEditPaciente, setIsEditPaciente] = useState<boolean>()
-  const selectOptions = [
-    { value: 'CELULAR', label: 'Celular' },
-    { value: 'FIXO', label: 'Fixo' }
-]
+ 
 
    useEffect(() => {
         // Inicializar com os endereços existentes, se houver
@@ -34,7 +31,7 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, reset
 
   // Função para adicionar um novo tefone à lista
   const handleAddTelefone = () => {
-    const novoTelefone = { id: localTelefones.length, tipoTel: "", numTel: "", deletedAt: null };
+    const novoTelefone = { id: localTelefones.length, tipoTel: "CELULAR", numTel: "", deletedAt: null };
     const updatedTelefones = [...localTelefones, novoTelefone];
     setLocalTelefones(updatedTelefones);
     onTelefonesChange(updatedTelefones);
@@ -43,7 +40,7 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, reset
   // Função para atualizar um telefone na lista
   const handleTelefoneChange = (index: number, field: keyof TelefonePac, value: string) => {
     const updatedTelefones = localTelefones.map((telefone, i) =>
-      i === index ? { ...telefone, [field]: value } : telefone
+      i === index ? { ...telefone, [field]: value  } : telefone // Garante valor válido
     );
     setLocalTelefones(updatedTelefones);
     onTelefonesChange(updatedTelefones);
@@ -66,11 +63,9 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, reset
               value={telefone.tipoTel}
               onChange={(e) => handleTelefoneChange(index, "tipoTel", e.target.value)}
             >
-              {selectOptions.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
+         
+          <option value="CELULAR">Celular</option>
+          <option value="FIXO">Fixo</option>
             </select>
           </div>
           <div>

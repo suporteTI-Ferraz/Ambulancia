@@ -3,6 +3,8 @@ import { Paciente } from "../../types/paciente/PacienteType";
 import TelefonePacForm from "./TelefonePacForm";
 import EnderecoPacForm from "./EnderecoPacForm";
 import ButtonSpinner from "../itens/ButtonSpinner";
+import { useLoading } from "../../contexts/LoadingContext";
+import { useToast } from "../../hooks/useToast";
 interface PacienteFormProps {
   paciente?: Paciente | null; // Para edição, ou null para criação
   onSave: (paciente: Paciente) => void;
@@ -20,12 +22,12 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
     enderecos: paciente?.enderecos || [],
     telefones: paciente?.telefones || [],
     deletedAt: paciente?.deletedAt || null,
-    createdAt: paciente?.createdAt || "",
+    createdAt:  "",
   };
 
   const [formData, setFormData] = useState<Paciente>(initialFormData);
-  const [isLoading, setIsLoading] = useState(false); // Estado de carregamento
-  const [shouldResetTelefones, setShouldResetTelefones] = useState(false);
+  const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
+  const { handleLoad, dismissLoading } = useToast();  const [shouldResetTelefones, setShouldResetTelefones] = useState(false);
   const [shouldResetEnderecos, setShouldResetEnderecos] = useState(false);
 
 
@@ -52,9 +54,9 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isLoading) return; // Impede múltiplos envios enquanto está carregando
-
-    setIsLoading(true); // Bloqueia enquanto a requisição está em andamento
+    if (loading) return; // Impede múltiplos envios enquanto está carregando
+    setLoading(true); // Bloqueia enquanto a requisição está em andamento
+    const toastKey = handleLoad("Carregando...");
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));  //Para testar o spinner
@@ -62,7 +64,8 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
     } catch (error) {
       console.error("Erro ao salvar paciente:", error);
     } finally {
-      setIsLoading(false); // Libera o botão após a requisição terminar
+      setLoading(false); // Libera o botão após a requisição terminar
+      dismissLoading(toastKey);
     }
   };
 
@@ -117,7 +120,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
       <TelefonePacForm  onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} />
       <EnderecoPacForm  onEnderecosChange={handleEnderecosChange} resetEnderecos={shouldResetEnderecos}  isModal={false} />
       <div>
-        <ButtonSpinner name="Salvar" isLoading={isLoading} type="submit"/>
+        <ButtonSpinner name="Salvar" isLoading={loading} type="submit"/>
         <button type="button" onClick={handleCancel}>
           Limpar
         </button>

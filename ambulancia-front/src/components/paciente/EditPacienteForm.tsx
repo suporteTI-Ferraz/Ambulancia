@@ -11,7 +11,7 @@ interface PacienteFormProps {
   //handleTelefonesChange: () => void;
 }
 
-const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel }) => {
+const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave }) => {
   const initialFormData: Paciente = {
     id: paciente?.id || 0,
     nomePaciente: paciente?.nomePaciente || "",
@@ -26,8 +26,6 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCan
 
   const [formData, setFormData] = useState<Paciente>(initialFormData);
   const [isLoading, setIsLoading] = useState(false); // Estado de carregamento
-  const [shouldResetTelefones, setShouldResetTelefones] = useState(false);
-  const [shouldResetEnderecos, setShouldResetEnderecos] = useState(false);
   const [currentEnderecos, setCurrentEnderecos] = useState<EnderecoPac[]>([]);
 
 
@@ -58,7 +56,7 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCan
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));  //Para testar o spinner
-      onSave(formData, paciente); // Chama a função onSave (criação ou edição)
+      onSave(formData, paciente); // O formData será comparado com o paciente para ver se algum campo foi modificado
     } catch (error) {
       console.error("Erro ao salvar paciente:", error);
     } finally {
@@ -116,7 +114,7 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCan
       {/* Componente para adicionar telefones */}
       <TelefonePacForm  
       onTelefonesChange={handleTelefonesChange} 
-      resetTelefones={shouldResetTelefones} 
+      resetTelefones={false} 
       isModal={true}
       telefonesIniciais={paciente?.telefones || []} // Passando os endereços existentes
 
@@ -124,7 +122,7 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCan
 
       <EnderecoPacForm
   onEnderecosChange={handleEnderecosChange}
-  resetEnderecos={shouldResetEnderecos}
+  resetEnderecos={false}
   isModal={true}
   enderecosIniciais={paciente?.enderecos || []} // Passando os endereços existentes
 />

@@ -1,47 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { User } from '../../types/user/UserType';
-import { createUser, updateUser } from '../../services/UserService';
+import ButtonSpinner from '../itens/ButtonSpinner';
+import { useLoading } from '../../contexts/LoadingContext';
+import { useToast } from '../../hooks/useToast';
 
 interface UserFormProps {
-  userToEdit?: User | null;
-  onUserSaved: () => void;
+  userToEdit: User | null;
+  onSave: (paciente: User) => void;
+  onUpdate: (id: number, paciente: User) => void;
+  isModal: Boolean; 
 }
 
-const UserForm: React.FC<UserFormProps> = ({ userToEdit, onUserSaved }) => {
-  const initialUserState: User = {
-    id: 0,
-    nome: '',
-    email: '',
-    senha: '',
-    role: '',
-    deletedAt: null,
-    createdAt: '',
+const UserForm: React.FC<UserFormProps> = ({ userToEdit, onSave, onUpdate, isModal }) => {
+  const initialFormData: User = {
+    id: userToEdit?.id || 0,
+    nome: userToEdit?.nome || '',
+    email: userToEdit?.email || '',
+    senha: userToEdit?.senha || '',
+    role: userToEdit?.role || '',
+    deletedAt: userToEdit?.deletedAt || null,
+    createdAt: "",
   };
 
-  const [user, setUser] = useState<User>(initialUserState);
+  const [formData, setFormData] = useState<User>(initialFormData);
+  const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
+  const { handleLoad, dismissLoading } = useToast();
+  
 
-  useEffect(() => {
-    if (userToEdit) {
-      setUser(userToEdit);
-    } else {
-      setUser(initialUserState);
-    }
-  }, [userToEdit]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+  const handleInputChange = (e: React.ChangeEvent<HTMLElement>) => {
+    const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (userToEdit) {
-      await updateUser(user.id, user);
-    } else {
-      await createUser(user);
+    if (loading) return;
+    setLoading(true);
+    const toastKey = handleLoad("Carregando...");
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Para testar o spinner
+      if (userToEdit && isModal) {
+        onUpdate(userToEdit.id, formData);
+      } else {
+        onSave(formData); // Chama a função onSave (criação ou edição)
+      }
+    } catch (error) {
+      console.error("Erro ao salvar usuário:", error);
+    } finally {
+      setLoading(false);
+      dismissLoading(toastKey);
     }
-    onUserSaved();
   };
+
+  
 
   return (
     <form onSubmit={handleSubmit}>
@@ -50,8 +61,8 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onUserSaved }) => {
         <input
           type="text"
           name="nome"
-          value={user.nome}
-          onChange={handleChange}
+          value={formData.nome}
+          onChange={handleInputChange}
           required
         />
       </div>
@@ -60,8 +71,8 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onUserSaved }) => {
         <input
           type="email"
           name="email"
-          value={user.email}
-          onChange={handleChange}
+          value={formData.email}
+          onChange={handleInputChange}
           required
         />
       </div>
@@ -70,16 +81,16 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onUserSaved }) => {
         <input
           type="password"
           name="senha"
-          value={user.senha}
-          onChange={handleChange}
+          value={formData.senha}
+          onChange={handleInputChange}
         />
       </div>
       <div>
         <label>Cargo</label>
         <select
           name="role"
-          value={user.role}
-          onChange={handleChange}
+          value={formData.role}
+          onChange={handleInputChange}
           required
         >
           <option value="" disabled>
@@ -89,7 +100,7 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onUserSaved }) => {
           <option value="ADMIN">Administrador</option>
         </select>
       </div>
-      <button className='edit-userForm' type="submit">{userToEdit ? 'Atualizar' : 'Criar'}</button>
+      <ButtonSpinner name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit"/>
     </form>
   );
 };

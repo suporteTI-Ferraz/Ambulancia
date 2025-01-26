@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.ambulancia.models.entities.user.User;
 import com.example.ambulancia.services.authentication.AuthenticationService;
 import com.example.ambulancia.services.authentication.JwtService;
 import com.example.ambulancia.services.authentication.requests.AuthenticationRequest;
@@ -30,23 +31,39 @@ public class AuthenticationController {
     private final JwtService jwtService;
 
 
-    @PostMapping("/register")
-     public ResponseEntity<AuthenticationResponse> register(
-    @RequestBody RegisterRequest request,
-    HttpServletResponse httpResponse // Inject HttpServletResponse
-) {
+//REGISTRA O USUÁRIO DE FORMA QUE ELE JÁ LOGUE
+//     @PostMapping("/register")
+//      public ResponseEntity<AuthenticationResponse> register(
+//     @RequestBody RegisterRequest request,
+//     HttpServletResponse httpResponse // Inject HttpServletResponse
+// ) {
   
-    AuthenticationResponse authenticationResponse = service.register(request);
-    // Set the access token as an HttpOnly cookie in the response
-    Cookie tokenCookie = new Cookie("token", authenticationResponse.getAccessToken());
-    tokenCookie.setHttpOnly(true); // Set HttpOnly flag
-    tokenCookie.setPath("/"); // Set cookie path as needed
-    httpResponse.addCookie(tokenCookie);
+//     AuthenticationResponse authenticationResponse = service.register(request);
+//     // Set the access token as an HttpOnly cookie in the response
+//     Cookie tokenCookie = new Cookie("token", authenticationResponse.getAccessToken());
+//     tokenCookie.setHttpOnly(true); // Set HttpOnly flag
+//     tokenCookie.setPath("/"); // Set cookie path as needed
+//     httpResponse.addCookie(tokenCookie);
 
 
-    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(authenticationResponse.getId()).toUri();
+//     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(authenticationResponse.getId()).toUri();
 
-    return ResponseEntity.created(uri).body(authenticationResponse);
+//     return ResponseEntity.created(uri).body(authenticationResponse);
+// }
+
+//CADASTRA O USUÁRIO SEM INSERIR O COOKIE/TOKEN
+@PostMapping("/register")
+public ResponseEntity<User> register(
+@RequestBody RegisterRequest request,
+HttpServletResponse httpResponse // Inject HttpServletResponse
+) {
+
+User user = service.register(request);
+// Set the access token as an HttpOnly cookie in the response
+
+URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
+
+return ResponseEntity.created(uri).body(user);
 }
 
 

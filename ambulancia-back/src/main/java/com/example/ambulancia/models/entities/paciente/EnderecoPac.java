@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
@@ -22,14 +23,19 @@ import lombok.Builder;
 @Entity
 @Table(name = "EnderecoPaciente") // Renomeie a tabela aqui
 public class EnderecoPac extends BaseEntity {
+    @Column(nullable = false)
     private String ruaPac;
+    @Column(nullable = false)
     private String bairroPac;
     @Builder.Default
     private String cidadePac = "Ferraz de Vasconcelos";
     @Builder.Default
     private String estadoPac = "SP";
+    @Column(nullable = false)
     private String cepPac;
+    @Column(nullable = false)
     private String numeroPac;
+    @Column(nullable = false)
     private String complementoPac;
 
     @JsonIgnore
