@@ -11,7 +11,6 @@ const GerenciarUser = () => {
     isModalOpen,
     handleSaveUser,
     handleUpdateUser,
-    setUsers,
     handleEdit,
     toggleModal,
     handleDeleteUser,

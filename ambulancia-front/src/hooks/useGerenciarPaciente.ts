@@ -44,6 +44,12 @@ export const useGerenciarPaciente = () => {
   const toggleTelefoneModal = () => setIsTelefoneModalOpen(!isTelefoneModalOpen);
   const toggleEnderecoModal = () => setIsEnderecoModalOpen(!isEnderecoModalOpen);
 
+  const handleEdit = (paciente: Paciente) => {
+    console.log("Paciente selecionado para edição:", paciente); // Debug
+    setEditingPaciente(paciente);
+    toggleEditModal();
+  };
+
   const reloadPacientes = async () => {
     try {
       const response = await fetchPacientes();
@@ -161,18 +167,14 @@ export const useGerenciarPaciente = () => {
         //await reloadPacientes();
       }
     } catch (error) {
-      console.error('Erro ao alternar status do usuário', error);
+      handleError('Erro ao alternar status do Paciente: '+ error);
     }finally{
       setLoading(false);
     }
   };
 
 
-  const handleEdit = (paciente: Paciente) => {
-    console.log("Paciente selecionado para edição:", paciente); // Debug
-    setEditingPaciente(paciente);
-    toggleEditModal();
-  };
+
 
   const handleViewTelefones = (paciente: Paciente) => {
     if (!paciente) {

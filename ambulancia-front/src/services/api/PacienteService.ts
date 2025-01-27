@@ -3,7 +3,7 @@ import { Paciente } from "../../types/paciente/PacienteType";
 import { TelefonePac } from "../../types/paciente/TelefonePacType";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 import { AxiosResponse } from "axios";
-export const fetchPacientes = () => API.get('/paciente');
+export const fetchPacientes = (): Promise<AxiosResponse<Paciente[]>> => API.get('/paciente');
 export const fetchPacienteById = (id: number) => API.get(`/paciente/${id}`);
 export const createPaciente = (paciente: Paciente): Promise<AxiosResponse<Paciente>> => 
     API.post<Paciente>('/paciente', paciente);

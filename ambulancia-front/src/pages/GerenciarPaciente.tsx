@@ -13,7 +13,6 @@ const GerenciarPaciente = () => {
   const {
     pacientes, loading, isEditModalOpen, isEnderecoModalOpen, isTelefoneModalOpen,
     selectedEnderecos, selectedTelefones, editingPaciente,
-    setPacientes,
     handleCreatePaciente,
     handleDeletePaciente,
     handleEditPaciente,

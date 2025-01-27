@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -24,8 +25,13 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 public class Veiculo extends BaseEntity {
+    @Column(nullable = false)
     private String placaVeic;
+    @Column(nullable = false)
     private Double kilometragem; 
+    @Column(nullable = false)
+    private String classe;
+    
 
     @Builder.Default
     @JsonIgnore
