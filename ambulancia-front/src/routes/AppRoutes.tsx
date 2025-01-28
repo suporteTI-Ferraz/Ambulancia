@@ -9,6 +9,7 @@ import PageTitle from '../components/PageTitle'; // Importando o PageTitle
 import GerenciarUser from '../pages/GerenciarUser';
 import GerenciarPaciente from '../pages/GerenciarPaciente';
 import GerenciarMotorista from '../pages/GerenciarMotorista';
+import GerenciarVeiculo from '../pages/GerenciarVeiculo';
 const AppRoutes: React.FC = () => {
   return (
     <Router>
@@ -25,6 +26,8 @@ const AppRoutes: React.FC = () => {
           <Route path="/gerenciar-funcionarios" element={<><PageTitle /><GerenciarUser /></>} />
           <Route path="/gerenciar-pacientes" element={<><PageTitle /><GerenciarPaciente /></>} />
           <Route path="/gerenciar-motoristas" element={<><PageTitle /><GerenciarMotorista /></>} />
+          <Route path="/gerenciar-ambulancias" element={<><PageTitle /><GerenciarVeiculo /></>} />
+
         </Route>
 
         {/* Rota de fallback */}

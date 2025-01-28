@@ -56,7 +56,6 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete }) => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Criação</th>
             <th>Nome</th>
             <th>Email</th>
@@ -71,7 +70,6 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete }) => {
               key={user.id}
               style={{ backgroundColor: user.deletedAt ? '#ffcccc' : 'white' }}
             >
-              <td>{user.id}</td>
               <td><DataCriacao createdAt={user.createdAt} /></td>
               <td>{user.nome}</td>
               <td>{user.email}</td>

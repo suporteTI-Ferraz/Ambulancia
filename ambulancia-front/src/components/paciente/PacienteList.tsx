@@ -56,7 +56,6 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
         <table>
           <thead>
             <tr>
-              <th>ID</th>
               <th>Criação</th>
               <th>Nome</th>
               <th>CPF</th>
@@ -70,7 +69,6 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
           <tbody>
             {sortedPacientes.map((paciente) => (
               <tr key={paciente.id} style={{ backgroundColor: paciente.deletedAt ? '#ffcccc' : 'white' }}>
-                <td>{paciente.id}</td>
                 <td><DataCriacao createdAt={paciente.createdAt} /></td>
                 <td>{paciente.nomePaciente}</td>
                 <td>{paciente.cpf}</td>

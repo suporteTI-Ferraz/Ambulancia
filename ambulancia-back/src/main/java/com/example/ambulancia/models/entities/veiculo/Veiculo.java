@@ -34,12 +34,10 @@ public class Veiculo extends BaseEntity {
     
 
     @Builder.Default
-    @JsonIgnore
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Manutencao> manutencoes = new ArrayList<>();
 
     @Builder.Default
-    @JsonIgnore
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Multa> multas = new ArrayList<>();
 

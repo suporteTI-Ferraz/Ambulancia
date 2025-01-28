@@ -10,7 +10,7 @@ interface TelefoneFormProps {
 
 const TelefonePacForm: React.FC<TelefoneFormProps> = ({ onTelefonesChange, resetTelefones, telefonesIniciais = [], }) => {
   const [localTelefones, setLocalTelefones] = useState<TelefonePac[]>([{ id: 0, tipoTel: "CELULAR", numTel: "", deletedAt: null }]);
-  const [isEditPaciente, setIsEditPaciente] = useState<boolean>()
+  const [isEditPaciente, setIsEditPaciente] = useState<boolean>();
  
 
    useEffect(() => {

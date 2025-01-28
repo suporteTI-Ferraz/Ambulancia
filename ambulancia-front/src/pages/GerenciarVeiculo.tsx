@@ -1,12 +1,11 @@
-import PacienteList from "../components/paciente/PacienteList";
-import TelefoneModal from "../components/modal/paciente/TelefoneModal";
-import EnderecoPacModal from "../components/modal/paciente/EnderecoPacModal";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import VeiculoForm from "../components/veiculo/VeiculoForm";
 import EditPacienteForm from "../components/paciente/EditPacienteForm";
 import useGerenciarPaciente from "../hooks/useGerenciarPaciente";
 import useGerenciarVeiculo from "../hooks/useGerenciarVeiculo";
-
+import VeiculoList from "../components/veiculo/VeiculoList";
+import EditVeiculoForm from "../components/veiculo/EditVeiculoForm";
+import ManutencaoModal from "../components/modal/motorista/ManutencaoModal";
 const GerenciarVeiculo = () => {
 
 
@@ -37,14 +36,36 @@ const GerenciarVeiculo = () => {
   />
 
   {/* Lista de pacientes */}
+    <VeiculoList
+    veiculos={veiculos}
+    onEdit={handleEdit}
+    onDelete={handleDeleteVeiculo}
+    onViewManutencoes={handleViewManutencoes}
+    />
  
 
   {/* Modal para edição */}
+  <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar">
+    <ModalHeader toggle={toggleEditModal}>Editar Veículo</ModalHeader>
+    <ModalBody>
+      {editingVeiculo && (
+        <EditVeiculoForm
+        veiculo={editingVeiculo}
+        onSave={handleEditVeiculo}
+        onCancel={toggleEditModal}
+        />
+      )}
+    </ModalBody>
+  </Modal>
 
 
-  {/* Modal para exibição de telefones */}
+  {/* Modal para exibição de multas */}
 
-  {/* Modal para exibição de endereços */}
+  {/* Modal para exibição de manutenções */}
+  <ManutencaoModal
+  manutencoes={selectedManutencoes} isOpen={isManutencaoModalOpen} 
+  toggle={toggleModalManutencao} onManutencoesChange={handleSaveManutencoesFromModal}
+  />
 
 
 </div>

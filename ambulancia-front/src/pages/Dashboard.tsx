@@ -17,6 +17,11 @@ const Dashboard = () => {
     navigate("/gerenciar-motoristas")
   }
 
+  
+  const handleVeiculoRoute = () =>{
+    navigate("/gerenciar-ambulancias")
+  }
+
   return (
     <div className="dashboard-container">
 {/* <h1 className="dashboard-title">Bem-vindo ao Sistema de Ambulância</h1> */}
@@ -35,7 +40,7 @@ const Dashboard = () => {
         <div className="card">
           <FaAmbulance size={60} />
           <h3>Ambulâncias</h3>
-          <button onClick={() => alert("Gerenciar Ambulâncias")}>Gerenciar</button>
+          <button onClick={handleVeiculoRoute}>Gerenciar</button>
         </div>
         <div className="card">
           <FaHeartbeat size={60} />

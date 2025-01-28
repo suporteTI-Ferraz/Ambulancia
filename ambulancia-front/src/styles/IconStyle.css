@@ -39,6 +39,12 @@
     cursor: pointer;
 }
 
+.icon-action.manutencao {
+    color:rgb(43, 43, 43) !important; /* Cor laranja para o ícone de telefone */
+    font-size: 1.2rem !important; /* Ícone de telefone com tamanho reduzido */
+    cursor: pointer;
+}
+
 .icon-action:hover {
     opacity: 0.7; /* Efeito de hover */
 }

@@ -100,7 +100,7 @@ const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculo, onSave, onCancel })
         <label>Classe</label>
         <input 
           type="text" 
-          name="sus" 
+          name="classe" 
           placeholder="Ex: classe A, B, C ou D"
           value={formData.classe} 
           onChange={handleInputChange}
@@ -109,7 +109,6 @@ const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculo, onSave, onCancel })
       </div>
 
       {/* Componente para adicionar telefones */}
-      <ManutencaoForm  onManutencoesChange={handleManutencoesChange} resetManutencoes={shouldResetManutencoes} isModal={false} />
 
       {/* <ManutencaoForm  onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} /> */}
       

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Veiculo } from "../../types/veiculo/VeiculoType";
-import { FiEdit, FiPhone, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
+import { FiEdit, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
 import { GiAutoRepair } from "react-icons/gi";
-import { FaMapLocationDot } from "react-icons/fa6";
 import DataCriacao from "../itens/DataFormatada";
 
-interface PacienteListProps {
+interface VeiculoListProps {
   veiculos: Veiculo[];
   onEdit: (veiculo: Veiculo) => void;
   onDelete: (id: number, deletedAt: string | null) => void;
@@ -13,7 +12,7 @@ interface PacienteListProps {
 }
 
 
-const PacienteList: React.FC<PacienteListProps> = ({ veiculos, onEdit, onViewManutencoes, onDelete }) => {
+const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManutencoes, onDelete }) => {
     const [pesquisarVeiculo, setPesquisarVeiculo] = useState('');
 
     const filteredVeiculos = veiculos.filter(veiculo =>
@@ -51,7 +50,6 @@ const PacienteList: React.FC<PacienteListProps> = ({ veiculos, onEdit, onViewMan
         <table>
           <thead>
             <tr>
-              <th>ID</th>
               <th>Criação</th>
               <th>Placa</th>
               <th>Quilometragem</th>
@@ -64,16 +62,13 @@ const PacienteList: React.FC<PacienteListProps> = ({ veiculos, onEdit, onViewMan
           <tbody>
             {sortedVeiculos.map((veiculo) => (
               <tr key={veiculo.id} style={{ backgroundColor: veiculo.deletedAt ? '#ffcccc' : 'white' }}>
-                <td>{veiculo.id}</td>
                 <td><DataCriacao createdAt={veiculo.createdAt} /></td>
                 <td>{veiculo.placaVeic}</td>
                 <td>{veiculo.quilometragem}</td>
                 <td>{veiculo.classe}</td>
                 <td>
-                  {veiculo.manutencoes.map((veiculo) => (
-                    <div key={veiculo.id}>
-                      {veiculo.tipoManutencao}: {veiculo.custoManutencao}
-                    </div>
+                  {veiculo.manutencoes.map((manutencao) => (
+                    <div key={manutencao.id}> Tipo: {manutencao.tipoManutencao}, Valor: {manutencao.custoManutencao}</div>
                   ))}
                 </td>
                 <td>{veiculo.deletedAt ? 'Desativado' : 'Ativo'}</td>
@@ -111,4 +106,4 @@ const PacienteList: React.FC<PacienteListProps> = ({ veiculos, onEdit, onViewMan
     );
   };
   
-  export default PacienteList;
+  export default VeiculoList;

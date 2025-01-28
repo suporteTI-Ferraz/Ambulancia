@@ -6,7 +6,6 @@ import { Veiculo } from "../types/veiculo/VeiculoType";
 import Manutencao from "../types/veiculo/ManutencaoType";
 import { useToast } from "./useToast";
 import { useLoading } from "../contexts/LoadingContext";
-import { useGerenciarMotorista } from "./useGerenciarMotorista";
 
 const useGerenciarVeiculo = () =>{
     const [veiculos, setVeiculos] = useState<Veiculo[]>([]);
@@ -14,7 +13,7 @@ const useGerenciarVeiculo = () =>{
     const  [isEditModalOpen, setIsEditModalOpen] = useState(false);
     
     const [isManutencaoModalOpen, setIsManutencaoModalOpen] = useState(false);
-    const [selectedManutencoes, setSelectedManutencoes] = useState<Veiculo["manutencoes"]>([]);
+  const [selectedManutencoes, setSelectedManutencoes] = useState<Veiculo["manutencoes"]>([]);
 
     const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
     const { handleError, handleSuccess } = useToast();
@@ -109,15 +108,16 @@ const useGerenciarVeiculo = () =>{
 
     
     
-      const handleViewManutencoes = (veiculo: Veiculo) => {
+     const handleViewManutencoes= (veiculo: Veiculo) => {
         if (!veiculo) {
-          alert("Selecione um veículo antes de gerenciar as manutenções.");
+          alert("Selecione um veículo antes de gerenciar os telefones.");
           return;
         }
         setEditingVeiculo(veiculo);
         setSelectedManutencoes(veiculo.manutencoes || []);
         toggleModalManutencao();
       };
+    
     
     
       const handleSaveManutencoesFromModal = async (manutencoes: Manutencao[]) => {
@@ -143,6 +143,7 @@ const useGerenciarVeiculo = () =>{
           
           
         } catch (error) {
+            console.log(error)
           handleError("Falha ao criar Manutenções: "+ error)
         } finally {
           toggleModalManutencao(); // Fecha o modal

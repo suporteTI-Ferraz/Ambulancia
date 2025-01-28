@@ -55,13 +55,14 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({ onManutencoesChange, re
 
   return (
     <div className="form-container">
-      <h4>Telefones</h4>
+      <h4>Manutenções</h4>
       {localManutencoes.map((manutencao, index) => (
         <div key={index} className="forms-sec-container">
           <div>
             <label>Tipo de Manutenção</label>
             <input
               type="text"
+              name="tipoManutencao"
               value={manutencao.tipoManutencao}
               onChange={(e) =>
                 handleManutencaoChange(index, "tipoManutencao", e.target.value)
@@ -69,13 +70,14 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({ onManutencoesChange, re
             />
           </div>
           <div>
-            <label>Custo da Manutenção</label>
+            <label>Custo</label>
             <input
               type="number"
               step="0.01"
+              name="custoManutencao"
               value={manutencao.custoManutencao}
               onChange={(e) =>
-                handleManutencaoChange(index, "tipoManutencao", e.target.value)
+                handleManutencaoChange(index, "custoManutencao", e.target.value)
               }
             />
           </div>

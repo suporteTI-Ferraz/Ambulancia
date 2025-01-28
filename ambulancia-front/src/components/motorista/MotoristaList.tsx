@@ -46,7 +46,6 @@ const MotoristaList: React.FC<MotoristaListProps> = ( {motoristas, onEdit, onDel
                 <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Criação</th>
             <th>Nome</th>
             <th>Status</th>
@@ -59,7 +58,6 @@ const MotoristaList: React.FC<MotoristaListProps> = ( {motoristas, onEdit, onDel
               key={motorista.id}
               style={{ backgroundColor: motorista.deletedAt ? '#ffcccc' : 'white' }}
             >
-              <td>{motorista.id}</td>
               <td><DataCriacao createdAt={motorista.createdAt} /></td>
               <td>{motorista.nomeMotorista}</td>
               <td>{motorista.deletedAt ? 'Desativado' : 'Ativo'}</td>

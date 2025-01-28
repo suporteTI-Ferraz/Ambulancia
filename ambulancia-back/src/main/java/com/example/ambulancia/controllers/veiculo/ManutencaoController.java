@@ -24,24 +24,13 @@ public class ManutencaoController {
     @Autowired
     ManutencaoService service;
 
-    // @PostMapping(value = "/paciente/{id}/telefone")
-    // public ResponseEntity<TelefonePac> insert(@RequestBody TelefonePac telefonePac){
-    //     TelefonePac entity = service.insert(telefonePac);
-    //     URI location = ServletUriComponentsBuilder
-    //     .fromCurrentRequest() // Baseado na URL da requisição atual
-    //     .path("/{id}") // Adiciona o ID do recurso criado ao caminho
-    //     .buildAndExpand(entity.getId()) // Substitui o {id} pelo ID do usuário criado
-    //     .toUri();
-    //     return ResponseEntity.created(location).body(entity);
-    // }
-
     
     @PostMapping(value = "/veiculo/{id}/manutencao")
     public ResponseEntity<List<Manutencao>> insertMany(@RequestBody List<Manutencao> manutencoes,  @PathVariable Long id){
         List<Manutencao> entity = service.insertMany(manutencoes, id);
         URI location = ServletUriComponentsBuilder
         .fromCurrentRequest() // URL da requisição atual (/{id})
-        .build() // Constrói a URI sem adicionar o ID específico de cada telefone
+        .build() // Constrói a URI sem adicionar o ID específico de cada manutenção
         .toUri();
         return ResponseEntity.created(location).body(entity);
     }
@@ -55,8 +44,8 @@ public class ManutencaoController {
 
     @GetMapping(value = "/veiculo/manutencao/{id}")
     public ResponseEntity<Manutencao> findById(@PathVariable Long id){
-        Manutencao telefonePac = service.findById(id);
-        return ResponseEntity.ok().body(telefonePac);
+        Manutencao manutencao = service.findById(id);
+        return ResponseEntity.ok().body(manutencao);
     }
 
     @PutMapping(value = "/veiculo/manutencao/{id}")
@@ -72,7 +61,7 @@ public class ManutencaoController {
         return ResponseEntity.ok(obj);
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping(value = "veiculo/manutencao/{id}")
     public ResponseEntity<Manutencao> deleteById(@PathVariable Long id){
         Manutencao deletado = service.deleteById(id);
         return ResponseEntity.ok().body(deletado);
