@@ -1,6 +1,7 @@
 package com.example.ambulancia.models.entities.hospital;
 
 import com.example.ambulancia.models.entities.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +30,7 @@ public class EnderecoHosp extends BaseEntity{
     private String estadoHosp = "SP";;
     private String cepHosp;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "hospital_id", referencedColumnName = "id", nullable = false)
     private Hospital hospital;

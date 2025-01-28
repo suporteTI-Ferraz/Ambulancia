@@ -1,4 +1,4 @@
-import { FaUser, FaHeartbeat, FaUserNurse, FaAmbulance  } from "react-icons/fa"; // Ícones para funcionários, motoristas, pacientes
+import { FaUser, FaHeartbeat, FaUserNurse, FaAmbulance, FaHospital  } from "react-icons/fa"; // Ícones para funcionários, motoristas, pacientes
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
@@ -38,15 +38,22 @@ const Dashboard = () => {
           <button onClick={handleMotoristaRoute}>Gerenciar</button>
         </div>
         <div className="card">
-          <FaAmbulance size={60} />
-          <h3>Ambulâncias</h3>
-          <button onClick={handleVeiculoRoute}>Gerenciar</button>
-        </div>
-        <div className="card">
           <FaHeartbeat size={60} />
           <h3>Pacientes</h3>
           <button onClick={handlePacienteRoute}>Gerenciar</button>
         </div>
+
+        <div className="card">
+          <FaHospital size={60} />
+          <h3>Hospitais</h3>
+          <button onClick={() => alert("Gerenciar hospital")}>Gerenciar</button>
+        </div>
+        <div className="card">
+          <FaAmbulance size={60} />
+          <h3>Ambulâncias</h3>
+          <button onClick={handleVeiculoRoute}>Gerenciar</button>
+        </div>
+ 
 
       </div>
       </div>

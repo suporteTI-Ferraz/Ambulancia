@@ -27,7 +27,6 @@ public class Hospital extends BaseEntity {
     private String nomeHosp;
 
     @Builder.Default
-    @JsonIgnore
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EnderecoHosp> enderecos = new ArrayList<>();
 }
