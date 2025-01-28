@@ -1,7 +1,7 @@
-import { API, CorreiosAPI } from "./api";
-import { Paciente } from "../types/paciente/PacienteType";
-import { TelefonePac } from "../types/paciente/TelefonePacType";
-import { EnderecoPac } from "../types/paciente/EnderecoPacType";
+import { API } from "../api";
+import { Paciente } from "../../types/paciente/PacienteType";
+import { TelefonePac } from "../../types/paciente/TelefonePacType";
+import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 import { AxiosResponse } from "axios";
 export const fetchPacientes = () => API.get('/paciente');
 export const fetchPacienteById = (id: number) => API.get(`/paciente/${id}`);

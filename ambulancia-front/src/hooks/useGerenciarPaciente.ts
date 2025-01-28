@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {fetchPacientes, createPaciente, updatePaciente, deletePaciente, reactivatePaciente, 
-createManyTelPac, createManyEndPac, updateManyTelPac, updateManyEndPac,} from "../services/PacienteService";
+createManyTelPac, createManyEndPac, updateManyTelPac, updateManyEndPac,} from "../services/api/PacienteService";
 import { Paciente } from "../types/paciente/PacienteType";
 import { TelefonePac } from "../types/paciente/TelefonePacType";
 import { EnderecoPac } from "../types/paciente/EnderecoPacType";

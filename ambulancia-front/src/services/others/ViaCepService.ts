@@ -1,4 +1,4 @@
-import { CorreiosAPI } from "./api";
+import { CorreiosAPI } from "../api";
 export const buscaCep = async (cep: string) => {
     try {
       // Remove caracteres não numéricos do CEP

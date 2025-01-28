@@ -7,7 +7,6 @@ interface UserListProps {
   users: User[];
   onEdit: (user: User) => void;
   onDelete: (id: number, deletedAt: string | null) => void;
-  setUsers: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
 const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete }) => {

@@ -10,7 +10,6 @@ interface PacienteListProps {
   onDelete: (id: number, deletedAt: string | null) => void;
   onViewTelefones: (paciente: Paciente) => void;
   onViewEnderecos: (paciente: Paciente) => void;
-  setPacientes: React.Dispatch<React.SetStateAction<Paciente[]>>;
 }
 
 

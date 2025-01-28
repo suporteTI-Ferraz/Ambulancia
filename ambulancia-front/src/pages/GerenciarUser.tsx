@@ -1,6 +1,6 @@
 import UserList from "../components/user/UserList";
 import UserForm from "../components/user/UserForm";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import useGerenciarUser from "../hooks/useGerenciarUser";
 const GerenciarUser = () => {
 
@@ -9,7 +9,6 @@ const GerenciarUser = () => {
     users,
     editingUser,
     isModalOpen,
-    loading,
     handleSaveUser,
     handleUpdateUser,
     setUsers,
@@ -33,7 +32,7 @@ const GerenciarUser = () => {
       </div>
 
       {/* Lista de usuários */}
-      <UserList users={users} onEdit={handleEdit} onDelete={handleDeleteUser} setUsers={setUsers} />
+      <UserList users={users} onEdit={handleEdit} onDelete={handleDeleteUser} />
 
       {/* Modal para edição */}
       <Modal isOpen={isModalOpen} toggle={toggleModal} className="gerenciar">

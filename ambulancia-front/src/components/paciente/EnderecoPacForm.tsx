@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
-import { buscaCep } from "../../services/ViaCepService";
+import { buscaCep } from "../../services/others/ViaCepService";
 import { Spinner } from "reactstrap";
 interface EnderecoFormProps {
   onEnderecosChange: (enderecos: EnderecoPac[]) => void; // Callback para alterações

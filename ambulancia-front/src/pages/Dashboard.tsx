@@ -5,12 +5,16 @@ const Dashboard = () => {
 
   const navigate = useNavigate()
 
-  const handleUserRoute= () =>{
+  const handleUserRoute = () =>{
     navigate("/gerenciar-funcionarios")
   }
 
-  const handlePacienteRoute= () =>{
+  const handlePacienteRoute = () =>{
     navigate("/gerenciar-pacientes")
+  }
+
+  const handleMotoristaRoute = () =>{
+    navigate("/gerenciar-motoristas")
   }
 
   return (
@@ -26,7 +30,7 @@ const Dashboard = () => {
         <div className="card">
           <FaUserNurse size={60} />
           <h3>Motoristas</h3>
-          <button onClick={() => alert("Gerenciar Motoristas")}>Gerenciar</button>
+          <button onClick={handleMotoristaRoute}>Gerenciar</button>
         </div>
         <div className="card">
           <FaAmbulance size={60} />

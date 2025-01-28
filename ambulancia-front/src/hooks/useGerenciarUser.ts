@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { User } from "../types/user/UserType";
-import { createUser, deleteUser, fetchUsers, reactivateUser, updateUser } from "../services/UserService";
+import { createUser, deleteUser, fetchUsers, reactivateUser, updateUser } from "../services/api/UserService";
 import { useToast } from "./useToast";
 import { useLoading } from "../contexts/LoadingContext";
 
@@ -19,7 +19,7 @@ export const useGerenciarUser = () => {
           const response = await fetchUsers();
           setUsers(response.data);
         } catch (error) {
-          console.error("Erro ao carregar usuários:", error);
+          handleError("Erro ao carregar usuários: "+ error);
         }finally{
             setLoading(false);
         }
@@ -40,8 +40,9 @@ export const useGerenciarUser = () => {
         try {
           const response = await createUser(user);
           const createdUser = response.data;
-          console.log(createUser);
-          setUsers((prevUsers) => [...prevUsers, createdUser]);
+  /*prevUsers: Representa o estado anterior da lista de users. Usa o operador spread (...) para criar um novo array que contém todos os 
+ users anteriores (prevUsers) e adiciona o novo user (createdUser) ao final da lista*/
+          setUsers((prevUsers) => [...prevUsers, createdUser]); 
           handleSuccess("Funcionário criado com sucesso!");
         } catch (error) {
           handleError("Erro ao criar Funcionário: " + error);  // Melhor adicionar a mensagem de erro
@@ -76,11 +77,11 @@ export const useGerenciarUser = () => {
             } else {
               // Deletar usuário
               response = await deleteUser(id);
-              handleSuccess("Funcionário Desativado com sucesso!");
 
             }
       
             if (response.status === 200) {
+              handleSuccess("Funcionário Desativado com sucesso!");
               setUsers(prevUsers =>
                 prevUsers.map(user =>
                   user.id === id
@@ -93,7 +94,7 @@ export const useGerenciarUser = () => {
               );
             }
           } catch (error) {
-            console.error('Erro ao alternar status do usuário', error);
+            handleError("Erro ao excecutar ativação/desativação do usuário: "+ error)
           }
         };
       

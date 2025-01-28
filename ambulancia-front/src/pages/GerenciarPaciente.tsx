@@ -46,7 +46,6 @@ const GerenciarPaciente = () => {
     onDelete={handleDeletePaciente}
     onViewTelefones={handleViewTelefones}
     onViewEnderecos={handleViewEnderecos}
-    setPacientes={setPacientes}
   />
 
   {/* Modal para edição */}
