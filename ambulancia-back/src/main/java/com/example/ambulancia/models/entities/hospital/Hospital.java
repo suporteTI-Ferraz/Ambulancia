@@ -2,7 +2,6 @@ package com.example.ambulancia.models.entities.hospital;
 import java.util.List;
 
 import com.example.ambulancia.models.entities.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;

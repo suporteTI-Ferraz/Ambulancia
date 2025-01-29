@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.ambulancia.models.entities.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
