@@ -28,7 +28,7 @@ public class Veiculo extends BaseEntity {
     @Column(nullable = false)
     private String placaVeic;
     @Column(nullable = false)
-    private Double kilometragem; 
+    private Double quilometragem; 
     @Column(nullable = false)
     private String classe;
     
