@@ -1,0 +1,58 @@
+package com.example.ambulancia.models.entities.agenda;
+
+import java.time.LocalTime;
+import java.util.List;
+
+import com.example.ambulancia.models.entities.BaseEntity;
+import com.example.ambulancia.models.entities.hospital.Hospital;
+import com.example.ambulancia.models.entities.motorista.Motorista;
+import com.example.ambulancia.models.entities.paciente.Paciente;
+import com.example.ambulancia.models.entities.user.User;
+import com.example.ambulancia.models.entities.veiculo.Veiculo;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import jakarta.persistence.*;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+@Entity
+@Table(name = "agendamentos")
+public class Agendamento extends BaseEntity {
+    private String servico;
+    private LocalTime horario;
+
+    @ManyToOne(optional = false) // Cada agendamento pertence a um dia específico
+    @JoinColumn(name = "agenda_id", nullable = false)
+    private Agenda agenda;
+
+    @ManyToOne(optional = false) // Um usuário cadastra o agendamento
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(optional = false) // Um motorista por agendamento
+    @JoinColumn(name = "motorista_id", nullable = false)
+    private Motorista motorista;
+
+    @ManyToOne(optional = false) // Um veículo por agendamento
+    @JoinColumn(name = "veiculo_id", nullable = false)
+    private Veiculo veiculo;
+
+    @ManyToOne(optional = false) // Um hospital por agendamento
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private Hospital hospital;
+
+    @ManyToMany // Vários pacientes podem estar no mesmo agendamento
+    @JoinTable(
+        name = "agendamento_pacientes",
+        joinColumns = @JoinColumn(name = "agendamento_id"),
+        inverseJoinColumns = @JoinColumn(name = "paciente_id")
+    )
+    private List<Paciente> pacientes;
+}

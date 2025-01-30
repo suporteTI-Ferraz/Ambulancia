@@ -1,5 +1,7 @@
 package com.example.ambulancia.models.entities.agenda;
 
+import java.time.LocalDate;
+
 import com.example.ambulancia.models.entities.BaseEntity;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +21,7 @@ import lombok.Builder;
 @Entity
 @Table
 public class Agenda extends BaseEntity {
-    private String dataAgenda;
+    private LocalDate dataAgenda;
     @Builder.Default
     private Boolean diaFinalizado = false;
 }
