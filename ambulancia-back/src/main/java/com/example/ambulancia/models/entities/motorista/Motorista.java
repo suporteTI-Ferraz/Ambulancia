@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.ambulancia.models.entities.BaseEntity;
 import com.example.ambulancia.models.entities.agenda.Agendamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +30,7 @@ public class Motorista extends BaseEntity {
     private String nomeMotorista;
 
     // Inicializa a lista de agendamentos como uma lista vazia
+    @JsonIgnore
     @Builder.Default
     @OneToMany(mappedBy = "motorista")
     private List<Agendamento> agendamentos = new ArrayList<>();

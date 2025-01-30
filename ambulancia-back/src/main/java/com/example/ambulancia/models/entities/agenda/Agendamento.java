@@ -1,5 +1,6 @@
 package com.example.ambulancia.models.entities.agenda;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import com.example.ambulancia.models.entities.motorista.Motorista;
 import com.example.ambulancia.models.entities.paciente.Paciente;
 import com.example.ambulancia.models.entities.user.User;
 import com.example.ambulancia.models.entities.veiculo.Veiculo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +28,8 @@ import jakarta.persistence.*;
 @Table(name = "agendamentos")
 public class Agendamento extends BaseEntity {
     private String servico;
-    private LocalTime horario;
+    private LocalTime horarioInic;
+    private LocalTime horarioFim;
 
     @ManyToOne(optional = false) // Cada agendamento pertence a um dia específico
     @JoinColumn(name = "agenda_id", nullable = false)
@@ -55,4 +58,16 @@ public class Agendamento extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "paciente_id")
     )
     private List<Paciente> pacientes;
+
+    //Método para juntar o dia de Agenda + a horaInic de Agendamento
+    @JsonIgnore
+        public LocalDateTime getDataHoraInicio() {
+        return LocalDateTime.of(agenda.getDataAgenda(), horarioInic);
+    }
+
+      //Método para juntar o dia de Agenda + a horaFim de Agendamento
+    @JsonIgnore
+    public LocalDateTime getDataHoraFim() {
+        return LocalDateTime.of(agenda.getDataAgenda(), horarioFim);
+    }
 }

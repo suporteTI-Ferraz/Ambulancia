@@ -47,8 +47,9 @@ public class Paciente extends BaseEntity {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TelefonePac> telefones = new ArrayList<>();
 
-    @JsonIgnore
     // Mapeamento de muitos para muitos com agendamento
+    @JsonIgnore
+    @Builder.Default
     @ManyToMany(mappedBy = "pacientes")
-    private List<Agendamento> agendamentos;
+    private List<Agendamento> agendamentos = new ArrayList<>();
 }

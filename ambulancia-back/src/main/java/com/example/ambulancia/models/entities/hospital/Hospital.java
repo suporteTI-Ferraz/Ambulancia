@@ -2,6 +2,9 @@ package com.example.ambulancia.models.entities.hospital;
 import java.util.List;
 
 import com.example.ambulancia.models.entities.BaseEntity;
+import com.example.ambulancia.models.entities.agenda.Agendamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;
@@ -28,4 +31,9 @@ public class Hospital extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EnderecoHosp> enderecos = new ArrayList<>();
+
+    @JsonIgnore
+    @Builder.Default
+    @OneToMany(mappedBy = "hospital")
+    private List<Agendamento> agendamentos = new ArrayList<>();
 }

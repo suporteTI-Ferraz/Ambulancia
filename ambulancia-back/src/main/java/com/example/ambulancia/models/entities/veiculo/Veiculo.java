@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.ambulancia.models.entities.BaseEntity;
+import com.example.ambulancia.models.entities.agenda.Agendamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,5 +41,10 @@ public class Veiculo extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Multa> multas = new ArrayList<>();
+
+    @JsonIgnore
+    @Builder.Default
+    @OneToMany(mappedBy = "veiculo")
+    private List<Agendamento> agendamentos = new ArrayList<>();
 
 }
