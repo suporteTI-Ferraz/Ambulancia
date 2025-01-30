@@ -67,49 +67,46 @@ const HospitalList: React.FC<HospitalListProps> = ({ hospitais, onEdit, onViewEn
             </tr>
           </thead>
           <tbody>
-            {sortedHospitais.map((hospital) => (
-              <tr key={hospital.id} style={{ backgroundColor: hospital.deletedAt ? '#ffcccc' : 'white' }}>
-                <td><DataCriacao createdAt={hospital.createdAt} /></td>
-                <td>{hospital.nomeHosp}</td>
-                  {hospital.enderecos.map((endereco) => (
-                    <div key={endereco.id}>
-                        <td>{endereco.cepHosp}</td>
-                        <td>{endereco.estadoHosp}</td>
-                        <td>{endereco.ruaHosp}</td>
-                        <td>{endereco.bairroHosp}</td>
-                        <td>{endereco.numeroHosp}</td>
-                    </div>
-                  ))}
-                <td>{hospital.deletedAt ? 'Desativado' : 'Ativo'}</td>
-                <td>
-                <div className="icon-container">
-                  <FiEdit 
-                  className="icon-action edit" 
-                  title="Editar" 
-                  onClick={() => onEdit(hospital)} />
-                  <FaMapLocationDot
-                  className="icon-action endereco" 
-                    title="Visualizar Endereços"
-                    onClick={() => onViewEnderecos(hospital)}
-                  />
-                  {hospital.deletedAt ? (
-                    <FiRefreshCw
-                      className="icon-action reactivate"
-                      title="Reativar"
-                      onClick={() => onDelete(hospital.id, hospital.deletedAt)}
-                    />
-                  ) : (
-                    <FiTrash
-                      className="icon-action delete"
-                      title="Desativar"
-                      onClick={() => onDelete(hospital.id, null)}
-                    />
-                  )}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+  {sortedHospitais.map((hospital) => (
+    <tr key={hospital.id} style={{ backgroundColor: hospital.deletedAt ? '#ffcccc' : 'white' }}>
+      <td><DataCriacao createdAt={hospital.createdAt} /></td>
+      <td>{hospital.nomeHosp}</td>
+      <td>{hospital.enderecos.map((endereco) => endereco.cepHosp).join(", ")}</td>
+      <td>{hospital.enderecos.map((endereco) => endereco.estadoHosp).join(", ")}</td>
+      <td>{hospital.enderecos.map((endereco) => endereco.ruaHosp).join(", ")}</td>
+      <td>{hospital.enderecos.map((endereco) => endereco.bairroHosp).join(", ")}</td>
+      <td>{hospital.enderecos.map((endereco) => endereco.numeroHosp).join(", ")}</td>
+      <td>{hospital.deletedAt ? 'Desativado' : 'Ativo'}</td>
+      <td>
+        <div className="icon-container">
+          <FiEdit 
+            className="icon-action edit" 
+            title="Editar" 
+            onClick={() => onEdit(hospital)} 
+          />
+          <FaMapLocationDot
+            className="icon-action endereco" 
+            title="Visualizar Endereços"
+            onClick={() => onViewEnderecos(hospital)}
+          />
+          {hospital.deletedAt ? (
+            <FiRefreshCw
+              className="icon-action reactivate"
+              title="Reativar"
+              onClick={() => onDelete(hospital.id, hospital.deletedAt)}
+            />
+          ) : (
+            <FiTrash
+              className="icon-action delete"
+              title="Desativar"
+              onClick={() => onDelete(hospital.id, null)}
+            />
+          )}
+        </div>
+      </td>
+    </tr>
+  ))}
+</tbody>
         </table>
       </div>
     );

@@ -17,7 +17,9 @@ const Dashboard = () => {
     navigate("/gerenciar-motoristas")
   }
 
-  
+  const handleHospitalRoute = () =>{
+    navigate("/gerenciar-hospitais")
+  }
   const handleVeiculoRoute = () =>{
     navigate("/gerenciar-ambulancias")
   }
@@ -46,7 +48,7 @@ const Dashboard = () => {
         <div className="card">
           <FaHospital size={60} />
           <h3>Hospitais</h3>
-          <button onClick={() => alert("Gerenciar hospital")}>Gerenciar</button>
+          <button onClick={handleHospitalRoute}>Gerenciar</button>
         </div>
         <div className="card">
           <FaAmbulance size={60} />
