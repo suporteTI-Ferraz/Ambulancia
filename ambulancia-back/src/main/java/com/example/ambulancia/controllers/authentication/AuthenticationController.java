@@ -73,11 +73,14 @@ return ResponseEntity.created(uri).body(user);
             HttpServletResponse httpResponse
     ) {
         AuthenticationResponse authenticationResponse = service.authenticate(request);
-
         Cookie tokenCookie = new Cookie("token", authenticationResponse.getAccessToken());
         tokenCookie.setHttpOnly(true); // Set HttpOnly flag
         tokenCookie.setPath("/"); // Set cookie path as needed
+        tokenCookie.setMaxAge(3600); // Set max age (optional)
+        tokenCookie.setSecure(true); // Ensure cookie is sent over HTTPS
+        tokenCookie.setDomain("192.168.100.196"); // Set domain if needed (optional)
         httpResponse.addCookie(tokenCookie);
+        
 
 
         return ResponseEntity.ok(authenticationResponse);
