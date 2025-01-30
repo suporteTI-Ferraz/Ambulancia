@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
-import { buscaCepPaciente } from "../../services/others/ViaCepService";
+import { EnderecoHosp } from "../../types/hospital/EnderecoHospType";
+import { buscaCepHosp } from "../../services/others/ViaCepService";
 import { Spinner } from "reactstrap";
 interface EnderecoFormProps {
-  onEnderecosChange: (enderecos: EnderecoPac[]) => void; // Callback para alterações
+  onEnderecosChange: (enderecos: EnderecoHosp[]) => void; // Callback para alterações
   resetEnderecos?: boolean; // Flag para resetar endereços
   isModal: Boolean; //Estiliza o botão de adicionar endereços inline se for modal
-  enderecosIniciais?: EnderecoPac[];
+  enderecosIniciais?: EnderecoHosp[];
 }
 
-const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModal, resetEnderecos,   enderecosIniciais = [],}) =>{
-    const [localEnderecos, setLocalEnderecos] = useState<EnderecoPac[]>([{
+const EnderecoHospForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModal, resetEnderecos,   enderecosIniciais = [],}) =>{
+    const [localEnderecos, setLocalEnderecos] = useState<EnderecoHosp[]>([{
       id: 0,
-      ruaPac: "",
-      bairroPac: "",
-      cidadePac: "",
-      estadoPac: "",
-      cepPac: "",
-      numeroPac: "",
-      complementoPac: "",
+      ruaHosp: "",
+      bairroHosp: "",
+      cidadeHosp: "",
+      estadoHosp: "",
+      cepHosp: "",
+      numeroHosp: "",
       deletedAt: null
     }]);
-    const [isEditPaciente, setIsEditPaciente] = useState<boolean>(false);
+    const [isEditHospital, setIsEditHospital] = useState<boolean>(false);
     const [isCepLoading, setIsCepLoading] = useState<boolean[]>([]); //Variável para cuidar do load do cep (api ViaCep)
 
 
@@ -29,7 +28,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
       // Inicializar com os endereços existentes, se houver
       if (enderecosIniciais.length > 0) {
         setLocalEnderecos(enderecosIniciais);
-        setIsEditPaciente(true);
+        setIsEditHospital(true);
       }
     }, [enderecosIniciais]);
 
@@ -39,13 +38,12 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
           if (resetEnderecos) {
             setLocalEnderecos([{
               id: 0,
-              ruaPac: "",
-              bairroPac: "",
-              cidadePac: "",
-              estadoPac: "",
-              cepPac: "",
-              numeroPac: "",
-              complementoPac: "",
+              ruaHosp: "",
+              bairroHosp: "",
+              cidadeHosp: "",
+              estadoHosp: "",
+              cepHosp: "",
+              numeroHosp: "",
               deletedAt: null
             }]);
             setIsCepLoading([])
@@ -55,13 +53,12 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
 
         const handleAddEnderecos = () => {
           const novoEndereco = { id: localEnderecos.length,
-            ruaPac: "",
-            bairroPac: "",
-            cidadePac: "",
-            estadoPac: "",
-            cepPac: "",
-            numeroPac: "",
-            complementoPac: "",
+            ruaHosp: "",
+            bairroHosp: "",
+            cidadeHosp: "",
+            estadoHosp: "",
+            cepHosp: "",
+            numeroHosp: "",
             deletedAt: null };
           const updatedEnderecos = [...localEnderecos, novoEndereco];
           setLocalEnderecos(updatedEnderecos);
@@ -69,11 +66,11 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
           onEnderecosChange(updatedEnderecos);
         };
 
-        const handleEnderecosChange = async (index: number, field: keyof EnderecoPac, value: string) => {
+        const handleEnderecosChange = async (index: number, field: keyof EnderecoHosp, value: string) => {
           let formattedValue = value;
         
           // Aplica máscara ao CEP (formato: 00000-000)
-          if (field === "cepPac") {
+          if (field === "cepHosp") {
             formattedValue = value.replace(/\D/g, ""); // Remove caracteres não numéricos
             if (formattedValue.length > 5) {
               formattedValue = formattedValue.replace(/^(\d{5})(\d)/, "$1-$2");
@@ -88,12 +85,12 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
           onEnderecosChange(updatedEnderecos);
         
           // Busca endereço automaticamente se o campo alterado for CEP e tiver 8 dígitos
-          if (field === "cepPac" && value.replace(/\D/g, "").length === 8) {
+          if (field === "cepHosp" && value.replace(/\D/g, "").length === 8) {
             const newLoadingState = [...isCepLoading]; //Os três pontos servem para dizer que esse objeto é difernete, para não apontar para a mesma memória!!!
             newLoadingState[index] = true; //Adiciona o estado de load para o índice atual
             setIsCepLoading(newLoadingState); // Ativa o spinner para o índice atual
             try {
-              const enderecoAuto = await buscaCepPaciente(value.replace(/\D/g, ""));
+              const enderecoAuto = await buscaCepHosp(value.replace(/\D/g, ""));
               if (enderecoAuto) {
                 const enderecosCompletados = updatedEnderecos.map((endereco, i) =>
                   i === index ? { ...endereco, ...enderecoAuto } : endereco
@@ -130,47 +127,47 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
   <label>CEP</label>
     <input
       type="text"
-      value={endereco.cepPac}
-      onChange={(e) => handleEnderecosChange(index, "cepPac", e.target.value)}
+      value={endereco.cepHosp}
+      onChange={(e) => handleEnderecosChange(index, "cepHosp", e.target.value)}
       maxLength={9} // Limita o tamanho do campo ao formato 00000-000
     />
 
 
 </div>
+<div>
+                  <label>Cidade</label>
+                  <input
+                    type="text"
+                    value={endereco.cidadeHosp}
+                    onChange={(e) => handleEnderecosChange(index, "cidadeHosp", e.target.value)}
+                  />
+                </div>
                 <div>
                   <label>Rua</label>
                   <input
                     type="text"
-                    value={endereco.ruaPac}
-                    onChange={(e) => handleEnderecosChange(index, "ruaPac", e.target.value)}
+                    value={endereco.ruaHosp}
+                    onChange={(e) => handleEnderecosChange(index, "ruaHosp", e.target.value)}
                   />
                 </div>
                 <div>
                   <label>Bairro</label>
                   <input
                     type="text"
-                    value={endereco.bairroPac}
-                    onChange={(e) => handleEnderecosChange(index, "bairroPac", e.target.value)}
+                    value={endereco.bairroHosp}
+                    onChange={(e) => handleEnderecosChange(index, "bairroHosp", e.target.value)}
                   />
                 </div>
-                <div>
-                  <label>Complemento</label>
-                  <input
-                    type="text"
-                    placeholder="(EX: Casa, Bloco, Apartamento)"
-                    value={endereco.complementoPac}
-                    onChange={(e) => handleEnderecosChange(index, "complementoPac", e.target.value)}
-                  />
-                </div>
+              
                 <div>
                   <label>Número</label>
                   <input
                     type="number"
-                    value={endereco.numeroPac}
-                    onChange={(e) => handleEnderecosChange(index, "numeroPac", e.target.value)}
+                    value={endereco.numeroHosp}
+                    onChange={(e) => handleEnderecosChange(index, "numeroHosp", e.target.value)}
                   />
                 </div>
-                {!isEditPaciente && index > 0 && (
+                {!isEditHospital && index > 0 && (
                 <button type="button" onClick={() => handleRemoveEndereco(index)}>
                   Remover
                 </button>
@@ -178,7 +175,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
               </div>
               
             ))}
-            {!isEditPaciente && (
+            {!isEditHospital && (
             <button 
             type="button" 
             className="btn-add" 
@@ -192,4 +189,4 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
 
 };
 
-export default EnderecoPacForm;
+export default EnderecoHospForm;
