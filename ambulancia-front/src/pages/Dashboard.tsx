@@ -1,4 +1,4 @@
-import { FaUser, FaHeartbeat, FaUserNurse, FaAmbulance, FaHospital  } from "react-icons/fa"; // Ícones para funcionários, motoristas, pacientes
+import { FaUser, FaHeartbeat, FaUserNurse, FaAmbulance, FaHospital, FaCalendarAlt  } from "react-icons/fa"; // Ícones para funcionários, motoristas, pacientes
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
@@ -22,6 +22,11 @@ const Dashboard = () => {
   }
   const handleVeiculoRoute = () =>{
     navigate("/gerenciar-ambulancias")
+  }
+
+  const handleAgendarDiaRoute = () =>{
+    navigate("/gerenciar-agendamentos/")
+
   }
 
   return (
@@ -54,6 +59,12 @@ const Dashboard = () => {
           <FaAmbulance size={60} />
           <h3>Ambulâncias</h3>
           <button onClick={handleVeiculoRoute}>Gerenciar</button>
+        </div>
+
+        <div className="card">
+          <FaCalendarAlt size={60} />
+          <h3>Agendamentos</h3>
+          <button onClick={handleAgendarDiaRoute}>Gerenciar</button>
         </div>
  
 

@@ -11,6 +11,8 @@ import GerenciarPaciente from '../pages/GerenciarPaciente';
 import GerenciarMotorista from '../pages/GerenciarMotorista';
 import GerenciarVeiculo from '../pages/GerenciarVeiculo';
 import GerenciarHospital from '../pages/GerenciarHospital';
+import GerenciarAgendarDia from '../pages/GerenciarAgendarDia';
+import GerenciarAgendamento from '../pages/GerenciarAgendamento';
 const AppRoutes: React.FC = () => {
   return (
     <Router>
@@ -29,6 +31,9 @@ const AppRoutes: React.FC = () => {
           <Route path="/gerenciar-motoristas" element={<><PageTitle /><GerenciarMotorista /></>} />
           <Route path="/gerenciar-ambulancias" element={<><PageTitle /><GerenciarVeiculo /></>} />
           <Route path="/gerenciar-hospitais" element={<><PageTitle /><GerenciarHospital /></>} />
+          <Route path="/gerenciar-agendamentos/:agendaId" element={<><PageTitle /><GerenciarAgendamento /></>} />
+          <Route path="/gerenciar-agendamentos" element={<><PageTitle /><GerenciarAgendarDia /></>} />
+
 
         </Route>
 

@@ -1,14 +1,16 @@
 package com.example.ambulancia.controllers.agenda;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import com.example.ambulancia.models.entities.agenda.Agendamento;
 import com.example.ambulancia.services.agenda.AgendamentoService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import com.example.ambulancia.services.agenda.requests.AgendamentoRequestDTO;
 import com.example.ambulancia.services.authentication.AuthenticationService;
 
@@ -23,6 +25,13 @@ public class AgendamentoController {
     private AgendamentoService service;
     @Autowired
     AuthenticationService authenticationService;
+
+    @GetMapping
+    public ResponseEntity<List<Agendamento>> findAll(){
+        List<Agendamento> list = service.findAll();
+        return ResponseEntity.ok().body(list);
+        
+    }
 
     @PostMapping
     public ResponseEntity<Agendamento> createAgendamento(@RequestBody AgendamentoRequestDTO dto, HttpServletRequest request) {

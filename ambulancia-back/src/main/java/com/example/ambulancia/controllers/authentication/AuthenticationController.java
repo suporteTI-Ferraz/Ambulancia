@@ -66,26 +66,23 @@ URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAn
 return ResponseEntity.created(uri).body(user);
 }
 
+@PostMapping("/authenticate")
+public ResponseEntity<AuthenticationResponse> authenticate(
+        @RequestBody AuthenticationRequest request,
+        HttpServletResponse httpResponse
+) {
+    AuthenticationResponse authenticationResponse = service.authenticate(request);
 
- @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request,
-            HttpServletResponse httpResponse
-    ) {
-        AuthenticationResponse authenticationResponse = service.authenticate(request);
-        Cookie tokenCookie = new Cookie("token", authenticationResponse.getAccessToken());
-        tokenCookie.setHttpOnly(true); // Set HttpOnly flag
-        tokenCookie.setPath("/"); // Set cookie path as needed
-        tokenCookie.setMaxAge(3600); // Set max age (optional)
-        tokenCookie.setSecure(true); // Ensure cookie is sent over HTTPS
-        tokenCookie.setDomain("192.168.100.196"); // Set domain if needed (optional)
-        httpResponse.addCookie(tokenCookie);
-        
+    Cookie tokenCookie = new Cookie("token", authenticationResponse.getAccessToken());
+    tokenCookie.setHttpOnly(true); // Protege contra acesso via JavaScript
+    tokenCookie.setSecure(true); // Precisa estar true se usar HTTPS, mas pode ser false em dev
+    tokenCookie.setPath("/"); // Torna acessível em toda a API
+    tokenCookie.setAttribute("SameSite", "None"); // Permite envio entre diferentes domínios
 
+    httpResponse.addCookie(tokenCookie);
 
-        return ResponseEntity.ok(authenticationResponse);
-    }
-
+    return ResponseEntity.ok(authenticationResponse);
+}
     @GetMapping("/check")
 public ResponseEntity<Void> checkAuthentication(HttpServletRequest request) {
     Cookie[] cookies = request.getCookies();

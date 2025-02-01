@@ -10,19 +10,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/moment": "^2.13.0",
+    "@types/react-transition-group": "^4.4.12",
     "ambulancia-front": "file:",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "date-fns": "^4.1.0",
     "react": "^18.3.1",
     "react-big-calendar": "^1.17.1",
+    "react-datepicker": "^7.6.0",
     "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
     "react-router-dom": "^7.1.1",
+    "react-select": "^5.10.0",
     "react-toastify": "^11.0.3",
     "reactstrap": "^9.2.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
+    "@types/parse-json": "^4.0.2",
     "@types/react": "^18.3.18",
     "@types/react-big-calendar": "^1.16.1",
     "@types/react-dom": "^18.3.5",
