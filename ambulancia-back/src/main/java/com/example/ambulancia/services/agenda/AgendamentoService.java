@@ -1,11 +1,10 @@
 package com.example.ambulancia.services.agenda;
 
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.ambulancia.models.entities.agenda.Agenda;
 import com.example.ambulancia.models.entities.agenda.Agendamento;
@@ -14,13 +13,13 @@ import com.example.ambulancia.models.entities.motorista.Motorista;
 import com.example.ambulancia.models.entities.paciente.Paciente;
 import com.example.ambulancia.models.entities.user.User;
 import com.example.ambulancia.models.entities.veiculo.Veiculo;
-import com.example.ambulancia.repositories.agenda.AgendamentoRepository;
 import com.example.ambulancia.repositories.agenda.AgendaRepository;
-import com.example.ambulancia.repositories.user.UserRepository;
-import com.example.ambulancia.repositories.motorista.MotoristaRepository;
-import com.example.ambulancia.repositories.veiculo.VeiculoRepository;
+import com.example.ambulancia.repositories.agenda.AgendamentoRepository;
 import com.example.ambulancia.repositories.hospital.HospitalRepository;
+import com.example.ambulancia.repositories.motorista.MotoristaRepository;
 import com.example.ambulancia.repositories.paciente.PacienteRepository;
+import com.example.ambulancia.repositories.user.UserRepository;
+import com.example.ambulancia.repositories.veiculo.VeiculoRepository;
 
 
 
@@ -80,6 +79,25 @@ public class AgendamentoService {
         // Salva no banco
         return repository.save(agendamento);
     }
+
+
+        // Método para remover um paciente de um agendamento
+        public Agendamento removePacienteFromAgendamento(Long agendamentoId, Long pacienteId) {
+            // Encontra o agendamento pelo ID
+            Agendamento agendamento = repository.findById(agendamentoId)
+                .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
+    
+            // Encontra o paciente pelo ID
+            Paciente paciente = pacienteRepository.findById(pacienteId)
+                .orElseThrow(() -> new RuntimeException("Paciente não encontrado"));
+    
+            // Remove o paciente da lista de pacientes
+            agendamento.getPacientes().remove(paciente);
+    
+            // Atualiza o agendamento no banco
+            return repository.save(agendamento);
+        }
+        
 }
 
 
