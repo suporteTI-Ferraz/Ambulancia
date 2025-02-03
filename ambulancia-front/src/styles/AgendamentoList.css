@@ -1,0 +1,125 @@
+.agendamento-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+
+
+.agendamento-list table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .agendamento-list  thead {
+    background-color: #f4f4f4;
+  }
+
+  .agendamento-list  th, td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    color: black;
+  }
+  .agendamento-list td {
+    white-space: normal; /* Permite quebra de linha */
+    word-break: break-word; /* Quebra as palavras longas */
+  }
+
+.agendamento-list label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+  }
+
+.agendamento-list input,
+  select,
+  option {
+    color: black;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  .agendamento-list table {
+    text-align: center;
+  }
+  
+  .agendamento-list td, .agendamento-list th {
+    vertical-align: middle;
+  }
+  
+  /* Ajuste de largura mínima */
+  .agendamento-list th, .agendamento-list td {
+    min-width: 100px;
+  }
+  
+  .agendamento-list td:last-child {
+    min-width: 150px;
+  }
+  
+  
+  .agendamento-list th {
+    font-weight: bold;
+  }
+  
+  .agendamento-list  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .agendamento-list  tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .agendamento-list button {
+    margin-right: 5px;
+  }
+
+
+
+  
+  .gerenciar .forms-sec-container label {
+    display: block; /* Faz com que as labels fiquem em cima dos inputs */
+    margin-bottom: 5px; /* Espaço entre a label e o input */
+  }
+  
+  .gerenciar .forms-sec-container input {
+    width: 100%; /* Os inputs ocupam toda a largura da célula */
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+
+  .agendamento-list td.pacientes-list {
+    text-align: left;
+    padding: 10px;
+  }
+  
+  .agendamento-list td.pacientes-list div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .agendamento-list td.pacientes-list div:last-child {
+    border-bottom: none;
+  }
+  
+  .agendamento-list td.pacientes-list button {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 14px;
+    cursor: pointer;
+  }

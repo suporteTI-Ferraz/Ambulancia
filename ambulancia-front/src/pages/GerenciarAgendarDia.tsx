@@ -1,9 +1,11 @@
 import useGerenciarAgenda from "../hooks/useGerenciarAgenda";
 import AgendaComponent from "../components/agenda/AgendarDiaComponent";
-import useGerenciarUser from "../hooks/useGerenciarUser";
+import useGerenciarAgendamento from "../hooks/useGerenciarAgendamento";
+import CalendarioComponent from "../components/agenda/CalendarioComponent";
 
 const GerenciarAgendarDia = () => {
   const { agendas, selectedDate, setSelectedDate, handleCreateAgenda } = useGerenciarAgenda();
+  const {agendamentos} = useGerenciarAgendamento();
   
   return (
     <div>
@@ -13,6 +15,8 @@ const GerenciarAgendarDia = () => {
         onSelected={setSelectedDate}
         onSave={handleCreateAgenda}
       />
+      <CalendarioComponent agendamentos={agendamentos}/>
+
     </div>
   );
 };

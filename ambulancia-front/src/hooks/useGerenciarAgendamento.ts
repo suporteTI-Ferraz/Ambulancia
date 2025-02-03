@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Agendamento, CreateAgendamentoDTO } from "../types/agenda/Agendamento";
 import { fetchAgendamento, createAgendamento } from "../services/api/AgendamentoService";
-import { createAgenda, fetchAgenda } from "../services/api/AgendamentoService";
 import { useToast } from "./useToast";
 import { useLoading } from "../contexts/LoadingContext";
 
@@ -32,7 +31,7 @@ const useGerenciarAgendamento = () => {
 
     
 
-        const handleCreateAgendamento = async (dto: CreateAgendamentoDTO): Promise<Agendamento | null> => {
+        const handleCreateAgendamento = async (dto: CreateAgendamentoDTO) => {
           setLoading(true);
           try {
             // Constrói o objeto que será enviado para o backend.
@@ -40,8 +39,9 @@ const useGerenciarAgendamento = () => {
           
       
             const response = await createAgendamento(dto);
+            const createdAgendamento = response.data;
+            setAgendamentos(prevAgendamentos => [...prevAgendamentos, createdAgendamento]);
             handleSuccess("Agendamento criado com sucesso!");
-            return response.data;
           } catch (error) {
             handleError("Erro ao criar agendamento: " + error);
             return null;

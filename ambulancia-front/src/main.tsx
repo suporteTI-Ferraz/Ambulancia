@@ -11,6 +11,8 @@ import './styles/IconStyle.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import './styles/AgendamentoForm.css'
+import './styles/AgendamentoList.css'
 
 
 import Header from './components/Header.tsx'

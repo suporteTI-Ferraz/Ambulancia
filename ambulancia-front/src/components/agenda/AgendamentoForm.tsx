@@ -41,7 +41,7 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
   };
 
   return (
-    <div style={{ display: "flex", gap: "20px" }}>
+    <div className="agendamento-form">
       {/* Formulário */}
       <form onSubmit={handleSubmit} style={{ width: "40%" }}>
         <h2>Criar Agendamento</h2>
@@ -77,12 +77,14 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
           onChange={(opt) => setFormData({ ...formData, hospitalId: opt?.value || 0 })}
         />
 
-        <label>Pacientes:</label>
-        <Select 
-          options={pacientes.map(p => ({ value: p.id, label: `${p.nomePaciente} - ${p.cpf}` }))}
-          isMulti
-          onChange={(opts) => setFormData({ ...formData, pacientesIds: opts.map(opt => opt.value) })}
-        />
+<label>Pacientes:</label>
+<Select 
+  options={pacientes.map(p => ({ value: p.id, label: `${p.nomePaciente} - ${p.cpf}` }))} 
+  isMulti
+  className="pacientes-select"
+  placeholder="Selecione um ou mais pacientes..."
+  onChange={(opts) => setFormData({ ...formData, pacientesIds: opts.map(opt => opt.value) })}
+/>
 
         <button type="submit">Criar Agendamento</button>
       </form>

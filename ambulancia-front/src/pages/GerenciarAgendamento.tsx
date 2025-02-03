@@ -8,7 +8,6 @@ import { useGerenciarMotorista } from "../hooks/useGerenciarMotorista";
 import useGerenciarHospital from "../hooks/useGerenciarHospital";
 import useGerenciarVeiculo from "../hooks/useGerenciarVeiculo";
 import useGerenciarAgendamento from "../hooks/useGerenciarAgendamento";
-import CalendarioComponent from "../components/agenda/CalendarioComponent";
 
 const GerenciarAgendamento: React.FC = () => {
   const { agendaId } = useParams<{ agendaId: string }>();
@@ -22,7 +21,7 @@ const GerenciarAgendamento: React.FC = () => {
     <div>
     {agendaId ? (
       // Se o parâmetro existe, renderiza o formulário para criar ou gerenciar o agendamento.
-      <div>
+      <div >
         <AgendamentoForm
           pacientes={pacientes}
           motoristas={motoristas}
@@ -31,7 +30,6 @@ const GerenciarAgendamento: React.FC = () => {
           onSave={handleCreateAgendamento}
         />
         <AgendamentoList agendamentos={agendamentos} />
-        <CalendarioComponent agendamentos={agendamentos}/>
       </div>
     ) : (
       <div>Deu ruim</div>
