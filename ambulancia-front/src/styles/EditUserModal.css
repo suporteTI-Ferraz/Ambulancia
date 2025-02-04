@@ -1,6 +1,7 @@
 /* Modal personalizado */
 .gerenciar  .custom-modal {
-  max-width: 500px;
+  max-width: 900px;
+  min-width: 400px;
   margin: 0 auto;
   border-radius: 8px;
   background-color:rgb(224, 15, 15);

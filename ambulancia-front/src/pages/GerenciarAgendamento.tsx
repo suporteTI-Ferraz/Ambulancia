@@ -8,10 +8,12 @@ import { useGerenciarMotorista } from "../hooks/useGerenciarMotorista";
 import useGerenciarHospital from "../hooks/useGerenciarHospital";
 import useGerenciarVeiculo from "../hooks/useGerenciarVeiculo";
 import useGerenciarAgendamento from "../hooks/useGerenciarAgendamento";
+import { Modal, ModalBody, ModalHeader } from "reactstrap";
+import EditAgendamentoForm from "../components/agenda/EditAgendamentoForm";
 
 const GerenciarAgendamento: React.FC = () => {
   const { agendaId } = useParams<{ agendaId: string }>();
-  const { agendamentos, handleCreateAgendamento } = useGerenciarAgendamento();
+  const { agendamentos, editingAgendamento, isEditModalOpen, handleCreateAgendamento, handleEdit, toggleEditModal } = useGerenciarAgendamento();
   const { pacientes } = useGerenciarPaciente();
   const { motoristas } = useGerenciarMotorista();
   const { hospitais} = useGerenciarHospital();
@@ -21,7 +23,7 @@ const GerenciarAgendamento: React.FC = () => {
     <div>
     {agendaId ? (
       // Se o parâmetro existe, renderiza o formulário para criar ou gerenciar o agendamento.
-      <div >
+      <div > 
         <AgendamentoForm
           pacientes={pacientes}
           motoristas={motoristas}
@@ -29,7 +31,24 @@ const GerenciarAgendamento: React.FC = () => {
           veiculos={veiculos}
           onSave={handleCreateAgendamento}
         />
-        <AgendamentoList agendamentos={agendamentos} />
+        <AgendamentoList agendamentos={agendamentos}  onEdit={handleEdit}/>
+
+        <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar edit-agendamento-form">
+    <ModalHeader toggle={toggleEditModal}>Editar Agendamento</ModalHeader>
+    <ModalBody>
+      {editingAgendamento && (
+        <EditAgendamentoForm
+          agendamento={editingAgendamento}
+          pacientes={pacientes}
+          motoristas={motoristas}
+          hospitais={hospitais}
+          veiculos={veiculos}
+          onSave={handleCreateAgendamento}
+        />
+      )}
+    </ModalBody>
+  </Modal>
+
       </div>
     ) : (
       <div>Deu ruim</div>

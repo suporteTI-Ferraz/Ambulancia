@@ -1,0 +1,17 @@
+.edit-agendamento-form .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .edit-agendamento-form {
+    width: 90%; /* Permite que ele ocupe quase toda a largura disponível */
+    max-width: 1000px; /* Aumenta o tamanho máximo do formulário */
+    background-color: #f9f9f9;
+    padding: 30px; /* Adiciona mais espaço interno */
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  

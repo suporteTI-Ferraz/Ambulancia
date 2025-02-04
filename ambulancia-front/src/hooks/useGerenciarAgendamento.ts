@@ -8,6 +8,9 @@ import { useLoading } from "../contexts/LoadingContext";
 
 const useGerenciarAgendamento = () => {
     const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]); // Lista de Hospital
+      const [editingAgendamento, setEditingAgendamento] = useState<Agendamento | null>(null);
+      const [isEditModalOpen, setIsEditModalOpen] = useState(false); //Modal para editar o Hospital
+
     const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
     const { handleError, handleSuccess } = useToast();
 
@@ -28,7 +31,13 @@ const useGerenciarAgendamento = () => {
         loadAgendamentos();
       }, []); //Carrega só uma vez na construção do componente 
     
+      const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen); 
 
+      const handleEdit = (agendamento: Agendamento) => {
+          console.log("Agendamento selecionado para edição:", agendamento); // Debug
+          setEditingAgendamento(agendamento);
+          toggleEditModal();
+        };
     
 
         const handleCreateAgendamento = async (dto: CreateAgendamentoDTO) => {
@@ -50,6 +59,6 @@ const useGerenciarAgendamento = () => {
           }
         };
       
-        return { agendamentos, handleCreateAgendamento };
+        return { agendamentos, editingAgendamento, isEditModalOpen, handleCreateAgendamento, handleEdit, toggleEditModal, };
       };
 export default useGerenciarAgendamento;

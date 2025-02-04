@@ -5,9 +5,11 @@ import { useParams } from "react-router-dom";
 
 interface AgendamentoListProps {
   agendamentos: Agendamento[];
+  onEdit: (agendamento: Agendamento) => void;
+  
 }
 
-const AgendamentoList: React.FC<AgendamentoListProps> = ({ agendamentos }) => {
+const AgendamentoList: React.FC<AgendamentoListProps> = ({ agendamentos, onEdit }) => {
   const { agendaId } = useParams<{ agendaId: string }>();
   const agendamentosFiltrados = agendamentos.filter((agendamento) => agendamento.agenda.id === Number(agendaId));
 
@@ -71,11 +73,12 @@ const AgendamentoList: React.FC<AgendamentoListProps> = ({ agendamentos }) => {
               <td>{agendamento.veiculo.placaVeic}</td>
               <td>{agendamento.hospital.enderecos.map((endereco) => endereco.ruaHosp).join(", ")}</td>
               {/* Ícones de Ações */}
-              <FiEdit
-                className="icon-action edit"
-                title="Editar"
-                onClick={() => alert("Editando")}
-              />
+                {/* Ícones de Ações */}
+                           <FiEdit
+                             className="icon-action edit"
+                             title="Editar"
+                             onClick={() => onEdit(agendamento)}
+                           />
             </tr>
           ))}
         </tbody>

@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/AgendamentoForm.css'
 import './styles/AgendamentoList.css'
+import './styles/editAgendamentoModal.css'
 
 
 import Header from './components/Header.tsx'
