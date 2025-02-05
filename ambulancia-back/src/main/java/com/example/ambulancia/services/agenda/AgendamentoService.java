@@ -80,6 +80,46 @@ public class AgendamentoService {
         return repository.save(agendamento);
     }
 
+    public Agendamento updateAgendamento(Long id, Agendamento novoAgendamento, Long agendaId, Long userId, 
+                                     Long motoristaId, Long veiculoId, Long hospitalId, 
+                                     List<Long> pacientesIds) {
+    // Busca o agendamento no banco
+    Agendamento agendamento = repository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
+
+    // Atualiza os campos básicos
+    agendamento.setServico(novoAgendamento.getServico());
+    agendamento.setHorarioInic(novoAgendamento.getHorarioInic());
+    agendamento.setHorarioFim(novoAgendamento.getHorarioFim());
+
+    // Busca e atualiza os relacionamentos
+    Agenda agenda = agendaRepository.findById(agendaId)
+        .orElseThrow(() -> new RuntimeException("Agenda não encontrada"));
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    Motorista motorista = motoristaRepository.findById(motoristaId)
+        .orElseThrow(() -> new RuntimeException("Motorista não encontrado"));
+    Veiculo veiculo = veiculoRepository.findById(veiculoId)
+        .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+    Hospital hospital = hospitalRepository.findById(hospitalId)
+        .orElseThrow(() -> new RuntimeException("Hospital não encontrado"));
+
+    // Busca os pacientes
+    List<Paciente> pacientes = pacienteRepository.findAllById(pacientesIds);
+
+    // Atualiza as referências
+    agendamento.setAgenda(agenda);
+    agendamento.setUser(user);
+    agendamento.setMotorista(motorista);
+    agendamento.setVeiculo(veiculo);
+    agendamento.setHospital(hospital);
+    agendamento.setPacientes(pacientes);
+
+    // Salva e retorna o agendamento atualizado
+    return repository.save(agendamento);
+}
+
+
 
         // Método para remover um paciente de um agendamento
         public Agendamento removePacienteFromAgendamento(Long agendamentoId, Long pacienteId) {

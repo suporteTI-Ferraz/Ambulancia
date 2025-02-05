@@ -51,7 +51,7 @@ public class AgendamentoController {
         return ResponseEntity.ok(agendamentoCriado);
     }
 
-    @DeleteMapping("/{agendamentoId}/pacientes/{pacienteId}")
+    @DeleteMapping("/{agendamentoId}/paciente/{pacienteId}")
     public ResponseEntity<Agendamento> removePacienteFromAgendamento(
         @PathVariable Long agendamentoId, 
         @PathVariable Long pacienteId
