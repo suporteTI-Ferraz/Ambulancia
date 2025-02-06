@@ -8,8 +8,9 @@ export const fetchPacienteById = (id: number) => API.get(`/paciente/${id}`);
 export const createPaciente = (paciente: Paciente): Promise<AxiosResponse<Paciente>> => 
     API.post<Paciente>('/paciente', paciente);
 export const updatePaciente = (id: number, paciente: Paciente) => API.put(`/paciente/${id}`, paciente);
-export const deletePaciente = (id: number) => API.delete(`/paciente/${id}`);
-export const reactivatePaciente = (id: number) => API.patch(`/paciente/reactivate/${id}`);
+export const deletePaciente = (id: number, falecido: boolean) => 
+    API.delete(`/paciente/${id}?falecido=${falecido}`);
+  export const reactivatePaciente = (id: number) => API.patch(`/paciente/reactivate/${id}`);
 
 
 export const createManyTelPac = (id: number, list: TelefonePac[]): Promise<AxiosResponse<TelefonePac[]>> =>

@@ -13,7 +13,8 @@ import EditAgendamentoForm from "../components/agenda/EditAgendamentoForm";
 
 const GerenciarAgendamento: React.FC = () => {
   const { agendaId } = useParams<{ agendaId: string }>();
-  const { agendamentos, editingAgendamento, isEditModalOpen, handleCreateAgendamento, handleEdit, toggleEditModal } = useGerenciarAgendamento();
+  const { agendamentos, editingAgendamento, isEditModalOpen, 
+  handleCreateAgendamento, handleEdit, toggleEditModal, handleUpdateAgendamento } = useGerenciarAgendamento();
   const { pacientes } = useGerenciarPaciente();
   const { motoristas } = useGerenciarMotorista();
   const { hospitais} = useGerenciarHospital();
@@ -43,7 +44,7 @@ const GerenciarAgendamento: React.FC = () => {
           motoristas={motoristas}
           hospitais={hospitais}
           veiculos={veiculos}
-          onSave={handleCreateAgendamento}
+          onSave={handleUpdateAgendamento}
         />
       )}
     </ModalBody>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Agendamento, CreateAgendamentoDTO } from "../types/agenda/Agendamento";
-import { fetchAgendamento, createAgendamento } from "../services/api/AgendamentoService";
+import { Agendamento, CreateAgendamentoDTO, EditAgendamentoDTO } from "../types/agenda/Agendamento";
+import { fetchAgendamento, createAgendamento, updateAgendamento } from "../services/api/AgendamentoService";
 import { useToast } from "./useToast";
 import { useLoading } from "../contexts/LoadingContext";
 
@@ -58,7 +58,31 @@ const useGerenciarAgendamento = () => {
             setLoading(false);
           }
         };
+
+        const handleUpdateAgendamento = async (dto: EditAgendamentoDTO) => {
+          setLoading(true);
+          try {
+            const id = dto.id;
+              const response = await updateAgendamento(id, dto);
+              const updatedAgendamento = response.data;
+              
+              // Atualiza a lista de agendamentos no estado
+              setAgendamentos(prevAgendamentos =>
+                  prevAgendamentos.map(agendamento =>
+                      agendamento.id === id ? updatedAgendamento : agendamento
+                  )
+              );
       
-        return { agendamentos, editingAgendamento, isEditModalOpen, handleCreateAgendamento, handleEdit, toggleEditModal, };
+              handleSuccess("Agendamento atualizado com sucesso!");
+          } catch (error) {
+              handleError("Erro ao atualizar agendamento: " + error);
+              return null;
+          } finally {
+              setLoading(false);
+          }
+      };
+      
+      
+        return { agendamentos, editingAgendamento, isEditModalOpen, handleCreateAgendamento, handleEdit, toggleEditModal, handleUpdateAgendamento };
       };
 export default useGerenciarAgendamento;

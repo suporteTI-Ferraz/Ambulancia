@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +51,29 @@ public class AgendamentoController {
 
         return ResponseEntity.ok(agendamentoCriado);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Agendamento> updateAgendamento(
+        @PathVariable Long id,
+        @RequestBody AgendamentoRequestDTO dto,
+        HttpServletRequest request) {
+
+    Long userId = Long.valueOf(authenticationService.getUserIdFromToken(request).toString());
+
+    Agendamento novoAgendamento = new Agendamento();
+    novoAgendamento.setServico(dto.getServico());
+    novoAgendamento.setHorarioInic(dto.getHorarioInic());
+    novoAgendamento.setHorarioFim(dto.getHorarioFim());
+
+    Agendamento agendamentoAtualizado = service.updateAgendamento(
+        id, novoAgendamento, dto.getAgendaId(), userId,
+        dto.getMotoristaId(), dto.getVeiculoId(),
+        dto.getHospitalId(), dto.getPacientesIds()
+    );
+
+    return ResponseEntity.ok(agendamentoAtualizado);
+}
+
 
     @DeleteMapping("/{agendamentoId}/paciente/{pacienteId}")
     public ResponseEntity<Agendamento> removePacienteFromAgendamento(

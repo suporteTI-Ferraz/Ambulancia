@@ -5,6 +5,7 @@ import EnderecoPacForm from "./EnderecoPacForm";
 import ButtonSpinner from "../itens/ButtonSpinner";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useToast } from "../../hooks/useToast";
+import DatePicker from "react-datepicker";
 interface PacienteFormProps {
   paciente?: Paciente | null; // Para edição, ou null para criação
   onSave: (paciente: Paciente) => void;
@@ -16,12 +17,14 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
   const initialFormData: Paciente = {
     id: paciente?.id || 0,
     nomePaciente: paciente?.nomePaciente || "",
+    dataNasc: paciente?.dataNasc || "",
     cpf: paciente?.cpf || "",
     sus: paciente?.sus || "",
     condicoesEspecificas: paciente?.condicoesEspecificas || "",
     enderecos: paciente?.enderecos || [],
     telefones: paciente?.telefones || [],
     deletedAt: paciente?.deletedAt || null,
+    falecido: false,
     createdAt:  "",
   };
 
@@ -84,6 +87,19 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
           onChange={handleInputChange}
           required
         />
+      </div>
+      <div>
+      <DatePicker
+  selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
+  onChange={(date) => setFormData({ ...formData, dataNasc: date?.toISOString().split("T")[0] || "" })}
+  locale="pt-BR"
+  dateFormat="dd/MM/yyyy"
+  showYearDropdown
+  scrollableYearDropdown
+  yearDropdownItemNumber={120}
+  maxDate={new Date()}  // 🔥 Impede seleção de datas futuras
+  placeholderText="DD/MM/AAAA"
+/>
       </div>
       <div>
         <label>CPF</label>

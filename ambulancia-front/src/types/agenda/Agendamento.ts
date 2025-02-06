@@ -18,6 +18,7 @@ export interface Agendamento {
   }
 
   export interface CreateAgendamentoDTO {
+    id?: number; // ID opcional
     servico: string;
     horarioInic: string; // "HH:mm:ss"
     horarioFim: string;  // "HH:mm:ss"
@@ -27,3 +28,16 @@ export interface Agendamento {
     hospitalId: number;
     pacientesIds: number[];
   }
+
+  export interface EditAgendamentoDTO {
+    id: number; // ID opcional
+    servico: string;
+    horarioInic: string; // "HH:mm:ss"
+    horarioFim: string;  // "HH:mm:ss"
+    agendaId: number;
+    motoristaId: number;
+    veiculoId: number;
+    hospitalId: number;
+    pacientesIds: number[];
+  }
+  

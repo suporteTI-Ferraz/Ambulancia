@@ -141,37 +141,38 @@ export const useGerenciarPaciente = () => {
 
   const handleDeletePaciente = async (id: number, deletedAt: string | null) => {
     try {
-      setLoading(true);
-      let response;
-      if (deletedAt) {
-        // Reativar usuário
-        response = await reactivatePaciente(id);
-        handleSuccess("Paciente reativado com sucesso!");
-      } else {
-        // Deletar usuário
-        response = await deletePaciente(id);
-        handleSuccess("Paciente desativado com sucesso!");
-      }
+        setLoading(true);
+        let response;
+        let falecido = false;
+        if (deletedAt) {
+            // Reativar usuário
+            response = await reactivatePaciente(id);
+            handleSuccess("Paciente reativado com sucesso!");
+        } else {
+            // Perguntar se o paciente faleceu
+            
+            falecido = window.confirm("O paciente faleceu? Clique em OK para Sim e Cancelar para Não.");
+            response = await deletePaciente(id, falecido);
+            handleSuccess(`Paciente ${falecido ? "marcado como falecido e" : ""} desativado com sucesso!`);
+        }
 
-      if (response.status === 200) {
-        setPacientes(prevPacientes =>
-          prevPacientes.map(paciente =>
-            paciente.id === id
-              ? {
-                  ...paciente,
-                  deletedAt: deletedAt ? null : new Date().toISOString(),
-                }
-              : paciente
-          )
-        );
-        //await reloadPacientes();
-      }
+        if (response.status === 200) {
+            setPacientes(prevPacientes =>
+                prevPacientes.map(paciente =>
+                    paciente.id === id
+                        ? { ...paciente, deletedAt: deletedAt ? null : new Date().toISOString(),
+                          falecido: falecido }
+                        : paciente
+                )
+            );
+        }
     } catch (error) {
-      handleError('Erro ao alternar status do Paciente: '+ error);
-    }finally{
-      setLoading(false);
+        handleError('Erro ao alternar status do Paciente: ' + error);
+    } finally {
+        setLoading(false);
     }
-  };
+};
+
 
 
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Agendamento, CreateAgendamentoDTO } from "../../types/agenda/Agendamento";
+import { Agendamento, CreateAgendamentoDTO, EditAgendamentoDTO } from "../../types/agenda/Agendamento";
 import { useParams } from "react-router-dom";
 import Select from "react-select";  
 import "moment/locale/pt-br";
@@ -15,13 +15,14 @@ interface EditAgendamentoFormProps {
   motoristas: Motorista[];
   veiculos: Veiculo[];
   hospitais: Hospital[];
-  onSave: (dto: CreateAgendamentoDTO) => void;
+  onSave: (dto: EditAgendamentoDTO) => void;
 }
 
 const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({ agendamento, pacientes, motoristas, veiculos, hospitais, onSave }) => {
   const { agendaId } = useParams<{ agendaId: string }>();
 
-  const [formData, setFormData] = useState<CreateAgendamentoDTO>({
+  const [formData, setFormData] = useState<EditAgendamentoDTO>({
+    id: agendamento?.id || 0,
     servico: agendamento?.servico || "",
     horarioInic: agendamento?.horarioInic || "",
     horarioFim: agendamento?.horarioFim || "",
@@ -88,7 +89,7 @@ const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({ agendamento, 
 />
 
 
-        <button type="submit">Criar Agendamento</button>
+        <button type="submit">Atualizar Agendamento</button>
       </form>
 
     </div>

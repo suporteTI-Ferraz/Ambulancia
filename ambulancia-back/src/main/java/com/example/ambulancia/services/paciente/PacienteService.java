@@ -37,13 +37,18 @@ public class PacienteService {
     }
     public void updateData(Paciente entity, Paciente paciente){
         entity.setNomePaciente(paciente.getNomePaciente());
+        entity.setDataNasc(paciente.getDataNasc());
         entity.setCpf(paciente.getCpf());
         entity.setSus(paciente.getSus());
         entity.setCondicoesEspecificas(paciente.getCondicoesEspecificas());
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id, boolean falecido){
         Paciente entity = repository.getReferenceById(id);
+        if(falecido){
+            entity.setFalecido(true);
+        }
+        
         entity.setDeletedAt(LocalDateTime.now());
         entity.getEnderecos().forEach((e) -> {
             e.setDeletedAt(LocalDateTime.now());
@@ -58,6 +63,7 @@ public class PacienteService {
         Paciente entity = repository.getReferenceById(id);
         entity.setDeletedAt(null);
         entity.setDeletedBy(null);
+        entity.setFalecido(false);
 
         entity.getEnderecos().forEach((e) -> {
             e.setDeletedAt(null);

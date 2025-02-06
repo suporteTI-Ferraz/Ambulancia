@@ -58,6 +58,7 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
             <tr>
               <th>Criação</th>
               <th>Nome</th>
+              <th>Data de Nascimento</th>
               <th>CPF</th>
               <th>SUS</th>
               <th>Ruas</th>
@@ -71,6 +72,7 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
               <tr key={paciente.id} style={{ backgroundColor: paciente.deletedAt ? '#ffcccc' : 'white' }}>
                 <td><DataCriacao createdAt={paciente.createdAt} /></td>
                 <td>{paciente.nomePaciente}</td>
+                <td><DataCriacao createdAt={paciente.dataNasc} showTime={false} /></td> {/* Sem hora */}
                 <td>{paciente.cpf}</td>
                 <td>{paciente.sus}</td>
                 <td>
@@ -85,7 +87,7 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
                     </div>
                   ))}
                 </td>
-                <td>{paciente.deletedAt ? 'Desativado' : 'Ativo'}</td>
+                <td>{paciente.deletedAt ? 'Desativado' : 'Ativo' }! O Paciente se encontra falecido ? {paciente.falecido ? 'Sim' : 'Não'}</td>
                 <td>
                 <div className="icon-container">
                   <FiEdit 

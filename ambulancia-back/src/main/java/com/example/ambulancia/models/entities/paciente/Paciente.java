@@ -2,6 +2,8 @@ package com.example.ambulancia.models.entities.paciente;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
+
 
 import com.example.ambulancia.models.entities.BaseEntity;
 import com.example.ambulancia.models.entities.agenda.Agendamento;
@@ -30,6 +32,8 @@ import jakarta.persistence.Table;
 public class Paciente extends BaseEntity {
     @Column(nullable = false)
     private String nomePaciente;
+    @Column(nullable = false)
+    private LocalDate dataNasc;
     @Column(nullable = false, unique = true)
     private String cpf;
     @Column(nullable = false, unique = true)
