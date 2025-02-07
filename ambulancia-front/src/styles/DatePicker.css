@@ -1,0 +1,22 @@
+/* Centraliza o DatePicker */
+.datepicker-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  /* Ajusta largura para não ficar esticado */
+  .react-datepicker {
+    width: auto;
+  }
+  
+
+/* Define um fundo personalizado e bordas arredondadas */
+.react-datepicker {
+    font-family: Arial, sans-serif;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  

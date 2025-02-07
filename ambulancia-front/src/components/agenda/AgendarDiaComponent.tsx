@@ -32,7 +32,7 @@ const AgendarDiaComponent: React.FC<AgendaFormProps> = ({ agendas, selectedDate,
   };
 
   return (
-    <div>
+    <div className="datepicker-container">
       <h2>Selecione uma Data</h2>
       <DatePicker
         selected={selectedDate}

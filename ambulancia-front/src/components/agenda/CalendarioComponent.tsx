@@ -42,7 +42,7 @@ const CalendarioComponent: React.FC<CalendarioComponentProps> = ({ agendamentos 
 
         // Converter os agendamentos para o formato do calendário
         const eventos = agendamentos.map((agendamento) => {
-          const dataAgenda = new Date(agendamento.agenda.dataAgenda);
+          const dataAgenda = new Date(`${agendamento.agenda.dataAgenda}T00:00:00`);
           const [horaInic, minInic] = agendamento.horarioInic.split(":").map(Number);
           const [horaFim, minFim] = agendamento.horarioFim.split(":").map(Number);
         
@@ -63,7 +63,7 @@ const CalendarioComponent: React.FC<CalendarioComponentProps> = ({ agendamentos 
       
 
   return (
-    <div>
+    <div className="big-calendar-container">
       {/* Calendário */}
       <div style={{ width: "80%", height: "600px", margin: "auto" }}>
         <h2>Agendamentos</h2>

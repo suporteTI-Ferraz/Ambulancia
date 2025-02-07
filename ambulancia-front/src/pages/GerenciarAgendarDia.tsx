@@ -8,7 +8,7 @@ const GerenciarAgendarDia = () => {
   const {agendamentos} = useGerenciarAgendamento();
   
   return (
-    <div>
+    <div >
       <AgendaComponent
         agendas={agendas}
         selectedDate={selectedDate}

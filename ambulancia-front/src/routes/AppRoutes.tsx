@@ -13,11 +13,14 @@ import GerenciarVeiculo from '../pages/GerenciarVeiculo';
 import GerenciarHospital from '../pages/GerenciarHospital';
 import GerenciarAgendarDia from '../pages/GerenciarAgendarDia';
 import GerenciarAgendamento from '../pages/GerenciarAgendamento';
+import Header from '../components/Header';
 const AppRoutes: React.FC = () => {
   return (
     <Router>
+      <Header />
       <Routes>
         {/* Rotas públicas com redirecionamento se autenticado */}
+        
         <Route element={<PublicRoute />}>
           <Route path="/login" element={<><PageTitle /><Login /></>} />
         </Route>
@@ -33,6 +36,8 @@ const AppRoutes: React.FC = () => {
           <Route path="/gerenciar-hospitais" element={<><PageTitle /><GerenciarHospital /></>} />
           <Route path="/gerenciar-agendamentos/:agendaId" element={<><PageTitle /><GerenciarAgendamento /></>} />
           <Route path="/gerenciar-agendamentos" element={<><PageTitle /><GerenciarAgendarDia /></>} />
+          {/* <Route path="/header" element={<><PageTitle /><Header /></>} /> */}
+
 
 
         </Route>

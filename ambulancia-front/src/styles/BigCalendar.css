@@ -1,0 +1,46 @@
+/* Adiciona margem ao calendário para não cortar o final */
+.big-calendar-container {
+    margin-bottom: 50px; /* Espaço extra na parte inferior */
+    padding: 20px;
+  }
+  
+  /* Permite rolagem no calendário se necessário */
+  .rbc-calendar {
+    min-height: 600px; /* Aumenta o tamanho mínimo */
+  }
+/* Estiliza o calendário principal */
+.rbc-calendar {
+    font-family: Arial, sans-serif;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  /* Cabeçalho (Dias da Semana) */
+  .rbc-header {
+    background: #563d7c;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  /* Eventos no calendário */
+  .rbc-event {
+    background-color: #007bff !important;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+  }
+  
+  /* Evento ao passar o mouse */
+  .rbc-event:hover {
+    background-color: #0056b3 !important;
+  }
+  
+  /* Dia atual */
+  
+  
+  /* Dia selecionado */
+  .rbc-selected {
+    background-color: #ff9800 !important;
+    color: white;
+  }

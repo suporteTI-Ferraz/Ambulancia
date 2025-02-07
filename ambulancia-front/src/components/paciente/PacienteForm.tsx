@@ -99,6 +99,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
   yearDropdownItemNumber={120}
   maxDate={new Date()}  // 🔥 Impede seleção de datas futuras
   placeholderText="DD/MM/AAAA"
+  popperPlacement="left-end" // 🔥 Força o DatePicker para baixo
 />
       </div>
       <div>

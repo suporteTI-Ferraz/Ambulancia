@@ -77,11 +77,11 @@ export const useGerenciarUser = () => {
             } else {
               // Deletar usuário
               response = await deleteUser(id);
+              handleSuccess("Funcionário Desativado com sucesso!");
 
             }
       
             if (response.status === 200) {
-              handleSuccess("Funcionário Desativado com sucesso!");
               setUsers(prevUsers =>
                 prevUsers.map(user =>
                   user.id === id

@@ -12,7 +12,7 @@ import jakarta.persistence.PreUpdate;
 public class BaseEntityListener {
 
 
-        @PrePersist
+    @PrePersist
     public void onPrePersist(BaseEntity entity) {
         // Não precisa definir 'createdAt' manualmente, pois @CreatedDate cuida disso
         if (entity.getCreatedBy() == null) {
