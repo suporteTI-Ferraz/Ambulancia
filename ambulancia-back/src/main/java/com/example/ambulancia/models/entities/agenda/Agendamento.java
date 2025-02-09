@@ -30,6 +30,9 @@ public class Agendamento extends BaseEntity {
     private String servico;
     private LocalTime horarioInic;
     private LocalTime horarioFim;
+    private Integer quilometragemInicial; 
+    private Integer quilometragemFinal; 
+
 
     @ManyToOne(optional = false) // Cada agendamento pertence a um dia específico
     @JoinColumn(name = "agenda_id", nullable = false)
@@ -58,6 +61,30 @@ public class Agendamento extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "paciente_id")
     )
     private List<Paciente> pacientes;
+
+    public void setQuilometragemFinal(Integer quilometragemFinal) {
+        if (quilometragemFinal == null || this.quilometragemInicial == null) {
+            throw new IllegalArgumentException("Quilometragem inicial e final devem ser definidas.");
+        }
+    
+        if (quilometragemFinal < this.quilometragemInicial) {
+            throw new IllegalArgumentException("A quilometragem final não pode ser menor que a inicial.");
+        }
+    
+        this.quilometragemFinal = quilometragemFinal;
+        
+        // Atualiza a quilometragem do veículo
+        if (this.veiculo != null) {
+            this.veiculo.setQuilometragemAtual(quilometragemFinal);
+        }
+    
+        // Atualiza a quilometragem total da agenda
+        if (this.agenda != null) {
+            this.agenda.calcularQuilometragemTotal();
+        }
+    }
+    
+    
 
     //Método para juntar o dia de Agenda + a horaInic de Agendamento
     @JsonIgnore

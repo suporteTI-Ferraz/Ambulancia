@@ -55,7 +55,7 @@ const useGerenciarVeiculo = () =>{
     const handleEditVeiculo = async (updatedVeiculo: Veiculo, notUpdatedVeiculo: Veiculo) =>{
         try {
             const isVeiculoChanged = updatedVeiculo.placaVeic !== notUpdatedVeiculo.placaVeic ||
-            updatedVeiculo.quilometragem !== notUpdatedVeiculo.quilometragem || 
+            updatedVeiculo.quilometragemAtual !== notUpdatedVeiculo.quilometragemAtual || 
             updatedVeiculo.classe !== notUpdatedVeiculo.classe;
     
             const isManutencaoChanged = JSON.stringify(updatedVeiculo.manutencoes) !== JSON.stringify(notUpdatedVeiculo.manutencoes);

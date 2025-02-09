@@ -37,7 +37,7 @@ public class VeiculoService {
     }
     public void updateData(Veiculo entity, Veiculo veiculo){
         entity.setPlacaVeic(veiculo.getPlacaVeic());
-        entity.setQuilometragem(veiculo.getQuilometragem());
+        entity.setQuilometragemAtual(veiculo.getQuilometragemAtual());
     }
 
     public Veiculo deleteById(Long id){

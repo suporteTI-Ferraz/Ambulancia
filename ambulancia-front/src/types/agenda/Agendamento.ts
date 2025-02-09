@@ -8,6 +8,8 @@ export interface Agendamento {
     servico: string;
     horarioInic: string; // "HH:mm:ss"
     horarioFim: string; // "HH:mm:ss"
+    quilometragemInicial: number;
+    quilometragemFinal: number
     agenda: Agenda;
     userId: number;
     motorista: Motorista;
@@ -22,6 +24,7 @@ export interface Agendamento {
     servico: string;
     horarioInic: string; // "HH:mm:ss"
     horarioFim: string;  // "HH:mm:ss"
+    quilometragemInicial: number;  
     agendaId: number;
     motoristaId: number;
     veiculoId: number;
@@ -34,6 +37,7 @@ export interface Agendamento {
     servico: string;
     horarioInic: string; // "HH:mm:ss"
     horarioFim: string;  // "HH:mm:ss"
+    quilometragemInicial: number;  
     agendaId: number;
     motoristaId: number;
     veiculoId: number;

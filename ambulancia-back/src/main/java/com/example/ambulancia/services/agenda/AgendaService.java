@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.example.ambulancia.models.entities.agenda.Agenda;
 import com.example.ambulancia.repositories.agenda.AgendaRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class AgendaService {
 
@@ -50,6 +52,14 @@ public class AgendaService {
         entity.setDeletedAt(null); // Limpa o campo 'deletedAt'
         entity.setDeletedBy(null); // Limpa o campo 'deletedBy'
         repository.saveAndFlush(entity); // Salva e atualiza o motorista no banco
+    }
+
+    @Transactional
+    public void finalizarAgenda(Long id) {
+        Agenda agenda = repository.getReferenceById(id);
+
+        agenda.finalizarDia(); // Recalcula a quilometragem e marca como finalizado
+        repository.save(agenda);
     }
     
 }

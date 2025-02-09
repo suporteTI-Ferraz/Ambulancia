@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Agendamento, CreateAgendamentoDTO, EditAgendamentoDTO } from "../../types/agenda/Agendamento";
 import { useParams } from "react-router-dom";
-import Select from "react-select";  
+import Select, { SingleValue } from "react-select";  
 import "moment/locale/pt-br";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Hospital } from "../../types/hospital/HospitalType";
@@ -26,6 +26,7 @@ const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({ agendamento, 
     servico: agendamento?.servico || "",
     horarioInic: agendamento?.horarioInic || "",
     horarioFim: agendamento?.horarioFim || "",
+    quilometragemInicial: 0,
     agendaId: agendaId ? Number(agendaId) : 0,
     motoristaId: agendamento?.motorista.id || 0,
     veiculoId: agendamento?.veiculo.id || 0,
@@ -41,6 +42,24 @@ const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({ agendamento, 
     e.preventDefault();
     onSave(formData);
   };
+
+  const handleVehicleChange = (opt: SingleValue<{ value: number; label: string | undefined }>) => {
+    if (opt) {
+      const selectedVehicle = veiculos.find(v => v.id === opt.value);
+      setFormData({
+        ...formData,
+        veiculoId: opt.value,
+        quilometragemInicial: selectedVehicle ? selectedVehicle.quilometragemAtual : 0
+      });
+    } else {
+      setFormData({
+        ...formData,
+        veiculoId: 0,
+        quilometragemInicial: 0
+      });
+    }
+  };
+  
 
   return (
     <div className="form-container">
@@ -67,7 +86,7 @@ const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({ agendamento, 
 <Select 
   options={veiculos.map(v => ({ value: v.id, label: `${v.placaVeic} - ${v.classe}` }))}
   value={veiculos.find(v => v.id === formData.veiculoId) ? { value: formData.veiculoId, label: veiculos.find(v => v.id === formData.veiculoId)?.placaVeic } : null}
-  onChange={(opt) => setFormData({ ...formData, veiculoId: opt?.value || 0 })}
+  onChange={handleVehicleChange}
 />
 
 <Select 

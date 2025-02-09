@@ -47,6 +47,7 @@ const useGerenciarAgendamento = () => {
             // Assumindo que o backend espera um objeto com as relações aninhadas.
           
       
+            
             const response = await createAgendamento(dto);
             const createdAgendamento = response.data;
             setAgendamentos(prevAgendamentos => [...prevAgendamentos, createdAgendamento]);

@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -33,4 +34,21 @@ public class Agenda extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "agenda")
     private List<Agendamento> agendamentos = new ArrayList<>();
+
+    @Builder.Default
+    @Column(nullable = false)
+    private Integer quilometragemTotal = 0; // Inicializa com 0
+
+        // Método para recalcular a quilometragem total do dia
+        public void calcularQuilometragemTotal() {
+            this.quilometragemTotal = agendamentos.stream()
+                .filter(a -> a.getQuilometragemInicial() != null && a.getQuilometragemFinal() != null)
+                .mapToInt(a -> a.getQuilometragemFinal() - a.getQuilometragemInicial())
+                .sum();
+        }
+
+        public void finalizarDia() {
+            calcularQuilometragemTotal();
+            this.diaFinalizado = true;
+        }
 }

@@ -64,7 +64,7 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
               <tr key={veiculo.id} style={{ backgroundColor: veiculo.deletedAt ? '#ffcccc' : 'white' }}>
                 <td><DataCriacao createdAt={veiculo.createdAt} /></td>
                 <td>{veiculo.placaVeic}</td>
-                <td>{veiculo.quilometragem}</td>
+                <td>{veiculo.quilometragemAtual}</td>
                 <td>{veiculo.classe}</td>
                 <td>
                   {veiculo.manutencoes.map((manutencao) => (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CreateAgendamentoDTO } from "../../types/agenda/Agendamento";
 import { useParams } from "react-router-dom";
-import Select from "react-select";  
+import Select, { SingleValue } from "react-select";  
 import "moment/locale/pt-br";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Hospital } from "../../types/hospital/HospitalType";
@@ -24,6 +24,7 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
     servico: "",
     horarioInic: "",
     horarioFim: "",
+    quilometragemInicial: 0,
     agendaId: agendaId ? Number(agendaId) : 0,
     motoristaId: 0,
     veiculoId: 0,
@@ -34,6 +35,24 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleVehicleChange = (opt: SingleValue<{ value: number; label: string }>) => {
+    if (opt) {
+      const selectedVehicle = veiculos.find(v => v.id === opt.value);
+      setFormData({
+        ...formData,
+        veiculoId: opt.value,
+        quilometragemInicial: selectedVehicle ? selectedVehicle.quilometragemAtual : 0
+      });
+    } else {
+      setFormData({
+        ...formData,
+        veiculoId: 0,
+        quilometragemInicial: 0
+      });
+    }
+  };
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,6 +73,7 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
 
         <label>Horário Fim:</label>
         <input name="horarioFim" type="time" value={formData.horarioFim} onChange={handleChange} />
+        
 
         {/* Selects */}
         <label>Motoristas:</label>
@@ -64,10 +84,9 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
 
         <label>Veículos:</label>
         <Select 
-          options={veiculos.map(v => ({ value: v.id, label: `${v.placaVeic} - ${v.classe}` }))}
-          onChange={(opt) => setFormData({ ...formData, veiculoId: opt?.value || 0 })}
-        />
-
+  options={veiculos.map(v => ({ value: v.id, label: `${v.placaVeic} - ${v.classe}` }))} 
+  onChange={handleVehicleChange}
+/>
         <label>Hospitais:</label>
         <Select 
           options={hospitais.map(h => ({

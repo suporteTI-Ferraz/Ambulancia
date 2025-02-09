@@ -16,7 +16,7 @@ const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculo, onSave, onCancel })
   const initialFormData: Veiculo = {
     id: veiculo?.id || 0,
     placaVeic: veiculo?.placaVeic || "",
-    quilometragem: veiculo?.quilometragem || 0.0,
+    quilometragemAtual: veiculo?.quilometragemAtual || 0,
     classe: veiculo?.classe || "",
     manutencoes: veiculo?.manutencoes || [],
     deletedAt: veiculo?.deletedAt || null,
@@ -88,10 +88,9 @@ const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculo, onSave, onCancel })
       <label>Quilometragem</label>
         <input 
             type="number" 
-            step="0.01
-            " // Permite valores decimais
-            name="quilometragem"
-            value={formData.quilometragem}
+           
+            name="quilometragemAtual"
+            value={formData.quilometragemAtual}
             onChange={handleInputChange}
             required
         />

@@ -66,5 +66,11 @@ public class AgendaController {
         service.reactivateById(id);
         return ResponseEntity.ok().build();  // Retorna 200 OK com corpo vazio
     }
+
+    @PatchMapping("/finalizar/{id}")
+    public ResponseEntity<Void> finalizarAgenda(@PathVariable Long id) {
+        service.finalizarAgenda(id);
+        return ResponseEntity.ok().build();
+    }
     
 }

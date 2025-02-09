@@ -21,6 +21,8 @@ import com.example.ambulancia.repositories.paciente.PacienteRepository;
 import com.example.ambulancia.repositories.user.UserRepository;
 import com.example.ambulancia.repositories.veiculo.VeiculoRepository;
 
+import jakarta.transaction.Transactional;
+
 
 
 @Service
@@ -137,6 +139,18 @@ public class AgendamentoService {
             // Atualiza o agendamento no banco
             return repository.save(agendamento);
         }
+
+
+@Transactional
+public Agendamento finalizarAgendamento(Long id, Integer quilometragemFinal) {
+    Agendamento agendamento = repository.getReferenceById(id);
+
+    agendamento.setQuilometragemFinal(quilometragemFinal);
+    repository.save(agendamento);
+
+    return agendamento;
+}
+
         
 }
 
