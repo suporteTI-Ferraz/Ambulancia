@@ -26,7 +26,9 @@ const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({ agendamento, 
     servico: agendamento?.servico || "",
     horarioInic: agendamento?.horarioInic || "",
     horarioFim: agendamento?.horarioFim || "",
-    quilometragemInicial: 0,
+    quilometragemInicial: agendamento?.quilometragemInicial || 0,
+  
+    
     agendaId: agendaId ? Number(agendaId) : 0,
     motoristaId: agendamento?.motorista.id || 0,
     veiculoId: agendamento?.veiculo.id || 0,
