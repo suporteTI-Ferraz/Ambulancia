@@ -55,11 +55,15 @@ public class AgendaService {
     }
 
     @Transactional
-    public void finalizarAgenda(Long id) {
-        Agenda agenda = repository.getReferenceById(id);
+    public Agenda finalizarDia(Long id) {
+        Agenda agenda = findById(id);
+        
+        if (agenda.getDiaFinalizado()) {
+            throw new RuntimeException("O dia já foi finalizado.");
+        }
 
-        agenda.finalizarDia(); // Recalcula a quilometragem e marca como finalizado
-        repository.save(agenda);
+        agenda.finalizarDia();
+        return repository.save(agenda);
     }
     
 }

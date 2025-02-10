@@ -12,6 +12,8 @@ public class AgendamentoRequestDTO {
     private String servico;
     private LocalTime horarioInic;
     private LocalTime horarioFim;
+    private Integer quilometragemInicial;
+    private Integer quilometragemFinal;
     private Long agendaId;
     private Long motoristaId;
     private Long veiculoId;

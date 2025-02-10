@@ -74,10 +74,16 @@ public class AgendamentoService {
         agendamento.setAgenda(agenda);
         agendamento.setUser(user);
         agendamento.setMotorista(motorista);
+        agendamento.setQuilometragemInicial(veiculo.getQuilometragemAtual());
+        agendamento.setQuilometragemFinal(veiculo.getQuilometragemAtual() + agendamento.getQuilometragemFinal());
+        veiculo.setQuilometragemAtual(agendamento.getQuilometragemFinal());
+        veiculo.setUpdatedAt(null);
+        veiculo.setUpdatedBy(null);
+
+
         agendamento.setVeiculo(veiculo);
         agendamento.setHospital(hospital);
         agendamento.setPacientes(pacientes);
-
         // Salva no banco
         return repository.save(agendamento);
     }
@@ -94,6 +100,7 @@ public class AgendamentoService {
     agendamento.setHorarioInic(novoAgendamento.getHorarioInic());
     agendamento.setHorarioFim(novoAgendamento.getHorarioFim());
 
+
     // Busca e atualiza os relacionamentos
     Agenda agenda = agendaRepository.findById(agendaId)
         .orElseThrow(() -> new RuntimeException("Agenda não encontrada"));
@@ -105,6 +112,9 @@ public class AgendamentoService {
         .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
     Hospital hospital = hospitalRepository.findById(hospitalId)
         .orElseThrow(() -> new RuntimeException("Hospital não encontrado"));
+
+    agendamento.setQuilometragemFinal(veiculo.getQuilometragemAtual() + agendamento.getQuilometragemFinal());
+        veiculo.setQuilometragemAtual(agendamento.getQuilometragemFinal());
 
     // Busca os pacientes
     List<Paciente> pacientes = pacienteRepository.findAllById(pacientesIds);
@@ -150,6 +160,8 @@ public Agendamento finalizarAgendamento(Long id, Integer quilometragemFinal) {
 
     return agendamento;
 }
+
+
 
         
 }

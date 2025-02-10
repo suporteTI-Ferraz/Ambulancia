@@ -50,6 +50,7 @@ const useGerenciarAgendamento = () => {
             
             const response = await createAgendamento(dto);
             const createdAgendamento = response.data;
+            console.log(dto.quilometragemFinal.valueOf());
             setAgendamentos(prevAgendamentos => [...prevAgendamentos, createdAgendamento]);
             handleSuccess("Agendamento criado com sucesso!");
           } catch (error) {

@@ -3,6 +3,7 @@ import { Agendamento, CreateAgendamentoDTO, EditAgendamentoDTO } from "../../typ
 import { Agenda } from "../../types/agenda/Agenda";
 import { API } from "../api";
 
+//AgendamentoService
 export const fetchAgendamento = (): Promise<AxiosResponse<Agendamento[]>>  => 
     API.get('/agendamento');
 export const createAgendamento = (agendamento: CreateAgendamentoDTO): Promise<AxiosResponse<Agendamento>>  => 
@@ -12,7 +13,12 @@ export const createAgendamento = (agendamento: CreateAgendamentoDTO): Promise<Ax
 
 export const updateAgendamento = (id: number, agendamento: EditAgendamentoDTO): Promise<AxiosResponse<Agendamento>>  => 
     API.put(`/agendamento/${id}`, agendamento);
+export const finalizarAgendamento = (id: number, quilometragemFinal: number): Promise<AxiosResponse<Agendamento>>  => 
+    API.put(`/agendamento/finalizar/${id}`, quilometragemFinal);
 
+
+
+//AgendaService
 export const fetchAgenda = (): Promise<AxiosResponse<Agenda[]>>  => 
     API.get('/agenda');
 export const fetchAgendaById = (id: number): Promise<AxiosResponse<Agenda>>  => 

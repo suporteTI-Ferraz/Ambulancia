@@ -44,6 +44,7 @@ public class AgendamentoController {
         novoAgendamento.setServico(dto.getServico());
         novoAgendamento.setHorarioInic(dto.getHorarioInic());
         novoAgendamento.setHorarioFim(dto.getHorarioFim());
+        novoAgendamento.setQuilometragemFinal(dto.getQuilometragemFinal());
         Agendamento agendamentoCriado = service.insertAgendamento(
             novoAgendamento, dto.getAgendaId(), userId,
             dto.getMotoristaId(), dto.getVeiculoId(),
@@ -65,6 +66,7 @@ public class AgendamentoController {
     novoAgendamento.setServico(dto.getServico());
     novoAgendamento.setHorarioInic(dto.getHorarioInic());
     novoAgendamento.setHorarioFim(dto.getHorarioFim());
+    novoAgendamento.setQuilometragemFinal(dto.getQuilometragemFinal());
 
     Agendamento agendamentoAtualizado = service.updateAgendamento(
         id, novoAgendamento, dto.getAgendaId(), userId,

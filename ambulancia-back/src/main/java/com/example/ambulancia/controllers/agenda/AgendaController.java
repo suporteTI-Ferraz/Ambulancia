@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,10 +68,9 @@ public class AgendaController {
         return ResponseEntity.ok().build();  // Retorna 200 OK com corpo vazio
     }
 
-    @PatchMapping("/finalizar/{id}")
-    public ResponseEntity<Void> finalizarAgenda(@PathVariable Long id) {
-        service.finalizarAgenda(id);
-        return ResponseEntity.ok().build();
+      @PutMapping("/{id}/finalizar")
+    public ResponseEntity<Agenda> finalizarAgenda(@PathVariable Long id) {
+        return ResponseEntity.ok(service.finalizarDia(id));
     }
     
 }

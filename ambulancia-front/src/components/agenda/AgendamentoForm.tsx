@@ -25,6 +25,7 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
     horarioInic: "",
     horarioFim: "",
     quilometragemInicial: 0,
+    quilometragemFinal: 0,
     agendaId: agendaId ? Number(agendaId) : 0,
     motoristaId: 0,
     veiculoId: 0,
@@ -36,22 +37,6 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleVehicleChange = (opt: SingleValue<{ value: number; label: string }>) => {
-    if (opt) {
-      const selectedVehicle = veiculos.find(v => v.id === opt.value);
-      setFormData({
-        ...formData,
-        veiculoId: opt.value,
-        quilometragemInicial: selectedVehicle ? selectedVehicle.quilometragemAtual : 0
-      });
-    } else {
-      setFormData({
-        ...formData,
-        veiculoId: 0,
-        quilometragemInicial: 0
-      });
-    }
-  };
   
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -74,6 +59,8 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
         <label>Horário Fim:</label>
         <input name="horarioFim" type="time" value={formData.horarioFim} onChange={handleChange} />
         
+        <label>Quilometragem Final:</label>
+        <input name="quilometragemFinal" value={formData.quilometragemFinal} onChange={handleChange} />
 
         {/* Selects */}
         <label>Motoristas:</label>
@@ -85,7 +72,7 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
         <label>Veículos:</label>
         <Select 
   options={veiculos.map(v => ({ value: v.id, label: `${v.placaVeic} - ${v.classe}` }))} 
-  onChange={handleVehicleChange}
+  onChange={(opt) => setFormData({ ...formData, veiculoId: opt?.value || 0 })}
 />
         <label>Hospitais:</label>
         <Select 
