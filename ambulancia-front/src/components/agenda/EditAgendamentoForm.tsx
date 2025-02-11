@@ -27,7 +27,9 @@ const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({ agendamento, 
     horarioInic: agendamento?.horarioInic || "",
     horarioFim: agendamento?.horarioFim || "",
     quilometragemInicial: agendamento?.quilometragemInicial || 0,
-  
+    quilometragemFinal: 0,
+
+
     
     agendaId: agendaId ? Number(agendaId) : 0,
     motoristaId: agendamento?.motorista.id || 0,
@@ -39,10 +41,15 @@ const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({ agendamento, 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(formData);
+    
+    const quilometragemFinalCalculada = formData.quilometragemInicial + formData.quilometragemFinal;
+  
+    onSave({ 
+      ...formData, 
+      quilometragemFinal: quilometragemFinalCalculada
+    });
   };
 
   const handleVehicleChange = (opt: SingleValue<{ value: number; label: string | undefined }>) => {
@@ -61,6 +68,14 @@ const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({ agendamento, 
       });
     }
   };
+
+  const handleKilometragemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const quilometragemFinal = Number(e.target.value) || 0;
+    setFormData({ 
+      ...formData, 
+      quilometragemFinal 
+    });
+  };
   
 
   return (
@@ -77,6 +92,14 @@ const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({ agendamento, 
 
         <label>Horário Fim:</label>
         <input name="horarioFim" type="time" value={formData.horarioFim} onChange={handleChange} />
+
+        <label>Quilometragem Percorrida:</label>
+<input 
+  name="quilometragemPercorrida" 
+  type="number"
+  value={formData.quilometragemFinal} 
+  onChange={handleKilometragemChange} 
+/>
 
         {/* Selects */}
         <Select 

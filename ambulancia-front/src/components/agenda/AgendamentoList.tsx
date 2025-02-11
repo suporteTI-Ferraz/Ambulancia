@@ -27,6 +27,7 @@ const AgendamentoList: React.FC<AgendamentoListProps> = ({ agendamentos, onEdit 
             <th>Horário Inicial</th>
             <th>Horário Final</th>
             <th>KM Inicial</th>
+            <th>KM Final</th>
             <th>Pacientes</th>
             <th>Motorista</th>
             <th>Veículo</th>
@@ -41,6 +42,8 @@ const AgendamentoList: React.FC<AgendamentoListProps> = ({ agendamentos, onEdit 
               <td>{agendamento.horarioInic}</td>
               <td>{agendamento.horarioFim}</td>
               <td>{agendamento.quilometragemInicial}</td>
+              <td>{agendamento.quilometragemFinal}</td>
+
 
               <td>
                 {agendamento.pacientes.map((paciente) => (

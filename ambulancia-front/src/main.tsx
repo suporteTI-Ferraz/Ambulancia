@@ -22,7 +22,9 @@ createRoot(document.getElementById('root')!).render(
     <AuthProvider>
       <LoadingProvider>
         <AppRoutes />
-        <ToastContainer />
+        <ToastContainer 
+        position="top-center" 
+        />
       </LoadingProvider>
     </AuthProvider>
   </StrictMode>,

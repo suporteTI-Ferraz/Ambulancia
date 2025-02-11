@@ -52,7 +52,7 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
             <tr>
               <th>Criação</th>
               <th>Placa</th>
-              <th>Quilometragem</th>
+              <th>Quilometragem Atual</th>
               <th>Classe</th>
               <th>Manutenções</th>
               <th>Status</th>

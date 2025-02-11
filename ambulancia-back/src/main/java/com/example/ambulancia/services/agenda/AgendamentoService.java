@@ -57,7 +57,8 @@ public class AgendamentoService {
         return obj.orElse(null);
     }
 
-        public Agendamento insertAgendamento(Agendamento agendamento, Long agendaId, Long userId, 
+    @Transactional
+    public Agendamento insertAgendamento(Agendamento agendamento, Long agendaId, Long userId, 
                                          Long motoristaId, Long veiculoId, Long hospitalId, 
                                          List<Long> pacientesIds) {
         // Busca as entidades no banco
@@ -88,6 +89,7 @@ public class AgendamentoService {
         return repository.save(agendamento);
     }
 
+    @Transactional
     public Agendamento updateAgendamento(Long id, Agendamento novoAgendamento, Long agendaId, Long userId, 
                                      Long motoristaId, Long veiculoId, Long hospitalId, 
                                      List<Long> pacientesIds) {
@@ -113,8 +115,16 @@ public class AgendamentoService {
     Hospital hospital = hospitalRepository.findById(hospitalId)
         .orElseThrow(() -> new RuntimeException("Hospital não encontrado"));
 
-    agendamento.setQuilometragemFinal(veiculo.getQuilometragemAtual() + agendamento.getQuilometragemFinal());
-        veiculo.setQuilometragemAtual(agendamento.getQuilometragemFinal());
+    // Atualiza a quilometragem corretamente
+    Integer quilometragemAnterior = agendamento.getQuilometragemFinal();
+    Integer quilometragemNova = novoAgendamento.getQuilometragemFinal();
+    
+    
+    agendamento.setQuilometragemFinal(quilometragemNova);
+
+    // Ajusta a quilometragem do veículo com a diferença entre a quilometragem nova e a antiga
+    veiculo.setQuilometragemAtual(veiculo.getQuilometragemAtual() + (quilometragemNova - quilometragemAnterior));
+
 
     // Busca os pacientes
     List<Paciente> pacientes = pacienteRepository.findAllById(pacientesIds);

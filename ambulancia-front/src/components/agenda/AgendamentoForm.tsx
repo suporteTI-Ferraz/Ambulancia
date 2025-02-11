@@ -59,7 +59,7 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
         <label>Horário Fim:</label>
         <input name="horarioFim" type="time" value={formData.horarioFim} onChange={handleChange} />
         
-        <label>Quilometragem Final:</label>
+        <label>Quilometragem Percorrida:</label>
         <input name="quilometragemFinal" value={formData.quilometragemFinal} onChange={handleChange} />
 
         {/* Selects */}
