@@ -1,9 +1,13 @@
 package com.example.ambulancia.models.entities.veiculo;
 
 import com.example.ambulancia.models.entities.BaseEntity;
+import com.example.ambulancia.models.enums.StatusManutencao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -22,6 +26,13 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table
 public class Manutencao extends BaseEntity {
+    private String descricao;
+    private String dataManutencao;
+    @Enumerated(EnumType.STRING)  // Salva o enum como texto no banco
+    @Column(nullable = false)
+    private StatusManutencao status;
+
+
     private String tipoManutencao;
     private Double custoManutencao;
 

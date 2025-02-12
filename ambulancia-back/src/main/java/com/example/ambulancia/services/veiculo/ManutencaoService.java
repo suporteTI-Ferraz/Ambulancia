@@ -80,6 +80,15 @@ public class ManutencaoService {
 
         for (Manutencao manutencaoAtual : manutencoesAtuais) {
             Manutencao novaManutencao = mapaNovasManutencoes.get(manutencaoAtual.getId());
+            if(!Objects.equals(manutencaoAtual.getDescricao(), novaManutencao.getDescricao())){
+                manutencaoAtual.setDescricao(novaManutencao.getDescricao());
+            }
+            if(!Objects.equals(manutencaoAtual.getDataManutencao(), novaManutencao.getDataManutencao())){
+                manutencaoAtual.setDataManutencao(novaManutencao.getDataManutencao());
+            }
+            if(!Objects.equals(manutencaoAtual.getStatus(), novaManutencao.getStatus())){
+                manutencaoAtual.setStatus(novaManutencao.getStatus());
+            }
             if(!Objects.equals(manutencaoAtual.getTipoManutencao(), novaManutencao.getTipoManutencao())){
                 manutencaoAtual.setTipoManutencao(novaManutencao.getTipoManutencao());
             }

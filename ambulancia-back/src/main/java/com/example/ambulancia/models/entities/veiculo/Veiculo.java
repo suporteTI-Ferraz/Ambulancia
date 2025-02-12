@@ -26,6 +26,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 public class Veiculo extends BaseEntity {
+    private String modeloVeic;
+    private String marcaVeic;
+    private String anoFabricacao;
+    private String chassi;
     @Column(nullable = false)
     private String placaVeic;
     @Column(nullable = false)
