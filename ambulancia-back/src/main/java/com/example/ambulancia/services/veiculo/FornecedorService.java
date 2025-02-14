@@ -9,12 +9,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.ambulancia.repositories.veiculo.FornecedorRepository;
+import com.example.ambulancia.repositories.veiculo.ManutencaoRepository;
+
 
 
 @Service
 public class FornecedorService {
     @Autowired
-    FornecedorRepositoy repository;
+    FornecedorRepository repository;
 
     @Autowired
     ManutencaoRepository manutencaoRepository;
@@ -30,7 +32,7 @@ public class FornecedorService {
 
     public Fornecedor insert(Fornecedor obj, Long id) {
        Manutencao manutencao = manutencaoRepository.getReferenceById(id);
-        obj.setManutencao(manutencao);
+        obj.setManutencoes(manutencao);
 
         return repository.save(obj);
     }
