@@ -26,7 +26,6 @@ public class Fornecedor extends BaseEntity {
     private String nome;
     private String cnpj;
     private String telefone;
-    private String endereco;
         
     @JsonIgnore
     @Builder.Default

@@ -41,6 +41,8 @@ public class Manutencao extends BaseEntity {
 
 
     private String tipoManutencao;
+    private String descricaoProblema;
+    private String servicoRealizado;
     private Double custoManutencao;
 
     @JsonIgnore

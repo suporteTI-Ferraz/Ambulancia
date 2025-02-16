@@ -95,6 +95,12 @@ public class ManutencaoService {
             if(!Objects.equals(manutencaoAtual.getCustoManutencao(), novaManutencao.getCustoManutencao())){
                 manutencaoAtual.setCustoManutencao(novaManutencao.getCustoManutencao());
             }
+            if(!Objects.equals(manutencaoAtual.getDescricaoProblema(), novaManutencao.getDescricaoProblema())){
+                manutencaoAtual.setDescricaoProblema(novaManutencao.getDescricaoProblema());
+            }
+            if(!Objects.equals(manutencaoAtual.getServicoRealizado(), novaManutencao.getServicoRealizado())){
+                manutencaoAtual.setServicoRealizado(novaManutencao.getServicoRealizado());
+            }
             
         }
     }
