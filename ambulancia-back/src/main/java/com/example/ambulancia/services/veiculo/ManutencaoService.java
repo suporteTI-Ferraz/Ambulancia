@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.example.ambulancia.repositories.veiculo.ManutencaoRepository;
 import com.example.ambulancia.repositories.veiculo.VeiculoRepository;
 import com.example.ambulancia.models.entities.veiculo.Veiculo;
+import com.example.ambulancia.models.entities.veiculo.Fornecedor;
+import com.example.ambulancia.repositories.veiculo.FornecedorRepository;
+
+
 import com.example.ambulancia.models.entities.veiculo.Manutencao;
 
 
@@ -23,6 +27,9 @@ public class ManutencaoService {
 
      @Autowired
     VeiculoRepository veiculoRepository;
+
+    @Autowired
+    FornecedorRepository fornecedorRepository;
 
     
       public List<Manutencao> findAll() {
@@ -47,6 +54,20 @@ public class ManutencaoService {
         Veiculo veiculo = veiculoRepository.getReferenceById(id);
         for (Manutencao manutencao : manutencoes) {
             manutencao.setVeiculo(veiculo); // Associa o veiculo a cada manutencao
+            manutencao.setId(null); //Como o front manda os id de forma numerada, precisa transmor-los em null para evitar erros
+        }
+        return repository.saveAll(manutencoes);
+    }
+    
+
+    @Transactional
+    public List<Manutencao> insertMany(List<Manutencao> manutencoes, Long idVeic, Long idForn) {
+        Veiculo veiculo = veiculoRepository.getReferenceById(idVeic);
+        Fornecedor fornecedor = fornecedorRepository.getReferenceById(idForn);
+
+        for (Manutencao manutencao : manutencoes) {
+            manutencao.setVeiculo(veiculo); // Associa o veiculo a cada manutencao
+            manutencao.setFornecedor(fornecedor);
             manutencao.setId(null); //Como o front manda os id de forma numerada, precisa transmor-los em null para evitar erros
         }
         return repository.saveAll(manutencoes);
