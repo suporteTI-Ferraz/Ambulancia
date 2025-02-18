@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Veiculo } from "../../types/veiculo/VeiculoType";
 import { FiEdit, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
-import { GiAutoRepair } from "react-icons/gi";
+import { GiAutoRepair, GiMechanicGarage } from "react-icons/gi";
 import DataCriacao from "../itens/DataFormatada";
 
 interface VeiculoListProps {
@@ -78,11 +78,17 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
                   className="icon-action edit" 
                   title="Editar" 
                   onClick={() => onEdit(veiculo)} />
+                  <GiMechanicGarage
+                  className="icon-action manutencao" 
+                    title="Visualizar Fornecedores"
+                    onClick={() => onViewManutencoes(veiculo)}
+                  />
                   <GiAutoRepair
                   className="icon-action manutencao" 
                     title="Visualizar Manutenções"
                     onClick={() => onViewManutencoes(veiculo)}
                   />
+              
                   {veiculo.deletedAt ? (
                     <FiRefreshCw
                       className="icon-action reactivate"

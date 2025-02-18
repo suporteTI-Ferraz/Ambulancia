@@ -35,6 +35,18 @@ public class ManutencaoController {
         return ResponseEntity.created(location).body(entity);
     }
 
+    @PostMapping(value = "/veiculo/{idVeic}/fornecedor/{idForn}/manutencao")
+    public ResponseEntity<List<Manutencao>> insertMany(@RequestBody List<Manutencao> manutencoes,  
+    @PathVariable Long idVeic, @PathVariable Long idForn){
+        List<Manutencao> entity = service.insertMany(manutencoes, idVeic, idForn);
+        URI location = ServletUriComponentsBuilder
+        .fromCurrentRequest() // URL da requisição atual (/{id})
+        .build() // Constrói a URI sem adicionar o ID específico de cada manutenção
+        .toUri();
+        return ResponseEntity.created(location).body(entity);
+    }
+    
+
     @GetMapping(value = "/veiculo/manutencao")
     public ResponseEntity<List<Manutencao>> findAll(){
         List<Manutencao> list = service.findAll();

@@ -42,9 +42,7 @@ public class Veiculo extends BaseEntity {
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Manutencao> manutencoes = new ArrayList<>();
 
-    @Builder.Default
-    @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Multa> multas = new ArrayList<>();
+ 
 
     @JsonIgnore
     @Builder.Default
