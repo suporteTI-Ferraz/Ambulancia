@@ -27,7 +27,6 @@ public class Fornecedor extends BaseEntity {
     private String cnpj;
     private String telefone;
         
-    @JsonIgnore
     @Builder.Default
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
     private List<Manutencao> manutencoes = new ArrayList<>(); // HISTÓRICO DE MANUTENÇÕES FEITAS POR ESSE FORNECEDOR

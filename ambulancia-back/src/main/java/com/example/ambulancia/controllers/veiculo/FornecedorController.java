@@ -19,8 +19,10 @@ import org.springframework.http.ResponseEntity;
 import com.example.ambulancia.models.entities.veiculo.Veiculo;
 import com.example.ambulancia.services.veiculo.FornecedorService;
 import com.example.ambulancia.models.entities.veiculo.Fornecedor;
+import org.springframework.web.bind.annotation.RestController;
 
 
+@RestController
 @RequestMapping(value = "api/fornecedor")
 public class FornecedorController {
     @Autowired
@@ -57,7 +59,7 @@ public class FornecedorController {
         return ResponseEntity.ok(obj);
     }
 
-   @DeleteMapping(value = "{id}")
+   @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
         service.deleteById(id);
         return ResponseEntity.ok().build();

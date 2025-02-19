@@ -54,6 +54,7 @@ public class Manutencao extends BaseEntity {
     @Builder.Default
     private List<PecaManutencao> pecasManutencao = new ArrayList<>(); // RELACIONAMENTO COM PEÇAS
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "fornecedor_id", referencedColumnName = "id")
     private Fornecedor fornecedor; // RELACIONAMENTO COM FORNECEDOR (OPCIONAL)

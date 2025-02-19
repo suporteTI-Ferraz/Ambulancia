@@ -1,6 +1,7 @@
 export interface Fornecedor{
     id: number;
     nome: string;
-    cnpj: number;
+    cnpj: string;
     telefone: string;
+    deletedAt: string | null
 }

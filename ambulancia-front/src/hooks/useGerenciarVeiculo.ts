@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
 import { fetchVeiculos, createVeiculo, updateVeiculo, createManyManu,
-    updateManyManu, deleteVeiculo, reactivateVeiculo
+    updateManyManu, deleteVeiculo, reactivateVeiculo, fetchFornecedores
  } from "../services/api/VeiculoService";
 import { Veiculo } from "../types/veiculo/VeiculoType";
 import Manutencao from "../types/veiculo/ManutencaoType";
 import { useToast } from "./useToast";
 import { useLoading } from "../contexts/LoadingContext";
+import { Fornecedor } from "../types/veiculo/FornecedorType";
 
 const useGerenciarVeiculo = () =>{
     const [veiculos, setVeiculos] = useState<Veiculo[]>([]);
     const [editingVeiculo, setEditingVeiculo] = useState<Veiculo | null>(null);
-    const  [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+    const [isEditFornecedorOpen, setEditFornecedorOpen] = useState(false);
+    const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]); 
+    
     
     const [isManutencaoModalOpen, setIsManutencaoModalOpen] = useState(false);
   const [selectedManutencoes, setSelectedManutencoes] = useState<Veiculo["manutencoes"]>([]);
@@ -25,12 +30,24 @@ const useGerenciarVeiculo = () =>{
                 const response = await fetchVeiculos();
                 setVeiculos(response.data);
             } catch (error) {
-                handleError("Erro ao carregar Veículos: "+ error)
+                handleError("Erro ao carregar Veículos: "+ error);
             }finally{
-            setLoading(false)
+            setLoading(false);
             }
         };
+        const loadFornecedores = async () => {
+            setLoading(true);
+            try {
+                const response = await fetchFornecedores();
+                setFornecedores(response.data);
+            } catch (error) {
+                handleError("Erro ao carregar Veículos: "+ error);
+            }finally{
+            setLoading(false);
+            }
+        }
         loadVeiculos();
+        loadFornecedores();
     }, []);
 
     const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen);
@@ -105,6 +122,16 @@ const useGerenciarVeiculo = () =>{
             handleError('Erro ao alternar status do Veículo: '+ error);
         }
     };
+
+    const handleViewFornecedores= (veiculo: Veiculo) => {
+        if (!fornecedor) {
+          alert("Selecione um fornecedor antes de gerenciar os fornecedores.");
+          return;
+        }
+        setEditingVeiculo(veiculo);
+        setSelectedManutencoes(veiculo.manutencoes || []);
+        toggleModalManutencao();
+      };
 
     
     
