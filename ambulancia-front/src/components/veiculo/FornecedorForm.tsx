@@ -1,110 +1,118 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { Fornecedor } from "../../types/veiculo/FornecedorType";
+import { useLoading } from "../../contexts/LoadingContext";
+import { useToast } from "../../hooks/useToast";
+import ButtonSpinner from "../itens/ButtonSpinner";
 
 interface FornecedorFormProps {
-  onFornecedoresChange: (fornecedores: Fornecedor[]) => void; // CallBack para alteracoes
-  resetFornecedores?: boolean;
+  onFornecedorChange: (fornecedor: Fornecedor) => void; // CallBack para alteracoes
+  onCancel: () => void;
   isModal: Boolean; 
-  fornecedoresIniciais?: Fornecedor[];
+  fornecedor?: Fornecedor | null; // Para edição, ou null para criação
+
 }
 
-const ManutencaoForm: React.FC<FornecedorFormProps> = ({ onFornecedoresChange, resetFornecedores, fornecedoresIniciais = [], }) => {
+const FornecedorForm: React.FC<FornecedorFormProps> = ({ onFornecedorChange, onCancel, fornecedor, }) => {
 
- const [localFornecedores, setLocalFornecedores] = useState<Fornecedor[]>([{ id: 0, nome: "", cnpj: "", telefone: "", deletedAt: null }]);
- const [isEditingVeiculo, setisEditingVeiculo] = useState<boolean>();
+    const initialFormData: Fornecedor = {
+      id: fornecedor?.id || 0,
+      nome: fornecedor?.nome || "",
+      cnpj: fornecedor?.cnpj || "",
+      telefone: fornecedor?.telefone || "",
+      deletedAt: fornecedor?.deletedAt || null,
+      createdAt:  "",
+    };
+  const [formData, setFormData] = useState<Fornecedor>(initialFormData);
+   const [shouldResetFornecedores, setShouldResetFornecedores] = useState(false);
+ 
+   const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
+   const { handleLoad, dismissLoading } = useToast();  
  
 
-   useEffect(() => {
-        // Inicializar com os endereços existentes, se houver
-        if (fornecedoresIniciais.length > 0) {
-            setLocalFornecedores(fornecedoresIniciais);
-          setisEditingVeiculo(true);
-        }
-      }, [fornecedoresIniciais]);
+
+     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+       const { name, value } = e.target;
+       setFormData({ ...formData, [name]: value });
+     };
+
+     const handleCancel = () => {
+      setShouldResetFornecedores(true); // Define a flag para resetar telefones
+      // setShouldResetMultas(true);
+      setTimeout(() => (setShouldResetFornecedores(false)), 0); // Reseta a flag após o reset
+      setFormData(initialFormData); // Redefine o formulário
+      onCancel();
+    };
   
-    // Resetar telefones ao clicar em "Limpar"
-    useEffect(() => {
-      if (resetFornecedores) {
-        setLocalFornecedores([{ id: 0, nome: "", cnpj: "", telefone: "", deletedAt: null }]);
-        onFornecedoresChange([]);
-      }
-    }, [resetFornecedores, onFornecedoresChange]);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (loading) return; // Impede múltiplos envios enquanto está carregando
+    setLoading(true); // Bloqueia enquanto a requisição está em andamento
+    const toastKey = handleLoad("Carregando...");
 
-  // Função para adicionar um novo telefone à lista
-  const handleAddFornecedor = () => {
-    const novoFornecedor = { id: 0, nome: "", cnpj: "", telefone: "", deletedAt: null };
-    const updatedFornecedores = [...localFornecedores, novoFornecedor];
-    setLocalFornecedores(updatedFornecedores);
-    onFornecedoresChange(updatedFornecedores);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));  //Para testar o spinner
+      onFornecedorChange(formData); // Chama a função onSave (criação ou edição)
+    } catch (error) {
+      console.error("Erro ao salvar veículo:", error);
+    } finally {
+      setLoading(false); // Libera o botão após a requisição terminar
+      dismissLoading(toastKey);
+    }
   };
 
-  // Função para atualizar um telefone na lista
-  const handleFornecedorChange = (index: number, field: keyof Fornecedor, value: string) => {
-    const updatedFornecedores = localFornecedores.map((fornecedor, i) =>
-      i === index ? { ...fornecedor, [field]: value  } : fornecedor // Garante valor válido
-    );
-    setLocalFornecedores(updatedFornecedores);
-    onFornecedoresChange(updatedFornecedores);
-  };
+  
 
-  const handleRemoveFornecedor = (index: number) => {
-    const updatedFornecedores = localFornecedores.filter((_, i) => i !== index);
-    setLocalFornecedores(updatedFornecedores);
-    onFornecedoresChange(updatedFornecedores);
-  };
+
 
   return (
-    <div className="form-container">
-      <h4>Manutenções</h4>
-      {localFornecedores.map((fornecedor, index) => (
-        <div key={index} className="forms-sec-container">
-          <div>
-            <label>Nome do FOrnecedor</label>
-            <input
-              type="text"
-              name="nome"
-              value={fornecedor.nome}
-              onChange={(e) =>
-                handleFornecedorChange(index, "nome", e.target.value)
-              }
-            />
-          </div>
-          <div>
-            <label>CNPJ</label>
-            <input
-              type="text"
-              name="cnpj"
-              value={fornecedor.cnpj}
-              onChange={(e) =>
-                handleFornecedorChange(index, "cnpj", e.target.value)
-              }
-            />
-          </div>
-          <div>
-            <label>CNPJ</label>
-            <input
-              type="text"
-              name="telefone"
-              value={fornecedor.telefone}
-              onChange={(e) =>
-                handleFornecedorChange(index, "telefone", e.target.value)
-              }
-            />
-          </div>
-          {!isEditingVeiculo && index > 0 && (
-            <button type="button" onClick={() => handleRemoveFornecedor(index)}>
-              Remover
-            </button>
-          )}
-        </div>
-      ))}
-   {!isEditingVeiculo && (
-      <button type="button" className="btn-add" onClick={handleAddFornecedor}>
-        Adicionar Nova Manutenção
-      </button>
-   )}
-    </div>
+    
+    <form onSubmit={handleSubmit}>
+      <div>
+      <h4>Fornecedor</h4>
+        <label>Nome do Fornecedor</label>
+        <input
+          type="text"
+          name="nome"
+          value={formData.nome}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      <div>
+      <label>CNPJ</label>
+        <input 
+            type="number" 
+           
+            name="cnpj"
+            value={formData.cnpj}
+            onChange={handleInputChange}
+            required
+        />
+      </div>
+      <div>
+        <label>Telefone</label>
+        <input 
+          type="text" 
+          name="telefone" 
+          placeholder="Ex: classe A, B, C ou D"
+          value={formData.telefone} 
+          onChange={handleInputChange}
+          required 
+        />
+      </div>
+
+      {/* Componente para adicionar telefones */}
+
+      {/* <ManutencaoForm  onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} /> */}
+      
+      <div>
+        <ButtonSpinner name="Salvar" isLoading={loading} type="submit"/>
+        <button type="button" onClick={handleCancel}>
+          Limpar
+        </button>
+      </div>
+    </form>
   );
 };
 
-export default ManutencaoForm;
+export default FornecedorForm;

@@ -5,14 +5,15 @@ import useGerenciarPaciente from "../hooks/useGerenciarPaciente";
 import useGerenciarVeiculo from "../hooks/useGerenciarVeiculo";
 import VeiculoList from "../components/veiculo/VeiculoList";
 import EditVeiculoForm from "../components/veiculo/EditVeiculoForm";
-import ManutencaoModal from "../components/modal/motorista/ManutencaoModal";
+import ManutencaoModal from "../components/modal/veiculo/ManutencaoModal";
+import FornecedorModal from "../components/modal/veiculo/FornecedorModal";
 const GerenciarVeiculo = () => {
 
 
 
   const {
     veiculos, loading, isEditModalOpen, isManutencaoModalOpen,
-    selectedManutencoes, editingVeiculo,
+    selectedManutencoes, editingVeiculo, fornecedores,
     handleSaveVeiculo,
     handleDeleteVeiculo,
     handleEditVeiculo,
@@ -22,6 +23,8 @@ const GerenciarVeiculo = () => {
     handleEdit,    
     handleViewManutencoes,
     handleSaveManutencoesFromModal,
+    handleViewFornecedores,
+    handleSaveFornecedorFromModal,
   } = useGerenciarVeiculo();
 
   return (
@@ -65,6 +68,11 @@ const GerenciarVeiculo = () => {
   <ManutencaoModal
   manutencoes={selectedManutencoes} isOpen={isManutencaoModalOpen} 
   toggle={toggleModalManutencao} onManutencoesChange={handleSaveManutencoesFromModal}
+  />
+
+<FornecedorModal
+  fornecedores={fornecedores} isOpen={isManutencaoModalOpen} 
+  toggle={toggleModalManutencao} onFornecedorChange={handleSaveFornecedorFromModal}
   />
 
 

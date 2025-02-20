@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchVeiculos, createVeiculo, updateVeiculo, createManyManu,
-    updateManyManu, deleteVeiculo, reactivateVeiculo, fetchFornecedores
+    updateManyManu, deleteVeiculo, reactivateVeiculo, fetchFornecedores,
+    createFornecedor
  } from "../services/api/VeiculoService";
 import { Veiculo } from "../types/veiculo/VeiculoType";
 import Manutencao from "../types/veiculo/ManutencaoType";
@@ -13,7 +14,7 @@ const useGerenciarVeiculo = () =>{
     const [editingVeiculo, setEditingVeiculo] = useState<Veiculo | null>(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-    const [isEditFornecedorOpen, setEditFornecedorOpen] = useState(false);
+    const [isFornecedorModalOpen, setIsFornecedorModalOpen] = useState(false);
     const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]); 
     
     
@@ -51,6 +52,7 @@ const useGerenciarVeiculo = () =>{
     }, []);
 
     const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen);
+    const toggleModalFornecedor = () => setIsFornecedorModalOpen(!isFornecedorModalOpen)
     const toggleModalManutencao = () => setIsManutencaoModalOpen(!isManutencaoModalOpen);
     const handleEdit = (veiculo: Veiculo) =>{
         setEditingVeiculo(veiculo);
@@ -123,14 +125,27 @@ const useGerenciarVeiculo = () =>{
         }
     };
 
-    const handleViewFornecedores= (veiculo: Veiculo) => {
-        if (!fornecedor) {
-          alert("Selecione um fornecedor antes de gerenciar os fornecedores.");
-          return;
+    const handleViewFornecedores= () => {
+        toggleModalFornecedor();
+      };
+
+      const handleSaveFornecedorFromModal = async (fornecedor: Fornecedor) => {
+        
+        try {
+          const response = await createFornecedor(fornecedor); // Salva os telefones no backend
+          const createdFornecedor = response.data;
+          setFornecedores((prevFornecedores) => 
+            [...prevFornecedores, createdFornecedor]);
+          
+          handleSuccess("Manutenções criadas com sucesso!");
+          
+          
+        } catch (error) {
+            console.log(error)
+          handleError("Falha ao criar Manutenções: "+ error)
+        } finally {
+          toggleModalManutencao(); // Fecha o modal
         }
-        setEditingVeiculo(veiculo);
-        setSelectedManutencoes(veiculo.manutencoes || []);
-        toggleModalManutencao();
       };
 
     
@@ -178,8 +193,10 @@ const useGerenciarVeiculo = () =>{
       };
 
       return({ veiculos, editingVeiculo, isEditModalOpen, isManutencaoModalOpen, selectedManutencoes, loading,
+        fornecedores,
         handleSaveVeiculo, handleEditVeiculo, handleEdit, handleDeleteVeiculo, handleSaveManutencoesFromModal,
-        handleViewManutencoes, toggleEditModal, toggleModalManutencao, setEditingVeiculo
+        handleViewManutencoes, toggleEditModal, toggleModalManutencao, setEditingVeiculo,
+        handleViewFornecedores, handleSaveFornecedorFromModal,
       }
       );
 

@@ -3,5 +3,7 @@ export interface Fornecedor{
     nome: string;
     cnpj: string;
     telefone: string;
-    deletedAt: string | null
+    deletedAt: string | null;
+    createdAt: string;
+
 }
