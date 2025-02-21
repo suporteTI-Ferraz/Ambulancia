@@ -3,7 +3,6 @@ import CustomModal from "../CustomModal";
 import ButtonSpinner from "../../itens/ButtonSpinner";
 import { useLoading } from "../../../contexts/LoadingContext";
 import { useToast } from "../../../hooks/useToast";
-import Manutencao from "../../../types/veiculo/ManutencaoType";
 import FornecedorForm from "../../veiculo/FornecedorForm";
 import { Fornecedor } from "../../../types/veiculo/FornecedorType";
 interface FornecedorModalProps {

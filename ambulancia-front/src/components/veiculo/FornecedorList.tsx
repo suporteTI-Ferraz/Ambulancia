@@ -3,24 +3,24 @@ import { Veiculo } from "../../types/veiculo/VeiculoType";
 import { FiEdit, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
 import { GiAutoRepair, GiMechanicGarage } from "react-icons/gi";
 import DataCriacao from "../itens/DataFormatada";
+import { Fornecedor } from "../../types/veiculo/FornecedorType";
 
-interface VeiculoListProps {
-  veiculos: Veiculo[];
-  onEdit: (veiculo: Veiculo) => void;
+interface FornecedorListProps {
+  fornecedores: Fornecedor[];
+  onEdit: (fornecedor: Fornecedor) => void;
   onDelete: (id: number, deletedAt: string | null) => void;
-  onViewManutencoes: (veiculo: Veiculo) => void;
 }
 
 
-const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManutencoes, onDelete }) => {
-    const [pesquisarVeiculo, setPesquisarVeiculo] = useState('');
+const FornecedorList: React.FC<FornecedorListProps> = ({ fornecedores, onEdit, onDelete }) => {
+    const [pesquisarFornecedor, setPesquisarFornecedor] = useState('');
 
-    const filteredVeiculos = veiculos.filter(veiculo =>
-      veiculo.placaVeic.toLowerCase().includes(pesquisarVeiculo.toLowerCase())
+    const filteredFornecedores = fornecedores.filter(fornecedor =>
+      fornecedor.nome.toLowerCase().includes(pesquisarFornecedor.toLowerCase())
     );
 
      // Ordenar os usuários pela data de criação ou pelo id (ordem decrescente)
-      const sortedVeiculos = filteredVeiculos.sort((a, b) => {
+      const sortedFornecedores= filteredFornecedores.sort((a, b) => {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
     
@@ -32,9 +32,9 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
           <FiSearch style={{ marginRight: "8px", fontSize: "20px", color: "#007BFF" }} />
           <input
             type="text"
-            placeholder="Pesquisar por Placa de Veículo"
-            value={pesquisarVeiculo}
-            onChange={(e) => setPesquisarVeiculo(e.target.value)}
+            placeholder="Pesquisar por Nome do Fornecedor"
+            value={pesquisarFornecedor}
+            onChange={(e) => setPesquisarFornecedor(e.target.value)}
             style={{
               padding: "8px",
               fontSize: "14px",
@@ -51,50 +51,40 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
           <thead>
             <tr>
               <th>Criação</th>
-              <th>Placa</th>
-              <th>Quilometragem Atual</th>
-              <th>Classe</th>
-              <th>Manutenções</th>
+              <th>Nome</th>
+              <th>CNPJ</th>
+              <th>Telefone</th>
               <th>Status</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
-            {sortedVeiculos.map((veiculo) => (
-              <tr key={veiculo.id} style={{ backgroundColor: veiculo.deletedAt ? '#ffcccc' : 'white' }}>
-                <td><DataCriacao createdAt={veiculo.createdAt} /></td>
-                <td>{veiculo.placaVeic}</td>
-                <td>{veiculo.quilometragemAtual}</td>
-                <td>{veiculo.classe}</td>
-                <td>
-                  {veiculo.manutencoes.map((manutencao) => (
-                    <div key={manutencao.id}> Tipo: {manutencao.tipoManutencao}, Valor: {manutencao.custoManutencao}</div>
-                  ))}
-                </td>
-                <td>{veiculo.deletedAt ? 'Desativado' : 'Ativo'}</td>
+            {sortedFornecedores.map((fornecedor) => (
+              <tr key={fornecedor.id} style={{ backgroundColor: fornecedor.deletedAt ? '#ffcccc' : 'white' }}>
+                <td><DataCriacao createdAt={fornecedor.createdAt} /></td>
+                <td>{fornecedor.nome}</td>
+                <td>{fornecedor.cnpj}</td>
+                <td>{fornecedor.telefone}</td>
+                <td>{fornecedor.deletedAt ? 'Desativado' : 'Ativo'}</td>
                 <td>
                 <div className="icon-container">
                   <FiEdit 
                   className="icon-action edit" 
                   title="Editar" 
-                  onClick={() => onEdit(veiculo)} />
-                  <GiAutoRepair
-                  className="icon-action manutencao" 
-                    title="Visualizar Manutenções"
-                    onClick={() => onViewManutencoes(veiculo)}
-                  />
+                  onClick={() => alert("Editar")} />
               
-                  {veiculo.deletedAt ? (
+              
+                  {fornecedor.deletedAt ? (
                     <FiRefreshCw
                       className="icon-action reactivate"
                       title="Reativar"
-                      onClick={() => onDelete(veiculo.id, veiculo.deletedAt)}
+                      onClick={() => onDelete(fornecedor.id, fornecedor.deletedAt)}
                     />
                   ) : (
                     <FiTrash
                       className="icon-action delete"
                       title="Desativar"
-                      onClick={() => onDelete(veiculo.id, null)}
+                      onClick={() => onDelete(fornecedor.id, null)}
                     />
                   )}
                   </div>
@@ -107,4 +97,4 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
     );
   };
   
-  export default VeiculoList;
+  export default FornecedorList;
