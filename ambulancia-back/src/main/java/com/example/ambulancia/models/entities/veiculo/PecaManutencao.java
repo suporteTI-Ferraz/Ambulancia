@@ -1,6 +1,7 @@
 package com.example.ambulancia.models.entities.veiculo;
 
 import com.example.ambulancia.models.entities.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -24,6 +25,7 @@ public class PecaManutencao extends BaseEntity {
     private Integer quantidade;
     private Double custoUnitario;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "manutencao_id", referencedColumnName = "id")
     private Manutencao manutencao;

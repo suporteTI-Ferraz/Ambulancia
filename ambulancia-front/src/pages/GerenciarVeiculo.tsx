@@ -1,88 +1,72 @@
-import { Modal, ModalHeader, ModalBody } from "reactstrap";
+import { useState } from "react";
+import { TabContent, TabPane, Nav, NavItem, NavLink, Modal, ModalHeader, ModalBody } from "reactstrap";
+import classnames from "classnames";
 import VeiculoForm from "../components/veiculo/VeiculoForm";
-import EditPacienteForm from "../components/paciente/EditPacienteForm";
-import useGerenciarPaciente from "../hooks/useGerenciarPaciente";
-import useGerenciarVeiculo from "../hooks/useGerenciarVeiculo";
 import VeiculoList from "../components/veiculo/VeiculoList";
 import EditVeiculoForm from "../components/veiculo/EditVeiculoForm";
 import ManutencaoModal from "../components/modal/veiculo/ManutencaoModal";
-import FornecedorModal from "../components/modal/veiculo/FornecedorModal";
 import FornecedorForm from "../components/veiculo/FornecedorForm";
+import FornecedorList from "../components/veiculo/FornecedorList";
+import useGerenciarVeiculo from "../hooks/useGerenciarVeiculo";
+
 const GerenciarVeiculo = () => {
-
-
-
   const {
-    veiculos, loading, isEditModalOpen, isManutencaoModalOpen,
-    selectedManutencoes, editingVeiculo, fornecedores, isGerenciarVeicOpen,
-    handleSaveVeiculo,
-    handleDeleteVeiculo,
-    handleEditVeiculo,
-    toggleEditModal,
-    setEditingVeiculo,
-    toggleModalManutencao,
-    handleEdit,    
-    handleViewManutencoes,
-    handleSaveManutencoesFromModal,
-    handleViewFornecedores,
-    handleSaveFornecedor,
-    toggleGerenciarVeicOpen,
-    handleEditForn,
-    setEditingFornecedor
+    veiculos, isEditModalOpen, isManutencaoModalOpen, selectedManutencoes, editingVeiculo,
+    fornecedores, activeTab,
+    handleSaveVeiculo, handleDeleteVeiculo, handleEditVeiculo,
+    toggleEditModal, setEditingVeiculo, toggleModalManutencao, handleEdit,
+    handleViewManutencoes, handleSaveManutencoesFromModal, handleSaveFornecedor,
+    handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab,
   } = useGerenciarVeiculo();
 
   return (
     <div className="gerenciar">
-  <h3>Gerenciar Veículos</h3>
-
-  {/* Formulário para criação de paciente fora do modal */}
-  <h4>Criar Veículo</h4>
-  <VeiculoForm
-    onSave={handleSaveVeiculo}
-    onCancel={() => setEditingVeiculo(null)}
-  />
-       <FornecedorForm
-        onFornecedorChange={handleSaveFornecedor}
-        isModal={true}
-        onCancel={() => setEditingFornecedor(null)}
+      <h3>Gerenciar Veículos e Fornecedores</h3>
+      <Nav tabs>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === "veiculo" })}
+            onClick={() => setActiveTab("veiculo")}
+          >
+            Veículo
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === "fornecedor" })}
+            onClick={() => setActiveTab("fornecedor")}
+          >
+            Fornecedor
+          </NavLink>
+        </NavItem>
+      </Nav>
+      <TabContent activeTab={activeTab}>
+        <TabPane tabId="veiculo">
+          <h4>Criar Veículo</h4>
+          <VeiculoForm onSave={handleSaveVeiculo} onCancel={() => setEditingVeiculo(null)} />
+          <VeiculoList veiculos={veiculos} onEdit={handleEdit} onDelete={handleDeleteVeiculo} onViewManutencoes={handleViewManutencoes} />
+        </TabPane>
+        <TabPane tabId="fornecedor">
+          <h4>Gerenciar Fornecedores</h4>
+          <FornecedorForm onFornecedorChange={handleSaveFornecedor} isModal={false} onCancel={() => setEditingFornecedor(null)} />
+          <FornecedorList fornecedores={fornecedores} onEdit={handleEditForn} onDelete={handleDeleteFornecedor} />
+        </TabPane>
+      </TabContent>
+      {/* Modal de Edição de Veículo */}
+      <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar">
+        <ModalHeader toggle={toggleEditModal}>Editar Veículo</ModalHeader>
+        <ModalBody>
+          {editingVeiculo && <EditVeiculoForm veiculo={editingVeiculo} onSave={handleEditVeiculo} onCancel={toggleEditModal} />}
+        </ModalBody>
+      </Modal>
+      {/* Modal de Manutenção */}
+      <ManutencaoModal
+        manutencoes={selectedManutencoes}
+        isOpen={isManutencaoModalOpen}
+        toggle={toggleModalManutencao}
+        onManutencoesChange={handleSaveManutencoesFromModal}
       />
-
-  {/* Lista de pacientes */}
-    <VeiculoList
-    veiculos={veiculos}
-    onEdit={handleEdit}
-    onDelete={handleDeleteVeiculo}
-    onViewManutencoes={handleViewManutencoes}
-    />
- 
-
-  {/* Modal para edição */}
-  <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar">
-    <ModalHeader toggle={toggleEditModal}>Editar Veículo</ModalHeader>
-    <ModalBody>
-      {editingVeiculo && (
-        <EditVeiculoForm
-        veiculo={editingVeiculo}
-        onSave={handleEditVeiculo}
-        onCancel={toggleEditModal}
-        />
-      )}
-    </ModalBody>
-  </Modal>
-
-
-  {/* Modal para exibição de multas */}
-
-  {/* Modal para exibição de manutenções */}
-  <ManutencaoModal
-  manutencoes={selectedManutencoes} isOpen={isManutencaoModalOpen} 
-  toggle={toggleModalManutencao} onManutencoesChange={handleSaveManutencoesFromModal}
-  />
-
-
-
-
-</div>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchVeiculos, createVeiculo, updateVeiculo, createManyManu,
     updateManyManu, deleteVeiculo, reactivateVeiculo, fetchFornecedores,
-    createFornecedor
+    createFornecedor, deleteFornecedor, reactivateFornecedor
  } from "../services/api/VeiculoService";
 import { Veiculo } from "../types/veiculo/VeiculoType";
 import Manutencao from "../types/veiculo/ManutencaoType";
@@ -14,6 +14,8 @@ const useGerenciarVeiculo = () =>{
     const [editingVeiculo, setEditingVeiculo] = useState<Veiculo | null>(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isGerenciarVeicOpen, setIsGerenciarVeicOpen] = useState(true);
+    const [activeTab, setActiveTab] = useState("veiculo");
+
 
     const [editingFornecedor, setEditingFornecedor] = useState<Fornecedor | null>(null);
     const [isFornecedorModalOpen, setIsFornecedorModalOpen] = useState(false);
@@ -155,6 +157,32 @@ const useGerenciarVeiculo = () =>{
         }
       };
 
+      const handleDeleteFornecedor = async (id: number, deletedAt: string | null) =>{
+        try {
+            let response;
+            if(deletedAt){
+                response = await reactivateFornecedor(id);
+                handleSuccess("Fornecedor reativado com sucesso!");
+            }else{
+                response = await deleteFornecedor(id);
+                handleSuccess("Fornecedor desativado com sucesso!");
+            }
+
+            if(response.status === 200){
+                setFornecedores((prevFornecedores) =>
+                  prevFornecedores.map((fornecedor) =>
+                    fornecedor.id === id ? {
+                    ...fornecedor,
+                    deletedAt: deletedAt ? null : new Date().toISOString(),
+                } : fornecedor
+                )
+                );
+            };
+        } catch (error) {
+            handleError('Erro ao alternar status do Veículo: '+ error);
+        }
+    };
+
     
     
      const handleViewManutencoes= (veiculo: Veiculo) => {
@@ -200,12 +228,11 @@ const useGerenciarVeiculo = () =>{
       };
 
       return({ veiculos, editingVeiculo, isEditModalOpen, isManutencaoModalOpen, selectedManutencoes, loading,
-        fornecedores,
+        fornecedores, activeTab,
         handleSaveVeiculo, handleEditVeiculo, handleEdit, handleDeleteVeiculo, handleSaveManutencoesFromModal,
         handleViewManutencoes, toggleEditModal, toggleModalManutencao, setEditingVeiculo,
         handleViewFornecedores, handleSaveFornecedor, toggleGerenciarVeicOpen,
-        handleEditForn, setEditingFornecedor,
-        isGerenciarVeicOpen,
+        handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab,
       }
       );
 

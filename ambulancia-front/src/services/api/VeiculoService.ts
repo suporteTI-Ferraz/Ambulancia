@@ -18,6 +18,8 @@ export const fetchFornecedores = (): Promise<AxiosResponse<Fornecedor[]>> => API
 export const createFornecedor = (fornecedor: Fornecedor): Promise<AxiosResponse<Fornecedor>> =>
     API.post<Fornecedor>('/fornecedor', fornecedor);
 export const updateFornecedor = (id: number, fornecedor: Fornecedor) => API.put(`/fornecedor/${id}`, fornecedor);
+export const deleteFornecedor = (id: number) => API.delete(`/fornecedor/${id}`);
+export const reactivateFornecedor = (id: number) => API.patch(`/fornecedor/reactivate/${id}`);
 
 
 export const createManyManu = (id: number, list: Manutencao[]): Promise<AxiosResponse<Manutencao[]>> =>
