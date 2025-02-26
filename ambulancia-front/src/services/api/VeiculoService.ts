@@ -3,6 +3,7 @@ import { Veiculo } from "../../types/veiculo/VeiculoType";
 import Manutencao from "../../types/veiculo/ManutencaoType";
 import { AxiosResponse } from "axios";
 import { Fornecedor } from "../../types/veiculo/FornecedorType";
+import PecaManutencao from "../../types/veiculo/PecaManutencaoType";
 
 
 export const fetchVeiculos = (): Promise<AxiosResponse<Veiculo[]>> => API.get('/veiculo');
@@ -21,9 +22,13 @@ export const updateFornecedor = (id: number, fornecedor: Fornecedor) => API.put(
 export const deleteFornecedor = (id: number) => API.delete(`/fornecedor/${id}`);
 export const reactivateFornecedor = (id: number) => API.patch(`/fornecedor/reactivate/${id}`);
 
+export const fetchPecaManutencoes = (): Promise<AxiosResponse<PecaManutencao[]>> => API.get('/manutencao/peca');
+export const createPecaManutencao = (pecaManutencao: PecaManutencao, id: number): Promise<AxiosResponse<PecaManutencao>> =>
+    API.post<PecaManutencao>(`/manutencao/${id}/peca`, pecaManutencao);
 
-export const createManyManu = (id: number, list: Manutencao[]): Promise<AxiosResponse<Manutencao[]>> =>
-    API.post(`/veiculo/${id}/manutencao`, list);
+
+export const createManu = (idVeic: number, idForn: number, manutencao: Manutencao): Promise<AxiosResponse<Manutencao>> =>
+    API.post(`/veiculo/${idVeic}/fornecedor/${idForn}/manutencao`, manutencao);
 export const updateManyManu = (id: number, list: Manutencao[]): Promise<AxiosResponse<Manutencao[]>>  =>
     API.put(`/veiculo/${id}/manutencao`, list);
   

@@ -25,17 +25,18 @@ public class ManutencaoController {
     ManutencaoService service;
 
     
-    @PostMapping(value = "/veiculo/{id}/manutencao")
-    public ResponseEntity<List<Manutencao>> insertMany(@RequestBody List<Manutencao> manutencoes,  @PathVariable Long id){
-        List<Manutencao> entity = service.insertMany(manutencoes, id);
+    @PostMapping(value = "/veiculo/{idVeic}/fornecedor/{idForn}/manutencao")
+    public ResponseEntity<Manutencao> insertMany(@RequestBody Manutencao obj,  @PathVariable Long idVeic, @PathVariable Long idForn){
+        Manutencao entity = service.insert(obj, idVeic, idForn);
         URI location = ServletUriComponentsBuilder
         .fromCurrentRequest() // URL da requisição atual (/{id})
         .build() // Constrói a URI sem adicionar o ID específico de cada manutenção
         .toUri();
         return ResponseEntity.created(location).body(entity);
     }
+    
 
-    @PostMapping(value = "/veiculo/{idVeic}/fornecedor/{idForn}/manutencao")
+    @PostMapping(value = "/veiculo/{idVeic}/fornecedor/{idForn}/manutencoes")
     public ResponseEntity<List<Manutencao>> insertMany(@RequestBody List<Manutencao> manutencoes,  
     @PathVariable Long idVeic, @PathVariable Long idForn){
         List<Manutencao> entity = service.insertMany(manutencoes, idVeic, idForn);

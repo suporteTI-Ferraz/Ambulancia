@@ -41,10 +41,12 @@ public class ManutencaoService {
         return obj.orElse(null);
     }
 
-    public Manutencao insert(Manutencao obj, Long id) {
-       Veiculo veiculo = veiculoRepository.getReferenceById(id);
+    @Transactional
+    public Manutencao insert(Manutencao obj, Long idVeic, Long idForn) {
+        Veiculo veiculo = veiculoRepository.getReferenceById(idVeic);
+        Fornecedor fornecedor = fornecedorRepository.getReferenceById(idForn);
         obj.setVeiculo(veiculo);
-
+        obj.setFornecedor(fornecedor);
         return repository.save(obj);
     }
 

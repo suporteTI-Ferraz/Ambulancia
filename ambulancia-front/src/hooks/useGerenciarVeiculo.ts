@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { fetchVeiculos, createVeiculo, updateVeiculo, createManyManu,
+import { fetchVeiculos, createVeiculo, updateVeiculo, createManu,
     updateManyManu, deleteVeiculo, reactivateVeiculo, fetchFornecedores,
-    createFornecedor, deleteFornecedor, reactivateFornecedor
+    createFornecedor, deleteFornecedor, reactivateFornecedor, fetchPecaManutencoes,
+    createPecaManutencao
+
  } from "../services/api/VeiculoService";
 import { Veiculo } from "../types/veiculo/VeiculoType";
 import Manutencao from "../types/veiculo/ManutencaoType";
@@ -20,8 +22,8 @@ const useGerenciarVeiculo = () =>{
     const [editingFornecedor, setEditingFornecedor] = useState<Fornecedor | null>(null);
     const [isFornecedorModalOpen, setIsFornecedorModalOpen] = useState(false);
     const [fornecedores, setFornecedores] = useState<Fornecedor[]>([]); 
-    
-    
+
+    const [editingManutencao, setEditingManutencao] = useState<Manutencao | null>(null);
     const [isManutencaoModalOpen, setIsManutencaoModalOpen] = useState(false);
   const [selectedManutencoes, setSelectedManutencoes] = useState<Veiculo["manutencoes"]>([]);
 
@@ -66,6 +68,11 @@ const useGerenciarVeiculo = () =>{
     const handleEditForn = (fornecedor: Fornecedor) =>{
       setEditingFornecedor(fornecedor);
       toggleModalFornecedor();
+    }
+
+    const handleEditManu = (manutencao: Manutencao) =>{
+      setEditingManutencao(manutencao);
+      toggleModalManutencao();
     }
 
     const handleSaveVeiculo = async (veiculo: Veiculo) => {
@@ -197,21 +204,22 @@ const useGerenciarVeiculo = () =>{
     
     
     
-      const handleSaveManutencoesFromModal = async (manutencoes: Manutencao[]) => {
+      const handleSaveManutencoesFromModal = async (manutencao: Manutencao, idVeic: number, idForn: number) => {
         if (!editingVeiculo) {
           alert("Nenhum veículo está sendo editado para associar as manutenções.");
           return;
         }
+  
         
         try {
-          const response = await createManyManu(editingVeiculo.id, manutencoes); // Salva os telefones no backend
-          const createdManutencoes = response.data;
+          const response = await createManu( idVeic, idForn, manutencao); // Salva os telefones no backend
+          const createdManutencao = response.data;
           setVeiculos(prevVeiculos =>
             prevVeiculos.map(veiculo =>
                 veiculo.id === editingVeiculo.id
                 ? {
                     ...veiculo,
-                    manutencoes: [...veiculo.manutencoes, ...createdManutencoes] // Adiciona os novos telefones à lista existente
+                    manutencoes: [...veiculo.manutencoes, createdManutencao] // Adiciona os novos telefones à lista existente
                   }
                 : veiculo
             )
@@ -233,6 +241,7 @@ const useGerenciarVeiculo = () =>{
         handleViewManutencoes, toggleEditModal, toggleModalManutencao, setEditingVeiculo,
         handleViewFornecedores, handleSaveFornecedor, toggleGerenciarVeicOpen,
         handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab,
+        handleEditManu, setEditingManutencao,
       }
       );
 
