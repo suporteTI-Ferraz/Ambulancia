@@ -205,10 +205,6 @@ const useGerenciarVeiculo = () =>{
     
     
       const handleSaveManutencoesFromModal = async (manutencao: Manutencao, idVeic: number, idForn: number) => {
-        if (!editingVeiculo) {
-          alert("Nenhum veículo está sendo editado para associar as manutenções.");
-          return;
-        }
   
         
         try {
@@ -216,7 +212,7 @@ const useGerenciarVeiculo = () =>{
           const createdManutencao = response.data;
           setVeiculos(prevVeiculos =>
             prevVeiculos.map(veiculo =>
-                veiculo.id === editingVeiculo.id
+                veiculo.id === idVeic
                 ? {
                     ...veiculo,
                     manutencoes: [...veiculo.manutencoes, createdManutencao] // Adiciona os novos telefones à lista existente

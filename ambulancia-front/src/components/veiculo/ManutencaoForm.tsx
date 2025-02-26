@@ -6,12 +6,14 @@ import { Fornecedor } from "../../types/veiculo/FornecedorType";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useToast } from "../../hooks/useToast";
 import ButtonSpinner from "../itens/ButtonSpinner";
+import { Veiculo } from "../../types/veiculo/VeiculoType";
 
 interface ManutencaoFormProps {
   onSave: (  manutencao: Manutencao, idVeic: number, idForn: number) => void;
   onCancel: () => void;
 
   resetManutencoes?: boolean;
+  veiculos: Veiculo[];
   fornecedores: Fornecedor[];
   isModal: boolean; 
   manutencoesIniciais?: Manutencao[];
@@ -22,6 +24,7 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
   onCancel,
   resetManutencoes, 
   manutencoesIniciais = [],
+  veiculos,
   fornecedores,
 }) => {
 
@@ -48,12 +51,10 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (loading) return; // Impede múltiplos envios enquanto está carregando
-    setLoading(true); // Bloqueia enquanto a requisição está em andamento
+    if (loading) return;
+    setLoading(true);
     const toastKey = handleLoad("Carregando...");
   
-
-
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       onSave(formData, idVeic, idForn);
@@ -123,10 +124,22 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
 </select>
 
 <div>
+<label>Veiculo:</label>
 <Select 
-          options={fornecedores.map(f => ({ value: f.id, label: f.nome }))}
-          onChange={(opt) => setIdForn(opt?.value || 0)}
-        />
+  options={veiculos.map(v => ({ value: v.id, label: v.placaVeic }))} 
+  onChange={(opt) => {
+    if (opt) setIdVeic(opt.value);
+  }} 
+/>
+</div>
+<div>
+<label>Fornecedor:</label>
+<Select 
+  options={fornecedores.map(f => ({ value: f.id, label: f.nome }))} 
+  onChange={(opt) => {
+    if (opt) setIdForn(opt.value);
+  }} 
+/>
 </div>
 
 <div>

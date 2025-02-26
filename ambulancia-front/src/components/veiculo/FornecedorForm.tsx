@@ -94,7 +94,6 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onFornecedorChange, onC
         <input 
           type="text" 
           name="telefone" 
-          placeholder="Ex: classe A, B, C ou D"
           value={formData.telefone} 
           onChange={handleInputChange}
           required 
