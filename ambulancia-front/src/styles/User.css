@@ -195,3 +195,14 @@
   margin-bottom: 20px;
 }
 
+
+/* Selecione apenas os itens de navegação dentro da página gerenciar */
+.gerenciar .nav-link {
+  color: black !important;  /* Muda a cor do texto para preto */
+}
+
+.gerenciar .nav-link:hover {
+  color: #ddd !important;  /* Cor mais clara ao passar o mouse */
+  background-color: #007bff;  /* Cor de fundo azul */
+  border-radius: 5px;  /* Borda arredondada */
+}

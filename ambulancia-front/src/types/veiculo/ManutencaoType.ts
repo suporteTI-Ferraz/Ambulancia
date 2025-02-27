@@ -1,5 +1,5 @@
 export default interface Manutencao{
-    id: number | null;
+    id: number;
     tipoManutencao: string;
     dataManutencao: string;
     custoManutencao: number;
@@ -7,4 +7,5 @@ export default interface Manutencao{
     descricaoProblema: string;
     servicoRealizado: string;
     deletedAt: string | null;
+    createdAt: string;
 }

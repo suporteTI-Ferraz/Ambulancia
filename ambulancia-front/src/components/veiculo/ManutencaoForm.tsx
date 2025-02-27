@@ -15,7 +15,6 @@ interface ManutencaoFormProps {
   resetManutencoes?: boolean;
   veiculos: Veiculo[];
   fornecedores: Fornecedor[];
-  isModal: boolean; 
   manutencoesIniciais?: Manutencao[];
 }
 
@@ -29,7 +28,7 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
 }) => {
 
   const initialFormData: Manutencao = { id: 0, tipoManutencao: "", dataManutencao: "", status: "", 
-        descricaoProblema: "", servicoRealizado: "", custoManutencao: 0.0, deletedAt: null };
+        descricaoProblema: "", servicoRealizado: "", custoManutencao: 0.0, deletedAt: null, createdAt: "" };
 
   const [formData, setFormData] = useState<Manutencao>(initialFormData);
   const [isEditingVeiculo, setIsEditingVeiculo] = useState<boolean>(manutencoesIniciais.length > 0);
@@ -70,14 +69,15 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit}>
+                <div>
       <h4>Manutenções</h4>
-          <div>
             <label>Tipo de Manutenção</label>
             <input
               type="text"
               name="tipoManutencao"
               value={formData.tipoManutencao}
               onChange={handleInputChange}
+              required
             />
           </div>
           <div>

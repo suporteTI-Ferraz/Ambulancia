@@ -8,4 +8,5 @@ export interface Veiculo {
     manutencoes: Manutencao[] | [];
     deletedAt: string | null; // null se não está deletado, data se está deletado
     createdAt: string;
+    
 }

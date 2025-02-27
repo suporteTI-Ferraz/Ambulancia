@@ -64,7 +64,7 @@ const GerenciarVeiculo = () => {
         <TabPane tabId="manutenção">
           <h4>Gerenciar Manutenções</h4>
           <ManutencaoForm onSave={handleSaveManutencao} onCancel={() => setEditingManutencao(null)}  
-          isModal={false} fornecedores={fornecedores} veiculos={veiculos}  />
+     fornecedores={fornecedores} veiculos={veiculos}  />
         </TabPane>
       </TabContent>
       {/* Modal de Edição de Veículo */}
