@@ -204,7 +204,7 @@ const useGerenciarVeiculo = () =>{
     
     
     
-      const handleSaveManutencoesFromModal = async (manutencao: Manutencao, idVeic: number, idForn: number) => {
+      const handleSaveManutencao = async (manutencao: Manutencao, idVeic: number, idForn: number) => {
   
         
         try {
@@ -233,7 +233,7 @@ const useGerenciarVeiculo = () =>{
 
       return({ veiculos, editingVeiculo, isEditModalOpen, isManutencaoModalOpen, selectedManutencoes, loading,
         fornecedores, activeTab,
-        handleSaveVeiculo, handleEditVeiculo, handleEdit, handleDeleteVeiculo, handleSaveManutencoesFromModal,
+        handleSaveVeiculo, handleEditVeiculo, handleEdit, handleDeleteVeiculo, handleSaveManutencao,
         handleViewManutencoes, toggleEditModal, toggleModalManutencao, setEditingVeiculo,
         handleViewFornecedores, handleSaveFornecedor, toggleGerenciarVeicOpen,
         handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab,

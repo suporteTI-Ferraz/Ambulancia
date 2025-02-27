@@ -2,6 +2,10 @@ import { API } from "../api";
 import { User } from "../../types/user/UserType";
 import { AxiosResponse } from "axios";
 
+export const login = (email: string, senha: string) => 
+    API.post(   `/auth/authenticate`,
+    { email, senha });
+
 export const fetchUsers = (): Promise<AxiosResponse<User[]>>  => 
     API.get('/user');
 export const fetchUserById = (id: number): Promise<AxiosResponse<User>>  => 

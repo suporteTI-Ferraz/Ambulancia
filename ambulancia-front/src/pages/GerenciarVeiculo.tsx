@@ -16,14 +16,14 @@ const GerenciarVeiculo = () => {
     fornecedores, activeTab,
     handleSaveVeiculo, handleDeleteVeiculo, handleEditVeiculo,
     toggleEditModal, setEditingVeiculo, toggleModalManutencao, handleEdit,
-    handleViewManutencoes, handleSaveManutencoesFromModal, handleSaveFornecedor,
+    handleViewManutencoes, handleSaveManutencao, handleSaveFornecedor,
     handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab,
     handleEditManu, setEditingManutencao,
   } = useGerenciarVeiculo();
 
   return (
     <div className="gerenciar">
-      <h3>Gerenciar Veículos e Fornecedores</h3>
+      <h3>Gerenciar Veículos, Fornecedores e Manutenções</h3>
       <Nav tabs>
         <NavItem>
           <NavLink
@@ -62,8 +62,8 @@ const GerenciarVeiculo = () => {
           <FornecedorList fornecedores={fornecedores} onEdit={handleEditForn} onDelete={handleDeleteFornecedor} />
         </TabPane>
         <TabPane tabId="manutenção">
-          <h4>Gerenciar Fornecedores</h4>
-          <ManutencaoForm onSave={handleSaveManutencoesFromModal} onCancel={() => setEditingManutencao(null)}  
+          <h4>Gerenciar Manutenções</h4>
+          <ManutencaoForm onSave={handleSaveManutencao} onCancel={() => setEditingManutencao(null)}  
           isModal={false} fornecedores={fornecedores} veiculos={veiculos}  />
         </TabPane>
       </TabContent>

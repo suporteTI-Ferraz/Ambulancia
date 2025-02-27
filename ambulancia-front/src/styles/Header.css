@@ -1,47 +1,39 @@
-.header {
-    background-color: #a4c991;
-    padding: 10px 20px;
-    color: white;
+.header-logo {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; /* Alinha à esquerda */
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 200px;
+    overflow: hidden;
+    padding-left: 180px; /* Adiciona espaço à esquerda */
 }
 
-.header-logo a {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none;
+
+.logo-img {
+    width: 300px; /* Tamanho da imagem */
+    height: 300px; /* Tamanho da imagem */
+    border-radius: 50%;
 }
 
-.header-nav .nav-list {
-    display: flex;
-    gap: 20px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.custom-navbar {
+    background-color: #000 !important; /* Fundo preto */
+}
+.navbar-brand {
+    color: #fff !important; /* Texto branco */
+}
+.nav-link {
+    color: #fff !important; /* Links brancos */
+}
+.nav-link:hover {
+    color: #ddd !important; /* Cor mais clara ao passar o mouse */
 }
 
-.header-nav .nav-link {
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
+.nav-link {
+    color: #fff !important; /* Links brancos */
+    transition: background-color 0.3s; /* Animação suave para a troca de fundo */
 }
 
-.header-nav .nav-link:hover {
-    color: #f0e68c;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .header-nav .nav-list {
-        flex-direction: column;
-        gap: 10px;
-    }
+.nav-link:hover {
+    color: #ddd !important; /* Cor mais clara ao passar o mouse */
+    background-color: #007bff; /* Cor de fundo azul */
+    border-radius: 5px; /* Opcional, para bordas arredondadas */
 }

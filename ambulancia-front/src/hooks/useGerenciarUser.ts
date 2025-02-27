@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { User } from "../types/user/UserType";
-import { createUser, deleteUser, fetchUsers, reactivateUser, updateUser } from "../services/api/UserService";
+import { createUser, deleteUser, fetchUsers, reactivateUser, updateUser, login } from "../services/api/UserService";
 import { useToast } from "./useToast";
 import { useLoading } from "../contexts/LoadingContext";
 
@@ -11,6 +11,7 @@ export const useGerenciarUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { handleError, handleSuccess } = useToast();
   const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
+
 
     useEffect(() => {
       const loadUsers = async () => {
@@ -97,6 +98,8 @@ export const useGerenciarUser = () => {
             handleError("Erro ao excecutar ativação/desativação do usuário: "+ error)
           }
         };
+
+       
       
 
         return{

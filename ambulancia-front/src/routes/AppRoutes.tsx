@@ -14,6 +14,7 @@ import GerenciarHospital from '../pages/GerenciarHospital';
 import GerenciarAgendarDia from '../pages/GerenciarAgendarDia';
 import GerenciarAgendamento from '../pages/GerenciarAgendamento';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 const AppRoutes: React.FC = () => {
   return (
     <Router>
@@ -45,6 +46,7 @@ const AppRoutes: React.FC = () => {
         {/* Rota de fallback */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
+      <Footer/>
     </Router>
   );
 };
