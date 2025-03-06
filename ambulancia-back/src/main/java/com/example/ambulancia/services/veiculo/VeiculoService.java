@@ -40,7 +40,9 @@ public class VeiculoService {
         entity.setMarcaVeic(veiculo.getMarcaVeic());
         entity.setAnoFabricacao(veiculo.getAnoFabricacao());
         entity.setChassi(veiculo.getChassi());
+        entity.setClasse(veiculo.getClasse());
         entity.setPlacaVeic(veiculo.getPlacaVeic());
+        
         entity.setQuilometragemAtual(veiculo.getQuilometragemAtual());
     }
 

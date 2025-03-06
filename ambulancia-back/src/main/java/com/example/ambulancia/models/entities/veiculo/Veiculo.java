@@ -1,4 +1,5 @@
 package com.example.ambulancia.models.entities.veiculo;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ import jakarta.persistence.Table;
 public class Veiculo extends BaseEntity {
     private String modeloVeic;
     private String marcaVeic;
-    private String anoFabricacao;
+    private LocalDate anoFabricacao;
     private String chassi;
     @Column(nullable = false)
     private String placaVeic;

@@ -11,6 +11,7 @@ import { Veiculo } from "../../types/veiculo/VeiculoType";
 interface ManutencaoFormProps {
   onSave: (  manutencao: Manutencao, idVeic: number, idForn: number) => void;
   onCancel: () => void;
+  manutencao?: Manutencao | null; // Para edição, ou null para criação
 
   resetManutencoes?: boolean;
   veiculos: Veiculo[];
@@ -76,6 +77,26 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
               type="text"
               name="tipoManutencao"
               value={formData.tipoManutencao}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Descricao do Problema</label>
+            <input
+              type="text"
+              name="descricaoProblema"
+              value={formData.descricaoProblema}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Serviço Realizado</label>
+            <input
+              type="text"
+              name="servicoRealizado"
+              value={formData.servicoRealizado}
               onChange={handleInputChange}
               required
             />

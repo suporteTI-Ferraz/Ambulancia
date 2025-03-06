@@ -52,9 +52,12 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
             <tr>
               <th>Criação</th>
               <th>Placa</th>
+              <th>Ano de Fabricação</th>
+              <th>Chassi</th>
+              <th>Marca</th>
+              <th>Modelo</th>
               <th>Quilometragem Atual</th>
               <th>Classe</th>
-              <th>Manutenções</th>
               <th>Status</th>
               <th>Ações</th>
             </tr>
@@ -64,13 +67,13 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
               <tr key={veiculo.id} style={{ backgroundColor: veiculo.deletedAt ? '#ffcccc' : 'white' }}>
                 <td><DataCriacao createdAt={veiculo.createdAt} /></td>
                 <td>{veiculo.placaVeic}</td>
+                <td>{veiculo.anoFabricacao}</td>
+                <td>{veiculo.chassi}</td>
+                <td>{veiculo.marcaVeic}</td>
+                <td>{veiculo.modeloVeic}</td>
+
                 <td>{veiculo.quilometragemAtual}</td>
                 <td>{veiculo.classe}</td>
-                <td>
-                  {veiculo.manutencoes.map((manutencao) => (
-                    <div key={manutencao.id}> Tipo: {manutencao.tipoManutencao}, Valor: {manutencao.custoManutencao}</div>
-                  ))}
-                </td>
                 <td>{veiculo.deletedAt ? 'Desativado' : 'Ativo'}</td>
                 <td>
                 <div className="icon-container">

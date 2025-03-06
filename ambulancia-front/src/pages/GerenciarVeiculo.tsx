@@ -3,22 +3,21 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Modal, ModalHeader, ModalBo
 import classnames from "classnames";
 import VeiculoForm from "../components/veiculo/VeiculoForm";
 import VeiculoList from "../components/veiculo/VeiculoList";
-import EditVeiculoForm from "../components/veiculo/EditVeiculoForm";
-import ManutencaoModal from "../components/modal/veiculo/ManutencaoModal";
 import FornecedorForm from "../components/veiculo/FornecedorForm";
 import FornecedorList from "../components/veiculo/FornecedorList";
 import useGerenciarVeiculo from "../hooks/useGerenciarVeiculo";
 import ManutencaoForm from "../components/veiculo/ManutencaoForm";
+import ManutencaoList from "../components/veiculo/ManutencaoList";
 
 const GerenciarVeiculo = () => {
   const {
     veiculos, isEditModalOpen, isManutencaoModalOpen, selectedManutencoes, editingVeiculo,
-    fornecedores, activeTab,
+    fornecedores, activeTab, manutencoes, editingManutencao, editingFornecedor, isFornecedorModalOpen,
     handleSaveVeiculo, handleDeleteVeiculo, handleEditVeiculo,
     toggleEditModal, setEditingVeiculo, toggleModalManutencao, handleEdit,
     handleViewManutencoes, handleSaveManutencao, handleSaveFornecedor,
-    handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab,
-    handleEditManu, setEditingManutencao,
+    handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab, handleUpdateFornecedor, toggleModalFornecedor,
+    handleEditManu, setEditingManutencao, handleDeleteManutencao
   } = useGerenciarVeiculo();
 
   return (
@@ -53,35 +52,51 @@ const GerenciarVeiculo = () => {
       <TabContent activeTab={activeTab}>
         <TabPane tabId="veiculo">
           <h4>Criar Veículo</h4>
-          <VeiculoForm onSave={handleSaveVeiculo} onCancel={() => setEditingVeiculo(null)} />
+          <VeiculoForm isModal={false} onSave={handleSaveVeiculo}
+           onCancel={() => setEditingVeiculo(null)}
+          veiculoToEdit={editingVeiculo} onUpdate={handleEditVeiculo} />
           <VeiculoList veiculos={veiculos} onEdit={handleEdit} onDelete={handleDeleteVeiculo} onViewManutencoes={handleViewManutencoes} />
         </TabPane>
         <TabPane tabId="fornecedor">
           <h4>Gerenciar Fornecedores</h4>
-          <FornecedorForm onFornecedorChange={handleSaveFornecedor} isModal={false} onCancel={() => setEditingFornecedor(null)} />
+          <FornecedorForm onSave={handleSaveFornecedor} isModal={false} 
+          onCancel={() => setEditingFornecedor(null)} onUpdate={handleUpdateFornecedor} fornecedorToEdit={editingFornecedor} />
           <FornecedorList fornecedores={fornecedores} onEdit={handleEditForn} onDelete={handleDeleteFornecedor} />
         </TabPane>
         <TabPane tabId="manutenção">
           <h4>Gerenciar Manutenções</h4>
-          <ManutencaoForm onSave={handleSaveManutencao} onCancel={() => setEditingManutencao(null)}  
+          <ManutencaoForm onSave={handleSaveManutencao}  onCancel={() => setEditingManutencao(null)}  
      fornecedores={fornecedores} veiculos={veiculos}  />
+               <ManutencaoList manutencoes={manutencoes} onEdit={handleEditManu} onDelete={handleDeleteManutencao}/>
+
         </TabPane>
       </TabContent>
       {/* Modal de Edição de Veículo */}
-      <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar">
+      <Modal isOpen={isEditModalOpen} toggle={toggleModalFornecedor} className="gerenciar">
         <ModalHeader toggle={toggleEditModal}>Editar Veículo</ModalHeader>
         <ModalBody>
-          {editingVeiculo && <EditVeiculoForm veiculo={editingVeiculo} onSave={handleEditVeiculo} onCancel={toggleEditModal} />}
+          {editingVeiculo && <VeiculoForm veiculoToEdit={editingVeiculo} onSave={handleSaveVeiculo} onCancel={toggleEditModal} 
+          onUpdate={handleEditVeiculo } isModal={true} />}
         </ModalBody>
       </Modal>
+
+            {/* Modal de Fornecedores */}
+            <Modal isOpen={isFornecedorModalOpen} toggle={toggleModalFornecedor} className="gerenciar">
+        <ModalHeader toggle={toggleModalFornecedor}>Editar Fornecedor</ModalHeader>
+        <ModalBody>
+          {editingFornecedor && <FornecedorForm fornecedorToEdit={editingFornecedor} onSave={handleSaveFornecedor} onCancel={toggleEditModal} 
+          onUpdate={handleUpdateFornecedor } isModal={true} />}
+        </ModalBody>
+      </Modal>
+        
       {/* Modal de Manutenção */}
-      {/* <ManutencaoModal
-        manutencoes={selectedManutencoes}
-        isOpen={isManutencaoModalOpen}
-        toggle={toggleModalManutencao}
-        onManutencoesChange={handleSaveManutencoesFromModal}
-        fornecedores={fornecedores}
-      /> */}
+      <Modal isOpen={isManutencaoModalOpen} toggle={toggleModalManutencao} className="gerenciar">
+        <ModalHeader toggle={toggleModalManutencao}>Editar Manutenção</ModalHeader>
+        <ModalBody>
+          {editingManutencao && <ManutencaoForm manutencao={editingManutencao} 
+          onSave={handleSaveManutencao} onCancel={toggleModalManutencao} veiculos={veiculos} fornecedores={fornecedores} />}
+        </ModalBody>
+      </Modal>
 
     </div>
   );

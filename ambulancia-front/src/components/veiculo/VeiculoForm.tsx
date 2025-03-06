@@ -5,28 +5,34 @@ import ButtonSpinner from "../itens/ButtonSpinner";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useToast } from "../../hooks/useToast";
 import ManutencaoForm from "./ManutencaoForm";
+import DatePicker from "react-datepicker";
 interface PacienteFormProps {
-  veiculo?: Veiculo | null; // Para edição, ou null para criação
+  veiculoToEdit: Veiculo | null; // Para edição, ou null para criação
   onSave: (veiculo: Veiculo) => void;
+  onUpdate: (id: number, veiculo: Veiculo) => void;
   onCancel: () => void;
+  isModal: Boolean; 
   //handleTelefonesChange: () => void;
 }
 
-const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculo, onSave, onCancel }) => {
+const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculoToEdit, onSave, onUpdate, onCancel, isModal }) => {
   const initialFormData: Veiculo = {
-    id: veiculo?.id || 0,
-    placaVeic: veiculo?.placaVeic || "",
-    quilometragemAtual: veiculo?.quilometragemAtual || 0,
-    classe: veiculo?.classe || "",
-    manutencoes: veiculo?.manutencoes || [],
-    deletedAt: veiculo?.deletedAt || null,
+    id: veiculoToEdit?.id || 0,
+    placaVeic: veiculoToEdit?.placaVeic || "",
+    quilometragemAtual: veiculoToEdit?.quilometragemAtual || 0,
+    classe: veiculoToEdit?.classe || "",
+    manutencoes: veiculoToEdit?.manutencoes || [],
+    deletedAt: veiculoToEdit?.deletedAt || null,
     createdAt:  "",
+    modeloVeic: veiculoToEdit?.modeloVeic || "",
+    marcaVeic: veiculoToEdit?.marcaVeic || "",
+    anoFabricacao: veiculoToEdit?.anoFabricacao || "",
+    chassi: veiculoToEdit?.chassi || "",
   };
 
   const [formData, setFormData] = useState<Veiculo>(initialFormData);
   const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
   const { handleLoad, dismissLoading } = useToast();  
-  const [shouldResetManutencoes, setShouldResetManuencoes] = useState(false);
 //   const [shouldResetEnderecos, setShouldResetEnderecos] = useState(false);
 
 
@@ -35,17 +41,12 @@ const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculo, onSave, onCancel })
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleManutencoesChange = (manutencoes: Veiculo["manutencoes"]) => {
-    setFormData({ ...formData, manutencoes });
-  };
+
 //   const handleMultasChange = (multas: Veiculo["multas"]) =>{
 //     setFormData({...formData, multas})
 //   }
 
   const handleCancel = () => {
-    setShouldResetManuencoes(true); // Define a flag para resetar telefones
-    // setShouldResetMultas(true);
-    setTimeout(() => (setShouldResetManuencoes(false)), 0); // Reseta a flag após o reset
     setFormData(initialFormData); // Redefine o formulário
     onCancel();
   };
@@ -59,7 +60,11 @@ const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculo, onSave, onCancel })
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));  //Para testar o spinner
-      onSave(formData); // Chama a função onSave (criação ou edição)
+      if (veiculoToEdit && isModal) {
+        onUpdate(veiculoToEdit.id, formData);
+      } else {
+        onSave(formData); // Chama a função onSave (criação ou edição)
+      }
     } catch (error) {
       console.error("Erro ao salvar veículo:", error);
     } finally {
@@ -82,6 +87,50 @@ const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculo, onSave, onCancel })
           value={formData.placaVeic}
           onChange={handleInputChange}
           required
+        />
+      </div>
+        <div>
+            <DatePicker
+        selected={formData.anoFabricacao ? new Date(formData.anoFabricacao) : null}
+        onChange={(date) => setFormData({ ...formData, anoFabricacao: date?.toISOString().split("T")[0] || "" })}
+        locale="pt-BR"
+        dateFormat="dd/MM/yyyy"
+        showYearDropdown
+        scrollableYearDropdown
+        yearDropdownItemNumber={120}
+        maxDate={new Date()}  // 🔥 Impede seleção de datas futuras
+        placeholderText="DD/MM/AAAA"
+        popperPlacement="left-end" // 🔥 Força o DatePicker para baixo
+      />
+            </div>
+      <div>
+        <label>Chassi</label>
+        <input 
+          type="text" 
+          name="chassi" 
+          value={formData.chassi} 
+          onChange={handleInputChange}
+          required 
+        />
+      </div>
+      <div>
+        <label>Marca</label>
+        <input 
+          type="text" 
+          name="marcaVeic" 
+          value={formData.marcaVeic} 
+          onChange={handleInputChange}
+          required 
+        />
+      </div>
+      <div>
+        <label>Modelo</label>
+        <input 
+          type="text" 
+          name="modeloVeic" 
+          value={formData.modeloVeic} 
+          onChange={handleInputChange}
+          required 
         />
       </div>
       <div>
@@ -112,7 +161,7 @@ const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculo, onSave, onCancel })
       {/* <ManutencaoForm  onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} /> */}
       
       <div>
-        <ButtonSpinner name="Salvar" isLoading={loading} type="submit"/>
+      <ButtonSpinner name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit"/>
         <button type="button" onClick={handleCancel}>
           Limpar
         </button>

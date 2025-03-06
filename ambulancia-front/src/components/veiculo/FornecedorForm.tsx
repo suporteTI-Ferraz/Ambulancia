@@ -5,25 +5,26 @@ import { useToast } from "../../hooks/useToast";
 import ButtonSpinner from "../itens/ButtonSpinner";
 
 interface FornecedorFormProps {
-  onFornecedorChange: (fornecedor: Fornecedor) => void; // CallBack para alteracoes
+  onSave: (fornecedor: Fornecedor) => void;
+  onUpdate: (id: number, fornecedor: Fornecedor) => void;
+  
   onCancel: () => void;
   isModal: Boolean; 
-  fornecedor?: Fornecedor | null; // Para edição, ou null para criação
+  fornecedorToEdit: Fornecedor | null; // Para edição, ou null para criação
 
 }
 
-const FornecedorForm: React.FC<FornecedorFormProps> = ({ onFornecedorChange, onCancel, fornecedor, }) => {
+const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCancel, fornecedorToEdit, isModal }) => {
 
     const initialFormData: Fornecedor = {
-      id: fornecedor?.id || 0,
-      nome: fornecedor?.nome || "",
-      cnpj: fornecedor?.cnpj || "",
-      telefone: fornecedor?.telefone || "",
-      deletedAt: fornecedor?.deletedAt || null,
+      id: fornecedorToEdit?.id || 0,
+      nome: fornecedorToEdit?.nome || "",
+      cnpj: fornecedorToEdit?.cnpj || "",
+      telefone: fornecedorToEdit?.telefone || "",
+      deletedAt: fornecedorToEdit?.deletedAt || null,
       createdAt:  "",
     };
   const [formData, setFormData] = useState<Fornecedor>(initialFormData);
-   const [shouldResetFornecedores, setShouldResetFornecedores] = useState(false);
  
    const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
    const { handleLoad, dismissLoading } = useToast();  
@@ -36,9 +37,6 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onFornecedorChange, onC
      };
 
      const handleCancel = () => {
-      setShouldResetFornecedores(true); // Define a flag para resetar telefones
-      // setShouldResetMultas(true);
-      setTimeout(() => (setShouldResetFornecedores(false)), 0); // Reseta a flag após o reset
       setFormData(initialFormData); // Redefine o formulário
       onCancel();
     };
@@ -51,8 +49,11 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onFornecedorChange, onC
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));  //Para testar o spinner
-      onFornecedorChange(formData); // Chama a função onSave (criação ou edição)
-    } catch (error) {
+      if (fornecedorToEdit && isModal) {
+        onUpdate(fornecedorToEdit.id, formData);
+      } else {
+        onSave(formData); // Chama a função onSave (criação ou edição)
+      }    } catch (error) {
       console.error("Erro ao salvar veículo:", error);
     } finally {
       setLoading(false); // Libera o botão após a requisição terminar
@@ -105,7 +106,7 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onFornecedorChange, onC
       {/* <ManutencaoForm  onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} /> */}
       
       <div>
-        <ButtonSpinner name="Salvar" isLoading={loading} type="submit"/>
+        <ButtonSpinner name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit"/>
         <button type="button" onClick={handleCancel}>
           Limpar
         </button>

@@ -3,6 +3,10 @@ import Manutencao from "./ManutencaoType";
 export interface Veiculo {
     id: number;
     placaVeic: string;
+    modeloVeic: string;
+    marcaVeic: string;
+    anoFabricacao: string;
+    chassi: string;
     quilometragemAtual: number;
     classe: string;
     manutencoes: Manutencao[] | [];

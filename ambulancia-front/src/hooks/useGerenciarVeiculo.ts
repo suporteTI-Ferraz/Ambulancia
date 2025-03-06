@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { fetchVeiculos, createVeiculo, updateVeiculo, createManu,
     updateManyManu, deleteVeiculo, reactivateVeiculo, fetchFornecedores,
     createFornecedor, deleteFornecedor, reactivateFornecedor, fetchPecaManutencoes,
-    createPecaManutencao
+    createPecaManutencao,
+    fetchManutencoes,
+    reactivateManutencao,
+    deleteManutencao,
+    updateFornecedor
 
  } from "../services/api/VeiculoService";
 import { Veiculo } from "../types/veiculo/VeiculoType";
@@ -26,6 +30,9 @@ const useGerenciarVeiculo = () =>{
     const [editingManutencao, setEditingManutencao] = useState<Manutencao | null>(null);
     const [isManutencaoModalOpen, setIsManutencaoModalOpen] = useState(false);
   const [selectedManutencoes, setSelectedManutencoes] = useState<Veiculo["manutencoes"]>([]);
+
+  const [manutencoes, setManutencoes] = useState<Manutencao[]>([]);
+
 
     const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
     const { handleError, handleSuccess } = useToast();
@@ -53,8 +60,20 @@ const useGerenciarVeiculo = () =>{
             setLoading(false);
             }
         }
+        const loadManutencoes = async () => {
+          setLoading(true);
+          try {
+              const response = await fetchManutencoes();
+              setManutencoes(response.data);
+          } catch (error) {
+              handleError("Erro ao carregar Veículos: "+ error);
+          }finally{
+          setLoading(false);
+          }
+      }
         loadVeiculos();
         loadFornecedores();
+        loadManutencoes();
     }, []);
 
     const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen);
@@ -87,26 +106,17 @@ const useGerenciarVeiculo = () =>{
         }
     };
 
-    const handleEditVeiculo = async (updatedVeiculo: Veiculo, notUpdatedVeiculo: Veiculo) =>{
+    const handleEditVeiculo = async (id: number, veiculo: Veiculo) =>{
         try {
-            const isVeiculoChanged = updatedVeiculo.placaVeic !== notUpdatedVeiculo.placaVeic ||
-            updatedVeiculo.quilometragemAtual !== notUpdatedVeiculo.quilometragemAtual || 
-            updatedVeiculo.classe !== notUpdatedVeiculo.classe;
-    
-            const isManutencaoChanged = JSON.stringify(updatedVeiculo.manutencoes) !== JSON.stringify(notUpdatedVeiculo.manutencoes);
-    
-            if(isVeiculoChanged){
-                await updateVeiculo(updatedVeiculo.id, updatedVeiculo);
-            }
+          const response = await updateVeiculo(id, veiculo);
+          const updatedVeiculo = response.data;
+          console.log(updatedVeiculo);
+          const updatedVeiculos = veiculos.map(v =>
+            v.id === updatedVeiculo.id ? updatedVeiculo : v
+          );
+          setVeiculos(updatedVeiculos);
+          handleSuccess("Veículo Atualizado com sucesso!");  // Corrigir a mensagem
 
-            if(isManutencaoChanged){
-                await updateManyManu(updatedVeiculo.id, updatedVeiculo.manutencoes)
-            }
-
-            const updatedVeiculos = veiculos.map((veiculo) => 
-            veiculo.id === notUpdatedVeiculo.id ? 
-                veiculo: updatedVeiculo);
-            setVeiculos(updatedVeiculos);
         } catch (error) {
             handleError("Erro au atualizar Veículo: " + error);
         }finally{
@@ -164,6 +174,26 @@ const useGerenciarVeiculo = () =>{
         }
       };
 
+      const handleUpdateFornecedor = async (id: number, fornecedor: Fornecedor) =>{
+        try {
+          const response = await updateFornecedor(id, fornecedor);
+          const updatedFornecedor = response.data;
+          console.log(updatedFornecedor);
+          const updatedFornecedores = fornecedores.map(f =>
+            f.id === updatedFornecedor.id ? updatedFornecedor : f
+          );
+          setFornecedores(updatedFornecedores);
+          handleSuccess("Fornecedor Atualizado com sucesso!");  // Corrigir a mensagem
+
+        } catch (error) {
+            handleError("Erro au atualizar Fornecedor: " + error);
+        }finally{
+            toggleModalFornecedor();
+        }
+           
+    };
+
+
       const handleDeleteFornecedor = async (id: number, deletedAt: string | null) =>{
         try {
             let response;
@@ -190,6 +220,32 @@ const useGerenciarVeiculo = () =>{
         }
     };
 
+    const handleDeleteManutencao = async (id: number, deletedAt: string | null) =>{
+      try {
+          let response;
+          if(deletedAt){
+              response = await reactivateManutencao(id);
+              handleSuccess("Manutenção reativada com sucesso!");
+          }else{
+              response = await deleteManutencao(id);
+              handleSuccess("Manutenção desativado com sucesso!");
+          }
+
+          if(response.status === 200){
+              setManutencoes((prevManutencoes) =>
+                prevManutencoes.map((manutencao) =>
+                  manutencao.id === id ? {
+                  ...manutencao,
+                  deletedAt: deletedAt ? null : new Date().toISOString(),
+              } : manutencao
+              )
+              );
+          };
+      } catch (error) {
+          handleError('Erro ao alternar status do Veículo: '+ error);
+      }
+  };
+
     
     
      const handleViewManutencoes= (veiculo: Veiculo) => {
@@ -210,16 +266,8 @@ const useGerenciarVeiculo = () =>{
         try {
           const response = await createManu( idVeic, idForn, manutencao); // Salva os telefones no backend
           const createdManutencao = response.data;
-          setVeiculos(prevVeiculos =>
-            prevVeiculos.map(veiculo =>
-                veiculo.id === idVeic
-                ? {
-                    ...veiculo,
-                    manutencoes: [...veiculo.manutencoes, createdManutencao] // Adiciona os novos telefones à lista existente
-                  }
-                : veiculo
-            )
-          );
+          setManutencoes((prevManutencoes) => 
+            [...prevManutencoes, createdManutencao]);
           handleSuccess("Manutenções criadas com sucesso!");
           
           
@@ -231,13 +279,14 @@ const useGerenciarVeiculo = () =>{
         }
       };
 
+
       return({ veiculos, editingVeiculo, isEditModalOpen, isManutencaoModalOpen, selectedManutencoes, loading,
-        fornecedores, activeTab,
+        fornecedores, editingFornecedor, activeTab, manutencoes, editingManutencao, isFornecedorModalOpen,
         handleSaveVeiculo, handleEditVeiculo, handleEdit, handleDeleteVeiculo, handleSaveManutencao,
         handleViewManutencoes, toggleEditModal, toggleModalManutencao, setEditingVeiculo,
         handleViewFornecedores, handleSaveFornecedor, toggleGerenciarVeicOpen,
-        handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab,
-        handleEditManu, setEditingManutencao,
+        handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab, handleUpdateFornecedor, toggleModalFornecedor,
+        handleEditManu, setEditingManutencao, handleDeleteManutencao
       }
       );
 

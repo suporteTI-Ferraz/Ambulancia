@@ -71,7 +71,7 @@ const FornecedorList: React.FC<FornecedorListProps> = ({ fornecedores, onEdit, o
                   <FiEdit 
                   className="icon-action edit" 
                   title="Editar" 
-                  onClick={() => alert("Editar")} />
+                  onClick={() => onEdit(fornecedor)} />
               
               
                   {fornecedor.deletedAt ? (
