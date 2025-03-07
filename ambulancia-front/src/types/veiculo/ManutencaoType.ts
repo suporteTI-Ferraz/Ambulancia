@@ -1,3 +1,6 @@
+import { Fornecedor } from "./FornecedorType";
+import { Veiculo } from "./VeiculoType";
+
 export default interface Manutencao{
     id: number;
     tipoManutencao: string;
@@ -6,6 +9,8 @@ export default interface Manutencao{
     status: string;
     descricaoProblema: string;
     servicoRealizado: string;
+    veiculo: Veiculo | null;
+    fornecedor: Fornecedor | null;
     deletedAt: string | null;
     createdAt: string;
 }

@@ -1,6 +1,5 @@
 package com.example.ambulancia.models.entities.veiculo;
 import com.example.ambulancia.models.entities.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -27,6 +26,7 @@ public class Fornecedor extends BaseEntity {
     private String cnpj;
     private String telefone;
         
+    
     @Builder.Default
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
     private List<Manutencao> manutencoes = new ArrayList<>(); // HISTÓRICO DE MANUTENÇÕES FEITAS POR ESSE FORNECEDOR

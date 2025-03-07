@@ -21,6 +21,7 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
       nome: fornecedorToEdit?.nome || "",
       cnpj: fornecedorToEdit?.cnpj || "",
       telefone: fornecedorToEdit?.telefone || "",
+      manutencoes: fornecedorToEdit?.manutencoes || [],
       deletedAt: fornecedorToEdit?.deletedAt || null,
       createdAt:  "",
     };

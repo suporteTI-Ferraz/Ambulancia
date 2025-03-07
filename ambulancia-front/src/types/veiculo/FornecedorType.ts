@@ -1,3 +1,5 @@
+import Manutencao from "./ManutencaoType";
+
 export interface Fornecedor{
     id: number;
     nome: string;
@@ -5,5 +7,6 @@ export interface Fornecedor{
     telefone: string;
     deletedAt: string | null;
     createdAt: string;
-
+    manutencoes: Manutencao[] | [];
+    
 }

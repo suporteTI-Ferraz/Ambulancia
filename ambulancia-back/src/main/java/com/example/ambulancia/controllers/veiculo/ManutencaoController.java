@@ -61,9 +61,10 @@ public class ManutencaoController {
         return ResponseEntity.ok().body(manutencao);
     }
 
-    @PutMapping(value = "/veiculo/manutencao/{id}")
-    public ResponseEntity<Manutencao> updateById(@PathVariable Long id, @RequestBody Manutencao manutencao){
-        Manutencao obj = service.update(id, manutencao);
+    @PutMapping(value = "/veiculo/{idVeic}/fornecedor/{idForn}/manutencao/{id}")
+    public ResponseEntity<Manutencao> updateById(@PathVariable Long id, @RequestBody Manutencao manutencao,  
+    @PathVariable Long idVeic, @PathVariable Long idForn){
+        Manutencao obj = service.update(id, manutencao, idVeic, idForn);
         return ResponseEntity.ok(obj);
     }
 

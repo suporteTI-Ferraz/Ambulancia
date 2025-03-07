@@ -78,7 +78,7 @@ const ManutencaoList: React.FC<FornecedorListProps> = ({ manutencoes, onEdit, on
                   <FiEdit 
                   className="icon-action edit" 
                   title="Editar" 
-                  onClick={() => alert("Editar")} />
+                  onClick={() => onEdit(manutencao)} />
               
               
                   {manutencao.deletedAt ? (

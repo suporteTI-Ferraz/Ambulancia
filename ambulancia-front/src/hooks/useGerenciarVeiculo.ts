@@ -6,7 +6,8 @@ import { fetchVeiculos, createVeiculo, updateVeiculo, createManu,
     fetchManutencoes,
     reactivateManutencao,
     deleteManutencao,
-    updateFornecedor
+    updateFornecedor,
+    updateManutencao
 
  } from "../services/api/VeiculoService";
 import { Veiculo } from "../types/veiculo/VeiculoType";
@@ -29,9 +30,10 @@ const useGerenciarVeiculo = () =>{
 
     const [editingManutencao, setEditingManutencao] = useState<Manutencao | null>(null);
     const [isManutencaoModalOpen, setIsManutencaoModalOpen] = useState(false);
+    const [manutencoes, setManutencoes] = useState<Manutencao[]>([]);
+
   const [selectedManutencoes, setSelectedManutencoes] = useState<Veiculo["manutencoes"]>([]);
 
-  const [manutencoes, setManutencoes] = useState<Manutencao[]>([]);
 
 
     const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
@@ -75,6 +77,8 @@ const useGerenciarVeiculo = () =>{
         loadFornecedores();
         loadManutencoes();
     }, []);
+
+  
 
     const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen);
     const toggleModalFornecedor = () => setIsFornecedorModalOpen(!isFornecedorModalOpen)
@@ -275,14 +279,61 @@ const useGerenciarVeiculo = () =>{
             console.log(error)
           handleError("Falha ao criar Manutenções: "+ error)
         } finally {
-          toggleModalManutencao(); // Fecha o modal
         }
       };
 
+      const handleUpdateManutencao = async (id: number, manutencao: Manutencao, idVeic: number, idForn: number) => {
+        try {
+            const response = await updateManutencao(id, manutencao, idVeic, idForn);
+            const updatedManutencao = response.data;
+    
+            // Remover a manutenção do veículo e fornecedor anteriores
+            setVeiculos(prevVeiculos =>
+                prevVeiculos.map(veic => ({
+                    ...veic,
+                    manutencoes: veic.manutencoes?.filter(m => m.id !== id) || []
+                }))
+            );
+    
+            setFornecedores(prevFornecedores =>
+                prevFornecedores.map(forn => ({
+                    ...forn,
+                    manutencoes: forn.manutencoes?.filter(m => m.id !== id) || []
+                }))
+            );
+    
+            // Atualizar a lista geral de manutenções
+            setManutencoes(prevManutencoes =>
+                prevManutencoes.map(m => (m.id === updatedManutencao.id ? updatedManutencao : m))
+            );
+    
+            // Adicionar a manutenção ao novo veículo e fornecedor
+            setVeiculos(prevVeiculos =>
+                prevVeiculos.map(veic =>
+                    veic.id === idVeic ? { ...veic, manutencoes: [...(veic.manutencoes || []), updatedManutencao] } : veic
+                )
+            );
+    
+            setFornecedores(prevFornecedores =>
+                prevFornecedores.map(forn =>
+                    forn.id === idForn ? { ...forn, manutencoes: [...(forn.manutencoes || []), updatedManutencao] } : forn
+                )
+            );
+    
+            handleSuccess("Manutenção Atualizada com sucesso!");
+    
+        } catch (error) {
+            handleError("Erro ao atualizar Manutenção: " + error);
+        } finally {
+            toggleModalManutencao();
+        }
+    };
+    
+
 
       return({ veiculos, editingVeiculo, isEditModalOpen, isManutencaoModalOpen, selectedManutencoes, loading,
-        fornecedores, editingFornecedor, activeTab, manutencoes, editingManutencao, isFornecedorModalOpen,
-        handleSaveVeiculo, handleEditVeiculo, handleEdit, handleDeleteVeiculo, handleSaveManutencao,
+        fornecedores, editingFornecedor, activeTab, manutencoes, editingManutencao, isFornecedorModalOpen, 
+        handleSaveVeiculo, handleEditVeiculo, handleEdit, handleDeleteVeiculo, handleSaveManutencao, handleUpdateManutencao,
         handleViewManutencoes, toggleEditModal, toggleModalManutencao, setEditingVeiculo,
         handleViewFornecedores, handleSaveFornecedor, toggleGerenciarVeicOpen,
         handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab, handleUpdateFornecedor, toggleModalFornecedor,

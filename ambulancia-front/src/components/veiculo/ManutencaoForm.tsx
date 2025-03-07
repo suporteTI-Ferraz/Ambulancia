@@ -9,32 +9,69 @@ import ButtonSpinner from "../itens/ButtonSpinner";
 import { Veiculo } from "../../types/veiculo/VeiculoType";
 
 interface ManutencaoFormProps {
-  onSave: (  manutencao: Manutencao, idVeic: number, idForn: number) => void;
+  onSave: (manutencao: Manutencao, idVeic: number, idForn: number) => void;
+  onUpdate: (id: number, manutencao: Manutencao, idVeic: number, idForn: number) => void;
   onCancel: () => void;
-  manutencao?: Manutencao | null; // Para edição, ou null para criação
-
+  manutencaoToEdit: Manutencao | null; // Para edição, ou null para criação
+  isModal: Boolean; 
   resetManutencoes?: boolean;
   veiculos: Veiculo[];
   fornecedores: Fornecedor[];
-  manutencoesIniciais?: Manutencao[];
 }
 
 const ManutencaoForm: React.FC<ManutencaoFormProps> = ({ 
   onSave,
   onCancel,
-  resetManutencoes, 
-  manutencoesIniciais = [],
+  onUpdate,
+  isModal,
+  manutencaoToEdit,
   veiculos,
   fornecedores,
 }) => {
 
-  const initialFormData: Manutencao = { id: 0, tipoManutencao: "", dataManutencao: "", status: "", 
-        descricaoProblema: "", servicoRealizado: "", custoManutencao: 0.0, deletedAt: null, createdAt: "" };
+  const initialFormData: Manutencao = { id: manutencaoToEdit?.id || 0,
+    tipoManutencao: manutencaoToEdit?.tipoManutencao || "",
+    dataManutencao: manutencaoToEdit?.dataManutencao || "",
+    status: manutencaoToEdit?.status || "", 
+    descricaoProblema: manutencaoToEdit?.descricaoProblema || "",
+    servicoRealizado: manutencaoToEdit?.servicoRealizado || "",
+    custoManutencao: manutencaoToEdit?.custoManutencao || 0.0,
+    deletedAt: manutencaoToEdit?.deletedAt || null,
+    veiculo: manutencaoToEdit?.veiculo || null,
+    fornecedor: manutencaoToEdit?.fornecedor || null,
+    createdAt: "" };
 
+
+
+    
   const [formData, setFormData] = useState<Manutencao>(initialFormData);
-  const [isEditingVeiculo, setIsEditingVeiculo] = useState<boolean>(manutencoesIniciais.length > 0);
-  const [idForn, setIdForn] = useState(0);
-  const [idVeic, setIdVeic] = useState(0);
+  const [idForn, setIdForn] = useState<number>(0);
+  const [idVeic, setIdVeic] = useState<number>(0);
+  
+   useEffect(() => {
+   if (manutencaoToEdit?.id) {
+     console.log("🔍 Buscando manutenção ID:", manutencaoToEdit.id);
+ 
+     // Encontra o veículo relacionado à manutenção
+     const veiculoRelacionado = veiculos.find(v => 
+       v.manutencoes.some(m => Number(m.id) === Number(manutencaoToEdit.id))
+     );
+ 
+     // Encontra o fornecedor relacionado à manutenção
+     const fornecedorRelacionado = fornecedores.find(f => 
+       f.manutencoes.some(m => Number(m.id) === Number(manutencaoToEdit.id))
+     );
+ 
+     console.log("✅ Veículo encontrado:", veiculoRelacionado);
+     console.log("✅ Fornecedor encontrado:", fornecedorRelacionado);
+ 
+     // Atualiza a manutenção com os objetos completos de veículo e fornecedor
+     setIdForn(fornecedorRelacionado?.id || 0)
+     setIdVeic(veiculoRelacionado?.id || 0)
+   }
+ }, [manutencaoToEdit]);
+ 
+  
 
     const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
     const { handleLoad, dismissLoading } = useToast(); 
@@ -48,6 +85,10 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
     const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
     setFormData({ ...formData, [name]: value });
   };
+  const handleCancel = () => {
+    setFormData(initialFormData); // Redefine o formulário
+    onCancel();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,7 +98,12 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
   
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      onSave(formData, idVeic, idForn);
+      if (manutencaoToEdit && isModal) {
+        onUpdate(manutencaoToEdit.id, formData, idVeic, idForn)
+      }else{
+        onSave(formData, idVeic, idForn);
+      }
+      
     } catch (error) {
       console.error("Erro ao salvar telefones:", error);
     } finally {
@@ -145,27 +191,31 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
 </select>
 
 <div>
-<label>Veiculo:</label>
-<Select 
-  options={veiculos.map(v => ({ value: v.id, label: v.placaVeic }))} 
-  onChange={(opt) => {
-    if (opt) setIdVeic(opt.value);
-  }} 
-/>
-</div>
-<div>
-<label>Fornecedor:</label>
-<Select 
-  options={fornecedores.map(f => ({ value: f.id, label: f.nome }))} 
-  onChange={(opt) => {
-    if (opt) setIdForn(opt.value);
-  }} 
-/>
+  <label>Veículo:</label>
+  <Select 
+    options={veiculos.map(v => ({ value: v.id, label: v.placaVeic }))} 
+    value={idVeic > 0 ? { value: idVeic, label: veiculos.find(v => v.id === idVeic)?.placaVeic || "" } : null}
+    onChange={(opt) => {
+      if (opt) setIdVeic(opt.value);
+    }} 
+  />
 </div>
 
 <div>
-        <ButtonSpinner name="Salvar" isLoading={loading} type="submit"/>
-        <button type="button" onClick={onCancel}>
+  <label>Fornecedor:</label>
+  <Select 
+    options={fornecedores.map(f => ({ value: f.id, label: f.nome }))} 
+    value={idForn > 0 ? { value: idForn, label: fornecedores.find(f => f.id === idForn)?.nome || "" } : null}
+    onChange={(opt) => {
+      if (opt) setIdForn(opt.value);
+    }} 
+  />
+</div>
+
+
+<div>
+        <ButtonSpinner name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit"/>
+        <button type="button" onClick={handleCancel}>
           Limpar
         </button>
       </div>

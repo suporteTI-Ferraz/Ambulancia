@@ -75,14 +75,21 @@ public class ManutencaoService {
         return repository.saveAll(manutencoes);
     }
 
-    public Manutencao update (Long id, Manutencao obj) {
+    @Transactional
+    public Manutencao update (Long id, Manutencao obj, Long idVeic, Long idForn) {
+        Veiculo veiculo = veiculoRepository.getReferenceById(idVeic);
+        Fornecedor fornecedor = fornecedorRepository.getReferenceById(idForn);
         Manutencao entity = repository.getReferenceById(id);
-        updateData(entity, obj);
+        updateData(entity, obj, veiculo, fornecedor);
         return repository.save(entity);
     }
-    private void updateData(Manutencao entity, Manutencao manutencao){
+    private void updateData(Manutencao entity, Manutencao manutencao, Veiculo veiculo, Fornecedor fornecedor){
         entity.setTipoManutencao(manutencao.getTipoManutencao());
         entity.setCustoManutencao(manutencao.getCustoManutencao());
+        entity.setServicoRealizado(manutencao.getServicoRealizado());
+        entity.setDescricaoProblema(manutencao.getDescricaoProblema());
+        entity.setFornecedor(fornecedor);
+        entity.setVeiculo(veiculo);
     }
 
     public List<Manutencao> updateMany(Long id, List<Manutencao> novasManutencoes){

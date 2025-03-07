@@ -33,7 +33,7 @@ export const fetchManutencoes = (): Promise<AxiosResponse<Manutencao[]>> => API.
 
 export const updateManyManu = (id: number, list: Manutencao[]): Promise<AxiosResponse<Manutencao[]>>  =>
     API.put(`/veiculo/${id}/manutencao`, list);
-export const updateManu = (id: number, manutencao: Manutencao): Promise<AxiosResponse<Manutencao>>  =>
-    API.put(`/veiculo/manutencao/${id}`, manutencao);
+export const updateManutencao = (id: number, manutencao: Manutencao, idVeic: number, idForn: number): Promise<AxiosResponse<Manutencao>>  =>
+    API.put(`/veiculo/${idVeic}/fornecedor/${idForn}/manutencao/${id}`, manutencao);
 export const deleteManutencao = (id: number) => API.delete(`/veiculo/manutencao/${id}`);
 export const reactivateManutencao = (id: number) => API.patch(`/veiculo/manutencao/${id}`);

@@ -8,6 +8,7 @@ import FornecedorList from "../components/veiculo/FornecedorList";
 import useGerenciarVeiculo from "../hooks/useGerenciarVeiculo";
 import ManutencaoForm from "../components/veiculo/ManutencaoForm";
 import ManutencaoList from "../components/veiculo/ManutencaoList";
+import Manutencao from "../types/veiculo/ManutencaoType";
 
 const GerenciarVeiculo = () => {
   const {
@@ -15,7 +16,7 @@ const GerenciarVeiculo = () => {
     fornecedores, activeTab, manutencoes, editingManutencao, editingFornecedor, isFornecedorModalOpen,
     handleSaveVeiculo, handleDeleteVeiculo, handleEditVeiculo,
     toggleEditModal, setEditingVeiculo, toggleModalManutencao, handleEdit,
-    handleViewManutencoes, handleSaveManutencao, handleSaveFornecedor,
+    handleViewManutencoes, handleSaveManutencao, handleSaveFornecedor, handleUpdateManutencao,
     handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab, handleUpdateFornecedor, toggleModalFornecedor,
     handleEditManu, setEditingManutencao, handleDeleteManutencao
   } = useGerenciarVeiculo();
@@ -55,19 +56,23 @@ const GerenciarVeiculo = () => {
           <VeiculoForm isModal={false} onSave={handleSaveVeiculo}
            onCancel={() => setEditingVeiculo(null)}
           veiculoToEdit={editingVeiculo} onUpdate={handleEditVeiculo} />
+          
           <VeiculoList veiculos={veiculos} onEdit={handleEdit} onDelete={handleDeleteVeiculo} onViewManutencoes={handleViewManutencoes} />
         </TabPane>
         <TabPane tabId="fornecedor">
           <h4>Gerenciar Fornecedores</h4>
           <FornecedorForm onSave={handleSaveFornecedor} isModal={false} 
           onCancel={() => setEditingFornecedor(null)} onUpdate={handleUpdateFornecedor} fornecedorToEdit={editingFornecedor} />
+
           <FornecedorList fornecedores={fornecedores} onEdit={handleEditForn} onDelete={handleDeleteFornecedor} />
         </TabPane>
         <TabPane tabId="manutenção">
           <h4>Gerenciar Manutenções</h4>
-          <ManutencaoForm onSave={handleSaveManutencao}  onCancel={() => setEditingManutencao(null)}  
-     fornecedores={fornecedores} veiculos={veiculos}  />
-               <ManutencaoList manutencoes={manutencoes} onEdit={handleEditManu} onDelete={handleDeleteManutencao}/>
+          <ManutencaoForm onSave={handleSaveManutencao} onCancel={() => setEditingManutencao(null)}
+          fornecedores={fornecedores} veiculos={veiculos} onUpdate={handleUpdateManutencao}
+          manutencaoToEdit={editingManutencao} isModal={false}  />
+
+          <ManutencaoList manutencoes={manutencoes} onEdit={handleEditManu} onDelete={handleDeleteManutencao}/>
 
         </TabPane>
       </TabContent>
@@ -93,8 +98,9 @@ const GerenciarVeiculo = () => {
       <Modal isOpen={isManutencaoModalOpen} toggle={toggleModalManutencao} className="gerenciar">
         <ModalHeader toggle={toggleModalManutencao}>Editar Manutenção</ModalHeader>
         <ModalBody>
-          {editingManutencao && <ManutencaoForm manutencao={editingManutencao} 
-          onSave={handleSaveManutencao} onCancel={toggleModalManutencao} veiculos={veiculos} fornecedores={fornecedores} />}
+          {editingManutencao &&  <ManutencaoForm onSave={handleSaveManutencao} onCancel={() => setEditingManutencao(null)}
+          fornecedores={fornecedores} veiculos={veiculos} onUpdate={handleUpdateManutencao}
+          manutencaoToEdit={editingManutencao} isModal={true}  />}
         </ModalBody>
       </Modal>
 
