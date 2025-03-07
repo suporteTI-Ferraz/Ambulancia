@@ -78,7 +78,37 @@ const useGerenciarVeiculo = () =>{
         loadManutencoes();
     }, []);
 
-  
+    useEffect(() => {
+        if (editingManutencao?.id) {
+          console.log("🔍 Buscando manutenção ID:", editingManutencao.id);
+      
+          // Encontra o veículo relacionado à manutenção
+          const veiculoRelacionado = veiculos.find(v => 
+            v.manutencoes.some(m => Number(m.id) === Number(editingManutencao.id))
+          );
+      
+          // Encontra o fornecedor relacionado à manutenção
+          const fornecedorRelacionado = fornecedores.find(f => 
+            f.manutencoes.some(m => Number(m.id) === Number(editingManutencao.id))
+          );
+      
+          console.log("✅ Veículo encontrado:", veiculoRelacionado);
+          console.log("✅ Fornecedor encontrado:", fornecedorRelacionado);
+      
+          // Atualiza a manutenção com os objetos completos de veículo e fornecedor, mas só se necessário
+          if (
+            veiculoRelacionado?.id !== editingManutencao.veiculo?.id ||
+            fornecedorRelacionado?.id !== editingManutencao.fornecedor?.id
+          ) {
+            setEditingManutencao(prev => prev ? {
+              ...prev,
+              veiculo: veiculoRelacionado || null,
+              fornecedor: fornecedorRelacionado || null
+            } : null);
+          }
+        }
+      }, [editingManutencao, veiculos, fornecedores]);  // Dependências adicionadas
+      
 
     const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen);
     const toggleModalFornecedor = () => setIsFornecedorModalOpen(!isFornecedorModalOpen)
@@ -328,7 +358,6 @@ const useGerenciarVeiculo = () =>{
             toggleModalManutencao();
         }
     };
-    
 
 
       return({ veiculos, editingVeiculo, isEditModalOpen, isManutencaoModalOpen, selectedManutencoes, loading,

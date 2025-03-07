@@ -88,6 +88,7 @@ public class ManutencaoService {
         entity.setCustoManutencao(manutencao.getCustoManutencao());
         entity.setServicoRealizado(manutencao.getServicoRealizado());
         entity.setDescricaoProblema(manutencao.getDescricaoProblema());
+        entity.setStatus(manutencao.getStatus());
         entity.setFornecedor(fornecedor);
         entity.setVeiculo(veiculo);
     }

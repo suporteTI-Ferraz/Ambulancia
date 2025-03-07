@@ -37,7 +37,15 @@ public class PecaManutencaoService {
     public PecaManutencao insert(PecaManutencao obj, Long id) {
         Manutencao manutencao = manutencaoRepository.getReferenceById(id);
         obj.setManutencao(manutencao);
-        return repository.save(obj);
+        PecaManutencao peca = repository.save(obj);
+        
+
+        // Após salvar, recalcula o custo total da manutenção
+        manutencao.setCustoManutencao(manutencao.calcularCustoTotal());
+    
+        // Atualiza a manutenção com o novo custo total
+        manutencaoRepository.save(manutencao);
+        return peca;
     }
 
 

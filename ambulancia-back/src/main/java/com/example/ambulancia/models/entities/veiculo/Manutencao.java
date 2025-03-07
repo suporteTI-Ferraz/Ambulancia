@@ -57,4 +57,15 @@ public class Manutencao extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "fornecedor_id", referencedColumnName = "id")
     private Fornecedor fornecedor; // RELACIONAMENTO COM FORNECEDOR (OPCIONAL)
+
+        // Método para calcular o custo total da manutenção (custo base + custo das peças)
+        public Double calcularCustoTotal() {
+            double custoTotal = custoManutencao != null ? custoManutencao : 0.0;
+    
+            for (PecaManutencao peca : pecasManutencao) {
+                custoTotal += peca.getCustoUnitario() * peca.getQuantidade();
+            }
+    
+            return custoTotal;
+        }
 }
