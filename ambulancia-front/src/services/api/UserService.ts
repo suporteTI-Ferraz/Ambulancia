@@ -3,8 +3,11 @@ import { User } from "../../types/user/UserType";
 import { AxiosResponse } from "axios";
 
 export const login = (email: string, senha: string) => 
-    API.post(   `/auth/authenticate`,
+    API.post(`/auth/authenticate`,
     { email, senha });
+
+export const logout = () =>
+    API.post(`/logout`);
 
 export const fetchUsers = (): Promise<AxiosResponse<User[]>>  => 
     API.get('/user');
