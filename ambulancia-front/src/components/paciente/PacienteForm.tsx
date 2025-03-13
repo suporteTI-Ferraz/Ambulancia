@@ -139,8 +139,9 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
           required
         />
       </div>
-
+      
       <div>
+      <label>Data Nascimento</label>
         <DatePicker
           selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
           onChange={(date) => {
@@ -194,7 +195,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
         <label>SUS</label>
         <input 
           type="text" 
-          name="sus" 
+          name="sus"
           value={formData.sus}
           onChange={(e) => {
             handleInputChange(e);

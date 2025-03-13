@@ -28,6 +28,11 @@
   .gerenciar form div {
     margin-bottom: 15px;
   }
+
+  .gerenciar form .react-datepicker-wrapper,
+  .gerenciar form .react-datepicker__input-container {
+    margin-bottom: 0px;
+  }
   
   .gerenciar label {
     display: block;

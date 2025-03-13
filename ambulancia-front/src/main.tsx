@@ -15,6 +15,7 @@ import './styles/AgendamentoList.css'
 import './styles/editAgendamentoModal.css'
 import './styles/DatePicker.css'
 import './styles/BigCalendar.css'
+import './styles/GerenciarVeiculo.css'
 import { LoadingProvider } from './contexts/LoadingContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
