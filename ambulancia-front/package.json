@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.0.13",
     "@types/moment": "^2.13.0",
+    "@types/react-input-mask": "^3.0.6",
     "@types/react-transition-group": "^4.4.12",
     "ambulancia-front": "file:",
     "axios": "^1.7.9",
@@ -21,10 +23,12 @@
     "react-datepicker": "^7.6.0",
     "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
+    "react-input-mask": "^2.0.4",
     "react-router-dom": "^7.1.1",
     "react-select": "^5.10.0",
     "react-toastify": "^11.0.3",
-    "reactstrap": "^9.2.3"
+    "reactstrap": "^9.2.3",
+    "tailwindcss": "^4.0.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
