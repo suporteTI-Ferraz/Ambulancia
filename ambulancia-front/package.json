@@ -2,7 +2,7 @@
   "name": "ambulancia-front",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.0.14",
+    "@tailwindcss/postcss7-compat": "^2.2.17",
     "@tailwindcss/vite": "^4.0.13",
     "@types/moment": "^2.13.0",
     "@types/react-input-mask": "^3.0.6",
@@ -18,6 +20,7 @@
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "date-fns": "^4.1.0",
+    "npx": "^10.2.2",
     "react": "^18.3.1",
     "react-big-calendar": "^1.17.1",
     "react-datepicker": "^7.6.0",
@@ -27,8 +30,7 @@
     "react-router-dom": "^7.1.1",
     "react-select": "^5.10.0",
     "react-toastify": "^11.0.3",
-    "reactstrap": "^9.2.3",
-    "tailwindcss": "^4.0.13"
+    "reactstrap": "^9.2.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -37,10 +39,13 @@
     "@types/react-big-calendar": "^1.16.1",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.21",
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.14",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5"
