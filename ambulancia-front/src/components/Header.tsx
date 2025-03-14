@@ -48,7 +48,20 @@ const Header: React.FC = () => {
             {/* Navbar com fundo preto */}
             <Navbar className="custom-navbar" expand="md">
                 <NavbarBrand href="/" className="navbar-brand">Ambulâncias</NavbarBrand>
-                <NavbarToggler onClick={toggleNavbar} />
+                <NavbarToggler className="border-none" onClick={toggleNavbar}>
+                    <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="h-6 w-6 border-none focus:outline-none" 
+                    fill="none" 
+                    // arrumar isso aqui.. borda do botao criada sozinha > (remover)
+                    stroke="white" 
+                    viewBox="0 0 24 24" 
+                    strokeWidth="2"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </NavbarToggler>
+
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ms-auto" navbar>
                         <NavItem>

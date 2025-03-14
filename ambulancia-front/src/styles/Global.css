@@ -1,14 +1,21 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Confortaa:wght@400;700&display=swap');
+
+:root{
+  --main-color: #19adc4;
+  --second-main-color: #0e7886;
+  --bg-color: #333333;
+}
+
+@font-face {
+  font-family: 'Confortaa';
+  src: url('https://fonts.googleapis.com/css2?family=Confortaa:wght@400;700&display=swap') format('truetype');
+}
+
 * {
+    /* font-family: 'Confortaa', sans-serif; */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-
-/* Usando o estilo correto com kebab-case */
-.default-h1 h1 {
-    text-align: center; /* Corrigido de textAlign */
-    margin-top: 35px; /* Corrigido de marginTop */
-    color: black;
-    
-}

@@ -48,21 +48,21 @@ const Login = () => {
       
       {/* Background */}
       <div
-        className="background-image"
+        className="background-image mb-20"
         style={{ backgroundImage: `url('/assets/ferraz-predio-imagem.jpeg')` }}
         ></div>
 
       {/* Formulário de Login */}
       <div className="login-content">
         <form className="login-form" onSubmit={handleSubmit}>
-          <h1>Faça o login</h1>
+          <h1>Bem vindo de volta!</h1>
 
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">E-mail</label>
             <input
               id="email"
               type="text"
-              placeholder="Email"
+              placeholder="E-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -73,7 +73,7 @@ const Login = () => {
             <input
               id="senha"
               type="password"
-              placeholder="********"
+              placeholder="●●●●●●●"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
             />

@@ -32,10 +32,10 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
 {/* <h1 className="dashboard-title">Bem-vindo ao Sistema de Ambulância</h1> */}
-  <div className="dashboard">
-      <div className="cards-container">
-        <div className="card">
-          <FaUser size={60} color="black" />
+  <div className="dashboard" >
+      <div className="cards-container" >
+        <div className="card" style={{display:'flex', justifyContent:'center'}}>
+          <FaUser size={40} color="black" style={{marginLeft: '40%'}}/>
           <h3>Funcionários</h3>
           <button onClick={handleUserRoute}>Gerenciar</button>
         </div>

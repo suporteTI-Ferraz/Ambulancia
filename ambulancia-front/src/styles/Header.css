@@ -1,39 +1,59 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Confortaa:wght@400;700&display=swap');
+
+* {
+    /* font-family: 'Confortaa' sans-serif !important; */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
 .header-logo {
     display: flex;
     justify-content: flex-start; /* Alinha à esquerda */
     align-items: center;
     height: 200px;
     overflow: hidden;
-    padding-left: 180px; /* Adiciona espaço à esquerda */
+    justify-content: center;
+    align-items: center;
 }
 
-
 .logo-img {
-    width: 300px; /* Tamanho da imagem */
-    height: 300px; /* Tamanho da imagem */
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
 }
 
 .custom-navbar {
-    background-color: #000 !important; /* Fundo preto */
+    background-color: var(--bg-color) !important; /* Fundo preto */
 }
+
+.navbar {
+    padding: 0 !important;
+}
+
 .navbar-brand {
     color: #fff !important; /* Texto branco */
-}
-.nav-link {
-    color: #fff !important; /* Links brancos */
-}
-.nav-link:hover {
-    color: #ddd !important; /* Cor mais clara ao passar o mouse */
+    padding: 1rem !important;
+    margin-left: 2rem !important;
+    
 }
 
 .nav-link {
+    padding: 1.3rem !important;
+    font-size: 13px !important;
     color: #fff !important; /* Links brancos */
-    transition: background-color 0.3s; /* Animação suave para a troca de fundo */
+    font-weight: bold !important;
+}
+
+.nav-link a{
+    font-size: 13px;
 }
 
 .nav-link:hover {
     color: #ddd !important; /* Cor mais clara ao passar o mouse */
-    background-color: #007bff; /* Cor de fundo azul */
-    border-radius: 5px; /* Opcional, para bordas arredondadas */
+    background-color: var(--main-color); /* Cor de fundo azul */
+    height: auto;
 }
+
