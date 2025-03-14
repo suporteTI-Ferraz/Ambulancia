@@ -457,47 +457,6 @@
   resolved "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.35.0.tgz"
   integrity sha512-PIQeY5XDkrOysbQblSW7v3l1MDZzkTEzAfTPkj5VAu3FW8fS4ynyLg2sINp0fp3SjZ8xkRYpLqoKcYqAkhU1dw==
 
-"@tailwindcss/node@4.0.13":
-  version "4.0.13"
-  resolved "https://registry.npmjs.org/@tailwindcss/node/-/node-4.0.13.tgz"
-  integrity sha512-P9TmtE9Vew0vv5FwyD4bsg/dHHsIsAuUXkenuGUc5gm8fYgaxpdoxIKngCyEMEQxyCKR8PQY5V5VrrKNOx7exg==
-  dependencies:
-    enhanced-resolve "^5.18.1"
-    jiti "^2.4.2"
-    tailwindcss "4.0.13"
-
-"@tailwindcss/oxide-win32-x64-msvc@4.0.13":
-  version "4.0.13"
-  resolved "https://registry.npmjs.org/@tailwindcss/oxide-win32-x64-msvc/-/oxide-win32-x64-msvc-4.0.13.tgz"
-  integrity sha512-sOEc4iCanp1Yqyeu9suQcEzfaUcHnqjBUgDg0ZXpjUMUwdSi37S1lu1RGoV1BYInvvGu3y3HHTmvsSfDhx2L8w==
-
-"@tailwindcss/oxide@4.0.13":
-  version "4.0.13"
-  resolved "https://registry.npmjs.org/@tailwindcss/oxide/-/oxide-4.0.13.tgz"
-  integrity sha512-pTH3Ex5zAWC9LbS+WsYAFmkXQW3NRjmvxkKJY3NP1x0KHBWjz0Q2uGtdGMJzsa0EwoZ7wq9RTbMH1UNPceCpWw==
-  optionalDependencies:
-    "@tailwindcss/oxide-android-arm64" "4.0.13"
-    "@tailwindcss/oxide-darwin-arm64" "4.0.13"
-    "@tailwindcss/oxide-darwin-x64" "4.0.13"
-    "@tailwindcss/oxide-freebsd-x64" "4.0.13"
-    "@tailwindcss/oxide-linux-arm-gnueabihf" "4.0.13"
-    "@tailwindcss/oxide-linux-arm64-gnu" "4.0.13"
-    "@tailwindcss/oxide-linux-arm64-musl" "4.0.13"
-    "@tailwindcss/oxide-linux-x64-gnu" "4.0.13"
-    "@tailwindcss/oxide-linux-x64-musl" "4.0.13"
-    "@tailwindcss/oxide-win32-arm64-msvc" "4.0.13"
-    "@tailwindcss/oxide-win32-x64-msvc" "4.0.13"
-
-"@tailwindcss/vite@^4.0.13":
-  version "4.0.13"
-  resolved "https://registry.npmjs.org/@tailwindcss/vite/-/vite-4.0.13.tgz"
-  integrity sha512-0XTd/NoVUAktIDaA4MdXhve0QWYh7WlZg20EHCuBFR80F8FhbVkRX+AY5cjbUP/IO2itHzt0iHc0iSE5kBUMhQ==
-  dependencies:
-    "@tailwindcss/node" "4.0.13"
-    "@tailwindcss/oxide" "4.0.13"
-    lightningcss "1.29.2"
-    tailwindcss "4.0.13"
-
 "@types/babel__core@^7.20.5":
   version "7.20.5"
   resolved "https://registry.npmjs.org/@types/babel__core/-/babel__core-7.20.5.tgz"
@@ -716,13 +675,14 @@ ajv@^6.12.4:
   version "0.0.0"
   resolved "file:"
   dependencies:
-    "@tailwindcss/vite" "^4.0.13"
     "@types/moment" "^2.13.0"
     "@types/react-transition-group" "^4.4.12"
     ambulancia-front "file:"
+    autoprefixer "^10.4.21"
     axios "^1.7.9"
     bootstrap "^5.3.3"
     date-fns "^4.1.0"
+    postcss "^8.5.3"
     react "^18.3.1"
     react-big-calendar "^1.17.1"
     react-datepicker "^7.6.0"
@@ -732,6 +692,7 @@ ajv@^6.12.4:
     react-select "^5.10.0"
     react-toastify "^11.0.3"
     reactstrap "^9.2.3"
+    tailwindcss "^4.0.14"
 
 ansi-styles@^4.1.0:
   version "4.3.0"
@@ -978,14 +939,6 @@ electron-to-chromium@^1.5.73:
   version "1.5.76"
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.76.tgz"
   integrity sha512-CjVQyG7n7Sr+eBXE86HIulnL5N8xZY1sgmOPGuq/F0Rr0FJq63lg0kEtOIDfZBk44FnDLf6FUJ+dsJcuiUDdDQ==
-
-enhanced-resolve@^5.18.1:
-  version "5.18.1"
-  resolved "https://registry.npmjs.org/enhanced-resolve/-/enhanced-resolve-5.18.1.tgz"
-  integrity sha512-ZSW3ma5GkcQBIpwZTSRAI8N71Uuwgs93IezB7mf7R60tC8ZbJideoDNKjHn2O9KIlx6rkGTTEk1xUCK2E1Y2Yg==
-  dependencies:
-    graceful-fs "^4.2.4"
-    tapable "^2.2.0"
 
 error-ex@^1.3.1:
   version "1.3.2"
@@ -1272,11 +1225,6 @@ globals@^15.14.0:
   resolved "https://registry.npmjs.org/globals/-/globals-15.14.0.tgz"
   integrity sha512-OkToC372DtlQeje9/zHIo5CT8lRP/FUgEOKBEhU4e0abL7J7CD24fD9ohiLN5hagG/kWCYj4K5oaxxtj2Z0Dig==
 
-graceful-fs@^4.2.4:
-  version "4.2.11"
-  resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.11.tgz"
-  integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
-
 graphemer@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/graphemer/-/graphemer-1.4.0.tgz"
@@ -1360,7 +1308,7 @@ isexe@^2.0.0:
   resolved "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
 
-jiti@*, jiti@^2.4.2, jiti@>=1.21.0:
+jiti@*, jiti@>=1.21.0:
   version "2.4.2"
   resolved "https://registry.npmjs.org/jiti/-/jiti-2.4.2.tgz"
   integrity sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==
@@ -1427,7 +1375,7 @@ lightningcss-win32-x64-msvc@1.29.2:
   resolved "https://registry.npmjs.org/lightningcss-win32-x64-msvc/-/lightningcss-win32-x64-msvc-1.29.2.tgz"
   integrity sha512-EdIUW3B2vLuHmv7urfzMI/h2fmlnOQBk1xlsDxkN1tCWKjNFjfLhGxYk8C8mzpSfr+A6jFFIi8fU6LbQGsRWjA==
 
-lightningcss@^1.21.0, lightningcss@1.29.2:
+lightningcss@^1.21.0:
   version "1.29.2"
   resolved "https://registry.npmjs.org/lightningcss/-/lightningcss-1.29.2.tgz"
   integrity sha512-6b6gd/RUXKaw5keVdSEtqFVdzWnU5jMxTUjA2bVcMNPLwSQ08Sv/UodBVtETLCn7k4S1Ibxwh7k68IwLZPgKaA==
@@ -1977,16 +1925,6 @@ tabbable@^6.0.0:
   resolved "https://registry.npmjs.org/tabbable/-/tabbable-6.2.0.tgz"
   integrity sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==
 
-tailwindcss@4.0.13:
-  version "4.0.13"
-  resolved "https://registry.npmjs.org/tailwindcss/-/tailwindcss-4.0.13.tgz"
-  integrity sha512-gbvFrB0fOsTv/OugXWi2PtflJ4S6/ctu6Mmn3bCftmLY/6xRsQVEJPgIIpABwpZ52DpONkCA3bEj5b54MHxF2Q==
-
-tapable@^2.2.0:
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/tapable/-/tapable-2.2.1.tgz"
-  integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
-
 to-regex-range@^5.0.1:
   version "5.0.1"
   resolved "https://registry.npmjs.org/to-regex-range/-/to-regex-range-5.0.1.tgz"
@@ -2055,7 +1993,7 @@ use-isomorphic-layout-effect@^1.2.0:
   resolved "https://registry.npmjs.org/use-isomorphic-layout-effect/-/use-isomorphic-layout-effect-1.2.0.tgz"
   integrity sha512-q6ayo8DWoPZT0VdG4u3D3uxcgONP3Mevx2i2b0434cwWBoL+aelL1DzkXI6w3PhTZzUeR2kaVlZn70iCiseP6w==
 
-"vite@^4.2.0 || ^5.0.0 || ^6.0.0", "vite@^5.2.0 || ^6", vite@^6.0.5:
+"vite@^4.2.0 || ^5.0.0 || ^6.0.0", vite@^6.0.5:
   version "6.2.1"
   resolved "https://registry.npmjs.org/vite/-/vite-6.2.1.tgz"
   integrity sha512-n2GnqDb6XPhlt9B8olZPrgMD/es/Nd1RdChF6CBD/fHW6pUyUTt2sQW2fPRX5GiD9XEa6+8A6A4f2vT6pSsE7Q==

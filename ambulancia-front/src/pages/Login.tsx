@@ -5,6 +5,9 @@ import { useAuth } from "../contexts/AuthContext";
 import { useLoading } from "../contexts/LoadingContext";
 import { useToast } from "../hooks/useToast";
 import useLogin from "../hooks/useLogin";
+import '../styles/global.css';
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const Login = () => {
     const {
@@ -14,7 +17,7 @@ const Login = () => {
       setSenha,
       handleLogin,
     } = useLogin()
-  
+
  
   const navigate = useNavigate();
   const { checkLoginStatus } = useAuth(); // Use apenas aqui, fora de funções assíncronas
@@ -44,18 +47,17 @@ const Login = () => {
   
 
   return (
+    <>
+    <Header />
     <div className="login-container">
       
       {/* Background */}
-      <div
-        className="background-image mb-20"
-        style={{ backgroundImage: `url('/assets/ferraz-predio-imagem.jpeg')` }}
-        ></div>
+      <div className="bg-image-login"></div>
 
       {/* Formulário de Login */}
       <div className="login-content">
         <form className="login-form" onSubmit={handleSubmit}>
-          <h1>Bem vindo de volta!</h1>
+          <h1>Bem vindo!</h1>
 
           <div className="form-group">
             <label htmlFor="email">E-mail</label>
@@ -79,19 +81,13 @@ const Login = () => {
             />
           </div>
 
-          <button type="submit" className="login-button">
+          <button type="submit" className="login-button border-2">
             Login
           </button>
         </form>
-
-        <p>
-          Não tem uma conta?{" "}
-          <a href="/cadastro" className="signup-link">
-            Cadastre-se aqui
-          </a>
-        </p>
       </div>
     </div>
+    </>
   );
 };
 

@@ -1,14 +1,3 @@
-@import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Confortaa:wght@400;700&display=swap');
-
-* {
-    /* font-family: 'Confortaa' sans-serif !important; */
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-
 .header-logo {
     display: flex;
     justify-content: flex-start; /* Alinha à esquerda */
@@ -26,7 +15,19 @@
 }
 
 .custom-navbar {
-    background-color: var(--bg-color) !important; /* Fundo preto */
+    background: var(--bg-color);
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(0.625rem);
 }
 
 .navbar {
@@ -40,20 +41,41 @@
     
 }
 
+/* Remove a borda do NavbarToggler (botão hambúrguer) */
+.hamburguer {
+    background: none !important;  /* Remove o fundo */
+    border: none !important;      /* Remove a borda */
+    padding: 1rem !important;        /* Remove o padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Remove a borda e o outline quando o botão estiver em foco */
+.hamburguer:focus, .hamburguer:active {
+    outline: none !important;     /* Remove o contorno/foco */
+    box-shadow: none !important;  /* Remove qualquer sombra */
+}
+
+/* Ajusta o estilo do ícone do hambúrguer */
+.hamburguer-icon {
+    width: 30px;
+    height: 30px;
+    stroke: white;
+}
+
+
 .nav-link {
-    padding: 1.3rem !important;
+    padding: 1.3rem 2.5rem !important;
     font-size: 13px !important;
     color: #fff !important; /* Links brancos */
     font-weight: bold !important;
 }
 
-.nav-link a{
-    font-size: 13px;
-}
-
 .nav-link:hover {
     color: #ddd !important; /* Cor mais clara ao passar o mouse */
-    background-color: var(--main-color); /* Cor de fundo azul */
+    background-color: var(--second-main-color) !important;; /* Cor de fundo azul */
     height: auto;
 }
 

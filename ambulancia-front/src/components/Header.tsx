@@ -36,7 +36,6 @@ const Header: React.FC = () => {
 
     return (
         <>
-            {/* Div separada para a logo */}
             <div className="header-logo">
                 <img
                     src="/assets/brasao-uva-horizontal.png"
@@ -45,15 +44,13 @@ const Header: React.FC = () => {
                 />
             </div>
 
-            {/* Navbar com fundo preto */}
             <Navbar className="custom-navbar" expand="md">
-                <NavbarBrand href="/" className="navbar-brand">Ambulâncias</NavbarBrand>
-                <NavbarToggler className="border-none" onClick={toggleNavbar}>
+                <NavbarBrand href="#" className="navbar-brand">Ambulâncias</NavbarBrand>
+                <NavbarToggler className="hamburguer" onClick={toggleNavbar}>
                     <svg 
                     xmlns="http://www.w3.org/2000/svg" 
-                    className="h-6 w-6 border-none focus:outline-none" 
+                    className="hamburguer-icon" 
                     fill="none" 
-                    // arrumar isso aqui.. borda do botao criada sozinha > (remover)
                     stroke="white" 
                     viewBox="0 0 24 24" 
                     strokeWidth="2"
@@ -65,7 +62,7 @@ const Header: React.FC = () => {
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ms-auto" navbar>
                         <NavItem>
-                            <NavLink href="/" className="nav-link">Início</NavLink>
+                            <NavLink href="/" className="nav-link hover:bg-pink-500">Início</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="/about" className="nav-link">Sobre</NavLink>

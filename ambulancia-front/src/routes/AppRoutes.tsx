@@ -15,10 +15,11 @@ import GerenciarAgendarDia from '../pages/GerenciarAgendarDia';
 import GerenciarAgendamento from '../pages/GerenciarAgendamento';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+
 const AppRoutes: React.FC = () => {
   return (
     <Router>
-      <Header />
+      {/* <Header /> */}
       <Routes>
         {/* Rotas públicas com redirecionamento se autenticado */}
         
@@ -29,7 +30,7 @@ const AppRoutes: React.FC = () => {
         {/* Rotas protegidas */}
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<><PageTitle /><Perfil /></>} />
-          <Route path="/dashboard" element={<><PageTitle /><Dashboard /></>} />
+          <Route path="/dashboard" element={<><Dashboard /></>} />
           <Route path="/gerenciar-funcionarios" element={<><PageTitle /><GerenciarUser /></>} />
           <Route path="/gerenciar-pacientes" element={<><PageTitle /><GerenciarPaciente /></>} />
           <Route path="/gerenciar-motoristas" element={<><PageTitle /><GerenciarMotorista /></>} />
