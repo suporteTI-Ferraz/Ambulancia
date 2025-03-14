@@ -31,7 +31,8 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
 
   const initialFormData: Manutencao = { id: manutencaoToEdit?.id || 0,
     tipoManutencao: manutencaoToEdit?.tipoManutencao || "",
-    dataManutencao: manutencaoToEdit?.dataManutencao || "",
+    dataEntradaManutencao: manutencaoToEdit?.dataEntradaManutencao || "",
+    dataSaidaManutencao: manutencaoToEdit?.dataSaidaManutencao || "",
     status: manutencaoToEdit?.status || "", 
     descricaoProblema: manutencaoToEdit?.descricaoProblema || "",
     servicoRealizado: manutencaoToEdit?.servicoRealizado || "",
@@ -148,10 +149,25 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
             />
           </div>
           <div>
-            <label>Data da Manutenção</label>
+            <label>Data de Entrada da Manutenção</label>
             <DatePicker
-              selected={formData.dataManutencao ? new Date(formData.dataManutencao) : null}
-              onChange={(date) => setFormData({ ...formData, dataManutencao: date?.toISOString().split("T")[0] || "" })}
+              selected={formData.dataEntradaManutencao ? new Date(formData.dataEntradaManutencao) : null}
+              onChange={(date) => setFormData({ ...formData, dataEntradaManutencao: date?.toISOString().split("T")[0] || "" })}
+              locale="pt-BR"
+              dateFormat="dd/MM/yyyy"
+              showYearDropdown
+              scrollableYearDropdown
+              yearDropdownItemNumber={120}
+              maxDate={new Date()}
+              placeholderText="DD/MM/AAAA"
+              popperPlacement="left-end"
+            />
+          </div>
+          <div>
+            <label>Data de Saída da Manutenção</label>
+            <DatePicker
+              selected={formData.dataSaidaManutencao ? new Date(formData.dataSaidaManutencao) : null}
+              onChange={(date) => setFormData({ ...formData, dataSaidaManutencao: date?.toISOString().split("T")[0] || "" })}
               locale="pt-BR"
               dateFormat="dd/MM/yyyy"
               showYearDropdown

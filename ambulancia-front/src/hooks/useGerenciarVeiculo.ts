@@ -7,7 +7,8 @@ import { fetchVeiculos, createVeiculo, updateVeiculo, createManu,
     reactivateManutencao,
     deleteManutencao,
     updateFornecedor,
-    updateManutencao
+    updateManutencao,
+    updatePecaManutencao
 
  } from "../services/api/VeiculoService";
 import { Veiculo } from "../types/veiculo/VeiculoType";
@@ -15,6 +16,7 @@ import Manutencao from "../types/veiculo/ManutencaoType";
 import { useToast } from "./useToast";
 import { useLoading } from "../contexts/LoadingContext";
 import { Fornecedor } from "../types/veiculo/FornecedorType";
+import PecaManutencao from "../types/veiculo/PecaManutencaoType";
 
 const useGerenciarVeiculo = () =>{
     const [veiculos, setVeiculos] = useState<Veiculo[]>([]);
@@ -31,6 +33,10 @@ const useGerenciarVeiculo = () =>{
     const [editingManutencao, setEditingManutencao] = useState<Manutencao | null>(null);
     const [isManutencaoModalOpen, setIsManutencaoModalOpen] = useState(false);
     const [manutencoes, setManutencoes] = useState<Manutencao[]>([]);
+
+    const [editingPecaManutencao, setEditingPecaManutencao] = useState<PecaManutencao | null>(null);
+    const [isPecaManutencaoModalOpen, setIsPecaManutencaoModalOpen] = useState(false);
+    const [pecaManutencoes, setPecaManutencoes] = useState<PecaManutencao[]>([]);
 
   const [selectedManutencoes, setSelectedManutencoes] = useState<Veiculo["manutencoes"]>([]);
 
@@ -73,9 +79,22 @@ const useGerenciarVeiculo = () =>{
           setLoading(false);
           }
       }
+
+      const loadPecaManutencoes = async () =>{
+        setLoading(true)
+        try {
+          const response = await fetchPecaManutencoes();
+          setPecaManutencoes(response.data);
+      } catch (error) {
+          handleError("Erro ao carregar Peças: "+ error);
+      }finally{
+      setLoading(false);
+      }
+      }
         loadVeiculos();
         loadFornecedores();
         loadManutencoes();
+        loadPecaManutencoes();
     }, []);
 
     useEffect(() => {
@@ -113,7 +132,10 @@ const useGerenciarVeiculo = () =>{
     const toggleEditModal = () => setIsEditModalOpen(!isEditModalOpen);
     const toggleModalFornecedor = () => setIsFornecedorModalOpen(!isFornecedorModalOpen)
     const toggleModalManutencao = () => setIsManutencaoModalOpen(!isManutencaoModalOpen);
+    const toggleModalPecaManutencao = () => setIsPecaManutencaoModalOpen(!isPecaManutencaoModalOpen);
     const toggleGerenciarVeicOpen = () => setIsGerenciarVeicOpen(!isGerenciarVeicOpen)
+
+
     const handleEdit = (veiculo: Veiculo) =>{
         setEditingVeiculo(veiculo);
         toggleEditModal();
@@ -126,6 +148,11 @@ const useGerenciarVeiculo = () =>{
     const handleEditManu = (manutencao: Manutencao) =>{
       setEditingManutencao(manutencao);
       toggleModalManutencao();
+    }
+
+    const handleEditPecaManu = (pecaManutencao: PecaManutencao) =>{
+      setEditingPecaManutencao(pecaManutencao);
+      toggleModalPecaManutencao();
     }
 
     const handleSaveVeiculo = async (veiculo: Veiculo) => {
@@ -359,14 +386,61 @@ const useGerenciarVeiculo = () =>{
         }
     };
 
+    const handleSavePecaManutencao = async (pecaManutencao: PecaManutencao, idManu: number) => {
+  
+        
+      try {
+        const response = await createPecaManutencao(pecaManutencao, idManu); // Salva os telefones no backend
+        const createdPecaManutencao = response.data;
+        setPecaManutencoes((prevPecaManutencoes) => 
+          [...prevPecaManutencoes, createdPecaManutencao]);
+        handleSuccess("Peças criadas com sucesso!");
+        
+        
+      } catch (error) {
+          console.log(error)
+        handleError("Falha ao criar Manutenções: "+ error)
+      } finally {
+      }
+    };
+
+    
+    const handleUpdatePecaManutencao = async (id: number, pecaManutencao: PecaManutencao, idManu: number) => {
+      try {
+          const response = await updatePecaManutencao(id, pecaManutencao, idManu);
+          const updatedPecaManutencao = response.data;
+  
+          // Remover a manutenção do veículo e fornecedor anteriores
+         
+          // Atualizar a lista geral de manutenções
+          setPecaManutencoes(prevPecaManutencoes =>
+            prevPecaManutencoes.map(p => (p.id === updatedPecaManutencao.id ? updatedPecaManutencao : p
+            ))
+          );
+  
+    
+  
+          handleSuccess("Peça Atualizada com sucesso!");
+  
+      } catch (error) {
+          handleError("Erro ao atualizar Manutenção: " + error);
+      } finally {
+          toggleModalPecaManutencao();
+      }
+  };
+
+
+
 
       return({ veiculos, editingVeiculo, isEditModalOpen, isManutencaoModalOpen, selectedManutencoes, loading,
-        fornecedores, editingFornecedor, activeTab, manutencoes, editingManutencao, isFornecedorModalOpen, 
+        fornecedores, editingFornecedor, activeTab, manutencoes, editingManutencao, isFornecedorModalOpen,
+        pecaManutencoes, editingPecaManutencao, isPecaManutencaoModalOpen, 
         handleSaveVeiculo, handleEditVeiculo, handleEdit, handleDeleteVeiculo, handleSaveManutencao, handleUpdateManutencao,
         handleViewManutencoes, toggleEditModal, toggleModalManutencao, setEditingVeiculo,
         handleViewFornecedores, handleSaveFornecedor, toggleGerenciarVeicOpen,
         handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab, handleUpdateFornecedor, toggleModalFornecedor,
-        handleEditManu, setEditingManutencao, handleDeleteManutencao
+        handleEditManu, setEditingManutencao, handleDeleteManutencao, toggleModalPecaManutencao, handleEditPecaManu,
+        handleSavePecaManutencao, setEditingPecaManutencao, handleUpdatePecaManutencao,
       }
       );
 

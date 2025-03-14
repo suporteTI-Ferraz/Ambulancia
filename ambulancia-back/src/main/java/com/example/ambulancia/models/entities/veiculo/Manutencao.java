@@ -33,7 +33,8 @@ import lombok.experimental.SuperBuilder;
 @Table
 public class Manutencao extends BaseEntity {
     private String descricao;
-    private LocalDate dataManutencao;
+    private LocalDate dataEntradaManutencao; // Quando o veículo foi para a manutenção
+    private LocalDate dataSaidaManutencao;   // Quando o veículo foi retirado da manutenção
     @Enumerated(EnumType.STRING)  // Salva o enum como texto no banco
     @Column(nullable = false)
     private StatusManutencao status;
