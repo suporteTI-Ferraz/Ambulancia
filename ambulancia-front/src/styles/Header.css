@@ -4,36 +4,78 @@
     align-items: center;
     height: 200px;
     overflow: hidden;
-    padding-left: 180px; /* Adiciona espaço à esquerda */
+    justify-content: center;
+    align-items: center;
 }
 
-
 .logo-img {
-    width: 300px; /* Tamanho da imagem */
-    height: 300px; /* Tamanho da imagem */
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
 }
 
 .custom-navbar {
-    background-color: #000 !important; /* Fundo preto */
+    background: var(--bg-color);
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(0.625rem);
 }
+
+.navbar {
+    padding: 0 !important;
+}
+
 .navbar-brand {
     color: #fff !important; /* Texto branco */
-}
-.nav-link {
-    color: #fff !important; /* Links brancos */
-}
-.nav-link:hover {
-    color: #ddd !important; /* Cor mais clara ao passar o mouse */
+    padding: 1rem !important;
+    margin-left: 2rem !important;
+    
 }
 
+/* Remove a borda do NavbarToggler (botão hambúrguer) */
+.hamburguer {
+    background: none !important;  /* Remove o fundo */
+    border: none !important;      /* Remove a borda */
+    padding: 1rem !important;        /* Remove o padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Remove a borda e o outline quando o botão estiver em foco */
+.hamburguer:focus, .hamburguer:active {
+    outline: none !important;     /* Remove o contorno/foco */
+    box-shadow: none !important;  /* Remove qualquer sombra */
+}
+
+/* Ajusta o estilo do ícone do hambúrguer */
+.hamburguer-icon {
+    width: 30px;
+    height: 30px;
+    stroke: white;
+}
+
+
 .nav-link {
+    padding: 1.3rem 2.5rem !important;
+    font-size: 13px !important;
     color: #fff !important; /* Links brancos */
-    transition: background-color 0.3s; /* Animação suave para a troca de fundo */
+    font-weight: bold !important;
 }
 
 .nav-link:hover {
     color: #ddd !important; /* Cor mais clara ao passar o mouse */
-    background-color: #007bff; /* Cor de fundo azul */
-    border-radius: 5px; /* Opcional, para bordas arredondadas */
+    background-color: var(--second-main-color) !important;; /* Cor de fundo azul */
+    height: auto;
 }
+

@@ -5,9 +5,8 @@ const Footer: React.FC = () => {
         <footer style={{
             backgroundColor: '#f8f9fa',
             textAlign: 'center',
-            padding: '20px',
-            marginTop: '20px',
-            borderTop: '1px solid #ddd'
+            marginTop: '2rem',
+            marginBottom: '2rem'
         }}>
             <p style={{ marginBottom: '10px', fontSize: '16px', color: '#333' }}>
                 Em uma parceria com
@@ -17,17 +16,17 @@ const Footer: React.FC = () => {
                 <img
                     src="../assets/fatec-ferraz.png" // Substitua pelo caminho correto da sua logo
                     alt="Logo Fatec"
-                    style={{ width: '130px', height: '100px' }}
+                    style={{ width: '7rem', height: 'auto' }}
                 />
                 <img
                     src="../assets/brasao.png" // Substitua pelo caminho correto do brasão
                     alt="Brasão Prefeitura"
-                    style={{ width: '150px', height: '150px' }}
+                    style={{ width: '7rem', height: 'auto' }}
                 />
             </div>
 
             <p style={{ marginTop: '10px', fontSize: '14px', color: '#555' }}>
-                Desenvolvido por: Fatec Ferraz de Vasconcelos.
+                Desenvolvido pela Fatec - Ferraz de Vasconcelos.
             </p>
             <p style={{ fontSize: '12px', color: '#777' }}>
                 © 2025 Ambulância Prefeitura Municipal de Ferraz de Vasconcelos, Todos os direitos reservados.

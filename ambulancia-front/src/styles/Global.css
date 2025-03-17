@@ -1,14 +1,28 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+:root{
+  --main-color: #19adc4;
+  --second-main-color: #0e7886;
+  --bg-color: #333333;
 }
 
+* {
+  font-family: 'Neo Sans Std', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-/* Usando o estilo correto com kebab-case */
-.default-h1 h1 {
-    text-align: center; /* Corrigido de textAlign */
-    margin-top: 35px; /* Corrigido de marginTop */
-    color: black;
-    
+/* Estilo da barra de rolagem */
+::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolagem */
+}
+
+/* Estilo do fundo da barra de rolagem */
+::-webkit-scrollbar-track {
+    background: var(--bg-color); /* Cor de fundo da barra de rolagem */
+}
+
+/* Estilo da parte que você pode arrastar (thumb) */
+::-webkit-scrollbar-thumb {
+    background-color: var(--second-main-color); /* Cor da parte que pode ser arrastada */
+    border-radius: 1000px; /* Bordas arredondadas para a parte que você arrasta */
 }
