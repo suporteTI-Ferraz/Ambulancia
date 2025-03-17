@@ -210,6 +210,7 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
   <option value="EM_ANDAMENTO">Em Andamento</option>
   <option value="CONCLUIDA">Concluída</option>
 </select>
+</div>
 
 <div>
   <label>Veículo:</label>
