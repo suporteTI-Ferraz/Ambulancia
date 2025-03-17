@@ -4,7 +4,8 @@ import { Veiculo } from "./VeiculoType";
 export default interface Manutencao{
     id: number;
     tipoManutencao: string;
-    dataManutencao: string;
+    dataEntradaManutencao: string;
+    dataSaidaManutencao: string;
     custoManutencao: number;
     status: string;
     descricaoProblema: string;

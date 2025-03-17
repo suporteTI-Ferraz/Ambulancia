@@ -26,7 +26,7 @@ const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculoToEdit, onSave, onUpd
     createdAt:  "",
     modeloVeic: veiculoToEdit?.modeloVeic || "",
     marcaVeic: veiculoToEdit?.marcaVeic || "",
-    anoFabricacao: veiculoToEdit?.anoFabricacao || "",
+    anoFabricacao: veiculoToEdit?.anoFabricacao || 0,
     chassi: veiculoToEdit?.chassi || "",
   };
 
