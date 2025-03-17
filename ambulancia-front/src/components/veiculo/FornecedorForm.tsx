@@ -2,6 +2,7 @@ import {useState } from "react";
 import { Fornecedor } from "../../types/veiculo/FornecedorType";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useToast } from "../../hooks/useToast";
+import InputMask from "react-input-mask";
 import ButtonSpinner from "../itens/ButtonSpinner";
 
 interface FornecedorFormProps {
@@ -62,10 +63,6 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
     }
   };
 
-  
-
-
-
   return (
     
     <form onSubmit={handleSubmit}>
@@ -82,14 +79,12 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
       </div>
       <div>
       <label>CNPJ</label>
-        <input 
-            type="number" 
-           
-            name="cnpj"
-            value={formData.cnpj}
-            onChange={handleInputChange}
-            required
-        />
+      <InputMask
+        mask="99.999.999/9999-99"
+        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
+        id="cnpj"
+        placeholder="00.000.000/0000-00"
+      />
       </div>
       <div>
         <label>Telefone</label>
