@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
 import Login from '../pages/Login';
-import Perfil from '../pages/Perfil';
 import Dashboard from '../pages/Dashboard';
 import PageTitle from '../components/PageTitle'; // Importando o PageTitle
 import GerenciarUser from '../pages/GerenciarUser';
@@ -19,7 +18,7 @@ import Footer from '../components/Footer';
 const AppRoutes: React.FC = () => {
   return (
     <Router>
-      {/* <Header /> */}
+      <Header />
       <Routes>
         {/* Rotas públicas com redirecionamento se autenticado */}
         
@@ -29,7 +28,6 @@ const AppRoutes: React.FC = () => {
 
         {/* Rotas protegidas */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/profile" element={<><PageTitle /><Perfil /></>} />
           <Route path="/dashboard" element={<><Dashboard /></>} />
           <Route path="/gerenciar-funcionarios" element={<><PageTitle /><GerenciarUser /></>} />
           <Route path="/gerenciar-pacientes" element={<><PageTitle /><GerenciarPaciente /></>} />

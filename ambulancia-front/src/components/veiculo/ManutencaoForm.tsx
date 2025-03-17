@@ -35,7 +35,7 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
 
     dataEntradaManutencao: manutencaoToEdit?.dataEntradaManutencao || "",
     dataSaidaManutencao: manutencaoToEdit?.dataSaidaManutencao || "",
-    status: manutencaoToEdit?.status || "", 
+    status: manutencaoToEdit?.status || "",
 
     descricaoProblema: manutencaoToEdit?.descricaoProblema || "",
     servicoRealizado: manutencaoToEdit?.servicoRealizado || "",
@@ -122,120 +122,120 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
   return (
     <form onSubmit={handleSubmit}>
 
-                <div>
-      <h4>Manutenções</h4>
-            <label>Tipo de Manutenção</label>
-            <input
-              type="text"
-              name="tipoManutencao"
-              value={formData.tipoManutencao}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Descricao do Problema</label>
-            <input
-              type="text"
-              name="descricaoProblema"
-              value={formData.descricaoProblema}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Serviço Realizado</label>
-            <input
-              type="text"
-              name="servicoRealizado"
-              value={formData.servicoRealizado}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Data de Entrada da Manutenção</label>
-            <DatePicker
-              selected={formData.dataEntradaManutencao ? new Date(formData.dataEntradaManutencao) : null}
-              onChange={(date) => setFormData({ ...formData, dataEntradaManutencao: date?.toISOString().split("T")[0] || "" })}
-              locale="pt-BR"
-              dateFormat="dd/MM/yyyy"
-              showYearDropdown
-              scrollableYearDropdown
-              yearDropdownItemNumber={120}
-              maxDate={new Date()}
-              placeholderText="DD/MM/AAAA"
-              popperPlacement="left-end"
-            />
-          </div>
-          <div>
-            <label>Data de Saída da Manutenção</label>
-            <DatePicker
-              selected={formData.dataSaidaManutencao ? new Date(formData.dataSaidaManutencao) : null}
-              onChange={(date) => setFormData({ ...formData, dataSaidaManutencao: date?.toISOString().split("T")[0] || "" })}
-              locale="pt-BR"
-              dateFormat="dd/MM/yyyy"
-              showYearDropdown
-              scrollableYearDropdown
-              yearDropdownItemNumber={120}
-              maxDate={new Date()}
-              placeholderText="DD/MM/AAAA"
-              popperPlacement="left-end"
-            />
-          </div>
-          
-          <div>
-            <label>Custo</label>
-            <input
-              type="number"
-              step="0.01"
-              name="custoManutencao"
-              value={formData.custoManutencao}
-              onChange={handleInputChange}
+      <div>
+        <h4>Manutenções</h4>
+        <label>Tipo de Manutenção</label>
+        <input
+          type="text"
+          name="tipoManutencao"
+          value={formData.tipoManutencao}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Descricao do Problema</label>
+        <input
+          type="text"
+          name="descricaoProblema"
+          value={formData.descricaoProblema}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Serviço Realizado</label>
+        <input
+          type="text"
+          name="servicoRealizado"
+          value={formData.servicoRealizado}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Data de Entrada da Manutenção</label>
+        <DatePicker
+          selected={formData.dataEntradaManutencao ? new Date(formData.dataEntradaManutencao) : null}
+          onChange={(date) => setFormData({ ...formData, dataEntradaManutencao: date?.toISOString().split("T")[0] || "" })}
+          locale="pt-BR"
+          dateFormat="dd/MM/yyyy"
+          showYearDropdown
+          scrollableYearDropdown
+          yearDropdownItemNumber={120}
+          maxDate={new Date()}
+          placeholderText="DD/MM/AAAA"
+          popperPlacement="left-end"
+        />
+      </div>
+      <div>
+        <label>Data de Saída da Manutenção</label>
+        <DatePicker
+          selected={formData.dataSaidaManutencao ? new Date(formData.dataSaidaManutencao) : null}
+          onChange={(date) => setFormData({ ...formData, dataSaidaManutencao: date?.toISOString().split("T")[0] || "" })}
+          locale="pt-BR"
+          dateFormat="dd/MM/yyyy"
+          showYearDropdown
+          scrollableYearDropdown
+          yearDropdownItemNumber={120}
+          maxDate={new Date()}
+          placeholderText="DD/MM/AAAA"
+          popperPlacement="left-end"
+        />
+      </div>
 
-            />
-          </div>
-          <div>
+      <div>
+        <label>Custo</label>
+        <input
+          type="number"
+          step="0.01"
+          name="custoManutencao"
+          value={formData.custoManutencao}
+          onChange={handleInputChange}
+
+        />
+      </div>
+      <div>
         <label>Estado</label>
         <select
-  name="status"
-  value={formData.status}
-  onChange={handleInputChange}
-  required
->
-  <option value="" disabled>
-    Selecione o estado da manutenção
-  </option>
-  <option value="PENDENTE">Pendente</option>
-  <option value="EM_ANDAMENTO">Em Andamento</option>
-  <option value="CONCLUIDA">Concluída</option>
-</select>
+          name="status"
+          value={formData.status}
+          onChange={handleInputChange}
+          required
+        >
+          <option value="" disabled>
+            Selecione o estado da manutenção
+          </option>
+          <option value="PENDENTE">Pendente</option>
+          <option value="EM_ANDAMENTO">Em Andamento</option>
+          <option value="CONCLUIDA">Concluída</option>
+        </select>
+      </div>
+      <div>
+        <label>Veículo:</label>
+        <Select
+          options={veiculos.map(v => ({ value: v.id, label: v.placaVeic }))}
+          value={idVeic > 0 ? { value: idVeic, label: veiculos.find(v => v.id === idVeic)?.placaVeic || "" } : null}
+          onChange={(opt) => {
+            if (opt) setIdVeic(opt.value);
+          }}
+        />
+      </div>
 
-<div>
-  <label>Veículo:</label>
-  <Select 
-    options={veiculos.map(v => ({ value: v.id, label: v.placaVeic }))} 
-    value={idVeic > 0 ? { value: idVeic, label: veiculos.find(v => v.id === idVeic)?.placaVeic || "" } : null}
-    onChange={(opt) => {
-      if (opt) setIdVeic(opt.value);
-    }} 
-  />
-</div>
-
-<div>
-  <label>Fornecedor:</label>
-  <Select 
-    options={fornecedores.map(f => ({ value: f.id, label: f.nome }))} 
-    value={idForn > 0 ? { value: idForn, label: fornecedores.find(f => f.id === idForn)?.nome || "" } : null}
-    onChange={(opt) => {
-      if (opt) setIdForn(opt.value);
-    }} 
-  />
-</div>
+      <div>
+        <label>Fornecedor:</label>
+        <Select
+          options={fornecedores.map(f => ({ value: f.id, label: f.nome }))}
+          value={idForn > 0 ? { value: idForn, label: fornecedores.find(f => f.id === idForn)?.nome || "" } : null}
+          onChange={(opt) => {
+            if (opt) setIdForn(opt.value);
+          }}
+        />
+      </div>
 
 
-<div>
-        <ButtonSpinner name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit"/>
+      <div>
+        <ButtonSpinner name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit" />
         <button type="button" onClick={handleCancel}>
           Limpar
         </button>
