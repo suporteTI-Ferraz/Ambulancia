@@ -26,7 +26,7 @@ const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculoToEdit, onSave, onUpd
     createdAt:  "",
     modeloVeic: veiculoToEdit?.modeloVeic || "",
     marcaVeic: veiculoToEdit?.marcaVeic || "",
-    anoFabricacao: veiculoToEdit?.anoFabricacao || "",
+    anoFabricacao: veiculoToEdit?.anoFabricacao || 0,
     chassi: veiculoToEdit?.chassi || "",
   };
 
@@ -51,6 +51,10 @@ const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculoToEdit, onSave, onUpd
     onCancel();
   };
 
+  const filterYear = (date: Date) => {
+    // Permite apenas a seleção de anos
+    return date.getMonth() === 0 && date.getDate() === 1;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,20 +93,22 @@ const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculoToEdit, onSave, onUpd
           required
         />
       </div>
-        <div>
-            <DatePicker
-        selected={formData.anoFabricacao ? new Date(formData.anoFabricacao) : null}
-        onChange={(date) => setFormData({ ...formData, anoFabricacao: date?.toISOString().split("T")[0] || "" })}
-        locale="pt-BR"
-        dateFormat="dd/MM/yyyy"
-        showYearDropdown
-        scrollableYearDropdown
-        yearDropdownItemNumber={120}
-        maxDate={new Date()}  // 🔥 Impede seleção de datas futuras
-        placeholderText="DD/MM/AAAA"
-        popperPlacement="left-end" // 🔥 Força o DatePicker para baixo
-      />
-            </div>
+      <DatePicker
+  selected={formData.anoFabricacao ? new Date(formData.anoFabricacao, 0, 1) : null}
+  onChange={(date) =>
+    setFormData({
+      ...formData,
+      anoFabricacao: date ? date.getFullYear() : 0, // 🔥 Converte o ano para número
+    })
+  }
+  locale="pt-BR"
+  dateFormat="yyyy"
+  showYearPicker
+  filterDate={filterYear}
+  maxDate={new Date()} // 🔥 Impede seleção de datas futuras
+  placeholderText="AAAA"
+  popperPlacement="left-end" // 🔥 Força o DatePicker para baixo
+/>
       <div>
         <label>Chassi</label>
         <input 

@@ -33,7 +33,8 @@ import lombok.experimental.SuperBuilder;
 @Table
 public class Manutencao extends BaseEntity {
     private String descricao;
-    private LocalDate dataManutencao;
+    private LocalDate dataEntradaManutencao; // Quando o veículo foi para a manutenção
+    private LocalDate dataSaidaManutencao;   // Quando o veículo foi retirado da manutenção
     @Enumerated(EnumType.STRING)  // Salva o enum como texto no banco
     @Column(nullable = false)
     private StatusManutencao status;
@@ -58,14 +59,5 @@ public class Manutencao extends BaseEntity {
     @JoinColumn(name = "fornecedor_id", referencedColumnName = "id")
     private Fornecedor fornecedor; // RELACIONAMENTO COM FORNECEDOR (OPCIONAL)
 
-        // Método para calcular o custo total da manutenção (custo base + custo das peças)
-        public Double calcularCustoTotal() {
-            double custoTotal = custoManutencao != null ? custoManutencao : 0.0;
-    
-            for (PecaManutencao peca : pecasManutencao) {
-                custoTotal += peca.getCustoUnitario() * peca.getQuantidade();
-            }
-    
-            return custoTotal;
-        }
+      
 }

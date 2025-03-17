@@ -5,23 +5,24 @@ import { GiAutoRepair, GiMechanicGarage } from "react-icons/gi";
 import DataCriacao from "../itens/DataFormatada";
 import { Fornecedor } from "../../types/veiculo/FornecedorType";
 import Manutencao from "../../types/veiculo/ManutencaoType";
+import PecaManutencao from "../../types/veiculo/PecaManutencaoType";
 
-interface FornecedorListProps {
-  manutencoes: Manutencao[];
-  onEdit: (manutencao: Manutencao) => void;
+interface PecaManutencaoListProps {
+  pecaManutencoes: PecaManutencao[];
+  onEdit: (pecaManutencao: PecaManutencao) => void;
   onDelete: (id: number, deletedAt: string | null) => void;
 }
 
 
-const ManutencaoList: React.FC<FornecedorListProps> = ({ manutencoes, onEdit, onDelete }) => {
-    const [pesquisarManutencao, setPesquisarManutencao] = useState('');
+const PecaManutencaoList: React.FC<PecaManutencaoListProps> = ({ pecaManutencoes, onEdit, onDelete }) => {
+    const [pesquisarPecaManutencao, setPesquisarPecaManutencao] = useState('');
 
-    const filteredManutencoes = manutencoes.filter(manutencao =>
-      manutencao.dataEntradaManutencao.toLowerCase().includes(pesquisarManutencao.toLowerCase())
+    const filteredPecaManutencoes = pecaManutencoes.filter(peca =>
+      peca.createdAt.toLowerCase().includes(pesquisarPecaManutencao.toLowerCase())
     );
 
      // Ordenar os usuários pela data de criação ou pelo id (ordem decrescente)
-      const sortedManutencoes= filteredManutencoes.sort((a, b) => {
+      const sortedPecaManutencoes= filteredPecaManutencoes.sort((a, b) => {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
     
@@ -33,9 +34,9 @@ const ManutencaoList: React.FC<FornecedorListProps> = ({ manutencoes, onEdit, on
           <FiSearch style={{ marginRight: "8px", fontSize: "20px", color: "#007BFF" }} />
           <input
             type="text"
-            placeholder="Pesquisar por Data da Manutenção"
-            value={pesquisarManutencao}
-            onChange={(e) => setPesquisarManutencao(e.target.value)}
+            placeholder="Pesquisar por Data de Criação"
+            value={pesquisarPecaManutencao}
+            onChange={(e) => setPesquisarPecaManutencao(e.target.value)}
             style={{
               padding: "8px",
               fontSize: "14px",
@@ -51,49 +52,42 @@ const ManutencaoList: React.FC<FornecedorListProps> = ({ manutencoes, onEdit, on
         <table>
           <thead>
             <tr>
-              <th>Criação</th>
-              <th>Tipo</th>
-              <th>Data de Entrada da Manutenção</th>
+              <th>Nome da Peça</th>
+              <th>Quantidade</th>
+              <th>Custo da Peça</th>
               <th>Data de Saída da Manutenção</th>
               <th>Custo</th>
-              <th>Situação</th>
-              <th>Descrição</th>
-              <th>Serviço</th>
               <th>Status</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
-            {sortedManutencoes.map((manutencao) => (
-              <tr key={manutencao.id} style={{ backgroundColor: manutencao.deletedAt ? '#ffcccc' : 'white' }}>
-                <td><DataCriacao createdAt={manutencao.createdAt} /></td>
-                <td>{manutencao.tipoManutencao}</td>
-                <td><DataCriacao createdAt={manutencao.dataEntradaManutencao} /></td>
-                <td><DataCriacao createdAt={manutencao.dataSaidaManutencao} /></td>
-                <td>{manutencao.custoManutencao}</td>
-                <td>{manutencao.status}</td>
-                <td>{manutencao.descricaoProblema}</td>
-                <td>{manutencao.servicoRealizado}</td>
-                <td>{manutencao.deletedAt ? 'Desativado' : 'Ativo'}</td>
+            {sortedPecaManutencoes.map((peca) => (
+              <tr key={peca.id} style={{ backgroundColor: peca.deletedAt ? '#ffcccc' : 'white' }}>
+                <td><DataCriacao createdAt={peca.createdAt} /></td>
+                <td>{peca.nomePeca}</td>
+                <td>{peca.quantidade}</td>
+                <td>{peca.custoUnitario}</td>
+                <td>{peca.deletedAt ? 'Desativado' : 'Ativo'}</td>
                 <td>
                 <div className="icon-container">
                   <FiEdit 
                   className="icon-action edit" 
                   title="Editar" 
-                  onClick={() => onEdit(manutencao)} />
+                  onClick={() => onEdit(peca)} />
               
               
-                  {manutencao.deletedAt ? (
+                  {peca.deletedAt ? (
                     <FiRefreshCw
                       className="icon-action reactivate"
                       title="Reativar"
-                      onClick={() => onDelete(manutencao.id, manutencao.deletedAt)}
+                      onClick={() => onDelete(peca.id, peca.deletedAt)}
                     />
                   ) : (
                     <FiTrash
                       className="icon-action delete"
                       title="Desativar"
-                      onClick={() => onDelete(manutencao.id, null)}
+                      onClick={() => onDelete(peca.id, null)}
                     />
                   )}
                   </div>
@@ -106,4 +100,4 @@ const ManutencaoList: React.FC<FornecedorListProps> = ({ manutencoes, onEdit, on
     );
   };
   
-  export default ManutencaoList;
+  export default PecaManutencaoList;

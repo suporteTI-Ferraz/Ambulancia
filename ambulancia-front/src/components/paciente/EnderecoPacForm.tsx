@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import InputMask from "react-input-mask";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 import { buscaCepPaciente } from "../../services/others/ViaCepService";
 import { Spinner } from "reactstrap";
@@ -128,12 +129,13 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({onEnderecosChange, isModa
          <div>
          {isCepLoading[index] && <Spinner size="sm" />}
   <label>CEP</label>
-    <input
-      type="text"
-      value={endereco.cepPac}
-      onChange={(e) => handleEnderecosChange(index, "cepPac", e.target.value)}
-      maxLength={9} // Limita o tamanho do campo ao formato 00000-000
-    />
+  <InputMask
+              mask="99999-999"
+              value={endereco.cepPac}
+              onChange={(e) => handleEnderecosChange(index, "cepPac", e.target.value)}
+            >
+              {(inputProps: any) => <input {...inputProps} type="text" />}
+            </InputMask>
 
 
 </div>

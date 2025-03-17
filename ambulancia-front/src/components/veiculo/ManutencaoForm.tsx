@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Manutencao from "../../types/veiculo/ManutencaoType";
 import DatePicker from "react-datepicker";
-import Select from "react-select";  
+import Select from "react-select";
 import { Fornecedor } from "../../types/veiculo/FornecedorType";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useToast } from "../../hooks/useToast";
@@ -13,13 +13,13 @@ interface ManutencaoFormProps {
   onUpdate: (id: number, manutencao: Manutencao, idVeic: number, idForn: number) => void;
   onCancel: () => void;
   manutencaoToEdit: Manutencao | null; // Para edição, ou null para criação
-  isModal: Boolean; 
+  isModal: Boolean;
   resetManutencoes?: boolean;
   veiculos: Veiculo[];
   fornecedores: Fornecedor[];
 }
 
-const ManutencaoForm: React.FC<ManutencaoFormProps> = ({ 
+const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
   onSave,
   onCancel,
   onUpdate,
@@ -29,57 +29,62 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
   fornecedores,
 }) => {
 
-  const initialFormData: Manutencao = { id: manutencaoToEdit?.id || 0,
+  const initialFormData: Manutencao = {
+    id: manutencaoToEdit?.id || 0,
     tipoManutencao: manutencaoToEdit?.tipoManutencao || "",
-    dataManutencao: manutencaoToEdit?.dataManutencao || "",
+
+    dataEntradaManutencao: manutencaoToEdit?.dataEntradaManutencao || "",
+    dataSaidaManutencao: manutencaoToEdit?.dataSaidaManutencao || "",
     status: manutencaoToEdit?.status || "", 
+
     descricaoProblema: manutencaoToEdit?.descricaoProblema || "",
     servicoRealizado: manutencaoToEdit?.servicoRealizado || "",
     custoManutencao: manutencaoToEdit?.custoManutencao || 0.0,
     deletedAt: manutencaoToEdit?.deletedAt || null,
     veiculo: manutencaoToEdit?.veiculo || null,
     fornecedor: manutencaoToEdit?.fornecedor || null,
-    createdAt: "" };
+    createdAt: ""
+  };
 
 
 
-    
+
   const [formData, setFormData] = useState<Manutencao>(initialFormData);
   const [idForn, setIdForn] = useState<number>(0);
   const [idVeic, setIdVeic] = useState<number>(0);
-  
-   useEffect(() => {
-   if (manutencaoToEdit?.id) {
-     console.log("🔍 Buscando manutenção ID:", manutencaoToEdit.id);
- 
-     // Encontra o veículo relacionado à manutenção
-     const veiculoRelacionado = veiculos.find(v => 
-       v.manutencoes.some(m => Number(m.id) === Number(manutencaoToEdit.id))
-     );
- 
-     // Encontra o fornecedor relacionado à manutenção
-     const fornecedorRelacionado = fornecedores.find(f => 
-       f.manutencoes.some(m => Number(m.id) === Number(manutencaoToEdit.id))
-     );
- 
-     console.log("✅ Veículo encontrado:", veiculoRelacionado);
-     console.log("✅ Fornecedor encontrado:", fornecedorRelacionado);
- 
-     // Atualiza a manutenção com os objetos completos de veículo e fornecedor
-     setIdForn(fornecedorRelacionado?.id || 0)
-     setIdVeic(veiculoRelacionado?.id || 0)
-   }
- }, [manutencaoToEdit]);
- 
-  
 
-    const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
-    const { handleLoad, dismissLoading } = useToast(); 
+  useEffect(() => {
+    if (manutencaoToEdit?.id) {
+      console.log("🔍 Buscando manutenção ID:", manutencaoToEdit.id);
+
+      // Encontra o veículo relacionado à manutenção
+      const veiculoRelacionado = veiculos.find(v =>
+        v.manutencoes.some(m => Number(m.id) === Number(manutencaoToEdit.id))
+      );
+
+      // Encontra o fornecedor relacionado à manutenção
+      const fornecedorRelacionado = fornecedores.find(f =>
+        f.manutencoes.some(m => Number(m.id) === Number(manutencaoToEdit.id))
+      );
+
+      console.log("✅ Veículo encontrado:", veiculoRelacionado);
+      console.log("✅ Fornecedor encontrado:", fornecedorRelacionado);
+
+      // Atualiza a manutenção com os objetos completos de veículo e fornecedor
+      setIdForn(fornecedorRelacionado?.id || 0)
+      setIdVeic(veiculoRelacionado?.id || 0)
+    }
+  }, [manutencaoToEdit]);
 
 
-  
 
-  
+  const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
+  const { handleLoad, dismissLoading } = useToast();
+
+
+
+
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLElement>) => {
     const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
@@ -95,15 +100,15 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
     if (loading) return;
     setLoading(true);
     const toastKey = handleLoad("Carregando...");
-  
+
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       if (manutencaoToEdit && isModal) {
         onUpdate(manutencaoToEdit.id, formData, idVeic, idForn)
-      }else{
+      } else {
         onSave(formData, idVeic, idForn);
       }
-      
+
     } catch (error) {
       console.error("Erro ao salvar telefones:", error);
     } finally {
@@ -111,11 +116,12 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
       dismissLoading(toastKey);
     }
   };
-  
-  
+
+
 
   return (
     <form onSubmit={handleSubmit}>
+
                 <div>
       <h4>Manutenções</h4>
             <label>Tipo de Manutenção</label>
@@ -148,10 +154,25 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
             />
           </div>
           <div>
-            <label>Data da Manutenção</label>
+            <label>Data de Entrada da Manutenção</label>
             <DatePicker
-              selected={formData.dataManutencao ? new Date(formData.dataManutencao) : null}
-              onChange={(date) => setFormData({ ...formData, dataManutencao: date?.toISOString().split("T")[0] || "" })}
+              selected={formData.dataEntradaManutencao ? new Date(formData.dataEntradaManutencao) : null}
+              onChange={(date) => setFormData({ ...formData, dataEntradaManutencao: date?.toISOString().split("T")[0] || "" })}
+              locale="pt-BR"
+              dateFormat="dd/MM/yyyy"
+              showYearDropdown
+              scrollableYearDropdown
+              yearDropdownItemNumber={120}
+              maxDate={new Date()}
+              placeholderText="DD/MM/AAAA"
+              popperPlacement="left-end"
+            />
+          </div>
+          <div>
+            <label>Data de Saída da Manutenção</label>
+            <DatePicker
+              selected={formData.dataSaidaManutencao ? new Date(formData.dataSaidaManutencao) : null}
+              onChange={(date) => setFormData({ ...formData, dataSaidaManutencao: date?.toISOString().split("T")[0] || "" })}
               locale="pt-BR"
               dateFormat="dd/MM/yyyy"
               showYearDropdown
@@ -189,6 +210,7 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
   <option value="EM_ANDAMENTO">Em Andamento</option>
   <option value="CONCLUIDA">Concluída</option>
 </select>
+</div>
 
 <div>
   <label>Veículo:</label>
@@ -218,8 +240,8 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
         <button type="button" onClick={handleCancel}>
           Limpar
         </button>
+
       </div>
-    </div>
     </form>
   );
 };
