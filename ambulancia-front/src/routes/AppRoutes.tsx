@@ -5,8 +5,8 @@ import PublicRoute from './PublicRoute';
 import Login from '../pages/Login';
 import Perfil from '../pages/Perfil';
 import Dashboard from '../pages/Dashboard';
-import PageTitle from '../components/PageTitle'; // Importando o PageTitle
-import GerenciarUser from '../pages/GerenciarUser';
+import PageTitle from '../components/PageTitle';
+import GerenciarFuncionario from '../pages/GerenciarFuncionario';
 import GerenciarPaciente from '../pages/GerenciarPaciente';
 import GerenciarMotorista from '../pages/GerenciarMotorista';
 import GerenciarVeiculo from '../pages/GerenciarVeiculo';
@@ -19,7 +19,7 @@ import Footer from '../components/Footer';
 const AppRoutes: React.FC = () => {
   return (
     <Router>
-      {/* <Header /> */}
+      <Header />
       <Routes>
         {/* Rotas públicas com redirecionamento se autenticado */}
         
@@ -31,7 +31,7 @@ const AppRoutes: React.FC = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<><PageTitle /><Perfil /></>} />
           <Route path="/dashboard" element={<><Dashboard /></>} />
-          <Route path="/gerenciar-funcionarios" element={<><PageTitle /><GerenciarUser /></>} />
+          <Route path="/gerenciar-funcionarios" element={<><GerenciarFuncionario /></>} />
           <Route path="/gerenciar-pacientes" element={<><PageTitle /><GerenciarPaciente /></>} />
           <Route path="/gerenciar-motoristas" element={<><PageTitle /><GerenciarMotorista /></>} />
           <Route path="/gerenciar-ambulancias" element={<><PageTitle /><GerenciarVeiculo /></>} />

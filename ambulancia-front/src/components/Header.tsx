@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { API } from '../services/api';
+import { logout } from '../services/api/UserService';
 import '../styles/Header.css'
 
 import {
@@ -24,6 +26,15 @@ const Header: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
+    const sair = async () => {
+        try {
+            const response = await logout()
+            handleLogout()
+        } catch (error) {
+            
+        }
+    }
+
     const toggleNavbar = () => setIsOpen(!isOpen);
     const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
@@ -33,6 +44,7 @@ const Header: React.FC = () => {
     const handleHospitalRoute = () => navigate("/gerenciar-hospitais");
     const handleVeiculoRoute = () => navigate("/gerenciar-ambulancias");
     const handleAgendarDiaRoute = () => navigate("/gerenciar-agendamentos/");
+    const handleLogout = () => window.location.reload();
 
     return (
         <>
@@ -66,6 +78,9 @@ const Header: React.FC = () => {
                         </NavItem>
                         <NavItem>
                             <NavLink href="/about" className="nav-link">Sobre</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink onClick={sair} className="nav-link">Sair</NavLink>
                         </NavItem>
 
                         {isLoggedIn && (

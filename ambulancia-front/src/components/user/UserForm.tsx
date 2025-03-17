@@ -3,6 +3,7 @@ import { User } from '../../types/user/UserType';
 import ButtonSpinner from '../itens/ButtonSpinner';
 import { useLoading } from '../../contexts/LoadingContext';
 import { useToast } from '../../hooks/useToast';
+import '../../styles/UserForm.css';
 
 interface UserFormProps {
   userToEdit: User | null;
