@@ -1,7 +1,8 @@
 export default interface PecaManutencao{
-    id: number | null;
+    id: number;
     nomePeca: string;
     quantidade: number;
     custoUnitario: number;
     deletedAt: string | null;
+    createdAt: string;
 }

@@ -29,7 +29,7 @@ import jakarta.persistence.Table;
 public class Veiculo extends BaseEntity {
     private String modeloVeic;
     private String marcaVeic;
-    private LocalDate anoFabricacao;
+    private Integer anoFabricacao;
     private String chassi;
     @Column(nullable = false)
     private String placaVeic;

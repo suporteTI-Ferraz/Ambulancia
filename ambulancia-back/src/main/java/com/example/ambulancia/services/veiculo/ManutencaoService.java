@@ -87,6 +87,8 @@ public class ManutencaoService {
         entity.setTipoManutencao(manutencao.getTipoManutencao());
         entity.setCustoManutencao(manutencao.getCustoManutencao());
         entity.setServicoRealizado(manutencao.getServicoRealizado());
+        entity.setDataEntradaManutencao(manutencao.getDataEntradaManutencao());
+        entity.setDataSaidaManutencao(manutencao.getDataSaidaManutencao());
         entity.setDescricaoProblema(manutencao.getDescricaoProblema());
         entity.setStatus(manutencao.getStatus());
         entity.setFornecedor(fornecedor);
@@ -114,8 +116,12 @@ public class ManutencaoService {
             if(!Objects.equals(manutencaoAtual.getDescricao(), novaManutencao.getDescricao())){
                 manutencaoAtual.setDescricao(novaManutencao.getDescricao());
             }
-            if(!Objects.equals(manutencaoAtual.getDataManutencao(), novaManutencao.getDataManutencao())){
-                manutencaoAtual.setDataManutencao(novaManutencao.getDataManutencao());
+            if(!Objects.equals(manutencaoAtual.getDataEntradaManutencao(), novaManutencao.getDataEntradaManutencao())){
+                manutencaoAtual.setDataEntradaManutencao(novaManutencao.getDataEntradaManutencao());
+            }
+            if(!Objects.equals(manutencaoAtual.getDataSaidaManutencao(), novaManutencao.getDataSaidaManutencao())){
+                manutencaoAtual.setDataSaidaManutencao(novaManutencao.getDataSaidaManutencao());
+
             }
             if(!Objects.equals(manutencaoAtual.getStatus(), novaManutencao.getStatus())){
                 manutencaoAtual.setStatus(novaManutencao.getStatus());

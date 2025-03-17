@@ -5,7 +5,7 @@ export interface Veiculo {
     placaVeic: string;
     modeloVeic: string;
     marcaVeic: string;
-    anoFabricacao: string;
+    anoFabricacao: number;
     chassi: string;
     quilometragemAtual: number;
     classe: string;
