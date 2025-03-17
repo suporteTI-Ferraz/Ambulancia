@@ -6,8 +6,6 @@ import { useLoading } from "../contexts/LoadingContext";
 import { useToast } from "../hooks/useToast";
 import useLogin from "../hooks/useLogin";
 import '../styles/global.css';
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 const Login = () => {
     const {
@@ -44,11 +42,10 @@ const Login = () => {
         }
       };
 
-  
+
 
   return (
     <>
-    <Header />
     <div className="login-container">
       
       {/* Background */}
