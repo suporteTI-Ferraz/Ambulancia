@@ -56,9 +56,9 @@ const GerenciarVeiculo = () => {
         <NavItem>
           <NavLink
             className={classnames({ active: activeTab === "peça" })}
-            onClick={() => setActiveTab("manutenção")}
+            onClick={() => setActiveTab("peça")}
           >
-            Peças
+            Peça
           </NavLink>
         </NavItem>
       </Nav>
@@ -120,7 +120,7 @@ const GerenciarVeiculo = () => {
           <h4>Criar Peças para Manutenção</h4>
           <PecaManutencaoForm isModal={false} onSave={handleSavePecaManutencao}
           onCancel={() => setEditingPecaManutencao(null)}
-          pecaManutencaoToEdit={editingPecaManutencao} onUpdate={handleUpdatePecaManutencao} manutencoes={[]} />
+          pecaManutencaoToEdit={editingPecaManutencao} onUpdate={handleUpdatePecaManutencao} manutencoes={manutencoes} />
           
           <PecaManutencaoList pecaManutencoes={pecaManutencoes} onEdit={handleEditPecaManu} onDelete={handleDeleteVeiculo}/>
         </TabPane>
