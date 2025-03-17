@@ -198,6 +198,7 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
       <div>
         <label>Estado</label>
         <select
+
           name="status"
           value={formData.status}
           onChange={handleInputChange}
@@ -236,6 +237,7 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
 
       <div>
         <ButtonSpinner name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit" />
+
         <button type="button" onClick={handleCancel}>
           Limpar
         </button>
