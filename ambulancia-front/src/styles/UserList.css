@@ -1,0 +1,45 @@
+.search-icon-user-list {
+  color: var(--bg-color);
+}
+
+.input-search {
+  padding: 0.8rem 10rem;
+  border: 1px solid white;
+  background-color: rgb(255, 255, 255, 0.1);
+  border-radius: 30px;
+}
+
+
+/* pega os titulos e o conteudo*/
+.title-table {
+  background-color: rgb(255, 255, 255, 0.1);
+  color: white;
+}
+
+
+.form-section2 {
+  background-color: rgb(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 30px;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+}
+
+.div-form-section2-search {
+  background-color: rgb(255, 255, 255, 0);
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 30px;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

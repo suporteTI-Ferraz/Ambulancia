@@ -9,45 +9,47 @@
 }
 
 .dashboard-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centraliza verticalmente */
-    align-items: center; /* Centraliza horizontalmente */
-    margin: 0;
-    padding: 0; /* Remover padding extra */
-    min-height: 100vh; /* Garante que o conteúdo ocupe toda a altura da página */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centraliza verticalmente */
+  align-items: center; /* Centraliza horizontalmente */
+  margin: 0;
+  padding: 0; /* Remover padding extra */
+  min-height: 100vh; /* Garante que o conteúdo ocupe toda a altura da página */
 }
 
 .dashboard {
-    text-align: center;
-    padding: 3rem;
-    max-width: 60rem; /* Máxima largura para o conteúdo */
-    width: 100%; /* A largura será 100% até o máximo especificado */
-    background-color: rgb(255, 255, 255, 0.1);
-    border-radius: 8px;
-    border: 1px solid white;
-    box-sizing: border-box; /* Garante que o padding não aumente a altura da caixa */
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  text-align: center;
+  padding: 3rem;
+  max-width: 60rem; /* Máxima largura para o conteúdo */
+  width: 100%; /* A largura será 100% até o máximo especificado */
+  background-color: rgb(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid white;
+  box-sizing: border-box; /* Garante que o padding não aumente a altura da caixa */
 }
 
 .cards-container {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .card {
-    background-color: rgb(255, 255, 255, 0.1) !important;
-    padding: 0.5rem 0.3rem;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 15rem;
-    transition: transform 0.3s;
-    backdrop-filter: blur(8px); /* Aplica o efeito de desfoque (blur) no fundo */
-    -webkit-backdrop-filter: blur(10px); /* Para garantir compatibilidade com navegadores WebKit (Safari) */
-    border: 1px solid white !important;
+  background-color: rgb(255, 255, 255, 0.1) !important;
+  padding: 0.5rem 0.3rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15rem;
+  transition: transform 0.3s;
+  backdrop-filter: blur(8px); /* Aplica o efeito de desfoque (blur) no fundo */
+  -webkit-backdrop-filter: blur(10px); /* Para garantir compatibilidade com navegadores WebKit (Safari) */
+  border: 1px solid white !important;
 }
 
 .icon {
@@ -62,23 +64,24 @@
   margin-top: 1rem;
 }
 
-.card button {
-    width: 85%;
-    height: 3rem;
-    margin-top: 0.8rem;
-    margin-bottom: 0.8rem;
-    background-color: white;
-    color: var(--bg-color);
-    font-size: 1rem;
-    border: none;
-    border-radius: 500px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+.card button{
+  width: 85%;
+  height: 3rem;
+  padding: 0;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  background-color: white;
+  color: var(--bg-color);
+  font-size: 1rem;
+  border: none;
+  border-radius: 500px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .card button:hover {
-    background-color: var(--second-main-color);
-    color: white;
+  background-color: var(--main-color);
+  color: white;
 
 }
 

@@ -1,10 +1,16 @@
 :root{
-  --main-color: #0e7886;
-  --second-main-color: #0e7886;
-  --third-main-color: #084047;
+  --main-color: #801616;
+  --second-main-color: #a12323;
+  --third-main-color: #3b0707;
   
-  --bg-color: #333333;
-  --second-bg-color: #1e1e1e;
+  --theme-color: #35757a;
+
+  --bg-color: #1e1e1e;
+  --second-bg-color: #333333;
+
+  --select-color: #20966e;
+  --select-second-color: #125e44;
+  --sucess-color: #3e8e41;
 }
 
 * {
