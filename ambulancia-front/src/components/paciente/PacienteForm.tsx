@@ -5,6 +5,7 @@ import EnderecoPacForm from "./EnderecoPacForm";
 import ButtonSpinner from "../itens/ButtonSpinner";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useToast } from "../../hooks/useToast";
+import { Form, Button, Alert } from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 import InputMask from 'react-input-mask';
 
@@ -68,12 +69,12 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
   const getInputClasses = (fieldName: string, value: string, isValid: boolean) => {
     const baseClasses = "w-full px-3 py-2 border rounded-md focus:outline-none";
     if (!value) return `${baseClasses} border-red-500 focus:border-red-600`;
-    return isValid 
-      ? `${baseClasses} border-green-500 focus:border-green-600` 
+    return isValid
+      ? `${baseClasses} border-green-500 focus:border-green-600`
       : `${baseClasses} border-red-500 focus:border-red-600`;
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -120,130 +121,142 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <>
+      <Form onSubmit={handleSubmit}>
         <h4>Paciente</h4>
-        <label>Nome Completo</label>
-        <input
-          type="text"
-          name="nomePaciente"
-          value={formData.nomePaciente}
-          onChange={(e) => {
-            handleInputChange(e);
-            setValidationState({
-              ...validationState,
-              nomePaciente: e.target.value.length > 0
-            });
-          }}
-          className={getInputClasses('nomePaciente', formData.nomePaciente, validationState.nomePaciente)}
-          required
-        />
-      </div>
-      
-      <div>
-      <label>Data Nascimento</label>
-        <DatePicker
-          selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
-          onChange={(date) => {
-            setFormData({ ...formData, dataNasc: date?.toISOString().split("T")[0] || "" });
-            setValidationState({
-              ...validationState,
-              dataNasc: !!date
-            });
-          }}
-          className={getInputClasses('dataNasc', formData.dataNasc, validationState.dataNasc)}
-          locale="pt-BR"
-          dateFormat="dd/MM/yyyy"
-          showYearDropdown
-          scrollableYearDropdown
-          yearDropdownItemNumber={120}
-          maxDate={new Date()}
-          placeholderText="DD/MM/AAAA"
-          popperPlacement="left-end"
-        />
-      </div>
 
-      <div>
-        <label>CPF</label>
-        <InputMask
-          mask="999.999.999-99"
-          type="text"
-          name="cpf"
-          value={formData.cpf}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            handleInputChange(e);
-            const inputVal = e.target.value;
-            const numericCPF = inputVal.replace(/[^\d]/g, '');
-            const isValid = numericCPF.length === 11 && validateCPF(inputVal);
-            setValidationState({
-              ...validationState,
-              cpf: isValid
-            });
-            if (!isValid && numericCPF.length === 11) {
-              setCpfError("CPF inválido");
-            } else {
-              setCpfError("");
-            }
-          }}
-          className={getInputClasses('cpf', formData.cpf, validationState.cpf)}
-          required
-        />
-        {cpfError && <div className="text-red-500 text-sm mt-1">{cpfError}</div>}
-      </div>
+        <Form.Group controlId="nomePaciente">
+          <Form.Label>Nome do Paciente</Form.Label>
+          <Form.Control
+            type="text"
+            name="nomePaciente"
+            value={formData.nomePaciente}
+            onChange={(e) => {
+              handleInputChange(e);
+              setValidationState({
+                ...validationState,
+                nomePaciente: e.target.value.length > 0
+              });
+            }}
+            isValid={validationState.nomePaciente}
+            isInvalid={!validationState.nomePaciente && formData.nomePaciente.length > 0}
+            required
+          />
+          <Form.Control.Feedback type="valid">Nome válido!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">Por favor, insira um nome.</Form.Control.Feedback>
+        </Form.Group>
 
-      <div>
-        <label>SUS</label>
-        <input 
-          type="text" 
-          name="sus"
-          value={formData.sus}
-          onChange={(e) => {
-            handleInputChange(e);
-            setValidationState({
-              ...validationState,
-              sus: e.target.value.length > 0
-            });
-          }}
-          className={getInputClasses('sus', formData.sus, validationState.sus)}
-          required 
-        />
-      </div>
+        <Form.Group controlId="dataNasc">
+          <Form.Label>Data Nascimento</Form.Label>
+          <DatePicker
+            selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
+            onChange={(date) => {
+              setFormData({ ...formData, dataNasc: date?.toISOString().split("T")[0] || "" });
+              setValidationState({
+                ...validationState,
+                dataNasc: !!date
+              });
+            }}
+            className={`form-control ${validationState.dataNasc ? 'is-valid' : ''} ${!validationState.dataNasc && formData.dataNasc ? 'is-invalid' : ''}`}
+            locale="pt-BR"
+            dateFormat="dd/MM/yyyy"
+            showYearDropdown
+            scrollableYearDropdown
+            yearDropdownItemNumber={120}
+            maxDate={new Date()}
+            placeholderText="DD/MM/AAAA"
+            popperPlacement="left-end"
+          />
+          <Form.Control.Feedback type="valid">Data válida!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">Por favor, selecione uma data.</Form.Control.Feedback>
+        </Form.Group>
 
-      <div>
-        <label>Condições Específicas</label>
-        <input
-          type="text"
-          name="condicoesEspecificas"
-          placeholder="(EX: Cadeirante)"
-          value={formData.condicoesEspecificas}
-          onChange={handleInputChange}
-          className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:border-blue-500"
-        />
-      </div>
+        <Form.Group controlId="cpf">
+          <Form.Label>CPF</Form.Label>
+          <InputMask
+            mask="999.999.999-99"
+            value={formData.cpf}
+            onChange={(e) => {
+              handleInputChange(e);
+              const inputVal = e.target.value;
+              const numericCPF = inputVal.replace(/[^\d]/g, '');
+              const isValid = numericCPF.length === 11 && validateCPF(inputVal);
+              setValidationState({
+                ...validationState,
+                cpf: isValid
+              });
+              if (!isValid && numericCPF.length === 11) {
+                setCpfError("CPF inválido");
+              } else {
+                setCpfError("");
+              }
+            }}
+          >
+            {() => (
+              <Form.Control
+                type="text"
+                name="cpf"
+                isValid={validationState.cpf}
+                isInvalid={!validationState.cpf && formData.cpf.length > 0}
+                required
+              />
+            )}
+          </InputMask>
+          <Form.Control.Feedback type="valid">CPF válido!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{cpfError || "Por favor, insira um CPF válido."}</Form.Control.Feedback>
+        </Form.Group>
 
-      <TelefonePacForm onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} />
-      <EnderecoPacForm onEnderecosChange={handleEnderecosChange} resetEnderecos={shouldResetEnderecos} isModal={false} />
+        <Form.Group controlId="sus">
+          <Form.Label>SUS</Form.Label>
+          <Form.Control
+            type="text"
+            name="sus"
+            value={formData.sus}
+            onChange={(e) => {
+              handleInputChange(e);
+              setValidationState({
+                ...validationState,
+                sus: e.target.value.length > 0
+              });
+            }}
+            isValid={validationState.sus}
+            isInvalid={!validationState.sus && formData.sus.length > 0}
+            required
+          />
+          <Form.Control.Feedback type="valid">Número SUS válido!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">Por favor, insira um número SUS.</Form.Control.Feedback>
+        </Form.Group>
 
-      {errorMessage && (
-        <div
-          className="mt-2 bg-red-100 text-red-700 px-4 py-2 rounded cursor-pointer"
-          onClick={() => setErrorMessage("")}
-        >
-          {errorMessage}
+        <Form.Group controlId="condicoesEspecificas">
+          <Form.Label>Condições Específicas</Form.Label>
+          <Form.Control
+            type="text"
+            name="condicoesEspecificas"
+            placeholder="(EX: Cadeirante)"
+            value={formData.condicoesEspecificas}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+
+        <TelefonePacForm onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} />
+        <EnderecoPacForm onEnderecosChange={handleEnderecosChange} resetEnderecos={shouldResetEnderecos} isModal={false} />
+
+        {errorMessage && (
+          <Alert variant="danger" className="mt-2" onClick={() => setErrorMessage("")}>
+            {errorMessage}
+          </Alert>
+        )}
+
+        <div className="mt-4">
+          <Button variant="primary" type="submit" disabled={loading}>
+            {loading ? 'Carregando...' : 'Salvar'}
+          </Button>
+          <Button variant="secondary" type="button" onClick={handleCancel} className="ml-2">
+            Limpar
+          </Button>
         </div>
-      )}
-
-      <div className="mt-4 space-x-2">
-        <ButtonSpinner name="Salvar" isLoading={loading} type="submit" />
-        <button
-          type="button"
-          onClick={handleCancel}
-          className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
-        >
-          Limpar
-        </button>
-      </div>
-    </form>
+      </Form>
+    </>
   );
 };
 
