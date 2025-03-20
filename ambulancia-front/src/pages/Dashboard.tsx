@@ -2,7 +2,6 @@
 import { FaUser, FaHeartbeat, FaUserNurse, FaAmbulance, FaHospital, FaCalendarAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import '../styles/Dashboard.css'
-import Header from "../components/Header";
 
 
 const Dashboard = () => {
@@ -11,11 +10,6 @@ const Dashboard = () => {
   const handleUserRoute = () => {
     navigate("/gerenciar-funcionarios");
   };
-
-
-  const handleUserRoute = () => {
-    navigate("/gerenciar-funcionarios")
-  }
 
   const handlePacienteRoute = () => {
     navigate("/gerenciar-pacientes")

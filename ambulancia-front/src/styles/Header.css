@@ -79,3 +79,12 @@
     height: auto;
 }
 
+.dropdown-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+.dropdown-grid div .dropdown-item:hover {
+    background-color: var(--main-color);
+}

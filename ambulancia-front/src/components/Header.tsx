@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { API } from '../services/api';
 import { logout } from '../services/api/UserService';
+import { LuLogOut, LuPointer } from "react-icons/lu";
 import '../styles/Header.css'
 
 import {
@@ -31,7 +31,7 @@ const Header: React.FC = () => {
             const response = await logout()
             handleLogout()
         } catch (error) {
-            
+
         }
     }
 
@@ -59,13 +59,13 @@ const Header: React.FC = () => {
             <Navbar className="custom-navbar" expand="md">
                 <NavbarBrand href="#" className="navbar-brand">Ambulâncias</NavbarBrand>
                 <NavbarToggler className="hamburguer" onClick={toggleNavbar}>
-                    <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    className="hamburguer-icon" 
-                    fill="none" 
-                    stroke="white" 
-                    viewBox="0 0 24 24" 
-                    strokeWidth="2"
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="hamburguer-icon"
+                        fill="none"
+                        stroke="white"
+                        viewBox="0 0 24 24"
+                        strokeWidth="2"
                     >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
@@ -79,30 +79,36 @@ const Header: React.FC = () => {
                         <NavItem>
                             <NavLink href="/about" className="nav-link">Sobre</NavLink>
                         </NavItem>
-                        <NavItem>
-                            <NavLink onClick={sair} className="nav-link">Sair</NavLink>
-                        </NavItem>
 
                         {isLoggedIn && (
                             <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
                                 <DropdownToggle nav caret className="nav-link">
                                     Gerenciar
                                 </DropdownToggle>
-                                <DropdownMenu end>
-                                    <DropdownItem onClick={handleUserRoute}>Usuários</DropdownItem>
-                                    <DropdownItem onClick={handlePacienteRoute}>Pacientes</DropdownItem>
-                                    <DropdownItem onClick={handleMotoristaRoute}>Motoristas</DropdownItem>
-                                    <DropdownItem onClick={handleHospitalRoute}>Hospitais</DropdownItem>
-                                    <DropdownItem onClick={handleVeiculoRoute}>Veículos</DropdownItem>
-                                    <DropdownItem onClick={handleAgendarDiaRoute}>Agendamento</DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem href="/contact">Fale Conosco</DropdownItem>
+                                <DropdownMenu className='dropdown-menu-dark' end>
+                                    <div className="dropdown-grid">
+                                        <div>
+                                            <DropdownItem onClick={handleUserRoute}>Usuários</DropdownItem>
+                                            <DropdownItem onClick={handlePacienteRoute}>Pacientes</DropdownItem>
+                                            <DropdownItem onClick={handleMotoristaRoute}>Motoristas</DropdownItem>
+                                        </div>
+                                        <div>
+                                            <DropdownItem onClick={handleHospitalRoute}>Hospitais</DropdownItem>
+                                            <DropdownItem onClick={handleVeiculoRoute}>Veículos</DropdownItem>
+                                            <DropdownItem onClick={handleAgendarDiaRoute}>Agendamento</DropdownItem>
+                                        </div>
+                                    </div>
                                 </DropdownMenu>
                             </Dropdown>
                         )}
 
                         <NavItem>
                             <NavLink href="/contact" className="nav-link">Contato</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href='/' onClick={sair} className="nav-link" >
+                                Sair <LuLogOut />
+                            </NavLink>
                         </NavItem>
                     </Nav>
                 </Collapse>
