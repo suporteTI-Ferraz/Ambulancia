@@ -1,45 +1,217 @@
-.search-icon-user-list {
-  color: var(--bg-color);
-}
-
-.input-search {
-  padding: 0.8rem 10rem;
-  border: 1px solid white;
-  background-color: rgb(255, 255, 255, 0.1);
-  border-radius: 30px;
-}
-
-
-/* pega os titulos e o conteudo*/
-.title-table {
-  background-color: rgb(255, 255, 255, 0.1);
-  color: white;
-}
-
-
+/* Estilo do container do formulário */
 .form-section2 {
   background-color: rgb(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 800px;
-  margin-bottom: 30px;
+  max-width: 70rem;
+  margin-top: 3rem;
+  margin-bottom: 6rem;
   align-self: center;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;  /* Alinhamento vertical */
+  align-items: center;      /* Alinhamento horizontal */
 }
 
-.div-form-section2-search {
-  background-color: rgb(255, 255, 255, 0);
-  padding: 20px;
+/* Estilo do título da tabela */
+.custom-title-table {
+  background-color: rgb(255, 255, 255, 0.1);
+  color: white;
+}
+
+
+
+/* SEARCH -------------------------------------------------------------------------------------------------------------------------*/
+
+/* Container para o campo de pesquisa */
+.custom-search-container {
+  position: relative; /* Necessário para o ícone ficar posicionado dentro do input */
+  width: 100%;
+}
+
+/* Estilos do campo de pesquisa */
+.custom-input-search {
+  padding: 0.8rem 2.5rem 0.8rem 1rem; /* Ajuste o padding para dar espaço ao ícone */
+  border: 1px solid white;
+  background-color: rgb(255, 255, 255, 0.1);
+  border-radius: 30px;
+  width: 100%;
+  font-size: 1rem;
+  color: white; /* Cor do texto digitado */
+  padding-left: 3rem;
+  outline: none; /* Remove o contorno padrão do navegador */
+}
+
+.custom-input-search::placeholder {
+  color: rgba(255, 255, 255, 0.6); /* Cor mais suave para o texto do placeholder */
+}
+
+/* Ícone de busca dentro do input */
+.custom-search-icon-user-list {
+  position: absolute;
+  left: 20px; /* Ajuste conforme necessário para alinhar o ícone */
+  top: 50%;
+  transform: translateY(-50%); /* Alinha verticalmente o ícone */
+  color: white; /* Cor personalizada do ícone */
+  font-size: 1.2rem; /* Tamanho do ícone */
+}
+
+
+
+/* TABELA ---------------------------------------------------------------------------------------------------------------- */
+
+/* Estilos gerais da tabela */
+.custom-table {
+  width: 100%;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-spacing: 0;
+  border-radius: 15px;
+}
+
+.custom-table th:first-child {
+  border-top-left-radius: 15px;
+}
+
+.custom-table th:last-child {
+  border-top-right-radius: 15px;
+}
+.custom-table tbody tr:last-child td:first-child{
+  border-bottom-left-radius: 15px;
+  border: none;
+}
+
+.custom-table tbody tr td:first-child{
+  border-left: none;
+  border-right: none;
+}
+
+.custom-table tbody tr td:last-child{
+  border-left: none;
+  border-right: none;
+}
+
+.custom-table tbody tr:last-child td{
+  border-bottom: none;
+}
+
+.custom-table tbody tr:last-child td:last-child{
+  border-bottom-right-radius: 15px;
+  border: none;
+}
+
+.custom-body-table{
+  border: none
+}
+
+.custom-th-tr{
+  padding: 12px;
+  text-align: left;
+}
+
+.custom-td{
+  padding: 12px;
+  text-align: left;
+}
+
+.custom-td:nth-child(5) {
+  align-items: center;
+  text-align: center;
+}
+
+.custom-th {
+  background-color: rgb(255, 255, 255, 0.1); /* Cor de fundo personalizada */
+  color: white;
+  font-weight: bold;
+}
+
+.custom-th, .custom-td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.custom-th {
+  background-color: rgb(255, 255, 255, 0.1); /* Cor de fundo personalizada */
+  color: white;
+  font-weight: bold;
+}
+
+.custom-tr:nth-child(even) {
+  background-color: rgb(255, 255, 255, 0.05); /* Cor para linhas alternadas */
+}
+
+/* Estilo para a célula de status */
+.custom-td:nth-child(5) {
+  align-items: center;
+  text-align: center;
+}
+
+
+
+/* Estilo do container do formulário ------------------------------------------------------------------------------------------------ */
+.custom-div-form-section2-search {
+  background-color: rgba(255, 255, 255, 0);
+  margin-bottom: 3rem !important;
+  padding: 0;
   border-radius: 8px;
   width: 100%;
-  max-width: 800px;
-  margin-bottom: 30px;
-  align-self: center;
+  max-width: 70rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* Alinhamento vertical */
+  align-items: center; /* Alinhamento horizontal */
+}
+
+/* Container para o campo de pesquisa */
+.custom-search-container {
+  position: relative;
+  width: 60%;
+}
+
+
+
+/* ICONES ------------------------------------------------------------------------------------------------------------------- */
+.custom-icon-action {
+  font-size: 18px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.custom-icon-action:hover {
+  transform: scale(1.2);
+}
+
+/* Estilo para os ícones de ação */
+.custom-icon-action {
+  font-size: 18px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.custom-icon-action:hover {
+  transform: scale(1.2);
+}
+
+.custom-icon-action.edit {
+  color: #4CAF50; /* Cor do ícone de editar */
+}
+
+.custom-icon-action.delete {
+  color: #F44336; /* Cor do ícone de excluir */
+}
+
+.custom-icon-action.reactivate {
+  color: #2196F3; /* Cor do ícone de reativar */
+}
+
+/* Efeito de hover sobre os ícones */
+.custom-icon-action:hover {
+  color: #333;
 }

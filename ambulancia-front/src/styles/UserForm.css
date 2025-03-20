@@ -97,18 +97,26 @@
   }
   
   /* Estilo do Modal */
-  .gerenciar-funcionario-modal .modal-content {
+  .modal-content {
     border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1)!important;
+    backdrop-filter: blur(10px);
   }
   
-  .gerenciar-funcionario-modal .modal-header {
-    background-color: #007bff;
+ .modal-header {    
     color: white;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
   }
   
-  .gerenciar-funcionario-modal .modal-body {
+ .modal-body {
+  }
+  
+  /* .div-form {
     padding: 20px;
-  }
-  
+    background-color: var(--theme-color);
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+  } */
