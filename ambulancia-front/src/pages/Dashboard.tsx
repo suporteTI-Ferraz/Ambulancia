@@ -63,7 +63,7 @@ const Dashboard = () => {
             <div className="card">
               <FaCalendarAlt className="icon" />
               <h3>Agendamentos</h3>
-              <button onClick={handleAgendarDiaRoute}>Selecionar</button>
+              <button className="button-dashboard" onClick={handleAgendarDiaRoute}>Selecionar</button>
             </div>
           </div>
         </div>

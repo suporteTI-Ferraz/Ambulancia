@@ -1,15 +1,3 @@
-:root{
-  --main-color: #19adc4;
-  --second-main-color: #0e7886;
-  --bg-color: #333333;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 /* Contêiner principal */
 .login-container {
   position: relative;
@@ -56,22 +44,24 @@
   border-radius: 8px;
   padding: 20px;
   text-align: center;
-  border: 0.13rem solid white;
+  border: 1px solid white;
 }
 
 /* Estilização do formulário */
 .login-form h1 {
   font-size: 1.6rem;
-  margin: 2rem;
   color: white;
+  margin-top: 2rem;
+  margin-bottom: 2rem;;
 }
 
-.form-group {
-  margin-bottom: 2rem;
+.form-group-login {
+  margin-bottom: 3rem;
   text-align: left;
+
 }
 
-.form-group label {
+.form-group-login label {
     font-size: 1.1rem;
     color: white;
     font-size: 1.1rem;
@@ -79,9 +69,8 @@
     margin-left: 1.5rem;
 }
 
-.form-group input {
+.form-group-login input {
   font-size: 1rem;
-  font-family: 'Comfortaa', sans-serif;
   padding: 1rem;
   width: 100%;
   border: none;
@@ -90,40 +79,38 @@
   background: rgba(255, 255, 255, 0.1);
   color: white;
   outline: none;
-  border: 0.13rem solid white;
+  border: 1px solid white;
 }
 
-#senha{
-  backdrop-filter: blur(4px);
-}
 
-.form-group input:focus {
+.form-group-login input:focus {
   outline: none;
-  border-color: var(--second-main-color);
+  border-color: rgb(53, 117, 122);
 }
 
 /* Botão de login */
 .login-button {
-  margin-top: 2rem;
-  margin-bottom: 3rem;
+  margin-top: 3.5rem !important;
+  margin-bottom: 2rem !important;
   width: 90%;
   padding: 0.9rem;
   font-size: 1.2rem;
-  color: var(--bg-color);
-  background-color: rgba(255, 255, 255);
+  color: white;
+  background-color: rgb(53, 117, 122);
   border: none;
   border-radius: 100px;
   backdrop-filter: blur(8px);
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease; /* Adiciona a transição para transform */
+  display: block;         /* Faz o botão ser tratado como bloco */
+  margin: 0 auto;         /* Centraliza o botão horizontalmente */
 }
 
 .login-button:active {
   transform: scale(0.95);  /* O botão encolhe um pouco ao ser pressionado */
-  background-color: rgba(255, 255, 255, 0.4); /* Mudança de cor ao clicar */
 }
 
 .login-button:hover {
-  background-color: var(--second-main-color);
+  background-color: rgb(34, 75, 78);
   color: white;
 }

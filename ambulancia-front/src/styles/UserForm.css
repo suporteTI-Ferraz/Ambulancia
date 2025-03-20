@@ -1,0 +1,114 @@
+
+.form-user, .form-cargo{
+    margin-top: 2rem;
+  }
+  
+  .form-user input, .form-cargo select {
+    font-size: 1rem;
+    padding: 1rem;
+    width: 100%;
+    border: none;
+    backdrop-filter: blur(3px);
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    border: 1px solid white;
+  }
+  
+  .form-user label, .form-cargo label {
+    font-size: 1.1rem;
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+    margin-left: 1.5rem;
+  }
+  
+  /* Seção do formulário para criação ou edição */
+  .form-section {
+    background-color: rgb(255, 255, 255, 0.1);
+    padding:0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 32rem;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+  }
+  
+  .div-form {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+  
+  .form-user-button button{
+    margin-top: 3rem !important;
+    margin-bottom: 2rem !important;
+    width: 90%;
+    padding: 0.9rem;
+    font-size: 1.2rem;
+    color: var(--theme-color);
+    background-color: white;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 100px;
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Adiciona a transição para transform */
+    display: block;         /* Faz o botão ser tratado como bloco */
+    margin: 0 auto;         /* Centraliza o botão horizontalmente */
+  
+  }
+  
+  .form-cargo option {
+    background-color: var(--bg-color);
+    color: white;
+  }
+  
+  .div-universal-button {
+    width: 100%;
+    align-self: center;
+  }
+  
+  
+  button:hover {
+    background-color: var(--theme-color);
+    color: white;
+  }
+  
+  button:active {
+    transform: scale(0.95);
+    background-color: var(--sucess-color);
+  }
+  
+  
+  /* Seção da lista de usuários */
+  .user-list-section {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 30px;
+  }
+  
+  .user-list-section h3 {
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  /* Estilo do Modal */
+  .gerenciar-funcionario-modal .modal-content {
+    border-radius: 8px;
+  }
+  
+  .gerenciar-funcionario-modal .modal-header {
+    background-color: #007bff;
+    color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .gerenciar-funcionario-modal .modal-body {
+    padding: 20px;
+  }
+  
