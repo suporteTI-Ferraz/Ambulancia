@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { User } from '../../types/user/UserType';
 import { FiEdit, FiTrash, FiRefreshCw, FiSearch } from 'react-icons/fi'; // Adicione o ícone de busca
 import DataCriacao from '../itens/DataFormatada';
+import '../../styles/UserList.css'
 
 interface UserListProps {
   users: User[];
@@ -32,39 +33,32 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete }) => {
     });
 
   return (
-    <div>
+    <div >
 
       {/* Campo de Pesquisa */}
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-        <FiSearch style={{ marginRight: '8px', fontSize: '20px', color: '#007BFF' }} />
-        <input
+      <div className="div-form-section2-search"style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+        <FiSearch className="search-icon-user-list" />
+        <input className='input-search'
           type="text"
           placeholder="Pesquisar por Nome ou Email"
           value={pesquisarUser}
           onChange={e => setPesquisarUser(e.target.value)}
-          style={{
-            padding: '8px',
-            fontSize: '14px',
-            border: '2px solid #007BFF',
-            borderRadius: '4px',
-            width: '100%',
-            maxWidth: '400px',
-          }}
         />
       </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Criação</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Cargo</th>
-            <th>Status</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
+      
+        <table>
+          <thead className='title-table'>
+            <tr>
+              <th>Criação</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Cargo</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          
+        <tbody className='body-table'>
           {sortedUsers.map((user) => (
             <tr
               key={user.id}

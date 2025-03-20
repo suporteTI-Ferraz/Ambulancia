@@ -21,8 +21,8 @@ const GerenciarFuncionario = () => {
       <h1 className="titulo-funcionarios">Gerenciar Funcionários</h1>
       {/* Seção para criar ou editar usuário */}
       <div className="form-section">
-        <h3>Criar Usuário</h3>
-        <UserForm 
+        <h3 className="titulo-form">Criar Usuário</h3>
+        <UserForm
           userToEdit={editingUser} 
           onSave={handleSaveUser} 
           onUpdate={handleUpdateUser} 

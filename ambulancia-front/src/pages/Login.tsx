@@ -56,7 +56,7 @@ const Login = () => {
         <form className="login-form" onSubmit={handleSubmit}>
           <h1>Bem vindo!</h1>
 
-          <div className="form-group">
+          <div className="form-group-login">
             <label htmlFor="email">E-mail</label>
             <input
               id="email"
@@ -67,7 +67,7 @@ const Login = () => {
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group-login">
             <label htmlFor="senha">Senha</label>
             <input
               id="senha"
@@ -78,7 +78,7 @@ const Login = () => {
             />
           </div>
 
-          <button type="submit" className="login-button border-2">
+          <button className="login-button">
             Login
           </button>
         </form>
