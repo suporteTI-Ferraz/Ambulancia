@@ -145,7 +145,7 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave }) => 
   enderecosIniciais={paciente?.enderecos || []} // Passando os endereços existentes
 />
       <div>
-        <ButtonSpinner name="Salvar" isLoading={isLoading} type="submit"/>
+        <ButtonSpinner name="Salvar" isLoading={isLoading} type="submit" classe={""}/>
         {/* <button type="button" onClick={handleCancel}>
           Limpar
         </button> */}

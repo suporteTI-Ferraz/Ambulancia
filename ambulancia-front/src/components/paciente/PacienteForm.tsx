@@ -122,140 +122,156 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
-        <h4>Paciente</h4>
+      <div className="container d-flex justify-content-center">
+      <div className="w-100" style={{ maxWidth: "600px", marginTop: "20px" }}>
+        <Form onSubmit={handleSubmit} className="p-4 shadow-sm rounded bg-white">
+          <h4 className="mb-4">Paciente</h4>
 
-        <Form.Group controlId="nomePaciente">
-          <Form.Label>Nome do Paciente</Form.Label>
-          <Form.Control
-            type="text"
-            name="nomePaciente"
-            value={formData.nomePaciente}
-            onChange={(e) => {
-              handleInputChange(e);
-              setValidationState({
-                ...validationState,
-                nomePaciente: e.target.value.length > 0
-              });
-            }}
-            isValid={validationState.nomePaciente}
-            isInvalid={!validationState.nomePaciente && formData.nomePaciente.length > 0}
-            required
+          <Form.Group controlId="nomePaciente">
+            <Form.Label>Nome do Paciente</Form.Label>
+            <Form.Control
+              type="text"
+              name="nomePaciente"
+              value={formData.nomePaciente}
+              onChange={(e) => {
+                handleInputChange(e);
+                setValidationState({
+                  ...validationState,
+                  nomePaciente: e.target.value.length > 0,
+                });
+              }}
+              isValid={validationState.nomePaciente}
+              isInvalid={!validationState.nomePaciente && formData.nomePaciente.length > 0}
+              required
+            />
+            <Form.Control.Feedback type="valid">Nome válido!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Por favor, insira um nome.</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group controlId="dataNasc">
+            <Form.Label>Data Nascimento</Form.Label>
+            <DatePicker
+              selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
+              onChange={(date) => {
+                setFormData({ ...formData, dataNasc: date?.toISOString().split("T")[0] || "" });
+                setValidationState({
+                  ...validationState,
+                  dataNasc: !!date,
+                });
+              }}
+              className={`form-control ${validationState.dataNasc ? "is-valid" : ""} ${
+                !validationState.dataNasc && formData.dataNasc ? "is-invalid" : ""
+              }`}
+              locale="pt-BR"
+              dateFormat="dd/MM/yyyy"
+              showYearDropdown
+              scrollableYearDropdown
+              yearDropdownItemNumber={120}
+              maxDate={new Date()}
+              placeholderText="DD/MM/AAAA"
+              popperPlacement="left-end"
+            />
+            <Form.Control.Feedback type="valid">Data válida!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Por favor, selecione uma data.</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group controlId="cpf">
+            <Form.Label>CPF</Form.Label>
+            <InputMask
+              mask="999.999.999-99"
+              value={formData.cpf}
+              onChange={(e) => {
+                handleInputChange(e);
+                const inputVal = e.target.value;
+                const numericCPF = inputVal.replace(/[^\d]/g, "");
+                const isValid = numericCPF.length === 11 && validateCPF(inputVal);
+                setValidationState({
+                  ...validationState,
+                  cpf: isValid,
+                });
+                if (!isValid && numericCPF.length === 11) {
+                  setCpfError("CPF inválido");
+                } else {
+                  setCpfError("");
+                }
+              }}
+            >
+              {() => (
+                <Form.Control
+                  type="text"
+                  name="cpf"
+                  isValid={validationState.cpf}
+                  isInvalid={!validationState.cpf && formData.cpf.length > 0}
+                  required
+                />
+              )}
+            </InputMask>
+            <Form.Control.Feedback type="valid">CPF válido!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              {cpfError || "Por favor, insira um CPF válido."}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group controlId="sus">
+            <Form.Label>SUS</Form.Label>
+            <Form.Control
+              type="text"
+              name="sus"
+              value={formData.sus}
+              onChange={(e) => {
+                handleInputChange(e);
+                setValidationState({
+                  ...validationState,
+                  sus: e.target.value.length > 0,
+                });
+              }}
+              isValid={validationState.sus}
+              isInvalid={!validationState.sus && formData.sus.length > 0}
+              required
+            />
+            <Form.Control.Feedback type="valid">Número SUS válido!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Por favor, insira um número SUS.</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group controlId="condicoesEspecificas">
+            <Form.Label>Condições Específicas</Form.Label>
+            <Form.Control
+              type="text"
+              name="condicoesEspecificas"
+              placeholder="(EX: Cadeirante)"
+              value={formData.condicoesEspecificas}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+
+          <TelefonePacForm
+            onTelefonesChange={handleTelefonesChange}
+            resetTelefones={shouldResetTelefones}
+            isModal={false}
           />
-          <Form.Control.Feedback type="valid">Nome válido!</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">Por favor, insira um nome.</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group controlId="dataNasc">
-          <Form.Label>Data Nascimento</Form.Label>
-          <DatePicker
-            selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
-            onChange={(date) => {
-              setFormData({ ...formData, dataNasc: date?.toISOString().split("T")[0] || "" });
-              setValidationState({
-                ...validationState,
-                dataNasc: !!date
-              });
-            }}
-            className={`form-control ${validationState.dataNasc ? 'is-valid' : ''} ${!validationState.dataNasc && formData.dataNasc ? 'is-invalid' : ''}`}
-            locale="pt-BR"
-            dateFormat="dd/MM/yyyy"
-            showYearDropdown
-            scrollableYearDropdown
-            yearDropdownItemNumber={120}
-            maxDate={new Date()}
-            placeholderText="DD/MM/AAAA"
-            popperPlacement="left-end"
+          <EnderecoPacForm
+            onEnderecosChange={handleEnderecosChange}
+            resetEnderecos={shouldResetEnderecos}
+            isModal={false}
           />
-          <Form.Control.Feedback type="valid">Data válida!</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">Por favor, selecione uma data.</Form.Control.Feedback>
-        </Form.Group>
 
-        <Form.Group controlId="cpf">
-          <Form.Label>CPF</Form.Label>
-          <InputMask
-            mask="999.999.999-99"
-            value={formData.cpf}
-            onChange={(e) => {
-              handleInputChange(e);
-              const inputVal = e.target.value;
-              const numericCPF = inputVal.replace(/[^\d]/g, '');
-              const isValid = numericCPF.length === 11 && validateCPF(inputVal);
-              setValidationState({
-                ...validationState,
-                cpf: isValid
-              });
-              if (!isValid && numericCPF.length === 11) {
-                setCpfError("CPF inválido");
-              } else {
-                setCpfError("");
-              }
-            }}
-          >
-            {() => (
-              <Form.Control
-                type="text"
-                name="cpf"
-                isValid={validationState.cpf}
-                isInvalid={!validationState.cpf && formData.cpf.length > 0}
-                required
-              />
-            )}
-          </InputMask>
-          <Form.Control.Feedback type="valid">CPF válido!</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">{cpfError || "Por favor, insira um CPF válido."}</Form.Control.Feedback>
-        </Form.Group>
+          {errorMessage && (
+            <Alert variant="danger" className="mt-2" onClick={() => setErrorMessage("")}>
+              {errorMessage}
+            </Alert>
+          )}
 
-        <Form.Group controlId="sus">
-          <Form.Label>SUS</Form.Label>
-          <Form.Control
-            type="text"
-            name="sus"
-            value={formData.sus}
-            onChange={(e) => {
-              handleInputChange(e);
-              setValidationState({
-                ...validationState,
-                sus: e.target.value.length > 0
-              });
-            }}
-            isValid={validationState.sus}
-            isInvalid={!validationState.sus && formData.sus.length > 0}
-            required
-          />
-          <Form.Control.Feedback type="valid">Número SUS válido!</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">Por favor, insira um número SUS.</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group controlId="condicoesEspecificas">
-          <Form.Label>Condições Específicas</Form.Label>
-          <Form.Control
-            type="text"
-            name="condicoesEspecificas"
-            placeholder="(EX: Cadeirante)"
-            value={formData.condicoesEspecificas}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-
-        <TelefonePacForm onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} />
-        <EnderecoPacForm onEnderecosChange={handleEnderecosChange} resetEnderecos={shouldResetEnderecos} isModal={false} />
-
-        {errorMessage && (
-          <Alert variant="danger" className="mt-2" onClick={() => setErrorMessage("")}>
-            {errorMessage}
-          </Alert>
-        )}
-
-        <div className="mt-4">
-          <Button variant="primary" type="submit" disabled={loading}>
-            {loading ? 'Carregando...' : 'Salvar'}
-          </Button>
-          <Button variant="secondary" type="button" onClick={handleCancel} className="ml-2">
-            Limpar
-          </Button>
-        </div>
-      </Form>
+          <div className="mt-4 d-flex justify-content-between">
+            <Button variant="primary" type="submit" disabled={loading}>
+              {loading ? "Carregando..." : "Salvar"}
+            </Button>
+            <Button variant="secondary" type="button" onClick={handleCancel}>
+              Limpar
+            </Button>
+          </div>
+        </Form>
+      </div>
+    </div>
     </>
   );
 };
