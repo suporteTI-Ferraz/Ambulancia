@@ -17,7 +17,7 @@ const ManutencaoList: React.FC<FornecedorListProps> = ({ manutencoes, onEdit, on
     const [pesquisarManutencao, setPesquisarManutencao] = useState('');
 
     const filteredManutencoes = manutencoes.filter(manutencao =>
-      manutencao.dataManutencao.toLowerCase().includes(pesquisarManutencao.toLowerCase())
+      manutencao.dataEntradaManutencao.toLowerCase().includes(pesquisarManutencao.toLowerCase())
     );
 
      // Ordenar os usuários pela data de criação ou pelo id (ordem decrescente)
@@ -53,7 +53,8 @@ const ManutencaoList: React.FC<FornecedorListProps> = ({ manutencoes, onEdit, on
             <tr>
               <th>Criação</th>
               <th>Tipo</th>
-              <th>Data da Manutenção</th>
+              <th>Data de Entrada da Manutenção</th>
+              <th>Data de Saída da Manutenção</th>
               <th>Custo</th>
               <th>Situação</th>
               <th>Descrição</th>
@@ -67,7 +68,8 @@ const ManutencaoList: React.FC<FornecedorListProps> = ({ manutencoes, onEdit, on
               <tr key={manutencao.id} style={{ backgroundColor: manutencao.deletedAt ? '#ffcccc' : 'white' }}>
                 <td><DataCriacao createdAt={manutencao.createdAt} /></td>
                 <td>{manutencao.tipoManutencao}</td>
-                <td><DataCriacao createdAt={manutencao.dataManutencao} /></td>
+                <td><DataCriacao createdAt={manutencao.dataEntradaManutencao} /></td>
+                <td><DataCriacao createdAt={manutencao.dataSaidaManutencao} /></td>
                 <td>{manutencao.custoManutencao}</td>
                 <td>{manutencao.status}</td>
                 <td>{manutencao.descricaoProblema}</td>

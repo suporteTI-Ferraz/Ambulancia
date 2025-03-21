@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { API } from '../services/api';
+import { logout } from '../services/api/UserService';
 import '../styles/Header.css'
 
 import {
@@ -24,6 +26,15 @@ const Header: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
+    const sair = async () => {
+        try {
+            const response = await logout()
+            handleLogout()
+        } catch (error) {
+            
+        }
+    }
+
     const toggleNavbar = () => setIsOpen(!isOpen);
     const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
@@ -33,10 +44,10 @@ const Header: React.FC = () => {
     const handleHospitalRoute = () => navigate("/gerenciar-hospitais");
     const handleVeiculoRoute = () => navigate("/gerenciar-ambulancias");
     const handleAgendarDiaRoute = () => navigate("/gerenciar-agendamentos/");
+    const handleLogout = () => window.location.reload();
 
     return (
         <>
-            {/* Div separada para a logo */}
             <div className="header-logo">
                 <img
                     src="/assets/brasao-uva-horizontal.png"
@@ -45,17 +56,31 @@ const Header: React.FC = () => {
                 />
             </div>
 
-            {/* Navbar com fundo preto */}
             <Navbar className="custom-navbar" expand="md">
-                <NavbarBrand href="/" className="navbar-brand">Ambulâncias</NavbarBrand>
-                <NavbarToggler onClick={toggleNavbar} />
+                <NavbarBrand href="#" className="navbar-brand">Ambulâncias</NavbarBrand>
+                <NavbarToggler className="hamburguer" onClick={toggleNavbar}>
+                    <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="hamburguer-icon" 
+                    fill="none" 
+                    stroke="white" 
+                    viewBox="0 0 24 24" 
+                    strokeWidth="2"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </NavbarToggler>
+
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ms-auto" navbar>
                         <NavItem>
-                            <NavLink href="/" className="nav-link">Início</NavLink>
+                            <NavLink href="/" className="nav-link hover:bg-pink-500">Início</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="/about" className="nav-link">Sobre</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink onClick={sair} className="nav-link">Sair</NavLink>
                         </NavItem>
 
                         {isLoggedIn && (

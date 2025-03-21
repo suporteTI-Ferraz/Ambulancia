@@ -1,0 +1,38 @@
+/* Container principal para a página */
+.gerenciar-funcionario-container {
+    padding: 20px;
+    background-color: var(--theme-color);
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+.titulo-funcionarios {
+  color: white;
+  font-size: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 2.2rem;
+}
+
+.titulo-form {
+  color: white;
+  font-size: 1.5rem !important;
+  margin-top: 4rem;
+  margin-bottom: 0.05rem;
+  align-self: center;
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .gerenciar-funcionario-container {
+    padding: 10px;
+  }
+
+  .form-section, .user-list-section {
+    width: 100%;
+  }
+}

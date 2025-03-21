@@ -3,11 +3,12 @@ import { User } from '../../types/user/UserType';
 import ButtonSpinner from '../itens/ButtonSpinner';
 import { useLoading } from '../../contexts/LoadingContext';
 import { useToast } from '../../hooks/useToast';
+import '../../styles/UserForm.css'
 
 interface UserFormProps {
   userToEdit: User | null;
-  onSave: (paciente: User) => void;
-  onUpdate: (id: number, paciente: User) => void;
+  onSave: (user: User) => void;
+  onUpdate: (id: number, user: User) => void;
   isModal: Boolean; 
 }
 
@@ -53,10 +54,10 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onSave, onUpdate, isMod
   };
 
   
-
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    // modal altera aqui:
+    <form className="div-form" onSubmit={handleSubmit}> 
+      <div className='form-user'>
         <label>Nome</label>
         <input
           type="text"
@@ -66,8 +67,8 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onSave, onUpdate, isMod
           required
         />
       </div>
-      <div>
-        <label>Email</label>
+      <div className='form-user'>
+        <label>E-mail</label>
         <input
           type="email"
           name="email"
@@ -76,7 +77,7 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onSave, onUpdate, isMod
           required
         />
       </div>
-      <div>
+      <div className='form-user'>
         <label>Senha</label>
         <input
           type="password"
@@ -85,7 +86,7 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onSave, onUpdate, isMod
           onChange={handleInputChange}
         />
       </div>
-      <div>
+      <div className='form-cargo'>
         <label>Cargo</label>
         <select
           name="role"
@@ -100,7 +101,9 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onSave, onUpdate, isMod
           <option value="ADMIN">Administrador</option>
         </select>
       </div>
-      <ButtonSpinner name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit"/>
+      <div className='form-user-button'>
+        <ButtonSpinner classe='button-form-user' name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit"/>
+      </div>
     </form>
   );
 };

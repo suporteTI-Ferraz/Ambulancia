@@ -1,9 +1,17 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root{
+  --main-color: #19adc4;
+  --second-main-color: #0e7886;
+  --bg-color: #333333;
 }
+
+* {
+    font-family: 'Confortaa', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
 
 .logo {
   height: 6em;

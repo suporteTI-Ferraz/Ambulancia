@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useLoading } from "../contexts/LoadingContext";
 import { useToast } from "../hooks/useToast";
 import useLogin from "../hooks/useLogin";
+import '../styles/global.css';
 
 const Login = () => {
     const {
@@ -14,7 +15,7 @@ const Login = () => {
       setSenha,
       handleLogin,
     } = useLogin()
-  
+
  
   const navigate = useNavigate();
   const { checkLoginStatus } = useAuth(); // Use apenas aqui, fora de funções assíncronas
@@ -41,57 +42,49 @@ const Login = () => {
         }
       };
 
-  
+
 
   return (
+    <>
     <div className="login-container">
       
       {/* Background */}
-      <div
-        className="background-image"
-        style={{ backgroundImage: `url('/assets/ferraz-predio-imagem.jpeg')` }}
-        ></div>
+      <div className="bg-image-login"></div>
 
       {/* Formulário de Login */}
       <div className="login-content">
         <form className="login-form" onSubmit={handleSubmit}>
-          <h1>Faça o login</h1>
+          <h1>Bem vindo!</h1>
 
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
+          <div className="form-group-login">
+            <label htmlFor="email">E-mail</label>
             <input
               id="email"
               type="text"
-              placeholder="Email"
+              placeholder="E-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group-login">
             <label htmlFor="senha">Senha</label>
             <input
               id="senha"
               type="password"
-              placeholder="********"
+              placeholder="●●●●●●●"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
             />
           </div>
 
-          <button type="submit" className="login-button">
+          <button className="login-button">
             Login
           </button>
         </form>
-
-        <p>
-          Não tem uma conta?{" "}
-          <a href="/cadastro" className="signup-link">
-            Cadastre-se aqui
-          </a>
-        </p>
       </div>
     </div>
+    </>
   );
 };
 

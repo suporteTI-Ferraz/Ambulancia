@@ -2,12 +2,14 @@ import React from "react";
 import { Spinner } from 'reactstrap'; // Importando o Spinner do Bootstrap
 
 interface ButtonSpinnerProps {
+    classe: string;
     name: string;
     isLoading: boolean;
     onClick?: (e?: React.FormEvent) => void;
     type?: "button" | "submit"; // Permitir customizar o tipo do botão
   }
   const ButtonSpinner: React.FC<ButtonSpinnerProps> = ({
+    classe,
     name,
     isLoading,
     onClick,
@@ -15,6 +17,7 @@ interface ButtonSpinnerProps {
   }) => {
     return (
       <button
+        className={classe}
         type={type}
         disabled={isLoading}
         onClick={(e) => onClick && onClick(e)} // Passa o evento se necessário

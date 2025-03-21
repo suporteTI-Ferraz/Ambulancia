@@ -26,13 +26,14 @@ public class PecaManutencaoController {
     PecaManutencaoService service;
 
      @PostMapping(value = "/manutencao/{id}/peca")
-    public ResponseEntity<List<PecaManutencao>> insertMany(@RequestBody List<PecaManutencao> pecas,  @PathVariable Long id){
-        List<PecaManutencao> entity = service.insertMany(pecas, id);
+    public ResponseEntity<PecaManutencao> insertMany(@RequestBody PecaManutencao peca,  @PathVariable Long id){
+        PecaManutencao entity = service.insert(peca, id);
         URI location = ServletUriComponentsBuilder
         .fromCurrentRequest() // URL da requisição atual (/{id})
         .build() // Constrói a URI sem adicionar o ID específico de cada manutenção
         .toUri();
         return ResponseEntity.created(location).body(entity);
+        
     }
 
     @GetMapping(value = "/manutencao/peca")

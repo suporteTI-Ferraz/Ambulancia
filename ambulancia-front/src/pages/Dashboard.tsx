@@ -1,76 +1,89 @@
-import { FaUser, FaHeartbeat, FaUserNurse, FaAmbulance, FaHospital, FaCalendarAlt  } from "react-icons/fa"; // Ícones para funcionários, motoristas, pacientes
+
+import { FaUser, FaHeartbeat, FaUserNurse, FaAmbulance, FaHospital, FaCalendarAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import '../styles/Dashboard.css'
+import Header from "../components/Header";
+
 
 const Dashboard = () => {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  const handleUserRoute = () => {
+    navigate("/gerenciar-funcionarios");
+  };
 
-  const handleUserRoute = () =>{
+
+  const handleUserRoute = () => {
     navigate("/gerenciar-funcionarios")
   }
 
-  const handlePacienteRoute = () =>{
+  const handlePacienteRoute = () => {
     navigate("/gerenciar-pacientes")
   }
 
-  const handleMotoristaRoute = () =>{
+  const handleMotoristaRoute = () => {
     navigate("/gerenciar-motoristas")
   }
 
-  const handleHospitalRoute = () =>{
+  const handleHospitalRoute = () => {
     navigate("/gerenciar-hospitais")
   }
-  const handleVeiculoRoute = () =>{
+  const handleVeiculoRoute = () => {
     navigate("/gerenciar-ambulancias")
   }
 
-  const handleAgendarDiaRoute = () =>{
+  const handleAgendarDiaRoute = () => {
     navigate("/gerenciar-agendamentos/")
-
   }
 
+
   return (
-    <div className="dashboard-container">
-{/* <h1 className="dashboard-title">Bem-vindo ao Sistema de Ambulância</h1> */}
-  <div className="dashboard">
-      <div className="cards-container">
-        <div className="card">
-          <FaUser size={60} color="black" />
-          <h3>Funcionários</h3>
-          <button onClick={handleUserRoute}>Gerenciar</button>
-        </div>
-        <div className="card">
-          <FaUserNurse size={60} />
-          <h3>Motoristas</h3>
-          <button onClick={handleMotoristaRoute}>Gerenciar</button>
-        </div>
-        <div className="card">
-          <FaHeartbeat size={60} />
-          <h3>Pacientes</h3>
-          <button onClick={handlePacienteRoute}>Gerenciar</button>
-        </div>
+    <>
+      <div className="dashboard-container bg-image-dashboard">
 
-        <div className="card">
-          <FaHospital size={60} />
-          <h3>Hospitais</h3>
-          <button onClick={handleHospitalRoute}>Gerenciar</button>
-        </div>
-        <div className="card">
-          <FaAmbulance size={60} />
-          <h3>Ambulâncias</h3>
-          <button onClick={handleVeiculoRoute}>Gerenciar</button>
-        </div>
+        <div className="dashboard">
+          <div className="cards-container">
+            <div className="card">
+              <FaUser className="icon" />
+              <h3>Funcionários</h3>
+              <button onClick={handleUserRoute}>Selecionar</button>
 
-        <div className="card">
-          <FaCalendarAlt size={60} />
-          <h3>Agendamentos</h3>
-          <button onClick={handleAgendarDiaRoute}>Gerenciar</button>
-        </div>
- 
+            </div>
+            <div className="card">
+              <FaUserNurse className="icon" />
+              <h3>Motoristas</h3>
 
+              <button onClick={handleMotoristaRoute}>Selecionar</button>
+
+            </div>
+            <div className="card">
+              <FaHeartbeat className="icon" />
+              <h3>Pacientes</h3>
+
+              <button onClick={handlePacienteRoute}>Selecionar</button>
+            </div>
+            <div className="card">
+              <FaHospital className="icon" />
+              <h3>Hospitais</h3>
+              <button onClick={handleHospitalRoute}>Selecionar</button>
+
+            </div>
+            <div className="card">
+              <FaAmbulance className="icon" />
+              <h3>Ambulâncias</h3>
+
+              <button onClick={handleVeiculoRoute}>Selecionar</button>
+            </div>
+            <div className="card">
+              <FaCalendarAlt className="icon" />
+              <h3>Agendamentos</h3>
+              <button className="button-dashboard" onClick={handleAgendarDiaRoute}>Selecionar</button>
+            </div>
+
+          </div>
+        </div>
       </div>
-      </div>
-      </div>
+    </>
   );
 };
 

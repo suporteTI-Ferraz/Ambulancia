@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { User } from '../../types/user/UserType';
 import { FiEdit, FiTrash, FiRefreshCw, FiSearch } from 'react-icons/fi'; // Adicione o ícone de busca
 import DataCriacao from '../itens/DataFormatada';
+import '../../styles/UserList.css'
 
 interface UserListProps {
   users: User[];
@@ -11,7 +12,6 @@ interface UserListProps {
 
 const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete }) => {
   const [pesquisarUser, setPesquisarUser] = useState('');
-  
 
   // Função para filtrar os usuários com base no nome ou email
   const filteredUsers = users.filter(user => {
@@ -22,75 +22,74 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete }) => {
     return nome.includes(pesquisa) || email.includes(pesquisa);
   });
 
-    // Ordenar os usuários pela data de criação ou pelo id (ordem decrescente)
-    const sortedUsers = filteredUsers.sort((a, b) => {
-      // Opção 1: Ordenar pelo id (decrescente)
-      // return b.id - a.id;
-  
-      // Opção 2: Ordenar pela data de criação (decrescente)
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
+  // Ordenar os usuários pela data de criação ou pelo id (ordem decrescente)
+  const sortedUsers = filteredUsers.sort((a, b) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
 
   return (
-    <div>
+    <div >
 
       {/* Campo de Pesquisa */}
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-        <FiSearch style={{ marginRight: '8px', fontSize: '20px', color: '#007BFF' }} />
-        <input
-          type="text"
-          placeholder="Pesquisar por Nome ou Email"
-          value={pesquisarUser}
-          onChange={e => setPesquisarUser(e.target.value)}
-          style={{
-            padding: '8px',
-            fontSize: '14px',
-            border: '2px solid #007BFF',
-            borderRadius: '4px',
-            width: '100%',
-            maxWidth: '400px',
-          }}
-        />
+      <div className="custom-div-form-section2-search" style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+        <div className="custom-search-container">
+          <FiSearch className="custom-search-icon-user-list" />
+          <input
+            className="custom-input-search"
+            type="text"
+            placeholder="Pesquisar por Nome ou Email"
+            value={pesquisarUser}
+            onChange={e => setPesquisarUser(e.target.value)}
+          />
+        </div>
       </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Criação</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Cargo</th>
-            <th>Status</th>
-            <th>Ações</th>
+      
+      <table className="custom-table">
+        <thead className="custom-title-table">
+          <tr className='custom-tr'>
+            <th className='custom-th-tr'>Criação</th>
+            <th className='custom-th-tr'>Nome</th>
+            <th className='custom-th-tr'>Email</th>
+            <th className='custom-th-tr'>Cargo</th>
+            <th className='custom-th-tr'>Status</th>
+            <th className='custom-th-tr'>Ações</th>
           </tr>
         </thead>
-        <tbody>
+        
+        <tbody className="custom-body-table">
           {sortedUsers.map((user) => (
             <tr
               key={user.id}
               style={{ backgroundColor: user.deletedAt ? '#ffcccc' : 'white' }}
             >
-              <td><DataCriacao createdAt={user.createdAt} /></td>
-              <td>{user.nome}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-              <td>{user.deletedAt ? 'Desativado' : 'Ativo'}</td>
-              <td>
+              <td className='custom-td'><DataCriacao createdAt={user.createdAt} /></td>
+              <td className='custom-td'>{user.nome}</td>
+              <td className='custom-td'>{user.email}</td>
+              <td className='custom-td'>
+                {user.role === 'EMPLOYEE' ? 'Funcionário' : user.role === 'ADMIN' ? 'Administrador' : user.role}
+              </td>
+
+              <td className='custom-td'>
+                <span className={user.deletedAt ? 'status-desativado' : 'status-ativo'}>
+                  {user.deletedAt ? 'Desativado' : 'Ativo'}
+                </span>
+              </td>
+              <td className='custom-td'>
                 {/* Ícones de Ações */}
                 <FiEdit
-                  className="icon-action edit"
+                  className="custom-icon-action edit"
                   title="Editar"
                   onClick={() => onEdit(user)}
                 />
                 {user.deletedAt ? (
                   <FiRefreshCw
-                    className="icon-action reactivate"
+                    className="custom-icon-action reactivate"
                     title="Reativar"
                     onClick={() => onDelete(user.id, user.deletedAt)}
                   />
                 ) : (
                   <FiTrash
-                    className="icon-action delete"
+                    className="custom-icon-action delete"
                     title="Desativar"
                     onClick={() => onDelete(user.id, null)}
                   />
