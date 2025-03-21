@@ -7,8 +7,8 @@ import '../../styles/UserForm.css'
 
 interface UserFormProps {
   userToEdit: User | null;
-  onSave: (paciente: User) => void;
-  onUpdate: (id: number, paciente: User) => void;
+  onSave: (user: User) => void;
+  onUpdate: (id: number, user: User) => void;
   isModal: Boolean; 
 }
 
@@ -55,7 +55,8 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onSave, onUpdate, isMod
 
   
   return (
-    <form className="div-form" onSubmit={handleSubmit}>
+    // modal altera aqui:
+    <form className="div-form" onSubmit={handleSubmit}> 
       <div className='form-user'>
         <label>Nome</label>
         <input
