@@ -7,10 +7,9 @@ import { Form, Button } from "react-bootstrap";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 import DatePicker from "react-datepicker";
 interface PacienteFormProps {
-  paciente: Paciente; // Para edição, ou null para criação
+  paciente: Paciente;
   onSave: (updatedPaciente: Paciente, notUpdatedPaciente: Paciente) => void;
   onCancel: () => void;
-  //handleTelefonesChange: () => void;
 }
 
 const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave }) => {
@@ -29,13 +28,12 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave }) => 
   };
 
   const [formData, setFormData] = useState<Paciente>(initialFormData);
-  const [isLoading, setIsLoading] = useState(false); // Estado de carregamento
+  const [isLoading, setIsLoading] = useState(false);
   const [currentEnderecos, setCurrentEnderecos] = useState<EnderecoPac[]>([]);
 
-
- useEffect(() => {
-        setCurrentEnderecos(paciente?.enderecos || []); // Telefones para edição no formulário
-     }, [paciente?.enderecos]);
+  useEffect(() => {
+    setCurrentEnderecos(paciente?.enderecos || []);
+  }, [paciente?.enderecos]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -45,111 +43,115 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave }) => 
   const handleTelefonesChange = (telefones: Paciente["telefones"]) => {
     setFormData({ ...formData, telefones });
   };
-  const handleEnderecosChange = (enderecos: Paciente["enderecos"]) =>{
-    setFormData({...formData, enderecos})
-  }
 
-
-
+  const handleEnderecosChange = (enderecos: Paciente["enderecos"]) => {
+    setFormData({ ...formData, enderecos });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isLoading) return; // Impede múltiplos envios enquanto está carregando
+    if (isLoading) return;
 
-    setIsLoading(true); // Bloqueia enquanto a requisição está em andamento
+    setIsLoading(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));  //Para testar o spinner
-      onSave(formData, paciente); // O formData será comparado com o paciente para ver se algum campo foi modificado
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      onSave(formData, paciente);
     } catch (error) {
       console.error("Erro ao salvar paciente:", error);
     } finally {
-      setIsLoading(false); // Libera o botão após a requisição terminar
+      setIsLoading(false);
     }
   };
 
-  
-
   return (
-    
-    <form onSubmit={handleSubmit}>
-      <div>
-      <h4>Paciente</h4>
-        <label>Nome Completo</label>
+    <form onSubmit={handleSubmit} className="form-container">
+      <div className="form-group">
+        <h4 className="form-title">Paciente</h4>
+        <label className="form-label">Nome Completo</label>
         <input
           type="text"
           name="nomePaciente"
           value={formData.nomePaciente}
           onChange={handleInputChange}
           required
+          className="form-input"
         />
       </div>
-         <div>
-         <label>Data de Nascimento</label>
 
-            <DatePicker
-        selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
-        onChange={(date) => setFormData({ ...formData, dataNasc: date?.toISOString().split("T")[0] || "" })}
-        locale="pt-BR"
-        dateFormat="dd/MM/yyyy"
-        showYearDropdown
-        scrollableYearDropdown
-        yearDropdownItemNumber={120}
-        maxDate={new Date()}  // 🔥 Impede seleção de datas futuras
-        placeholderText="DD/MM/AAAA"
-      />
-            </div>
-      <div>
-        <label>CPF</label>
-        <input 
+      <div className="form-group">
+        <label className="form-label">Data de Nascimento</label>
+        <DatePicker
+          selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
+          onChange={(date) =>
+            setFormData({
+              ...formData,
+              dataNasc: date?.toISOString().split("T")[0] || "",
+            })
+          }
+          locale="pt-BR"
+          dateFormat="dd/MM/yyyy"
+          showYearDropdown
+          scrollableYearDropdown
+          yearDropdownItemNumber={120}
+          maxDate={new Date()}
+          placeholderText="DD/MM/AAAA"
+          className="form-datepicker"
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="form-label">CPF</label>
+        <input
           type="text"
           name="cpf"
-           value={formData.cpf}
-           onChange={handleInputChange}
-           required
-        />
-      </div>
-      <div>
-        <label>SUS</label>
-        <input 
-          type="text" 
-          name="sus" 
-          value={formData.sus} 
+          value={formData.cpf}
           onChange={handleInputChange}
-          required 
+          required
+          className="form-input"
         />
       </div>
-      <div>
-        <label>Condições Específicas</label>
+
+      <div className="form-group">
+        <label className="form-label">SUS</label>
+        <input
+          type="text"
+          name="sus"
+          value={formData.sus}
+          onChange={handleInputChange}
+          required
+          className="form-input"
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="form-label">Condições Específicas</label>
         <input
           type="text"
           name="condicoesEspecificas"
           placeholder="(EX: Cadeirante)"
           value={formData.condicoesEspecificas}
           onChange={handleInputChange}
+          className="form-input"
         />
       </div>
 
-      {/* Componente para adicionar telefones */}
-      <TelefonePacForm  
-      onTelefonesChange={handleTelefonesChange} 
-      resetTelefones={false} 
-      isModal={true}
-      telefonesIniciais={paciente?.telefones || []} // Passando os endereços existentes
-
+      <TelefonePacForm
+        onTelefonesChange={handleTelefonesChange}
+        resetTelefones={false}
+        isModal={true}
+        telefonesIniciais={paciente?.telefones || []}
       />
 
       <EnderecoPacForm
-  onEnderecosChange={handleEnderecosChange}
-  resetEnderecos={false}
-  isModal={true}
-  enderecosIniciais={paciente?.enderecos || []} // Passando os endereços existentes
-/>
-      <div>
-        <ButtonSpinner name="Salvar" isLoading={isLoading} type="submit"/>
-        {/* <button type="button" onClick={handleCancel}>
-          Limpar
-        </button> */}
+        onEnderecosChange={handleEnderecosChange}
+        resetEnderecos={false}
+        isModal={true}
+        enderecosIniciais={paciente?.enderecos || []}
+      />
+
+      <div className="form-group">
+        <ButtonSpinner name="Salvar" isLoading={isLoading} type="submit" />
       </div>
     </form>
   );
