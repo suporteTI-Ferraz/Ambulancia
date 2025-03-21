@@ -5,6 +5,7 @@ import useGerenciarUser from "../hooks/useGerenciarUser";
 import '../styles/GerenciarFuncionario.css';
 
 const GerenciarFuncionario = () => {
+
   const {
     users,
     editingUser,
@@ -15,9 +16,10 @@ const GerenciarFuncionario = () => {
     toggleModal,
     handleDeleteUser,
   } = useGerenciarUser();
+  
 
   return (
-    <div className="gerenciar-funcionario-container">
+    <div className={`gerenciar-funcionario-container`}>
       <h1 className="titulo-funcionarios">Gerenciar Funcionários</h1>
       {/* Seção para criar ou editar usuário */}
       <div className="form-section">

@@ -104,12 +104,15 @@
   }
   
  .modal-header {    
+    width: 90%;
     color: white;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
   }
   
  .modal-body {
   }
-  
   /* .div-form {
     padding: 20px;
     background-color: var(--theme-color);
