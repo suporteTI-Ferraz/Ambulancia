@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Form, Button } from 'react-bootstrap';
 import InputMask from "react-input-mask";
 import { TelefonePac } from "../../types/paciente/TelefonePacType";
 
@@ -74,45 +75,46 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({
 
   return (
     <div className="form-container">
-      <h4>Telefones</h4>
+      <h4 className="mt-4">Telefones</h4>
       {localTelefones.map((telefone, index) => {
-        // Define a máscara com base no tipo de telefone
         const mask = telefone.tipoTel === "CELULAR" ? "(99) \\99999-9999" : "(99) 9999-9999";
-
         return (
-          <div key={index} className="forms-sec-container">
-            <div>
-              <label>Tipo</label>
-              <select
-                value={telefone.tipoTel}
+          <div key={index} className="mb-3 p-3 border rounded">
+          <div key={index} className="mb-3">
+            <Form.Group controlId={`telefone-tipo-${index}`} className="mb-2">
+              <Form.Label>Tipo</Form.Label>
+              <Form.Control 
+                as="select" 
+                value={telefone.tipoTel} 
                 onChange={(e) => handleTelefoneChange(index, "tipoTel", e.target.value)}
               >
                 <option value="CELULAR">Celular</option>
                 <option value="FIXO">Fixo</option>
-              </select>
-            </div>
-            <div>
-              <label>Número</label>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId={`telefone-numero-${index}`} className="mb-2">
+              <Form.Label>Número</Form.Label>
               <InputMask
                 mask={mask}
                 value={telefone.numTel}
                 onChange={(e) => handleTelefoneChange(index, "numTel", e.target.value)}
               >
-                {(inputProps: any) => <input {...inputProps} type="text" />}
+                {(inputProps: any) => <Form.Control {...inputProps} type="text" />}
               </InputMask>
-            </div>
+            </Form.Group>
             {!isEditPaciente && index > 0 && (
-              <button type="button" onClick={() => handleRemoveTelefone(index)}>
+              <Button variant="danger" type="button" onClick={() => handleRemoveTelefone(index)}>
                 Remover
-              </button>
+              </Button>
             )}
+          </div>
           </div>
         );
       })}
       {!isEditPaciente && (
-        <button type="button" className="btn-add" onClick={handleAddTelefone}>
+        <Button variant="primary" type="button" onClick={handleAddTelefone}>
           Adicionar Novo Telefone
-        </button>
+        </Button>
       )}
     </div>
   );
