@@ -3,6 +3,7 @@ import { Paciente } from "../../types/paciente/PacienteType";
 import TelefonePacForm from "./TelefonePacForm";
 import EnderecoPacForm from "./EnderecoPacForm";
 import ButtonSpinner from "../itens/ButtonSpinner";
+import { Form, Button } from "react-bootstrap";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 import DatePicker from "react-datepicker";
 interface PacienteFormProps {

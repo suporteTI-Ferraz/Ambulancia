@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Paciente } from "../../types/paciente/PacienteType";
-import TelefonePacForm from "./TelefonePacForm";
-import EnderecoPacForm from "./EnderecoPacForm";
-import ButtonSpinner from "../itens/ButtonSpinner";
-import { useLoading } from "../../contexts/LoadingContext";
-import { useToast } from "../../hooks/useToast";
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Alert, Button, Form } from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 import InputMask from 'react-input-mask';
+import { useLoading } from "../../contexts/LoadingContext";
+import { useToast } from "../../hooks/useToast";
+import { Paciente } from "../../types/paciente/PacienteType";
+import EnderecoPacForm from "./EnderecoPacForm";
+import TelefonePacForm from "./TelefonePacForm";
 
 // Validação de CPF: agora retorna um boolean
 const validateCPF = (cpf: string) => {
@@ -66,14 +65,6 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
     dataNasc: false
   });
 
-  const getInputClasses = (fieldName: string, value: string, isValid: boolean) => {
-    const baseClasses = "w-full px-3 py-2 border rounded-md focus:outline-none";
-    if (!value) return `${baseClasses} border-red-500 focus:border-red-600`;
-    return isValid
-      ? `${baseClasses} border-green-500 focus:border-green-600`
-      : `${baseClasses} border-red-500 focus:border-red-600`;
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -110,6 +101,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
     const toastKey = handleLoad("Carregando...");
 
     try {
+      // Simulação de requisição
       await new Promise((resolve) => setTimeout(resolve, 2000));
       onSave(formData);
     } catch (error) {
@@ -121,8 +113,8 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
   };
 
   return (
-    <>
-      <Form onSubmit={handleSubmit}>
+    <div className="d-flex justify-content-center mt-4">
+      <Form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '600px' }}>
         <h4>Paciente</h4>
 
         <Form.Group controlId="nomePaciente">
@@ -135,7 +127,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
               handleInputChange(e);
               setValidationState({
                 ...validationState,
-                nomePaciente: e.target.value.length > 0
+                nomePaciente: e.target.value.trim().length > 0
               });
             }}
             isValid={validationState.nomePaciente}
@@ -146,15 +138,18 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
           <Form.Control.Feedback type="invalid">Por favor, insira um nome.</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="dataNasc">
+        <Form.Group controlId="dataNasc" className="mt-2">
           <Form.Label>Data Nascimento</Form.Label>
+          <br />
           <DatePicker
             selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
             onChange={(date) => {
-              setFormData({ ...formData, dataNasc: date?.toISOString().split("T")[0] || "" });
+              // Validação: data deve existir e não ser futura
+              const isValid = date !== null && date.getTime() <= new Date().getTime();
+              setFormData({ ...formData, dataNasc: date ? date.toISOString().split("T")[0] : "" });
               setValidationState({
                 ...validationState,
-                dataNasc: !!date
+                dataNasc: isValid
               });
             }}
             className={`form-control ${validationState.dataNasc ? 'is-valid' : ''} ${!validationState.dataNasc && formData.dataNasc ? 'is-invalid' : ''}`}
@@ -168,10 +163,10 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
             popperPlacement="left-end"
           />
           <Form.Control.Feedback type="valid">Data válida!</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">Por favor, selecione uma data.</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">Por favor, selecione uma data válida e não futura.</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="cpf">
+        <Form.Group controlId="cpf" className="mt-2">
           <Form.Label>CPF</Form.Label>
           <InputMask
             mask="999.999.999-99"
@@ -206,7 +201,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
           <Form.Control.Feedback type="invalid">{cpfError || "Por favor, insira um CPF válido."}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="sus">
+        <Form.Group controlId="sus" className="mt-2">
           <Form.Label>SUS</Form.Label>
           <Form.Control
             type="text"
@@ -216,7 +211,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
               handleInputChange(e);
               setValidationState({
                 ...validationState,
-                sus: e.target.value.length > 0
+                sus: e.target.value.trim().length > 0
               });
             }}
             isValid={validationState.sus}
@@ -227,7 +222,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
           <Form.Control.Feedback type="invalid">Por favor, insira um número SUS.</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="condicoesEspecificas">
+        <Form.Group controlId="condicoesEspecificas" className="mt-2">
           <Form.Label>Condições Específicas</Form.Label>
           <Form.Control
             type="text"
@@ -256,7 +251,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
           </Button>
         </div>
       </Form>
-    </>
+    </div>
   );
 };
 
