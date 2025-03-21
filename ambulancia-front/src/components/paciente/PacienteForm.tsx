@@ -7,6 +7,7 @@ import { useToast } from "../../hooks/useToast";
 import { Paciente } from "../../types/paciente/PacienteType";
 import EnderecoPacForm from "./EnderecoPacForm";
 import TelefonePacForm from "./TelefonePacForm";
+import '../../styles/PacienteForm.css'
 
 // Validação de CPF: agora retorna um boolean
 const validateCPF = (cpf: string) => {
@@ -112,33 +113,40 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
     }
   };
 
+
+
+
+  
   return (
-    <div className="d-flex justify-content-center mt-4">
-      <Form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '600px' }}>
-        <h4>Paciente</h4>
+    <div className="form-user-paciente">
+      <Form onSubmit={handleSubmit} className="teste">
+        <div className="container-inputs">
+          <h4 className="titulo-paciente">Paciente</h4>
+          {/* nome do paciente */}
+          <Form.Group controlId="nomePaciente" className="form-input-paciente">
+            <Form.Label>Nome do Paciente</Form.Label>
+            <Form.Control className="validacao-campo"
+              type="text"
+              name="nomePaciente"
+              value={formData.nomePaciente}
+              onChange={(e) => {
+                handleInputChange(e);
+                setValidationState({
+                  ...validationState,
+                  nomePaciente: e.target.value.trim().length > 0
+                });
+              }}
+              isValid={validationState.nomePaciente}
+              isInvalid={!validationState.nomePaciente && formData.nomePaciente.length > 0}
+              required
+            />
+            <Form.Control.Feedback type="valid">Nome válido!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Por favor, insira um nome.</Form.Control.Feedback>
+          </Form.Group>
+        
 
-        <Form.Group controlId="nomePaciente">
-          <Form.Label>Nome do Paciente</Form.Label>
-          <Form.Control
-            type="text"
-            name="nomePaciente"
-            value={formData.nomePaciente}
-            onChange={(e) => {
-              handleInputChange(e);
-              setValidationState({
-                ...validationState,
-                nomePaciente: e.target.value.trim().length > 0
-              });
-            }}
-            isValid={validationState.nomePaciente}
-            isInvalid={!validationState.nomePaciente && formData.nomePaciente.length > 0}
-            required
-          />
-          <Form.Control.Feedback type="valid">Nome válido!</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">Por favor, insira um nome.</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group controlId="dataNasc" className="mt-2">
+        {/* data de nascimento */}
+        <Form.Group controlId="dataNasc" className="form-input-paciente">
           <Form.Label>Data Nascimento</Form.Label>
           <br />
           <DatePicker
@@ -166,7 +174,9 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
           <Form.Control.Feedback type="invalid">Por favor, selecione uma data válida e não futura.</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="cpf" className="mt-2">
+
+        {/* cpf */}
+        <Form.Group controlId="cpf" className="form-input-paciente">
           <Form.Label>CPF</Form.Label>
           <InputMask
             mask="999.999.999-99"
@@ -201,7 +211,9 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
           <Form.Control.Feedback type="invalid">{cpfError || "Por favor, insira um CPF válido."}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="sus" className="mt-2">
+
+        {/* numero do sus */}
+        <Form.Group controlId="sus" className="form-input-paciente">
           <Form.Label>SUS</Form.Label>
           <Form.Control
             type="text"
@@ -221,8 +233,10 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
           <Form.Control.Feedback type="valid">Número SUS válido!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">Por favor, insira um número SUS.</Form.Control.Feedback>
         </Form.Group>
+        
 
-        <Form.Group controlId="condicoesEspecificas" className="mt-2">
+        {/* condicoes especiais */}
+        <Form.Group controlId="condicoesEspecificas" className="form-input-paciente">
           <Form.Label>Condições Específicas</Form.Label>
           <Form.Control
             type="text"
@@ -232,6 +246,8 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
             onChange={handleInputChange}
           />
         </Form.Group>
+      </div>
+
 
         <TelefonePacForm onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} />
         <EnderecoPacForm onEnderecosChange={handleEnderecosChange} resetEnderecos={shouldResetEnderecos} isModal={false} />
@@ -246,7 +262,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
           <Button variant="primary" type="submit" disabled={loading}>
             {loading ? 'Carregando...' : 'Salvar'}
           </Button>
-          <Button variant="secondary" type="button" onClick={handleCancel} className="ml-2">
+          <Button variant="secondary" type="button" onClick={handleCancel} className="btn">
             Limpar
           </Button>
         </div>

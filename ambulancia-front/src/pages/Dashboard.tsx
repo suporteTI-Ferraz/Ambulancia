@@ -30,6 +30,9 @@ const Dashboard = () => {
     navigate("/gerenciar-agendamentos/")
   }
 
+  const handleCriarFicha = () => {
+    navigate("/criar-ficha/")
+  }
 
   return (
     <>
@@ -37,37 +40,43 @@ const Dashboard = () => {
 
         <div className="dashboard">
           <div className="cards-container">
+            
             <div className="card">
               <FaUser className="icon" />
               <h3>Funcionários</h3>
               <button onClick={handleUserRoute}>Selecionar</button>
-
             </div>
+
+            <div className="card">
+              <FaUser className="icon" />
+              <h3>Criar Ficha</h3>
+              <button onClick={handleCriarFicha}>Selecionar</button>
+            </div>
+
             <div className="card">
               <FaUserNurse className="icon" />
               <h3>Motoristas</h3>
-
               <button onClick={handleMotoristaRoute}>Selecionar</button>
-
             </div>
+
             <div className="card">
               <FaHeartbeat className="icon" />
               <h3>Pacientes</h3>
-
               <button onClick={handlePacienteRoute}>Selecionar</button>
             </div>
+
             <div className="card">
               <FaHospital className="icon" />
               <h3>Hospitais</h3>
               <button onClick={handleHospitalRoute}>Selecionar</button>
-
             </div>
+
             <div className="card">
               <FaAmbulance className="icon" />
               <h3>Ambulâncias</h3>
-
               <button onClick={handleVeiculoRoute}>Selecionar</button>
             </div>
+
             <div className="card">
               <FaCalendarAlt className="icon" />
               <h3>Agendamentos</h3>

@@ -5,7 +5,7 @@
   
   .form-user input, .form-cargo select {
     font-size: 1rem;
-    padding: 1rem;
+    padding: 0.8rem;
     width: 100%;
     border: none;
     backdrop-filter: blur(3px);
@@ -45,7 +45,7 @@
   
   .form-user-button button{
     margin-top: 3rem !important;
-    margin-bottom: 2rem !important;
+    margin-bottom: 3rem !important;
     width: 90%;
     padding: 0.9rem;
     font-size: 1.2rem;
