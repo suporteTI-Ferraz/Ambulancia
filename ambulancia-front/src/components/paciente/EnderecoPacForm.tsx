@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import InputMask from "react-input-mask";
+import { Form, Button, Spinner } from "react-bootstrap";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 import { buscaCepPaciente } from "../../services/others/ViaCepService";
-import { Spinner } from "reactstrap";
 interface EnderecoFormProps {
   onEnderecosChange: (enderecos: EnderecoPac[]) => void; // Callback para alterações
   resetEnderecos?: boolean; // Flag para resetar endereços
@@ -124,72 +124,76 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({ onEnderecosChange, isMod
   };
 
   return (
-    <div className="form-container">
+    <div className="form-container mt-4">
       <h4>Endereços</h4>
       {localEnderecos.map((endereco, index) => (
-        <div key={index} className="forms-sec-container">
-          <div>
-            {isCepLoading[index] && <Spinner size="sm" />}
-            <label>CEP</label>
+        <div key={index} className="mb-3 p-3 border rounded">
+          <Form.Group controlId={`endereco-cep-${index}`} className="mb-2">
+            <Form.Label>CEP</Form.Label>
             <InputMask
               mask="99999-999"
               value={endereco.cepPac}
               onChange={(e) => handleEnderecosChange(index, "cepPac", e.target.value)}
             >
-              {(inputProps: any) => <input {...inputProps} type="text" />}
+              {(inputProps: any) => <Form.Control {...inputProps} type="text" />}
             </InputMask>
+            {isCepLoading[index] && <Spinner animation="border" size="sm" role="status" className="mt-1" />}
+          </Form.Group>
 
-
-          </div>
-          <div>
-            <label>Rua</label>
-            <input
+          <Form.Group controlId={`endereco-rua-${index}`} className="mb-2">
+            <Form.Label>Rua</Form.Label>
+            <Form.Control
               type="text"
               value={endereco.ruaPac}
               onChange={(e) => handleEnderecosChange(index, "ruaPac", e.target.value)}
             />
-          </div>
-          <div>
-            <label>Bairro</label>
-            <input
+          </Form.Group>
+
+          <Form.Group controlId={`endereco-bairro-${index}`} className="mb-2">
+            <Form.Label>Bairro</Form.Label>
+            <Form.Control
               type="text"
               value={endereco.bairroPac}
               onChange={(e) => handleEnderecosChange(index, "bairroPac", e.target.value)}
             />
-          </div>
-          <div>
-            <label>Complemento</label>
-            <input
+          </Form.Group>
+
+          <Form.Group controlId={`endereco-complemento-${index}`} className="mb-2">
+            <Form.Label>Complemento</Form.Label>
+            <Form.Control
               type="text"
               placeholder="(EX: Casa, Bloco, Apartamento)"
               value={endereco.complementoPac}
               onChange={(e) => handleEnderecosChange(index, "complementoPac", e.target.value)}
             />
-          </div>
-          <div>
-            <label>Número</label>
-            <input
+          </Form.Group>
+
+          <Form.Group controlId={`endereco-numero-${index}`} className="mb-2">
+            <Form.Label>Número</Form.Label>
+            <Form.Control
               type="number"
               value={endereco.numeroPac}
               onChange={(e) => handleEnderecosChange(index, "numeroPac", e.target.value)}
             />
-          </div>
+          </Form.Group>
+
           {!isEditPaciente && index > 0 && (
-            <button type="button" onClick={() => handleRemoveEndereco(index)}>
+            <Button variant="danger" type="button" onClick={() => handleRemoveEndereco(index)}>
               Remover
-            </button>
+            </Button>
           )}
         </div>
-
       ))}
       {!isEditPaciente && (
-        <button
+        <Button
+          variant="primary"
           type="button"
           className="btn-add"
           style={{ marginTop: isModal ? "20px" : "0" }}
-          onClick={handleAddEnderecos}>
+          onClick={handleAddEnderecos}
+        >
           Adicionar Novo Endereço
-        </button>
+        </Button>
       )}
     </div>
   );
