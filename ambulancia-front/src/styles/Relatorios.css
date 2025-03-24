@@ -1,0 +1,56 @@
+/* src/styles/Relatorios.css */
+.report-container {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .filters-section {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .report-content {
+    margin-top: 20px;
+  }
+  
+  .report-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .report-table-th,
+  .report-table-td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .report-table-th {
+    background-color: #f2f2f2;
+  }
+  
+  .report-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .report-button:hover {
+    background-color: #0056b3;
+  }
+  
+  @media print {
+    .filters-section,
+    .report-button {
+      display: none; /* Esconde filtros e botões na impressão */
+    }
+  }

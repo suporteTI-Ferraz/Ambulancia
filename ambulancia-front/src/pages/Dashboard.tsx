@@ -33,6 +33,9 @@ const Dashboard = () => {
   const handleCriarFicha = () => {
     navigate("/criar-ficha/")
   }
+  const handleRelatorios = () => {
+    navigate("/relatorios")
+  }
 
   return (
     <>
@@ -81,6 +84,11 @@ const Dashboard = () => {
               <FaCalendarAlt className="icon" />
               <h3>Agendamentos</h3>
               <button className="button-dashboard" onClick={handleAgendarDiaRoute}>Selecionar</button>
+            </div>
+            <div className="card">
+              <FaUser className="icon" />
+              <h3>Relatorios</h3>
+              <button onClick={handleRelatorios}>Selecionar</button>
             </div>
 
           </div>
