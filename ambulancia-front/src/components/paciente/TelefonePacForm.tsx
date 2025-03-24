@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Button } from 'react-bootstrap';
 import InputMask from "react-input-mask";
 import { TelefonePac } from "../../types/paciente/TelefonePacType";
+import '../../styles/TelefonePacForm.css'
 
 interface TelefoneFormProps {
   onTelefonesChange: (telefones: TelefonePac[]) => void; // Callback para alterações
@@ -74,14 +75,14 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({
   };
 
   return (
-    <div className="form-container">
-      <h4 className="mt-4">Telefones</h4>
+    <div className="form-container-telefone">
+      <h4 className="titulo-form-telefone">Telefones</h4>
       {localTelefones.map((telefone, index) => {
         const mask = telefone.tipoTel === "CELULAR" ? "(99) \\99999-9999" : "(99) 9999-9999";
         return (
-          <div key={index} className="mb-3 p-3 border rounded">
-          <div key={index} className="mb-3">
-            <Form.Group controlId={`telefone-tipo-${index}`} className="mb-2">
+          <div key={index} className="container-inputs-telefone">
+          <div key={index}>
+            <Form.Group controlId={`telefone-tipo-${index}`} className="input-telefone">
               <Form.Label>Tipo</Form.Label>
               <Form.Control 
                 as="select" 
@@ -92,7 +93,7 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({
                 <option value="FIXO">Fixo</option>
               </Form.Control>
             </Form.Group>
-            <Form.Group controlId={`telefone-numero-${index}`} className="mb-2">
+            <Form.Group controlId={`telefone-numero-${index}`} className="input-telefone">
               <Form.Label>Número</Form.Label>
               <InputMask
                 mask={mask}
@@ -103,7 +104,7 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({
               </InputMask>
             </Form.Group>
             {!isEditPaciente && index > 0 && (
-              <Button variant="danger" type="button" onClick={() => handleRemoveTelefone(index)}>
+              <Button variant="danger" className="btn-rmv-telefone" type="button" onClick={() => handleRemoveTelefone(index)}>
                 Remover
               </Button>
             )}
@@ -112,7 +113,7 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({
         );
       })}
       {!isEditPaciente && (
-        <Button variant="primary" type="button" onClick={handleAddTelefone}>
+        <Button variant="primary" className="btn-add-telefone" type="button" onClick={handleAddTelefone}>
           Adicionar Novo Telefone
         </Button>
       )}

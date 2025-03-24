@@ -1,16 +1,24 @@
 .titulo-paciente {
     color: white;
     font-size: 1.6rem;
-    margin-top: 1.7rem;
+    margin-top: 4rem;
     margin-bottom: 1.5rem;
     align-self: center; /* alinha o próprio elemento */
 }
 
 /* esse é o container dos inputs*/
-.form-input-paciente {
+.form-input-paciente{
     color: white;
     width: 80%;
-    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+}
+
+.form-input-paciente:last-of-type {
+    margin-bottom: 3.2rem;  /* Exemplo de margem para o primeiro elemento */
+}
+
+.form-input-paciente:first-of-type {
+    margin-top: 0.5rem;  /* Exemplo de margem para o primeiro elemento */
 }
 
 .form-input-paciente input {
@@ -26,8 +34,34 @@
     border: 1px solid white;
 }
 
+/* Estilo para o DatePicker */
+.form-input-paciente .react-datepicker-wrapper {
+    width: 100%;
+}
 
-.form-input-paciente label {
+.react-datepicker__input-container input {
+    font-size: 1rem;
+    padding: 0.8rem;
+    width: 100%;
+    border: none;
+    backdrop-filter: blur(3px);
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    border: 1px solid white;
+}
+
+.react-datepicker__input-container input::placeholder{
+    color: white;
+}
+
+
+.form-input-paciente input::placeholder{
+    color: white;
+}
+
+.form-input-paciente label{
     font-size: 1.1rem;
     color: white;
     font-size: 1.1rem;
@@ -36,10 +70,10 @@
 }
 
 .container-inputs {
-    background-color: rgb(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width:90%;
+    width:70%;
     margin-bottom: 30px;
     display: flex;
     flex-direction: column;
@@ -47,7 +81,6 @@
     align-self: center;
     align-content: center;
     align-items: center;
-    
 }
 
 /* esse é o container de todos os formulários */

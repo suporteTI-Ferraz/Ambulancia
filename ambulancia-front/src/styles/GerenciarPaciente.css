@@ -1,4 +1,4 @@
-.gerenciar {
+.gerenciar-paciente {
     padding: 20px;
     background-color: #6c7464da;
     display: flex;
@@ -13,6 +13,7 @@
 .titulo-form-paciente   {
     color: white;
     font-size: 2rem;
-    margin-top: 3rem;
-    margin-bottom: 2.2rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
 }
+

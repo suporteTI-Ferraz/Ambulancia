@@ -1,0 +1,39 @@
+.form-container-telefone {
+    background-color: red;
+    color: rgb(255, 255, 255);
+    width: 28rem;
+    align-items: center;        /* Alinha verticalmente */
+    justify-content: center;    /* Alinha horizontalmente */
+}
+
+
+.container-inputs-telefone {
+    background-color: rgb(150, 85, 1);
+    width: 100%;
+    display: flex;
+    justify-content: center;  /* Alinha horizontalmente */
+    align-items: center;      /* Alinha verticalmente */
+}
+
+.titulo-form-telefone {
+    align-self: center;
+    justify-self: center;
+}
+
+.input-telefone {
+    background-color: aqua;
+    width: 100%;
+}
+
+.btn-add-telefone {
+    background-color: rgb(255, 38, 0) !important;
+}
+
+.btn-rmv-telefone {
+    background-color: rgb(117, 150, 0) !important;
+}
+
+.naosei {
+    background-color: violet;
+}
+

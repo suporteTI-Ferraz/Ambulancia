@@ -20,10 +20,10 @@ const GerenciarFuncionario = () => {
 
   return (
     <div className={`gerenciar-funcionario-container`}>
-      <h1 className="titulo-funcionarios">Gerenciar Funcionários</h1>
+      <h1 className="titulo-funcionarios">Usuários</h1>
       {/* Seção para criar ou editar usuário */}
       <div className="form-section">
-        <h3 className="titulo-form">Criar Usuário</h3>
+        <h3 className="titulo-form-funcionario">Criar Usuário</h3>
         <UserForm
           userToEdit={editingUser} 
           onSave={handleSaveUser} 

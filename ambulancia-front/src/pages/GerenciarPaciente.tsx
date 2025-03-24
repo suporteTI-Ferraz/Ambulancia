@@ -29,10 +29,10 @@ const GerenciarPaciente = () => {
   } = useGerenciarPaciente();
 
   return (
-    <div className="gerenciar">
+    <div className="gerenciar-paciente">
 
       {/* Formulário para criação de paciente fora do modal */}
-      <h4 className="titulo-form-paciente">Criar Paciente</h4>
+      <h4 className="titulo-form-paciente">Dados dos pacientes</h4>
       <PacienteForm
         onSave={handleCreatePaciente}
         onCancel={() => setEditingPaciente(null)}
