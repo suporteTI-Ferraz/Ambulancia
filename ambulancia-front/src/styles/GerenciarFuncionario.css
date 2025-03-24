@@ -13,11 +13,11 @@
 .titulo-funcionarios {
   color: white;
   font-size: 2rem;
-  margin-top: 1rem;
-  margin-bottom: 2.2rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
 }
 
-.titulo-form {
+.titulo-form-funcionario{
   color: white;
   font-size: 1.5rem !important;
   margin-top: 4rem;
