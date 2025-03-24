@@ -7,7 +7,9 @@ import { useToast } from "../../hooks/useToast";
 import { Paciente } from "../../types/paciente/PacienteType";
 import EnderecoPacForm from "./EnderecoPacForm";
 import TelefonePacForm from "./TelefonePacForm";
+
 import '../../styles/PacienteForm.css'
+
 
 // Validação de CPF: agora retorna um boolean
 const validateCPF = (cpf: string) => {
@@ -113,10 +115,6 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
     }
   };
 
-
-
-
-  
   return (
     <div className="form-user-paciente">
       <Form onSubmit={handleSubmit} className="teste">
@@ -147,6 +145,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
 
         {/* data de nascimento */}
         <Form.Group controlId="dataNasc" className="form-input-paciente">
+
           <Form.Label>Data Nascimento</Form.Label>
           <br />
           <DatePicker
@@ -175,8 +174,10 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
         </Form.Group>
 
 
+
         {/* cpf */}
         <Form.Group controlId="cpf" className="form-input-paciente">
+
           <Form.Label>CPF</Form.Label>
           <InputMask
             mask="999.999.999-99"
@@ -212,8 +213,10 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
         </Form.Group>
 
 
+
         {/* numero do sus */}
         <Form.Group controlId="sus" className="form-input-paciente">
+
           <Form.Label>SUS</Form.Label>
           <Form.Control
             type="text"
@@ -235,8 +238,10 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
         </Form.Group>
         
 
+
         {/* condicoes especiais */}
         <Form.Group controlId="condicoesEspecificas" className="form-input-paciente">
+
           <Form.Label>Condições Específicas</Form.Label>
           <Form.Control
             type="text"
