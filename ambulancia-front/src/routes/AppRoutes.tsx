@@ -15,6 +15,7 @@ import GerenciarAgendamento from '../pages/GerenciarAgendamento';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CriarFicha from '../pages/CriarFicha';
+import Relatorios from '../pages/Relatorios';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -38,6 +39,7 @@ const AppRoutes: React.FC = () => {
           <Route path="/gerenciar-agendamentos/:agendaId" element={<><PageTitle /><GerenciarAgendamento /></>} />
           <Route path="/gerenciar-agendamentos" element={<><PageTitle /><GerenciarAgendarDia /></>} />
           <Route path="/criar-ficha" element={<><PageTitle /><CriarFicha /></>} />
+          <Route path="/relatorios" element={<><PageTitle /><Relatorios /></>} />
           {/* <Route path="/header" element={<><PageTitle /><Header /></>} /> */}
 
 
