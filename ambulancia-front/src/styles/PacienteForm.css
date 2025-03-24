@@ -1,0 +1,64 @@
+.titulo-paciente {
+    color: white;
+    font-size: 1.6rem;
+    margin-top: 1.7rem;
+    margin-bottom: 1.5rem;
+    align-self: center; /* alinha o próprio elemento */
+}
+
+/* esse é o container dos inputs*/
+.form-input-paciente {
+    color: white;
+    width: 80%;
+    margin-bottom: 1.5rem;
+}
+
+.form-input-paciente input {
+    font-size: 1rem;
+    padding: 0.8rem;
+    width: 100%;
+    border: none;
+    backdrop-filter: blur(3px);
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    border: 1px solid white;
+}
+
+
+.form-input-paciente label {
+    font-size: 1.1rem;
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+    margin-left: 1.5rem;
+}
+
+.container-inputs {
+    background-color: rgb(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width:90%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    
+}
+
+/* esse é o container de todos os formulários */
+.teste {
+    border-radius: 8px;
+    width: 40rem;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-self: center;
+    align-content: center;
+    align-items: center;
+}
