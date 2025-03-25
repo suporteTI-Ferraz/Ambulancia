@@ -3,6 +3,7 @@ import InputMask from "react-input-mask";
 import { Form, Button, Spinner } from "react-bootstrap";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 import { buscaCepPaciente } from "../../services/others/ViaCepService";
+import '../../styles/EnderecoPacForm.css'
 interface EnderecoFormProps {
   onEnderecosChange: (enderecos: EnderecoPac[]) => void; // Callback para alterações
   resetEnderecos?: boolean; // Flag para resetar endereços
@@ -124,11 +125,11 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({ onEnderecosChange, isMod
   };
 
   return (
-    <div className="form-container mt-4">
+    <div className="container-geral-enderecos">
       <h4>Endereços</h4>
       {localEnderecos.map((endereco, index) => (
-        <div key={index} className="mb-3 p-3 border rounded">
-          <Form.Group controlId={`endereco-cep-${index}`} className="mb-2">
+        <div key={index} className="container-inputs-endereco">
+          <Form.Group controlId={`endereco-cep-${index}`} className="container-forms">
             <Form.Label>CEP</Form.Label>
             <InputMask
               mask="99999-999"
@@ -137,10 +138,10 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({ onEnderecosChange, isMod
             >
               {(inputProps: any) => <Form.Control {...inputProps} type="text" />}
             </InputMask>
-            {isCepLoading[index] && <Spinner animation="border" size="sm" role="status" className="mt-1" />}
+            {isCepLoading[index] && <Spinner animation="border" size="sm" role="status" className="naosei3" />}
           </Form.Group>
 
-          <Form.Group controlId={`endereco-rua-${index}`} className="mb-2">
+          <Form.Group controlId={`endereco-rua-${index}`} className="container-forms">
             <Form.Label>Rua</Form.Label>
             <Form.Control
               type="text"
@@ -149,7 +150,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({ onEnderecosChange, isMod
             />
           </Form.Group>
 
-          <Form.Group controlId={`endereco-bairro-${index}`} className="mb-2">
+          <Form.Group controlId={`endereco-bairro-${index}`} className="container-forms">
             <Form.Label>Bairro</Form.Label>
             <Form.Control
               type="text"
@@ -158,7 +159,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({ onEnderecosChange, isMod
             />
           </Form.Group>
 
-          <Form.Group controlId={`endereco-complemento-${index}`} className="mb-2">
+          <Form.Group controlId={`endereco-complemento-${index}`} className="container-forms">
             <Form.Label>Complemento</Form.Label>
             <Form.Control
               type="text"
@@ -168,7 +169,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({ onEnderecosChange, isMod
             />
           </Form.Group>
 
-          <Form.Group controlId={`endereco-numero-${index}`} className="mb-2">
+          <Form.Group controlId={`endereco-numero-${index}`} className="container-forms">
             <Form.Label>Número</Form.Label>
             <Form.Control
               type="number"
@@ -178,7 +179,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({ onEnderecosChange, isMod
           </Form.Group>
 
           {!isEditPaciente && index > 0 && (
-            <Button variant="danger" type="button" onClick={() => handleRemoveEndereco(index)}>
+            <Button variant="danger" className="btn-rmv-enderecos" type="button" onClick={() => handleRemoveEndereco(index)}>
               Remover
             </Button>
           )}
@@ -188,7 +189,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({ onEnderecosChange, isMod
         <Button
           variant="primary"
           type="button"
-          className="btn-add"
+          className="btn-add-enderecos"
           style={{ marginTop: isModal ? "20px" : "0" }}
           onClick={handleAddEnderecos}
         >

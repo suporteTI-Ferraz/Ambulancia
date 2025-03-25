@@ -22,39 +22,37 @@
   margin-top: 5rem;
   margin-bottom: 5rem;
   text-align: center;
-  padding: 3rem;
-  max-width: 60rem; /* Máxima largura para o conteúdo */
+  padding: 5rem;
+  max-width: 70rem; /* Máxima largura para o conteúdo */
   width: 100%; /* A largura será 100% até o máximo especificado */
   background-color: rgb(255, 255, 255, 0.1);
-  border-radius: 8px;
-  border: 1px solid white;
   box-sizing: border-box; /* Garante que o padding não aumente a altura da caixa */
 }
 
 .cards-container {
   display: flex;
-  justify-content: center;
-  gap: 2rem;
   flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-evenly; /* Alinha os cards de forma uniforme sem espaçamento horizontal */
 }
 
 .card {
   background-color: rgb(255, 255, 255, 0.1) !important;
-  padding: 0.5rem 0.3rem;
-  border-radius: 10px;
+  padding: 3rem;
+  border-radius: 0!important;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15rem;
+  width: calc(25% - 0.05rem); /* A largura de cada card será de 25% menos a margem de 1rem */
   transition: transform 0.3s;
   backdrop-filter: blur(8px); /* Aplica o efeito de desfoque (blur) no fundo */
   -webkit-backdrop-filter: blur(10px); /* Para garantir compatibilidade com navegadores WebKit (Safari) */
-  border: 1px solid white !important;
 }
 
 .icon {
   margin-top: 0.8rem;
   font-size: 2rem;
+  margin-bottom: 0.5rem;
   color: white;
 }
 
@@ -64,25 +62,14 @@
   margin-top: 1rem;
 }
 
-.card button{
-  width: 85%;
-  height: 3rem;
-  padding: 0;
-  margin-top: 0.8rem;
-  margin-bottom: 0.8rem;
-  background-color: white;
-  color: var(--bg-color);
-  font-size: 1rem;
-  border: none;
-  border-radius: 500px;
+.card {
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave para cor de fundo e cor do texto */
 }
 
-.card button:hover {
-  background-color: var(--main-color);
+.card:hover {
+  background-color: var(--main-color) !important;
   color: white;
-
 }
 
 .card button:active {

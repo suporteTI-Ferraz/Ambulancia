@@ -104,7 +104,7 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({
               </InputMask>
             </Form.Group>
             {!isEditPaciente && index > 0 && (
-              <Button variant="danger" className="btn-rmv-telefone" type="button" onClick={() => handleRemoveTelefone(index)}>
+              <Button className="btn-rmv-telefone" type="button" onClick={() => handleRemoveTelefone(index)}>
                 Remover
               </Button>
             )}
@@ -113,8 +113,8 @@ const TelefonePacForm: React.FC<TelefoneFormProps> = ({
         );
       })}
       {!isEditPaciente && (
-        <Button variant="primary" className="btn-add-telefone" type="button" onClick={handleAddTelefone}>
-          Adicionar Novo Telefone
+        <Button className="btn-add-telefone" type="button" onClick={handleAddTelefone}>
+          Adicionar novo telefone
         </Button>
       )}
     </div>
