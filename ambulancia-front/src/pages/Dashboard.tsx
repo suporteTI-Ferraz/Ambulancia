@@ -34,7 +34,7 @@ const Dashboard = () => {
     navigate("/criar-ficha/")
   }
   const handleRelatorios = () => {
-    navigate("/relatorios")
+    navigate("/dashboard-relatorios")
   }
 
   return (
@@ -43,7 +43,7 @@ const Dashboard = () => {
 
         <div className="dashboard">
           <div className="cards-container">
-            
+
             <div className="card">
               <FaUser className="icon" />
               <h3>Funcionários</h3>
