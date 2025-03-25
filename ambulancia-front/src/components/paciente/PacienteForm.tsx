@@ -117,7 +117,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
 
   return (
     <div className="form-user-paciente">
-      <Form onSubmit={handleSubmit} className="teste">
+      <Form onSubmit={handleSubmit} className="container-global-pacientes">
         <div className="container-inputs">
           <h4 className="titulo-paciente">Paciente</h4>
           {/* nome do paciente */}
@@ -264,10 +264,10 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
         )}
 
         <div className="mt-4">
-          <Button variant="primary" type="submit" disabled={loading}>
+          <Button variant="primary" className="btn-salvar-pacientes" type="submit" disabled={loading}>
             {loading ? 'Carregando...' : 'Salvar'}
           </Button>
-          <Button variant="secondary" type="button" onClick={handleCancel} className="btn">
+          <Button variant="secondary" className="btn-limpar-pacientes" type="button" onClick={handleCancel}>
             Limpar
           </Button>
         </div>

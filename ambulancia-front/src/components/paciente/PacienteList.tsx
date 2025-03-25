@@ -3,6 +3,7 @@ import { Paciente } from "../../types/paciente/PacienteType";
 import { FiEdit, FiPhone, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
 import { FaMapLocationDot } from "react-icons/fa6";
 import DataCriacao from "../itens/DataFormatada";
+import '../../styles/PacienteList.css'
 
 interface PacienteListProps {
   pacientes: Paciente[];
@@ -12,119 +13,93 @@ interface PacienteListProps {
   onViewEnderecos: (paciente: Paciente) => void;
 }
 
-
 const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTelefones, onViewEnderecos, onDelete }) => {
-    const [pesquisarPaciente, setPesquisarPaciente] = useState('');
+  const [pesquisarPaciente, setPesquisarPaciente] = useState('');
 
-    const filteredPacientes = pacientes.filter(paciente =>
-      paciente.nomePaciente.toLowerCase().includes(pesquisarPaciente.toLowerCase()) ||
-      paciente.cpf.toLowerCase().includes(pesquisarPaciente.toLowerCase())
-    );
+  const filteredPacientes = pacientes.filter(paciente =>
+    paciente.nomePaciente.toLowerCase().includes(pesquisarPaciente.toLowerCase()) ||
+    paciente.cpf.toLowerCase().includes(pesquisarPaciente.toLowerCase())
+  );
 
-     // Ordenar os usuários pela data de criação ou pelo id (ordem decrescente)
-     const sortedPacientes = filteredPacientes.sort((a, b) => {
-      // Opção 1: Ordenar pelo id (decrescente)
-      // return b.id - a.id;
-  
-      // Opção 2: Ordenar pela data de criação (decrescente)
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
-    
-  
-    return (
-      <div>
-        {/* Campo de Pesquisa */}
-        <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-          <FiSearch style={{ marginRight: "8px", fontSize: "20px", color: "#007BFF" }} />
-          <input
-            type="text"
-            placeholder="Pesquisar por Nome ou CPF"
-            value={pesquisarPaciente}
-            onChange={(e) => setPesquisarPaciente(e.target.value)}
-            style={{
-              padding: "8px",
-              fontSize: "14px",
-              border: "2px solid #007BFF",
-              borderRadius: "4px",
-              width: "100%",
-              maxWidth: "400px",
-            }}
-          />
-        </div>
-  
-        {/* Tabela de Pacientes */}
-        <table>
-          <thead>
-            <tr>
-              <th>Criação</th>
-              <th>Nome</th>
-              <th>Data de Nascimento</th>
-              <th>CPF</th>
-              <th>SUS</th>
-              <th>Ruas</th>
-              <th>Telefones</th>
-              <th>Status</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedPacientes.map((paciente) => (
-              <tr key={paciente.id} style={{ backgroundColor: paciente.deletedAt ? '#ffcccc' : 'white' }}>
-                <td><DataCriacao createdAt={paciente.createdAt} /></td>
-                <td>{paciente.nomePaciente}</td>
-                <td><DataCriacao createdAt={paciente.dataNasc} showTime={false} /></td> {/* Sem hora */}
-                <td>{paciente.cpf}</td>
-                <td>{paciente.sus}</td>
-                <td>
-                  {paciente.enderecos.map((endereco) => (
-                    <div key={endereco.id}>{endereco.ruaPac}</div>
-                  ))}
-                </td>
-                <td>
-                  {paciente.telefones.map((telefone) => (
-                    <div key={telefone.id}>
-                      {telefone.tipoTel}: {telefone.numTel}
-                    </div>
-                  ))}
-                </td>
-                <td>{paciente.deletedAt ? 'Desativado' : 'Ativo' }! O Paciente se encontra falecido ? {paciente.falecido ? 'Sim' : 'Não'}</td>
-                <td>
+  const sortedPacientes = filteredPacientes.sort((a, b) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+
+  return (
+    <div className="form-section2">
+      {/* Campo de Pesquisa */}
+      <div className="custom-search-container">
+        <FiSearch className="custom-search-icon-user-list" />
+        <input
+          className="custom-input-search"
+          type="text"
+          placeholder="Pesquisar por Nome ou CPF"
+          value={pesquisarPaciente}
+          onChange={(e) => setPesquisarPaciente(e.target.value)}
+        />
+      </div>
+
+      {/* Tabela de Pacientes */}
+      <table className="custom-table">
+        <thead>
+          <tr>
+            <th className="custom-th">Criação</th>
+            <th className="custom-th">Nome</th>
+            <th className="custom-th">Data de Nascimento</th>
+            <th className="custom-th">CPF</th>
+            <th className="custom-th">SUS</th>
+            <th className="custom-th">Ruas</th>
+            <th className="custom-th">Telefones</th>
+            <th className="custom-th">Status</th>
+            <th className="custom-th">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedPacientes.map((paciente) => (
+            <tr key={paciente.id} className="custom-tr">
+              <td className="custom-td-paciente"><DataCriacao createdAt={paciente.createdAt} /></td>
+              <td className="custom-td-paciente">{paciente.nomePaciente}</td>
+              <td className="custom-td-paciente"><DataCriacao createdAt={paciente.dataNasc} showTime={false} /></td>
+              <td className="custom-td-paciente">{paciente.cpf}</td>
+              <td className="custom-td-paciente">{paciente.sus}</td>
+              <td className="custom-td-paciente">
+                {paciente.enderecos.map((endereco) => (
+                  <div key={endereco.id}>{endereco.ruaPac}</div>
+                ))}
+              </td>
+              <td className="custom-td-paciente">
+                {paciente.telefones.map((telefone) => (
+                  <div key={telefone.id}>
+                    {telefone.tipoTel}: {telefone.numTel}
+                  </div>
+                ))}
+              </td>
+              <td className="custom-td-paciente">{paciente.deletedAt ? 'Desativado' : 'Ativo' }! O Paciente se encontra falecido ? {paciente.falecido ? 'Sim' : 'Não'}</td>
+              <td className="custom-td-paciente">
                 <div className="icon-container">
-                  <FiEdit 
-                  className="icon-action edit" 
-                  title="Editar" 
-                  onClick={() => onEdit(paciente)} />
-                  <FaMapLocationDot
-                  className="icon-action endereco" 
-                    title="Visualizar Endereços"
-                    onClick={() => onViewEnderecos(paciente)}
-                  />
-                  <FiPhone
-                    className="icon-action telefone"
-                    title="Visualizar Telefones"
-                    onClick={() => onViewTelefones(paciente)}
-                  />
+                  <FiEdit
+                    className="custom-icon-action edit"
+                    title="Editar"
+                    onClick={() => onEdit(paciente)} />
                   {paciente.deletedAt ? (
                     <FiRefreshCw
-                      className="icon-action reactivate"
+                      className="custom-icon-action reactivate"
                       title="Reativar"
-                      onClick={() => onDelete(paciente.id, paciente.deletedAt)}
-                    />
+                      onClick={() => onDelete(paciente.id, paciente.deletedAt)} />
                   ) : (
                     <FiTrash
-                      className="icon-action delete"
+                      className="custom-icon-action delete"
                       title="Desativar"
-                      onClick={() => onDelete(paciente.id, null)}
-                    />
+                      onClick={() => onDelete(paciente.id, null)} />
                   )}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
-  
-  export default PacienteList;
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default PacienteList;
