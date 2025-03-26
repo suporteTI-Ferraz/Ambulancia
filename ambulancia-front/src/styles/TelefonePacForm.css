@@ -15,7 +15,7 @@
     padding: 3rem;
     margin-bottom: 2rem;
     width: 80%;                /* Ajuste para preencher o espaço disponível */
-    background-color: rgb(255, 255, 255, 0.1);     /* Adiciona borda arredondada, se desejado */
+    background-color: rgb(255, 255, 255, 0.1);
     box-sizing: border-box;     /* Garante que o padding não afete a largura */
 }
 

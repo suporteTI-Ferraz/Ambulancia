@@ -85,9 +85,9 @@
     border: 1px solid rgba(255, 255, 255, 0.2); /* Bordas mais suaves */
 }
 
-/* Cor de fundo das células */
+/* Estilos das células */
 .custom-td-paciente {
-    color: white;
+    color: var(-bg-color);
     font-size: 13px;
     background-color: rgb(255, 255, 255, 0.05); /* Cor de fundo mais sutil */
 }
@@ -169,4 +169,39 @@
 /* Efeito de hover sobre os ícones */
 .custom-icon-action:hover {
     color: #333;
+}
+
+
+/* Estilo para o container dos ícones */
+.icon-container {
+    display: flex; /* Alinha os ícones na horizontal */
+    justify-content: flex-start; /* Alinhamento dos ícones à esquerda */
+    align-items: center; /* Alinha verticalmente os ícones */
+}
+
+/* Estilo dos ícones */
+.custom-icon-action {
+    font-size: 18px;
+    margin: 0 8px; /* Adiciona espaçamento entre os ícones */
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+/* Efeito de hover sobre os ícones */
+.custom-icon-action:hover {
+    transform: scale(1.2); /* Efeito de aumento ao passar o mouse */
+    color: #333; /* Cor do ícone ao passar o mouse */
+}
+
+/* Estilo para os ícones de ação específicos */
+.custom-icon-action.edit {
+    color: #4CAF50; /* Cor do ícone de editar */
+}
+
+.custom-icon-action.delete {
+    color: #F44336; /* Cor do ícone de excluir */
+}
+
+.custom-icon-action.reactivate {
+    color: #2196F3; /* Cor do ícone de reativar */
 }

@@ -1,0 +1,17 @@
+.global-modal-edit-pac {
+    justify-items: center;
+}
+
+.form-modal-pacientes {
+    padding-top: 0.3rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 80%;
+    justify-items: center;
+}
+.titulo-paciente-modal-edit {
+    color: white;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    align-self: center;
+    justify-self: center;
+}
