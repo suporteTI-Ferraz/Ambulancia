@@ -16,6 +16,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CriarFicha from '../pages/CriarFicha';
 import Relatorios from '../pages/Relatorios';
+import RelatoriosDashboard from '../pages/DashboardRelatorios';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -40,6 +41,7 @@ const AppRoutes: React.FC = () => {
           <Route path="/gerenciar-agendamentos" element={<><PageTitle /><GerenciarAgendarDia /></>} />
           <Route path="/criar-ficha" element={<><PageTitle /><CriarFicha /></>} />
           <Route path="/relatorios" element={<><PageTitle /><Relatorios /></>} />
+          <Route path="/dashboard-relatorios" element={<><PageTitle /><RelatoriosDashboard /></>} />
           {/* <Route path="/header" element={<><PageTitle /><Header /></>} /> */}
 
 
