@@ -126,7 +126,7 @@ const EnderecoPacForm: React.FC<EnderecoFormProps> = ({ onEnderecosChange, isMod
 
   return (
     <div className="container-geral-enderecos">
-      <h4>Endereços</h4>
+      <h4 className="titulo-endereco">Endereços</h4>
       {localEnderecos.map((endereco, index) => (
         <div key={index} className="container-inputs-endereco">
           <Form.Group controlId={`endereco-cep-${index}`} className="container-forms">

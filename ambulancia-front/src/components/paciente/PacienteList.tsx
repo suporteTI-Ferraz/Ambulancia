@@ -56,7 +56,11 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
         </thead>
         <tbody>
           {sortedPacientes.map((paciente) => (
-            <tr key={paciente.id} className="custom-tr">
+            <tr
+              key={paciente.id}
+              style={{ backgroundColor: paciente.deletedAt ? '#ffcccc' : 'white' }} // Cor vermelha se paciente estiver desativado
+              className="custom-tr"
+            >
               <td className="custom-td-paciente"><DataCriacao createdAt={paciente.createdAt} /></td>
               <td className="custom-td-paciente">{paciente.nomePaciente}</td>
               <td className="custom-td-paciente"><DataCriacao createdAt={paciente.dataNasc} showTime={false} /></td>
