@@ -1,8 +1,8 @@
-
 import { FaUser, FaHeartbeat, FaUserNurse, FaAmbulance, FaHospital, FaCalendarAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import '../styles/Dashboard.css'
-
+import { MdEditDocument } from "react-icons/md";
+import { VscGraph } from "react-icons/vsc";
+import '../styles/Dashboard.css';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ const Dashboard = () => {
   const handleHospitalRoute = () => {
     navigate("/gerenciar-hospitais")
   }
+
   const handleVeiculoRoute = () => {
     navigate("/gerenciar-ambulancias")
   }
@@ -33,68 +34,61 @@ const Dashboard = () => {
   const handleCriarFicha = () => {
     navigate("/criar-ficha/")
   }
+
   const handleRelatorios = () => {
     navigate("/dashboard-relatorios")
   }
 
   return (
+
     <>
-      <div className="dashboard-container bg-image-dashboard">
+      
+    <div className="dashboard-container bg-image-dashboard">
+      <div className="dashboard">
+        <div className="cards-container">
+          <div className="card" onClick={handleUserRoute}>
+            <FaUser className="icon" />
+            <h3>Funcionários</h3>
+          </div>
 
-        <div className="dashboard">
-          <div className="cards-container">
+          <div className="card" onClick={handleCriarFicha}>
+            <MdEditDocument className="icon" />
+            <h3>Criar ficha</h3>
+          </div>
 
-            <div className="card">
-              <FaUser className="icon" />
-              <h3>Funcionários</h3>
-              <button onClick={handleUserRoute}>Selecionar</button>
-            </div>
+          <div className="card" onClick={handleMotoristaRoute}>
+            <FaUserNurse className="icon" />
+            <h3>Motoristas</h3>
+          </div>
 
-            <div className="card">
-              <FaUser className="icon" />
-              <h3>Criar Ficha</h3>
-              <button onClick={handleCriarFicha}>Selecionar</button>
-            </div>
+          <div className="card" onClick={handlePacienteRoute}>
+            <FaHeartbeat className="icon" />
+            <h3>Pacientes</h3>
+          </div>
 
-            <div className="card">
-              <FaUserNurse className="icon" />
-              <h3>Motoristas</h3>
-              <button onClick={handleMotoristaRoute}>Selecionar</button>
-            </div>
+          <div className="card" onClick={handleHospitalRoute}>
+            <FaHospital className="icon" />
+            <h3>Hospitais</h3>
+          </div>
 
-            <div className="card">
-              <FaHeartbeat className="icon" />
-              <h3>Pacientes</h3>
-              <button onClick={handlePacienteRoute}>Selecionar</button>
-            </div>
+          <div className="card" onClick={handleVeiculoRoute}>
+            <FaAmbulance className="icon" />
+            <h3>Ambulâncias</h3>
+          </div>
 
-            <div className="card">
-              <FaHospital className="icon" />
-              <h3>Hospitais</h3>
-              <button onClick={handleHospitalRoute}>Selecionar</button>
-            </div>
+          <div className="card" onClick={handleAgendarDiaRoute}>
+            <FaCalendarAlt className="icon" />
+            <h3>Agendamentos</h3>
+          </div>
 
-            <div className="card">
-              <FaAmbulance className="icon" />
-              <h3>Ambulâncias</h3>
-              <button onClick={handleVeiculoRoute}>Selecionar</button>
-            </div>
 
-            <div className="card">
-              <FaCalendarAlt className="icon" />
-              <h3>Agendamentos</h3>
-              <button className="button-dashboard" onClick={handleAgendarDiaRoute}>Selecionar</button>
-            </div>
-            <div className="card">
-              <FaUser className="icon" />
-              <h3>Relatorios</h3>
-              <button onClick={handleRelatorios}>Selecionar</button>
-            </div>
-
+          <div className="card" onClick={handleRelatorios}>
+            <VscGraph className="icon" />
+            <h3>Relatórios</h3>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

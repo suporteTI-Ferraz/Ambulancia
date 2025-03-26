@@ -1,0 +1,172 @@
+/* Estilo do container do formulário */
+.form-section2 {
+    background-color: rgb(255, 255, 255, 0.1);
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 90rem;
+    margin-top: 3rem;
+    margin-bottom: 6rem;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Alinhamento vertical */
+    align-items: center;      /* Alinhamento horizontal */
+    border: none; /* Remover bordas visíveis no contêiner */
+}
+
+/* Estilo do título da tabela */
+.custom-title-table {
+    background-color: rgb(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* SEARCH -------------------------------------------------------------------------------------------------------------------------*/
+
+/* Container para o campo de pesquisa */
+.custom-search-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Estilos do campo de pesquisa */
+.custom-input-search {
+    padding: 0.8rem 2.5rem 0.8rem 1rem; /* Ajuste o padding para dar espaço ao ícone */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borda mais suave */
+    background-color: rgb(255, 255, 255, 0.1);
+    border-radius: 30px;
+    width: 100%;
+    font-size: 1rem;
+    color: white; /* Cor do texto digitado */
+    padding-left: 3rem;
+    outline: none; /* Remove o contorno padrão do navegador */
+}
+
+.custom-input-search::placeholder {
+    color: rgba(255, 255, 255, 0.6); /* Cor mais suave para o texto do placeholder */
+}
+
+/* Ícone de busca dentro do input */
+.custom-search-icon-user-list {
+    position: absolute;
+    left: 20px; /* Ajuste conforme necessário para alinhar o ícone */
+    top: 50%;
+    transform: translateY(-50%); /* Alinha verticalmente o ícone */
+    color: white; /* Cor personalizada do ícone */
+    font-size: 1.2rem; /* Tamanho do ícone */
+}
+
+/* TABELA ---------------------------------------------------------------------------------------------------------------- */
+
+/* Estilos gerais da tabela */
+.custom-table {
+    width: 100%;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-spacing: 0;
+}
+
+.custom-th-tr {
+    padding: 12px;
+    text-align: left;
+}
+
+.custom-td-paciente:nth-child(5) {
+    align-items: center;
+    text-align: center;
+}
+
+/* Remover bordas ou configurar bordas discretas nas células */
+.custom-th, .custom-td-paciente {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Bordas mais suaves */
+}
+
+/* Cor de fundo das células */
+.custom-td-paciente {
+    color: white;
+    font-size: 13px;
+    background-color: rgb(255, 255, 255, 0.05); /* Cor de fundo mais sutil */
+}
+
+/* Cabeçalho da tabela */
+.custom-th {
+    background-color: rgb(255, 255, 255, 0.2); /* Cor de fundo personalizada */
+    color: white;
+    font-weight: bold;
+}
+
+/* Linhas alternadas */
+.custom-tr:nth-child(even) {
+    background-color: rgb(255, 255, 255, 0.05); /* Cor para linhas alternadas */
+}
+
+/* Estilo para a célula de status */
+.custom-td-paciente:nth-child(5) {
+    align-items: center;
+    text-align: center;
+}
+
+/* Estilo do container do formulário ------------------------------------------------------------------------------------------------ */
+.custom-div-form-section2-search {
+    background-color: rgba(255, 255, 255, 0);
+    margin-bottom: 3rem !important;
+    padding: 0;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 70rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Alinhamento vertical */
+    align-items: center; /* Alinhamento horizontal */
+}
+
+/* Container para o campo de pesquisa */
+.custom-search-container {
+    position: relative;
+    width: 60%;
+}
+
+/* ICONES ------------------------------------------------------------------------------------------------------------------- */
+.custom-icon-action {
+    font-size: 18px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.custom-icon-action:hover {
+    transform: scale(1.2);
+}
+
+/* Estilo para os ícones de ação */
+.custom-icon-action {
+    font-size: 18px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.custom-icon-action:hover {
+    transform: scale(1.2);
+}
+
+.custom-icon-action.edit {
+    color: #4CAF50; /* Cor do ícone de editar */
+}
+
+.custom-icon-action.delete {
+    color: #F44336; /* Cor do ícone de excluir */
+}
+
+.custom-icon-action.reactivate {
+    color: #2196F3; /* Cor do ícone de reativar */
+}
+
+/* Efeito de hover sobre os ícones */
+.custom-icon-action:hover {
+    color: #333;
+}

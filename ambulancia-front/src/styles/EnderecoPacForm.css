@@ -1,26 +1,10 @@
-.form-container-telefone {
-    background-color: rgb(255, 255, 255, 0.1);
-    color: rgb(255, 255, 255);
+.container-geral-enderecos {
+    margin-top: 2rem;
+    background-color: rgba(255, 255, 255, 0.1);
     width: 80%;
-    align-items: center;        /* Alinha verticalmente */
-    justify-content: center;    /* Alinha horizontalmente */
-    display: flex;              /* Torna o contêiner um flex container */
-    flex-direction: column;     /* Alinha os itens verticalmente */
 }
 
-.container-inputs-telefone {
-    display: flex;              /* Torna o contêiner um flex container */
-    justify-content: center;    /* Alinha horizontalmente */
-    align-items: center;        /* Alinha verticalmente */
-    padding: 3rem;
-    margin-bottom: 2rem;
-    width: 80%;                /* Ajuste para preencher o espaço disponível */
-    background-color: rgb(255, 255, 255, 0.1);     /* Adiciona borda arredondada, se desejado */
-    box-sizing: border-box;     /* Garante que o padding não afete a largura */
-}
-
-
-.titulo-form-telefone {
+.container-geral-enderecos h4 {
     align-self: center;
     justify-self: center;
     color: white;
@@ -30,12 +14,19 @@
     align-self: center; /* alinha o próprio elemento */
 }
 
-.input-telefone {
-    width: 100%;
+.container-inputs-endereco{
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 80%;
+    padding: 5rem 5rem 1rem;
     margin-bottom: 2rem;
+    align-self: center; 
+    justify-self: center;
 }
 
-.input-telefone label {
+.container-forms {
+    margin-bottom: 2rem;
+}
+.container-forms label {
     font-size: 1.1rem;
     color: white;
     font-size: 1.1rem;
@@ -43,7 +34,7 @@
     margin-left: 1.5rem;
 }
 
-.input-telefone input, .input-telefone select  {
+.container-forms input {
     font-size: 1rem;
     padding: 0.8rem;
     width: 100%;
@@ -55,7 +46,11 @@
     outline: none;
     border: 1px solid white;
 }
-.btn-add-telefone {
+
+.container-forms input::placeholder {
+    color: white;
+}
+.btn-add-enderecos {
     margin-top: 2rem !important;
     margin-bottom: 3rem !important;
     width: 50% !important;
@@ -72,8 +67,9 @@
     margin: 0 auto;         /* Centraliza o botão horizontalmente */
 }
 
-.btn-rmv-telefone {
+.btn-rmv-enderecos {
     margin-top: 3rem !important;
+    margin-bottom: 2rem !important;
     width: 60% !important;
     padding: 0.9rem !important;
     font-size: 1.2rem !important;
@@ -87,3 +83,4 @@
     display: block !important;         /* Faz o botão ser tratado como bloco */
     margin: 0 auto;         /* Centraliza o botão horizontalmente */
 }
+
