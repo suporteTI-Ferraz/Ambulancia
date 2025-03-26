@@ -36,10 +36,13 @@ const Dashboard = () => {
   }
 
   const handleRelatorios = () => {
-    navigate("/relatorios")
+    navigate("/dashboard-relatorios")
   }
 
   return (
+
+    <>
+      
     <div className="dashboard-container bg-image-dashboard">
       <div className="dashboard">
         <div className="cards-container">
@@ -85,6 +88,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
