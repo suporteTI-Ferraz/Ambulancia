@@ -9,7 +9,7 @@ const RelatoriosDashboard: React.FC = () => {
       <h1>Dashboard de Relatórios</h1>
       <p>Acesse os relatórios a seguir:</p>
       <div className="reports-grid">
-        <Link to="/relatorios" className="report-card">
+        <Link to="/relatorios-veiculos" className="report-card">
           <h2>Relatório de Veículos</h2>
           <p>Visualize o relatório com informações dos veículos.</p>
         </Link>

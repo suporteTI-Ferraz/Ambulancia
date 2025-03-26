@@ -1,4 +1,4 @@
-import {useState } from "react";
+import { useState } from "react";
 import { Fornecedor } from "../../types/veiculo/FornecedorType";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useToast } from "../../hooks/useToast";
@@ -8,41 +8,38 @@ import ButtonSpinner from "../itens/ButtonSpinner";
 interface FornecedorFormProps {
   onSave: (fornecedor: Fornecedor) => void;
   onUpdate: (id: number, fornecedor: Fornecedor) => void;
-  
   onCancel: () => void;
-  isModal: Boolean; 
+  isModal: boolean;
   fornecedorToEdit: Fornecedor | null; // Para edição, ou null para criação
-
 }
 
 const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCancel, fornecedorToEdit, isModal }) => {
 
-    const initialFormData: Fornecedor = {
-      id: fornecedorToEdit?.id || 0,
-      nome: fornecedorToEdit?.nome || "",
-      cnpj: fornecedorToEdit?.cnpj || "",
-      telefone: fornecedorToEdit?.telefone || "",
-      manutencoes: fornecedorToEdit?.manutencoes || [],
-      deletedAt: fornecedorToEdit?.deletedAt || null,
-      createdAt:  "",
-    };
+  const initialFormData: Fornecedor = {
+    id: fornecedorToEdit?.id || 0,
+    nome: fornecedorToEdit?.nome || "",
+    cnpj: fornecedorToEdit?.cnpj || "",
+    telefone: fornecedorToEdit?.telefone || "",
+    manutencoes: fornecedorToEdit?.manutencoes || [],
+    deletedAt: fornecedorToEdit?.deletedAt || null,
+    createdAt: "",
+  };
+
   const [formData, setFormData] = useState<Fornecedor>(initialFormData);
- 
-   const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
-   const { handleLoad, dismissLoading } = useToast();  
- 
 
+  const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
+  const { handleLoad, dismissLoading } = useToast();  
 
-     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-       const { name, value } = e.target;
-       setFormData({ ...formData, [name]: value });
-     };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-     const handleCancel = () => {
-      setFormData(initialFormData); // Redefine o formulário
-      onCancel();
-    };
-  
+  const handleCancel = () => {
+    setFormData(initialFormData); // Redefine o formulário
+    onCancel();
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (loading) return; // Impede múltiplos envios enquanto está carregando
@@ -50,12 +47,13 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
     const toastKey = handleLoad("Carregando...");
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));  //Para testar o spinner
+      await new Promise((resolve) => setTimeout(resolve, 2000));  // Para testar o spinner
       if (fornecedorToEdit && isModal) {
         onUpdate(fornecedorToEdit.id, formData);
       } else {
         onSave(formData); // Chama a função onSave (criação ou edição)
-      }    } catch (error) {
+      }
+    } catch (error) {
       console.error("Erro ao salvar veículo:", error);
     } finally {
       setLoading(false); // Libera o botão após a requisição terminar
@@ -64,10 +62,9 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
   };
 
   return (
-    
     <form onSubmit={handleSubmit}>
       <div>
-      <h4>Fornecedor</h4>
+        <h4>Fornecedor</h4>
         <label>Nome do Fornecedor</label>
         <input
           type="text"
@@ -78,13 +75,17 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
         />
       </div>
       <div>
-      <label>CNPJ</label>
-      <InputMask
-        mask="99.999.999/9999-99"
-        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
-        id="cnpj"
-        placeholder="00.000.000/0000-00"
-      />
+        <label>CNPJ</label>
+        <InputMask
+          mask="99.999.999/9999-99"
+          name="cnpj"
+          value={formData.cnpj}
+          onChange={handleInputChange}
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
+          id="cnpj"
+          placeholder="00.000.000/0000-00"
+          required
+        />
       </div>
       <div>
         <label>Telefone</label>
@@ -98,11 +99,10 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
       </div>
 
       {/* Componente para adicionar telefones */}
-
-      {/* <ManutencaoForm  onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} /> */}
+      {/* <ManutencaoForm onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} /> */}
       
       <div>
-        <ButtonSpinner name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit"/>
+        <ButtonSpinner name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit" classe={""}/>
         <button type="button" onClick={handleCancel}>
           Limpar
         </button>
