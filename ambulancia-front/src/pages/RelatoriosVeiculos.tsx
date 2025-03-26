@@ -34,7 +34,7 @@ interface Filters {
   reportType: 'general' | 'detailed' | 'summary';
 }
 
-const Relatorios: React.FC = () => {
+const RelatoriosVeiculos: React.FC = () => {
   const [reportData, setReportData] = useState<VehicleReportData | null>(null);
   const [filters, setFilters] = useState<Filters>({
     startDate: '',
@@ -310,4 +310,4 @@ const Relatorios: React.FC = () => {
   );
 };
 
-export default Relatorios;
+export default RelatoriosVeiculos;
