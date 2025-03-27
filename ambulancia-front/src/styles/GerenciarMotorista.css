@@ -1,0 +1,155 @@
+/* Container principal para a página */
+.global-motorista {
+    padding: 20px;
+
+
+    /* MEXER AQUI */
+    background-color: rgb(53, 52, 50); /* Cor de fundo */ 
+    
+    
+    
+    
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo do título da página */
+.global-motorista h3 {
+    color: white;
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    align-self: center;
+    justify-self: center;
+}
+
+.div-input-motorista{
+    align-self: center !important;
+    justify-self: center !important;
+    width: 80% !important;
+}
+
+/* Estilos para o formulário de criação de motorista */
+.motorista-form {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 3px;
+    margin-top: 5rem;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 30rem; /* Máxima largura do formulário */
+}
+
+/* Título do formulário */
+.motorista-form h3 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    margin-top: 5rem;
+    color: white;
+    text-align: center;
+}
+
+/* Estilos para os campos do formulário */
+.motorista-form label {
+    color: white;
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+    margin-left: 2rem;
+}
+
+/* Estilo dos inputs e selects */
+.motorista-form input{
+    color: white;
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 15px;
+    border: 1px solid white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.motorista-form input:focus {
+    outline: none; 
+}
+
+
+/* Estilos para a lista de motoristas */
+.motorista-list {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 800px;
+}
+
+
+.titulo-motorista {
+    font-size: 1.2rem;
+}
+
+
+
+/* MODAL ESTILIZADO SOZINHO ----------------------------------------------------------*/
+
+
+.modal-form .div-input-motorista {
+    display: flex;  /* Usando flexbox */
+    flex-direction: column;  /* Alinha os itens em uma coluna */
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.modal-form .div-input-motorista input{
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    color: white;
+    border: 1px solid white;
+}
+
+.modal-form .div-input-motorista label{
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.modal-form .titulo-motorista {
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* Estilo para o botão 'button-form-motorista' */
+.modal-form .button-form-motorista {
+    background-color: white;
+    color: var(--bg-color);
+    padding: 1rem 6rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+    /* Centraliza o botão */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .modal-form .button-form-motorista:hover {
+    background-color: white;
+    color: var(--bg-color);
+  }
+  
+  .modal-form .button-form-motorista:focus {
+    outline: none;
+  }
+  
+  .modal-form .motorista-form input{
+    color: white;
+    width: 100%;
+    padding: 13rem;
+    margin-bottom: 15px;
+    border: 1px solid white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
