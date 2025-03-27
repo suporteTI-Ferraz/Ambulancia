@@ -48,9 +48,9 @@ const GerenciarPaciente = () => {
       />
 
       {/* Modal para edição */}
-      <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar">
-        <ModalHeader toggle={toggleEditModal}>Editar Paciente</ModalHeader>
-        <ModalBody>
+      <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="modal-pac">
+        <ModalHeader className="header-modal-pac" toggle={toggleEditModal}>Editar Paciente</ModalHeader>
+        <ModalBody className="body-modal-pac">
           {editingPaciente && (
             <EditPacienteForm
               paciente={editingPaciente}

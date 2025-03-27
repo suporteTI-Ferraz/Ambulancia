@@ -15,8 +15,11 @@ import GerenciarAgendamento from '../pages/GerenciarAgendamento';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CriarFicha from '../pages/CriarFicha';
-import Relatorios from '../pages/Relatorios';
+import RelatoriosVeiculos from '../pages/RelatoriosVeiculos';
 import RelatoriosDashboard from '../pages/DashboardRelatorios';
+import RelatoriosFornecedores from '../pages/RelatoriosFornecedores';
+import RelatoriosManutencao from '../pages/RelatoriosManutencao';
+import RelatoriosPecas from '../pages/RelatoriosPecas';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -40,7 +43,10 @@ const AppRoutes: React.FC = () => {
           <Route path="/gerenciar-agendamentos/:agendaId" element={<><PageTitle /><GerenciarAgendamento /></>} />
           <Route path="/gerenciar-agendamentos" element={<><PageTitle /><GerenciarAgendarDia /></>} />
           <Route path="/criar-ficha" element={<><PageTitle /><CriarFicha /></>} />
-          <Route path="/relatorios" element={<><PageTitle /><Relatorios /></>} />
+          <Route path="/relatorios-veiculos" element={<><PageTitle /><RelatoriosVeiculos /></>} />
+          <Route path="/relatorios-fornecedores" element={<><PageTitle /><RelatoriosFornecedores /></>} />
+          <Route path="/relatorios-manutencao" element={<><PageTitle/><RelatoriosManutencao /></>}/>
+          <Route path="relatorios-pecas" element={<><PageTitle/> <RelatoriosPecas/></>}/>
           <Route path="/dashboard-relatorios" element={<><PageTitle /><RelatoriosDashboard /></>} />
           {/* <Route path="/header" element={<><PageTitle /><Header /></>} /> */}
 
