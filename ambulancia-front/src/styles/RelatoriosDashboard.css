@@ -1,19 +1,19 @@
 
-.dashboard-container {
-    max-width: 1200px;
+.dashboard-container-relatorio {
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
   }
   
-  .dashboard-container h1 {
+  .dashboard-container-relatorio h1 {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
   }
   
-  .dashboard-container p {
+  .dashboard-container-relatorio p {
     text-align: center;
     margin-bottom: 30px;
     color: #666;
@@ -47,6 +47,7 @@
   
   .report-card h2 {
     margin-bottom: 10px;
+    text-align: center;
     font-size: 1.2em;
     color: #222;
   }
