@@ -28,6 +28,8 @@
 .custom-search-container {
   position: relative; /* Necessário para o ícone ficar posicionado dentro do input */
   width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 /* Estilos do campo de pesquisa */
@@ -153,18 +155,6 @@
 
 
 /* Estilo do container do formulário ------------------------------------------------------------------------------------------------ */
-.custom-div-form-section2-search {
-  background-color: rgba(255, 255, 255, 0);
-  margin-bottom: 3rem !important;
-  padding: 0;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 70rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Alinhamento vertical */
-  align-items: center; /* Alinhamento horizontal */
-}
 
 /* Container para o campo de pesquisa */
 .custom-search-container {

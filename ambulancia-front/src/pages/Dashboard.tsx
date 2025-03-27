@@ -51,11 +51,6 @@ const Dashboard = () => {
             <h3>Funcionários</h3>
           </div>
 
-          <div className="card" onClick={handleCriarFicha}>
-            <MdEditDocument className="icon" />
-            <h3>Criar ficha</h3>
-          </div>
-
           <div className="card" onClick={handleMotoristaRoute}>
             <FaUserNurse className="icon" />
             <h3>Motoristas</h3>
@@ -81,6 +76,10 @@ const Dashboard = () => {
             <h3>Agendamentos</h3>
           </div>
 
+          <div className="card" onClick={handleCriarFicha}>
+            <MdEditDocument className="icon" />
+            <h3>Criar ficha</h3>
+          </div>
 
           <div className="card" onClick={handleRelatorios}>
             <VscGraph className="icon" />

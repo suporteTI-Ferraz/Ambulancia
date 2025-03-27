@@ -9,7 +9,6 @@
 }
 
 .gerenciar .custom-modal-header {
-  background-color: #4caf50;
   color: white;
   border-bottom: none;
   font-size: 18px;
@@ -92,4 +91,3 @@
   font-style: italic;
   color: #888; /* Cor cinza para o status */
 }
-

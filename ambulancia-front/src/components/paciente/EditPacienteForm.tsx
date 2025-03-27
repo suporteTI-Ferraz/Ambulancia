@@ -6,6 +6,8 @@ import ButtonSpinner from "../itens/ButtonSpinner";
 import { Form, Button } from "react-bootstrap";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
 import DatePicker from "react-datepicker";
+import "../../styles/EditPacienteForm.css"
+
 interface PacienteFormProps {
   paciente: Paciente;
   onSave: (updatedPaciente: Paciente, notUpdatedPaciente: Paciente) => void;
@@ -64,76 +66,82 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave }) => 
     }
   };
 
+
+
+
+  
   return (
-    <form onSubmit={handleSubmit} className="form-container">
-      <div className="form-group">
-        <h4 className="form-title">Paciente</h4>
-        <label className="form-label">Nome Completo</label>
-        <input
-          type="text"
-          name="nomePaciente"
-          value={formData.nomePaciente}
-          onChange={handleInputChange}
-          required
-          className="form-input"
-        />
-      </div>
+    <form onSubmit={handleSubmit} className="global-modal-edit-pac">
+      <div className="form-modal-pacientes">
+        <div className="form-input-paciente">
+          <h4 className="titulo-paciente-modal-edit">Paciente</h4>
+          <label className="form-label">Nome Completo</label>
+          <input
+            type="text"
+            name="nomePaciente"
+            value={formData.nomePaciente}
+            onChange={handleInputChange}
+            required
+            className="form-input"
+          />
+        </div>
 
-      <div className="form-group">
-        <label className="form-label">Data de Nascimento</label>
-        <DatePicker
-          selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
-          onChange={(date) =>
-            setFormData({
-              ...formData,
-              dataNasc: date?.toISOString().split("T")[0] || "",
-            })
-          }
-          locale="pt-BR"
-          dateFormat="dd/MM/yyyy"
-          showYearDropdown
-          scrollableYearDropdown
-          yearDropdownItemNumber={120}
-          maxDate={new Date()}
-          placeholderText="DD/MM/AAAA"
-          className="form-datepicker"
-        />
-      </div>
+        <div className="form-input-paciente">
+          <label className="form-label">Data de Nascimento</label>
+          <DatePicker
+            selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
+            onChange={(date) =>
+              setFormData({
+                ...formData,
+                dataNasc: date?.toISOString().split("T")[0] || "",
+              })
+            }
+            locale="pt-BR"
+            dateFormat="dd/MM/yyyy"
+            showYearDropdown
+            scrollableYearDropdown
+            yearDropdownItemNumber={120}
+            maxDate={new Date()}
+            placeholderText="DD/MM/AAAA"
+            className="form-datepicker"
+          />
+        </div>
 
-      <div className="form-group">
-        <label className="form-label">CPF</label>
-        <input
-          type="text"
-          name="cpf"
-          value={formData.cpf}
-          onChange={handleInputChange}
-          required
-          className="form-input"
-        />
-      </div>
+        <div className="form-input-paciente">
+          <label className="form-label">CPF</label>
+          <input
+            type="text"
+            name="cpf"
+            value={formData.cpf}
+            onChange={handleInputChange}
+            required
+            className="form-input"
+          />
+        </div>
 
-      <div className="form-group">
-        <label className="form-label">SUS</label>
-        <input
-          type="text"
-          name="sus"
-          value={formData.sus}
-          onChange={handleInputChange}
-          required
-          className="form-input"
-        />
-      </div>
+        <div className="form-input-paciente">
+          <label className="form-label">SUS</label>
+          <input
+            type="text"
+            name="sus"
+            value={formData.sus}
+            onChange={handleInputChange}
+            required
+            className="form-input"
+          />
+        </div>
 
-      <div className="form-group">
-        <label className="form-label">Condições Específicas</label>
-        <input
-          type="text"
-          name="condicoesEspecificas"
-          placeholder="(EX: Cadeirante)"
-          value={formData.condicoesEspecificas}
-          onChange={handleInputChange}
-          className="form-input"
-        />
+        <div className="form-input-paciente">
+          <label className="form-label">Condições Específicas</label>
+          <input
+            type="text"
+            name="condicoesEspecificas"
+            placeholder="(EX: Cadeirante)"
+            value={formData.condicoesEspecificas}
+            onChange={handleInputChange}
+            className="form-input"
+          />
+        </div>
       </div>
 
       <TelefonePacForm
@@ -143,7 +151,7 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave }) => 
         telefonesIniciais={paciente?.telefones || []}
       />
 
-      <EnderecoPacForm
+      <EnderecoPacForm 
         onEnderecosChange={handleEnderecosChange}
         resetEnderecos={false}
         isModal={true}
