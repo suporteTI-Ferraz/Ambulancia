@@ -2,81 +2,74 @@ import React, { useState } from 'react';
 import { Motorista } from '../../types/motorista/MotoristaType';
 import { FiEdit, FiRefreshCw, FiSearch, FiTrash } from 'react-icons/fi';
 import DataCriacao from '../itens/DataFormatada';
+import '../../styles/MotoristaList.css';
 
 interface MotoristaListProps {
-    motoristas: Motorista[];
-    onEdit: (motorista: Motorista) => void;
-    onDelete: (id: number, deletedAt: string | null) => void;
+  motoristas: Motorista[];
+  onEdit: (motorista: Motorista) => void;
+  onDelete: (id: number, deletedAt: string | null) => void;
 }
 
-const MotoristaList: React.FC<MotoristaListProps> = ( {motoristas, onEdit, onDelete} ) => {
+const MotoristaList: React.FC<MotoristaListProps> = ({ motoristas, onEdit, onDelete }) => {
+  const [pesquisarMotorista, setPesquisarMotorista] = useState('');
 
-    const [pesquisarMotorista, setPesquisarMotorista] = useState('');
-    
-    const filteredMotoristas = motoristas.filter(motorista =>
-        motorista.nomeMotorista.toLowerCase().includes(pesquisarMotorista.toLowerCase())
-      );
+  const filteredMotoristas = motoristas.filter(motorista =>
+    motorista.nomeMotorista.toLowerCase().includes(pesquisarMotorista.toLowerCase())
+  );
 
-    const sortedMotoristas = filteredMotoristas.sort((a, b) => {
-      
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-      });
+  const sortedMotoristas = filteredMotoristas.sort((a, b) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
 
-      return(
-         <div>
-                {/* Campo de Pesquisa */}
-                <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-                  <FiSearch style={{ marginRight: "8px", fontSize: "20px", color: "#007BFF" }} />
-                  <input
-                    type="text"
-                    placeholder="Pesquisar por Nome ou CPF"
-                    value={pesquisarMotorista}
-                    onChange={(e) => setPesquisarMotorista(e.target.value)}
-                    style={{
-                      padding: "8px",
-                      fontSize: "14px",
-                      border: "2px solid #007BFF",
-                      borderRadius: "4px",
-                      width: "100%",
-                      maxWidth: "400px",
-                    }}
-                  />
-                </div>
+  return (
+    <div className="form-section2-motorista">
+      {/* Campo de Pesquisa */}
+      <div className="custom-search-container-motorista">
+        <FiSearch className="custom-search-icon-user-list-motorista" />
+        <input
+          type="text"
+          placeholder="Pesquisar por Nome ou CPF"
+          value={pesquisarMotorista}
+          onChange={(e) => setPesquisarMotorista(e.target.value)}
+          className="custom-input-search-motorista"
+        />
+      </div>
 
-                <table>
+      <table className="custom-table-motorista">
         <thead>
           <tr>
-            <th>Criação</th>
-            <th>Nome</th>
-            <th>Status</th>
-            <th>Ações</th>
+            <th className="custom-th-motorista">Criação</th>
+            <th className="custom-th-motorista">Nome</th>
+            <th className="custom-th-motorista">Status</th>
+            <th className="custom-th-motorista">Ações</th>
           </tr>
         </thead>
         <tbody>
           {sortedMotoristas.map((motorista) => (
             <tr
               key={motorista.id}
-              style={{ backgroundColor: motorista.deletedAt ? '#ffcccc' : 'white' }}
+              style={{ backgroundColor: motorista.deletedAt ? '#ffcccc' : 'white' }} // Cor vermelha se motorista estiver desativado
+              className="custom-tr-motorista"
             >
-              <td><DataCriacao createdAt={motorista.createdAt} /></td>
-              <td>{motorista.nomeMotorista}</td>
-              <td>{motorista.deletedAt ? 'Desativado' : 'Ativo'}</td>
-              <td>
+              <td className="custom-td-motorista"><DataCriacao createdAt={motorista.createdAt} /></td>
+              <td className="custom-td-motorista">{motorista.nomeMotorista}</td>
+              <td className="custom-td-motorista">{motorista.deletedAt ? 'Desativado' : 'Ativo'}</td>
+              <td className="custom-td-motorista">
                 {/* Ícones de Ações */}
                 <FiEdit
-                  className="icon-action edit"
+                  className="custom-icon-action-motorista edit"
                   title="Editar"
                   onClick={() => onEdit(motorista)}
                 />
                 {motorista.deletedAt ? (
                   <FiRefreshCw
-                    className="icon-action reactivate"
+                    className="custom-icon-action-motorista reactivate"
                     title="Reativar"
                     onClick={() => onDelete(motorista.id, motorista.deletedAt)}
                   />
                 ) : (
                   <FiTrash
-                    className="icon-action delete"
+                    className="custom-icon-action-motorista delete"
                     title="Desativar"
                     onClick={() => onDelete(motorista.id, null)}
                   />
@@ -91,4 +84,3 @@ const MotoristaList: React.FC<MotoristaListProps> = ( {motoristas, onEdit, onDel
 };
 
 export default MotoristaList;
-

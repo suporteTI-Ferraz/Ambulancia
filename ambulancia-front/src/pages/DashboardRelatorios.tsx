@@ -5,7 +5,7 @@ import '../styles/RelatoriosDashboard.css';
 
 const RelatoriosDashboard: React.FC = () => {
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container-relatorios">
       <h1>Dashboard de Relatórios</h1>
       <p>Acesse os relatórios a seguir:</p>
       <div className="reports-grid">

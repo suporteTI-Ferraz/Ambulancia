@@ -3,6 +3,7 @@ import { Motorista } from '../../types/motorista/MotoristaType';
 import ButtonSpinner from '../itens/ButtonSpinner';
 import { useLoading } from '../../contexts/LoadingContext';
 import { useToast } from '../../hooks/useToast';
+import '../../styles/MotoristaForm.css'
 
 interface MotoristaFormProps {
   motoristaToEdit: Motorista | null;
@@ -50,19 +51,24 @@ export const MotoristaForm: React.FC<MotoristaFormProps> = ({motoristaToEdit, on
     };
 
     return(
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Nome</label>
-                <input 
-                type="text"
-                name='nomeMotorista'
-                value={formData.nomeMotorista}
-                onChange={handleInputChange}
-                required
-                />
-            </div>
-            <ButtonSpinner name={isModal ? "Atualizar" : "Salvar"} isLoading={loading} type='submit'/>
-        </form>
+        <div className={isModal ? 'modal-root' : ''}>
+            <form onSubmit={handleSubmit} className={isModal ? 'modal-form' : ''}>
+            <header className="modal-header">
+            <h2>Título do Modal</h2>
+        </header>
+                <div className='div-input-motorista'>
+                    <label className='titulo-motorista'>Nome</label>
+                    <input 
+                    type="text"
+                    name='nomeMotorista'
+                    value={formData.nomeMotorista}
+                    onChange={handleInputChange}
+                    required
+                    />
+                </div>
+                <ButtonSpinner classe="button-form-motorista" name={isModal ? "Atualizar" : "Salvar"} isLoading={loading} type='submit'/>
+            </form>
+        </div>
     )
 
 }

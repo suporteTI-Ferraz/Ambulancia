@@ -1,0 +1,31 @@
+/* Estilo para o botão 'button-form-motorista' */
+.button-form-motorista {
+  background-color: white;
+  color: var(--bg-color);
+  padding: 1rem 6rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+  /* Centraliza o botão */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button-form-motorista:hover {
+  background-color: white;
+  color: var(--bg-color);
+}
+
+.button-form-motorista:focus {
+  outline: none;
+}
+
+
+
+
+

@@ -21,6 +21,7 @@ interface ButtonSpinnerProps {
         type={type}
         disabled={isLoading}
         onClick={(e) => onClick && onClick(e)} // Passa o evento se necessário
+        className={`btn-spinner ${classe}`}  // Aplica a classe passada
       >
         {isLoading ? (
           <Spinner animation="border" size="sm" />

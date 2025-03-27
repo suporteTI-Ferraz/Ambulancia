@@ -2,6 +2,7 @@ import MotoristaForm from "../components/motorista/MotoristaForm";
 import MotoristaList from "../components/motorista/MotoristaList";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import { useGerenciarMotorista } from "../hooks/useGerenciarMotorista";
+import '../styles/GerenciarMotorista.css'
 
 const GerenciarMotorista = () => {
     const{
@@ -16,8 +17,8 @@ const GerenciarMotorista = () => {
     } = useGerenciarMotorista();
 
     return(
-        <div className="gerenciar">
-            <div>
+        <div className="global-motorista">
+            <div className="motorista-form">
                 <h3>Criar Motorista</h3>
                 {/*Formulário do Motorista */}
                 <MotoristaForm motoristaToEdit={editingMotorista} onSave={handleSaveMotorista}
@@ -27,10 +28,15 @@ const GerenciarMotorista = () => {
             </div>
 
             {/*Lista de Motoristas */}
-            <MotoristaList motoristas={motoristas} onDelete={handleDeleteMotorista} onEdit={handleEdit}
-            />
+            <div className="motorista-list">
+                <MotoristaList 
+                    motoristas={motoristas} 
+                    onDelete={handleDeleteMotorista} 
+                    onEdit={handleEdit}
+                />
+            </div>
 
-            <Modal isOpen={isModalOpen} toggle={toggleModal} className="gerenciar">
+            <Modal isOpen={isModalOpen} toggle={toggleModal} className="global-motorista">
             <ModalHeader toggle={toggleModal}>Editar Motoristas</ModalHeader>
             <ModalBody>
                 {editingMotorista && (
