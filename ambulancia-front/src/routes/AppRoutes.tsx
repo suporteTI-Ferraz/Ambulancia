@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
@@ -22,12 +22,19 @@ import RelatoriosManutencao from '../pages/RelatoriosManutencao';
 import RelatoriosPecas from '../pages/RelatoriosPecas';
 
 const AppRoutes: React.FC = () => {
+  // Gerenciamento do tema
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setDarkMode(prevDarkMode => !prevDarkMode);
+    document.body.classList.toggle("dark-mode", !darkMode); // Alterna a classe no body
+  };
+
   return (
     <Router>
       <Header />
       <Routes>
         {/* Rotas públicas com redirecionamento se autenticado */}
-        
         <Route element={<PublicRoute />}>
           <Route path="/login" element={<><PageTitle /><Login /></>} />
         </Route>
@@ -45,19 +52,15 @@ const AppRoutes: React.FC = () => {
           <Route path="/criar-ficha" element={<><PageTitle /><CriarFicha /></>} />
           <Route path="/relatorios-veiculos" element={<><PageTitle /><RelatoriosVeiculos /></>} />
           <Route path="/relatorios-fornecedores" element={<><PageTitle /><RelatoriosFornecedores /></>} />
-          <Route path="/relatorios-manutencao" element={<><PageTitle/><RelatoriosManutencao /></>}/>
-          <Route path="relatorios-pecas" element={<><PageTitle/> <RelatoriosPecas/></>}/>
+          <Route path="/relatorios-manutencao" element={<><PageTitle /><RelatoriosManutencao /></>} />
+          <Route path="relatorios-pecas" element={<><PageTitle /><RelatoriosPecas /></>} />
           <Route path="/dashboard-relatorios" element={<><PageTitle /><RelatoriosDashboard /></>} />
-          {/* <Route path="/header" element={<><PageTitle /><Header /></>} /> */}
-
-
-
         </Route>
 
         {/* Rota de fallback */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
-      <Footer/>
+      <Footer darkMode={darkMode} /> {/* Passa o estado darkMode para o Footer */}
     </Router>
   );
 };
