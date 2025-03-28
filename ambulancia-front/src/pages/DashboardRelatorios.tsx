@@ -5,8 +5,11 @@ import '../styles/RelatoriosDashboard.css';
 
 const RelatoriosDashboard: React.FC = () => {
   return (
-    <div className="dashboard-container-relatorio">
-      <h1>Relatórios</h1>
+
+    <div className="dashboard-container-relatorios">
+      <h1>Dashboard de Relatórios</h1>
+      <p>Acesse os relatórios a seguir:</p>
+
       <div className="reports-grid">
         <Link to="/relatorios-veiculos" className="report-card">
           <h2>Relatório de Veículos</h2>

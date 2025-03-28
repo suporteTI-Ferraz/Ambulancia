@@ -1,0 +1,165 @@
+/* Estilo do container do formulário */
+.form-section2-motorista {
+    background-color: rgb(255, 255, 255, 0.1);
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 60rem;
+    margin-top: 3rem;
+    margin-bottom: 6rem;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+
+    justify-self: center;
+    align-self: center;
+
+    justify-content: center;  /* Alinhamento vertical */
+    align-items: center;      /* Alinhamento horizontal */
+}
+
+/* Estilo do título da tabela */
+.custom-title-table-motorista {
+    background-color: rgb(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* SEARCH -------------------------------------------------------------------------------------------------------------------------*/
+
+/* Container para o campo de pesquisa */
+.custom-search-container-motorista {
+    position: relative; /* Necessário para o ícone ficar posicionado dentro do input */
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Estilos do campo de pesquisa */
+.custom-input-search-motorista {
+    padding: 0.8rem 2.5rem 0.8rem 1rem; /* Ajuste o padding para dar espaço ao ícone */
+    border: 1px solid white;
+    background-color: rgb(255, 255, 255, 0.1);
+    border-radius: 30px;
+    width: 100%;
+    font-size: 1rem;
+    color: white; /* Cor do texto digitado */
+    padding-left: 3rem;
+    outline: none; /* Remove o contorno padrão do navegador */
+}
+
+.custom-input-search-motorista::placeholder {
+    color: rgba(255, 255, 255, 0.6); /* Cor mais suave para o texto do placeholder */
+}
+
+/* Ícone de busca dentro do input */
+.custom-search-icon-user-list-motorista {
+    position: absolute;
+    left: 20px; /* Ajuste conforme necessário para alinhar o ícone */
+    top: 50%;
+    transform: translateY(-50%); /* Alinha verticalmente o ícone */
+    color: white; /* Cor personalizada do ícone */
+    font-size: 1.2rem; /* Tamanho do ícone */
+}
+
+/* TABELA ---------------------------------------------------------------------------------------------------------------- */
+
+/* Estilos gerais da tabela */
+.custom-table-motorista {
+    width: 100%;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-spacing: 0;
+    border-radius: 15px;
+}
+
+.custom-th-tr-motorista {
+    padding: 12px;
+    text-align: left;
+}
+
+.custom-td-motorista {
+    padding: 12px;
+    text-align: left;
+}
+
+.custom-td-motorista:nth-child(5) {
+    align-items: center;
+    text-align: center;
+}
+
+.custom-th-motorista {
+    background-color: rgb(255, 255, 255, 0.1); /* Cor de fundo personalizada */
+    color: white;
+    font-weight: bold;
+}
+
+.custom-th-motorista, .custom-td-motorista {
+    padding: 12px;
+    text-align: left;
+}
+
+.custom-th-motorista {
+    background-color: rgb(255, 255, 255, 0.1); /* Cor de fundo personalizada */
+    color: white;
+    font-weight: bold;
+}
+
+.custom-tr-motorista:nth-child(even) {
+    background-color: rgb(255, 255, 255, 0.05); /* Cor para linhas alternadas */
+}
+
+/* Estilo para a célula de status */
+.custom-td-motorista:nth-child(5) {
+    align-items: center;
+    text-align: center;
+}
+
+/* Estilo do container do formulário ------------------------------------------------------------------------------------------------ */
+
+/* Container para o campo de pesquisa */
+.custom-search-container-motorista {
+    position: relative;
+    width: 60%;
+}
+
+/* ICONES ------------------------------------------------------------------------------------------------------------------- */
+.custom-icon-action-motorista {
+    font-size: 18px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.custom-icon-action-motorista:hover {
+    transform: scale(1.2);
+}
+
+/* Estilo para os ícones de ação */
+.custom-icon-action-motorista {
+    font-size: 18px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.custom-icon-action-motorista:hover {
+    transform: scale(1.2);
+}
+
+.custom-icon-action-motorista.edit {
+    color: #4CAF50; /* Cor do ícone de editar */
+}
+
+.custom-icon-action-motorista.delete {
+    color: #F44336; /* Cor do ícone de excluir */
+}
+
+.custom-icon-action-motorista.reactivate {
+    color: #2196F3; /* Cor do ícone de reativar */
+}
+
+/* Efeito de hover sobre os ícones */
+.custom-icon-action-motorista:hover {
+    color: #333;
+}

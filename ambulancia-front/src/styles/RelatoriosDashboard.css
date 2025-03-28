@@ -1,19 +1,24 @@
 
-.dashboard-container-relatorio {
-    width: 100%;
+
+.dashboard-container-relatorios {
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
   }
   
-  .dashboard-container-relatorio h1 {
+
+  .dashboard-container-relatorios h1 {
+
     text-align: center;
     margin-bottom: 20px;
     color: #333;
   }
   
-  .dashboard-container-relatorio p {
+
+  .dashboard-container-relatorios p {
+
     text-align: center;
     margin-bottom: 30px;
     color: #666;
