@@ -1,56 +1,83 @@
+
 /* src/styles/Relatorios.css */
 .report-container {
-    padding: 20px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  
-  .filters-section {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-  }
-  
-  .filter-group {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .report-content {
-    margin-top: 20px;
-  }
-  
-  .report-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .report-table-th,
-  .report-table-td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .report-table-th {
-    background-color: #f2f2f2;
-  }
-  
+  background-color: #04e75f95;
+  color: white;
+  padding: 20px;
+  width: 100%; 
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filters-section {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.report-content {
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Updated report-table styles based on UserList.css */
+.report-table {
+  width: 80%;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.report-table th,
+.report-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.report-table th {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: bold;
+}
+
+.report-table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.report-button {
+  padding: 8px 16px;
+  background-color: #ffffff;
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
+.report-button:hover {
+  background-color: #01d556c0;
+}
+
+@media print {
+  .filters-section,
   .report-button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
+    display: none; /* Esconde filtros e botões na impressão */
   }
-  
-  .report-button:hover {
-    background-color: #0056b3;
-  }
-  
-  @media print {
-    .filters-section,
-    .report-button {
-      display: none; /* Esconde filtros e botões na impressão */
-    }
-  }
+}
