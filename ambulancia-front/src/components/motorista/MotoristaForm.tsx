@@ -53,9 +53,6 @@ export const MotoristaForm: React.FC<MotoristaFormProps> = ({motoristaToEdit, on
     return(
         <div className={isModal ? 'modal-root' : ''}>
             <form onSubmit={handleSubmit} className={isModal ? 'modal-form' : ''}>
-            <header className="modal-header">
-            <h2>Título do Modal</h2>
-        </header>
                 <div className='div-input-motorista'>
                     <label className='titulo-motorista'>Nome</label>
                     <input 

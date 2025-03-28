@@ -12,7 +12,16 @@
   --select-color: #20966e;
   --select-second-color: #125e44;
   --sucess-color: #3e8e41;
+
+  --bg-color-theme: white;
+  --text-color-theme: black;
 }
+
+body.dark-mode {
+  --bg-color-theme: black;
+  --text-color-theme: #bdbdbd;
+}
+
 
 * {
   font-family: 'Neo Sans Std', sans-serif;
@@ -35,4 +44,62 @@
 ::-webkit-scrollbar-thumb {
     background-color: var(--second-main-color); /* Cor da parte que pode ser arrastada */
     border-radius: 1000px; /* Bordas arredondadas para a parte que você arrasta */
+}
+
+
+.theme-toggle-btn {
+  background-color: transparent;
+  border: 2px solid #fff; /* Altere a cor da borda se necessário */
+  border-radius: 50%; /* Tornando o botão redondo */
+  padding: 10px; /* Ajuste o tamanho do botão conforme necessário */
+  font-size: 1.5rem; /* Tamanho do ícone */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+
+}
+
+.theme-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Efeito de hover */
+  border-color: #ddd; /* Cor da borda no hover */
+}
+
+.theme-toggle-btn .icon {
+  color: #fff; /* Cor do ícone */
+  font-size: 1.5rem; /* Tamanho do ícone */
+  justify-self: center;
+  align-self: center;
+  margin-bottom: 0.7rem;
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+}
+
+/* Estilo do botão de alternância */
+.theme-toggle-btn {
+  position: fixed;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  padding: 0.1rem 0.7rem;
+  background-color: #616161;
+  color: white;
+  border: none;
+  border-radius: 500px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.theme-toggle-btn:hover {
+  background-color: #353535;
+}
+
+/* Estilos para os elementos que precisam ser alterados dependendo do tema */
+.header-logo, .footer {
+  background-color: var(--bg-color-theme);
+  transition: background-color 0.3s ease;
+}
+
+.navbar, .nav-link {
+  color: var(--text-color-theme);
 }

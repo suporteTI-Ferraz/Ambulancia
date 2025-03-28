@@ -1,5 +1,4 @@
 .footer {
-    background-color: black;
     text-align: center;
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -8,7 +7,6 @@
 .text {
     margin-bottom: 10px;
     font-size: 16px;
-    color: rgb(168, 168, 168);
 }
 
 .logos {
@@ -26,10 +24,8 @@
 .developedBy {
     margin-top: 10px;
     font-size: 14px;
-    color: #afafaf;
 }
 
 .copyright {
     font-size: 12px;
-    color: #bdbdbd;
 }

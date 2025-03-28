@@ -126,3 +126,19 @@
     font-size: 1.1rem; /* Reduz o tamanho do título */
   }
 }
+
+
+
+
+
+/* Modo Claro */
+body {
+  background-color: white;
+  color: black;
+}
+
+/* Modo Escuro */
+body.dark-mode {
+  background-color: black;
+  color: white;
+}

@@ -1,20 +1,16 @@
 /* Container principal para a página */
 .global-motorista {
-    padding: 20px;
-
-
-    /* MEXER AQUI */
-    background-color: rgb(53, 52, 50); /* Cor de fundo */ 
-    
-    
-    
-    
+    background-color: rgb(53, 52, 50); /* Cor de fundo */
     display: flex;
     flex-direction: column;
     max-width: 100%;
     margin: 0 auto;
     align-items: center;
     justify-content: center;
+}
+
+.global-motorista div {
+    background-color: none;
 }
 
 /* Estilo do título da página */
@@ -91,8 +87,6 @@
 
 
 /* MODAL ESTILIZADO SOZINHO ----------------------------------------------------------*/
-
-
 .modal-form .div-input-motorista {
     display: flex;  /* Usando flexbox */
     flex-direction: column;  /* Alinha os itens em uma coluna */
