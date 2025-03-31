@@ -81,7 +81,7 @@ const EdithospitalForm: React.FC<HospitalFormProps> = ({ hospital, onSave }) => 
   isModal={true}
   enderecosIniciais={hospital?.enderecos || []} // Passando os endereços existentes
 />
-      <div>
+      <div className="div-botao-modal-hospital">
         <ButtonSpinner name="Salvar" isLoading={isLoading} type="submit"/>
         {/* <button type="button" onClick={handleCancel}>
           Limpar
