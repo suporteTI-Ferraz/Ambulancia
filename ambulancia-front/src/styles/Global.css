@@ -103,3 +103,11 @@ body.dark-mode {
 .navbar, .nav-link {
   color: var(--text-color-theme);
 }
+
+
+/* Deixar a cor fixa dos itens das tabelas*/
+table td {
+  background-color: white; /* Cor do cabeçalho da tabela */
+  color: var(--bg-color);
+}
+

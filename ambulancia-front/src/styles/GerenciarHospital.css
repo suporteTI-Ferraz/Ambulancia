@@ -1,0 +1,129 @@
+/* Container principal para a página */
+.gerenciar-hospital-container {
+    padding: 20px;
+    background-color: #31553f;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.titulo-gerenciar-hospital {
+    color: white;
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+.titulo-form-hospital {
+    color: white;
+    font-size: 1.5rem !important;
+    margin-bottom: 3rem;
+    align-self: center;
+    justify-self: center;
+}
+
+.form-section-hospital {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+}
+
+.form-section-hospital h4{
+    color: white;
+}
+
+.container-hospital {
+    width: 35rem;
+    padding: 5rem;
+}
+
+.form-section-hospital input{
+    background-color: rgba(255, 255, 255, 0.10);
+    border: 1px solid white;
+    padding: 0.8rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    color: white;
+}
+
+.form-section-hospital input:focus{
+    outline: none; 
+}
+
+.form-section-hospital label {
+    color: white;
+    font-size: 1.2rem;
+    margin-left: 1.5rem;
+}
+
+.div-botoes-hospital {
+    align-self: center;
+    justify-self: center;
+    margin-top: 1.5rem;
+    margin-bottom: -2rem;
+}
+
+.button-salvar-hospital {
+    background-color: white;
+    color: var(--bg-color);
+    border: none;
+    padding: 1.3rem 5rem;
+    margin-right: 1rem;
+    align-items: center;
+    justify-self: center;
+}
+
+.button-limpar-hospital {
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid white;
+    padding: 1.26rem 3rem;
+    color: white;
+}
+.button-limpar-hospital hover {
+    background-color: none !important;
+}
+
+
+
+/* MODAL --------------------------------------------------*/
+
+.modal-gerenciar-hospital h4 {
+    margin-top: 2rem;
+}
+.modal-gerenciar-hospital input{
+    background-color: rgba(255, 255, 255, 0.10);
+    border: 1px solid white;
+    padding: 0.8rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    color: white;
+}
+.teste1234 {
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+.modal-gerenciar-hospital input{
+    outline: none;
+}
+.modal-gerenciar-hospital h4 {
+    align-self: center;
+    justify-self: center;
+}
+
+.modal-gerenciar-hospital button {
+    background-color: white;
+    border: none;
+    color: var(--bg-color);
+    padding: 1.3rem 9rem;
+}
+
+.div-botao-modal-hospital {
+    align-self: center;
+    justify-self: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* FORM LIST --------------------------------------------------*/

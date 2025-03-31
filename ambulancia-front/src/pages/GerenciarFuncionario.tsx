@@ -31,7 +31,7 @@ const GerenciarFuncionario = () => {
           isModal={false} 
         />
       </div>
-      <div className="form-section2">
+      <div className="form-section2-funcionario">
       {/* Seção para lista de usuários */}
       <div className="user-list-section">
         <UserList users={users} onEdit={handleEdit} onDelete={handleDeleteUser} />

@@ -12,12 +12,12 @@ const Footer: React.FC<FooterProps> = () => {
 
       <div className={styles.logos}>
         <img
-          src="../assets/fatec-ferraz.png" // Alterna a imagem com base no darkMode
+          src="../assets/fatec-ferraz.png"
           alt="Logo Fatec"
           className={styles.logo}
         />
         <img
-          src="../assets/brasao.png" // Substitua pelo caminho correto
+          src="../assets/brasao.png"
           alt="Brasão Prefeitura"
           className={styles.logo}
         />
