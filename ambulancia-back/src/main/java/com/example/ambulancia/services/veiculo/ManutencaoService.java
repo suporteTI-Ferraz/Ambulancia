@@ -1,4 +1,5 @@
 package com.example.ambulancia.services.veiculo;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,27 +17,24 @@ import com.example.ambulancia.models.entities.veiculo.Veiculo;
 import com.example.ambulancia.models.entities.veiculo.Fornecedor;
 import com.example.ambulancia.repositories.veiculo.FornecedorRepository;
 
-
 import com.example.ambulancia.models.entities.veiculo.Manutencao;
-
 
 @Service
 public class ManutencaoService {
     @Autowired
     ManutencaoRepository repository;
 
-     @Autowired
+    @Autowired
     VeiculoRepository veiculoRepository;
 
     @Autowired
     FornecedorRepository fornecedorRepository;
 
-    
-      public List<Manutencao> findAll() {
+    public List<Manutencao> findAll() {
         return repository.findAll();
     }
 
-     public Manutencao findById(Long id) {
+    public Manutencao findById(Long id) {
         Optional<Manutencao> obj = repository.findById(id);
         return obj.orElse(null);
     }
@@ -50,17 +48,16 @@ public class ManutencaoService {
         return repository.save(obj);
     }
 
-
     @Transactional
     public List<Manutencao> insertMany(List<Manutencao> manutencoes, Long id) {
         Veiculo veiculo = veiculoRepository.getReferenceById(id);
         for (Manutencao manutencao : manutencoes) {
             manutencao.setVeiculo(veiculo); // Associa o veiculo a cada manutencao
-            manutencao.setId(null); //Como o front manda os id de forma numerada, precisa transmor-los em null para evitar erros
+            manutencao.setId(null); // Como o front manda os id de forma numerada, precisa transmor-los em null para
+                                    // evitar erros
         }
         return repository.saveAll(manutencoes);
     }
-    
 
     @Transactional
     public List<Manutencao> insertMany(List<Manutencao> manutencoes, Long idVeic, Long idForn) {
@@ -70,20 +67,22 @@ public class ManutencaoService {
         for (Manutencao manutencao : manutencoes) {
             manutencao.setVeiculo(veiculo); // Associa o veiculo a cada manutencao
             manutencao.setFornecedor(fornecedor);
-            manutencao.setId(null); //Como o front manda os id de forma numerada, precisa transmor-los em null para evitar erros
+            manutencao.setId(null); // Como o front manda os id de forma numerada, precisa transmor-los em null para
+                                    // evitar erros
         }
         return repository.saveAll(manutencoes);
     }
 
     @Transactional
-    public Manutencao update (Long id, Manutencao obj, Long idVeic, Long idForn) {
+    public Manutencao update(Long id, Manutencao obj, Long idVeic, Long idForn) {
         Veiculo veiculo = veiculoRepository.getReferenceById(idVeic);
         Fornecedor fornecedor = fornecedorRepository.getReferenceById(idForn);
         Manutencao entity = repository.getReferenceById(id);
         updateData(entity, obj, veiculo, fornecedor);
         return repository.save(entity);
     }
-    private void updateData(Manutencao entity, Manutencao manutencao, Veiculo veiculo, Fornecedor fornecedor){
+
+    private void updateData(Manutencao entity, Manutencao manutencao, Veiculo veiculo, Fornecedor fornecedor) {
         entity.setTipoManutencao(manutencao.getTipoManutencao());
         entity.setCustoManutencao(manutencao.getCustoManutencao());
         entity.setServicoRealizado(manutencao.getServicoRealizado());
@@ -95,7 +94,7 @@ public class ManutencaoService {
         entity.setVeiculo(veiculo);
     }
 
-    public List<Manutencao> updateMany(Long id, List<Manutencao> novasManutencoes){
+    public List<Manutencao> updateMany(Long id, List<Manutencao> novasManutencoes) {
         Veiculo veiculo = veiculoRepository.getReferenceById(id);
         List<Manutencao> manutencoesAtuais = veiculo.getManutencoes();
 
@@ -107,47 +106,46 @@ public class ManutencaoService {
         return veiculo.getManutencoes();
     }
 
-    private void updateData(List<Manutencao> manutencoesAtuais, List<Manutencao> novasManutencoes){
+    private void updateData(List<Manutencao> manutencoesAtuais, List<Manutencao> novasManutencoes) {
         Map<Long, Manutencao> mapaNovasManutencoes = novasManutencoes.stream()
-        .collect(Collectors.toMap(Manutencao::getId, manutencao -> manutencao));
+                .collect(Collectors.toMap(Manutencao::getId, manutencao -> manutencao));
 
         for (Manutencao manutencaoAtual : manutencoesAtuais) {
             Manutencao novaManutencao = mapaNovasManutencoes.get(manutencaoAtual.getId());
-            if(!Objects.equals(manutencaoAtual.getDescricao(), novaManutencao.getDescricao())){
+            if (!Objects.equals(manutencaoAtual.getDescricao(), novaManutencao.getDescricao())) {
                 manutencaoAtual.setDescricao(novaManutencao.getDescricao());
             }
-            if(!Objects.equals(manutencaoAtual.getDataEntradaManutencao(), novaManutencao.getDataEntradaManutencao())){
+            if (!Objects.equals(manutencaoAtual.getDataEntradaManutencao(),
+                    novaManutencao.getDataEntradaManutencao())) {
                 manutencaoAtual.setDataEntradaManutencao(novaManutencao.getDataEntradaManutencao());
             }
-            if(!Objects.equals(manutencaoAtual.getDataSaidaManutencao(), novaManutencao.getDataSaidaManutencao())){
+            if (!Objects.equals(manutencaoAtual.getDataSaidaManutencao(), novaManutencao.getDataSaidaManutencao())) {
                 manutencaoAtual.setDataSaidaManutencao(novaManutencao.getDataSaidaManutencao());
 
             }
-            if(!Objects.equals(manutencaoAtual.getStatus(), novaManutencao.getStatus())){
+            if (!Objects.equals(manutencaoAtual.getStatus(), novaManutencao.getStatus())) {
                 manutencaoAtual.setStatus(novaManutencao.getStatus());
             }
-            if(!Objects.equals(manutencaoAtual.getTipoManutencao(), novaManutencao.getTipoManutencao())){
+            if (!Objects.equals(manutencaoAtual.getTipoManutencao(), novaManutencao.getTipoManutencao())) {
                 manutencaoAtual.setTipoManutencao(novaManutencao.getTipoManutencao());
             }
-            if(!Objects.equals(manutencaoAtual.getCustoManutencao(), novaManutencao.getCustoManutencao())){
+            if (!Objects.equals(manutencaoAtual.getCustoManutencao(), novaManutencao.getCustoManutencao())) {
                 manutencaoAtual.setCustoManutencao(novaManutencao.getCustoManutencao());
             }
-            if(!Objects.equals(manutencaoAtual.getDescricaoProblema(), novaManutencao.getDescricaoProblema())){
+            if (!Objects.equals(manutencaoAtual.getDescricaoProblema(), novaManutencao.getDescricaoProblema())) {
                 manutencaoAtual.setDescricaoProblema(novaManutencao.getDescricaoProblema());
             }
-            if(!Objects.equals(manutencaoAtual.getServicoRealizado(), novaManutencao.getServicoRealizado())){
+            if (!Objects.equals(manutencaoAtual.getServicoRealizado(), novaManutencao.getServicoRealizado())) {
                 manutencaoAtual.setServicoRealizado(novaManutencao.getServicoRealizado());
             }
-            
+
         }
     }
 
-    public Manutencao deleteById(Long id){
+    public Manutencao deleteById(Long id) {
         Manutencao entity = repository.getReferenceById(id);
         entity.setDeletedAt(LocalDateTime.now());
         return repository.save(entity);
     }
 
-
-    
 }

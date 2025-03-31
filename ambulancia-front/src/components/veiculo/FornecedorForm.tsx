@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { Fornecedor } from "../../types/veiculo/FornecedorType";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useToast } from "../../hooks/useToast";
@@ -14,7 +15,6 @@ interface FornecedorFormProps {
 }
 
 const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCancel, fornecedorToEdit, isModal }) => {
-
   const initialFormData: Fornecedor = {
     id: fornecedorToEdit?.id || 0,
     nome: fornecedorToEdit?.nome || "",
@@ -27,8 +27,8 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
 
   const [formData, setFormData] = useState<Fornecedor>(initialFormData);
 
-  const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
-  const { handleLoad, dismissLoading } = useToast();  
+  const { loading, setLoading } = useLoading();
+  const { handleLoad, dismissLoading } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -36,78 +36,79 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
   };
 
   const handleCancel = () => {
-    setFormData(initialFormData); // Redefine o formulário
+    setFormData(initialFormData);
     onCancel();
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (loading) return; // Impede múltiplos envios enquanto está carregando
-    setLoading(true); // Bloqueia enquanto a requisição está em andamento
+    if (loading) return;
+    setLoading(true);
     const toastKey = handleLoad("Carregando...");
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));  // Para testar o spinner
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       if (fornecedorToEdit && isModal) {
         onUpdate(fornecedorToEdit.id, formData);
       } else {
-        onSave(formData); // Chama a função onSave (criação ou edição)
+        onSave(formData);
       }
     } catch (error) {
       console.error("Erro ao salvar veículo:", error);
     } finally {
-      setLoading(false); // Libera o botão após a requisição terminar
+      setLoading(false);
       dismissLoading(toastKey);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <h4>Fornecedor</h4>
-        <label>Nome do Fornecedor</label>
-        <input
+    <Form onSubmit={handleSubmit}>
+      <h4>Fornecedor</h4>
+      <Form.Group controlId="nome">
+        <Form.Label>Nome do Fornecedor</Form.Label>
+        <Form.Control
           type="text"
           name="nome"
           value={formData.nome}
           onChange={handleInputChange}
           required
         />
-      </div>
-      <div>
-        <label>CNPJ</label>
+      </Form.Group>
+      <Form.Group controlId="cnpj">
+        <Form.Label>CNPJ</Form.Label>
         <InputMask
           mask="99.999.999/9999-99"
           name="cnpj"
           value={formData.cnpj}
           onChange={handleInputChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
-          id="cnpj"
+          className="form-control"
           placeholder="00.000.000/0000-00"
           required
         />
-      </div>
-      <div>
-        <label>Telefone</label>
-        <input 
-          type="text" 
-          name="telefone" 
-          value={formData.telefone} 
+      </Form.Group>
+      <Form.Group controlId="telefone">
+        <Form.Label>Telefone</Form.Label>
+        <InputMask
+          mask="(99) 99999-9999"
+          name="telefone"
+          value={formData.telefone}
           onChange={handleInputChange}
-          required 
+          className="form-control"
+          placeholder="(00) 00000-0000"
+          required
         />
-      </div>
-
-      {/* Componente para adicionar telefones */}
-      {/* <ManutencaoForm onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} /> */}
-      
-      <div>
-        <ButtonSpinner name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit" classe={""}/>
-        <button type="button" onClick={handleCancel}>
-          Limpar
-        </button>
-      </div>
-    </form>
+      </Form.Group>
+      <Row className="mt-3">
+        <Col>
+          <ButtonSpinner name={isModal ? "Atualizar" : "Criar"} isLoading={loading} type="submit" classe="btn btn-primary" />
+        </Col>
+        <Col>
+          <Button variant="secondary" type="button" onClick={handleCancel}>
+            Limpar
+          </Button>
+        </Col>
+      </Row>
+    </Form>
   );
 };
 
