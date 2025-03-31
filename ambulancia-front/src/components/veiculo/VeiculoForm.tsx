@@ -1,178 +1,103 @@
 import React, { useState } from "react";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { Veiculo } from "../../types/veiculo/VeiculoType";
-import Manutencao from "../../types/veiculo/ManutencaoType";
-import ButtonSpinner from "../itens/ButtonSpinner";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useToast } from "../../hooks/useToast";
-import ManutencaoForm from "./ManutencaoForm";
-import DatePicker from "react-datepicker";
-interface PacienteFormProps {
-  veiculoToEdit: Veiculo | null; // Para edição, ou null para criação
+import ButtonSpinner from "../itens/ButtonSpinner";
+
+interface VeiculoFormProps {
   onSave: (veiculo: Veiculo) => void;
-  onUpdate: (id: number, veiculo: Veiculo) => void;
   onCancel: () => void;
-  isModal: Boolean; 
-  //handleTelefonesChange: () => void;
+  vehicleToEdit?: Veiculo | null;
 }
 
-const VeiculoForm: React.FC<PacienteFormProps> = ({ veiculoToEdit, onSave, onUpdate, onCancel, isModal }) => {
+const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, vehicleToEdit = null }) => {
   const initialFormData: Veiculo = {
-    id: veiculoToEdit?.id || 0,
-    placaVeic: veiculoToEdit?.placaVeic || "",
-    quilometragemAtual: veiculoToEdit?.quilometragemAtual || 0,
-    classe: veiculoToEdit?.classe || "",
-    manutencoes: veiculoToEdit?.manutencoes || [],
-    deletedAt: veiculoToEdit?.deletedAt || null,
-    createdAt:  "",
-    modeloVeic: veiculoToEdit?.modeloVeic || "",
-    marcaVeic: veiculoToEdit?.marcaVeic || "",
-    anoFabricacao: veiculoToEdit?.anoFabricacao || 0,
-    chassi: veiculoToEdit?.chassi || "",
+    id: vehicleToEdit?.id || 0,
+    placaVeic: vehicleToEdit?.placaVeic || "",
+    modeloVeic: vehicleToEdit?.modeloVeic || "",
+    marcaVeic: vehicleToEdit?.marcaVeic || "",
+    anoFabricacao: vehicleToEdit?.anoFabricacao || 0,
+    chassi: vehicleToEdit?.chassi || "",
+    quilometragemAtual: vehicleToEdit?.quilometragemAtual || 0,
+    classe: vehicleToEdit?.classe || "",
+    manutencoes: vehicleToEdit?.manutencoes || [],
+    deletedAt: vehicleToEdit?.deletedAt || null,
+    createdAt: "",
   };
 
   const [formData, setFormData] = useState<Veiculo>(initialFormData);
-  const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
-  const { handleLoad, dismissLoading } = useToast();  
-//   const [shouldResetEnderecos, setShouldResetEnderecos] = useState(false);
-
+  const { loading, setLoading } = useLoading();
+  const { handleLoad, dismissLoading } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-
-//   const handleMultasChange = (multas: Veiculo["multas"]) =>{
-//     setFormData({...formData, multas})
-//   }
-
   const handleCancel = () => {
-    setFormData(initialFormData); // Redefine o formulário
+    setFormData(initialFormData);
     onCancel();
-  };
-
-  const filterYear = (date: Date) => {
-    // Permite apenas a seleção de anos
-    return date.getMonth() === 0 && date.getDate() === 1;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (loading) return; // Impede múltiplos envios enquanto está carregando
-    setLoading(true); // Bloqueia enquanto a requisição está em andamento
-    const toastKey = handleLoad("Carregando...");
-
+    if (loading) return;
+    setLoading(true);
+    const toastKey = handleLoad("Salvando veículo...");
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));  //Para testar o spinner
-      if (veiculoToEdit && isModal) {
-        onUpdate(veiculoToEdit.id, formData);
-      } else {
-        onSave(formData); // Chama a função onSave (criação ou edição)
-      }
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      onSave(formData);
     } catch (error) {
       console.error("Erro ao salvar veículo:", error);
     } finally {
-      setLoading(false); // Libera o botão após a requisição terminar
+      setLoading(false);
       dismissLoading(toastKey);
     }
   };
 
-  
-
   return (
-    
-    <form onSubmit={handleSubmit}>
-      <div>
+    <Form onSubmit={handleSubmit}>
       <h4>Veículo</h4>
-        <label>Placa do Veículo</label>
-        <input
-          type="text"
-          name="placaVeic"
-          value={formData.placaVeic}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      <DatePicker
-  selected={formData.anoFabricacao ? new Date(formData.anoFabricacao, 0, 1) : null}
-  onChange={(date) =>
-    setFormData({
-      ...formData,
-      anoFabricacao: date ? date.getFullYear() : 0, // 🔥 Converte o ano para número
-    })
-  }
-  locale="pt-BR"
-  dateFormat="yyyy"
-  showYearPicker
-  filterDate={filterYear}
-  maxDate={new Date()} // 🔥 Impede seleção de datas futuras
-  placeholderText="AAAA"
-  popperPlacement="left-end" // 🔥 Força o DatePicker para baixo
-/>
-      <div>
-        <label>Chassi</label>
-        <input 
-          type="text" 
-          name="chassi" 
-          value={formData.chassi} 
-          onChange={handleInputChange}
-          required 
-        />
-      </div>
-      <div>
-        <label>Marca</label>
-        <input 
-          type="text" 
-          name="marcaVeic" 
-          value={formData.marcaVeic} 
-          onChange={handleInputChange}
-          required 
-        />
-      </div>
-      <div>
-        <label>Modelo</label>
-        <input 
-          type="text" 
-          name="modeloVeic" 
-          value={formData.modeloVeic} 
-          onChange={handleInputChange}
-          required 
-        />
-      </div>
-      <div>
-      <label>Quilometragem</label>
-        <input 
-            type="number" 
-           
-            name="quilometragemAtual"
-            value={formData.quilometragemAtual}
-            onChange={handleInputChange}
-            required
-        />
-      </div>
-      <div>
-        <label>Classe</label>
-        <input 
-          type="text" 
-          name="classe" 
-          placeholder="Ex: classe A, B, C ou D"
-          value={formData.classe} 
-          onChange={handleInputChange}
-          required 
-        />
-      </div>
-
-      {/* Componente para adicionar telefones */}
-
-      {/* <ManutencaoForm  onTelefonesChange={handleTelefonesChange} resetTelefones={shouldResetTelefones} isModal={false} /> */}
-      
-      <div>
-      <ButtonSpinner name={isModal ? 'Atualizar' : 'Criar'} isLoading={loading} type="submit"/>
-        <button type="button" onClick={handleCancel}>
-          Limpar
-        </button>
-      </div>
-    </form>
+      <Form.Group controlId="placaVeic">
+        <Form.Label>Placa</Form.Label>
+        <Form.Control type="text" name="placaVeic" value={formData.placaVeic} onChange={handleInputChange} required />
+      </Form.Group>
+      <Form.Group controlId="modeloVeic">
+        <Form.Label>Modelo</Form.Label>
+        <Form.Control type="text" name="modeloVeic" value={formData.modeloVeic} onChange={handleInputChange} required />
+      </Form.Group>
+      <Form.Group controlId="marcaVeic">
+        <Form.Label>Marca</Form.Label>
+        <Form.Control type="text" name="marcaVeic" value={formData.marcaVeic} onChange={handleInputChange} required />
+      </Form.Group>
+      <Form.Group controlId="anoFabricacao">
+        <Form.Label>Ano de Fabricação</Form.Label>
+        <Form.Control type="number" name="anoFabricacao" value={formData.anoFabricacao} onChange={handleInputChange} required />
+      </Form.Group>
+      <Form.Group controlId="chassi">
+        <Form.Label>Chassi</Form.Label>
+        <Form.Control type="text" name="chassi" value={formData.chassi} onChange={handleInputChange} required />
+      </Form.Group>
+      <Form.Group controlId="quilometragemAtual">
+        <Form.Label>Quilometragem Atual</Form.Label>
+        <Form.Control type="number" name="quilometragemAtual" value={formData.quilometragemAtual} onChange={handleInputChange} required />
+      </Form.Group>
+      <Form.Group controlId="classe">
+        <Form.Label>Classe</Form.Label>
+        <Form.Control type="text" name="classe" value={formData.classe} onChange={handleInputChange} required />
+      </Form.Group>
+      <Row className="mt-3">
+        <Col>
+          <ButtonSpinner name={vehicleToEdit ? "Atualizar" : "Criar"} isLoading={loading} type="submit" classe="btn btn-primary" />
+        </Col>
+        <Col>
+          <Button variant="secondary" type="button" onClick={handleCancel}>
+            Limpar
+          </Button>
+        </Col>
+      </Row>
+    </Form>
   );
 };
 
