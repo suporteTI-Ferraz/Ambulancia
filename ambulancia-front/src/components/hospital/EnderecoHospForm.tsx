@@ -122,7 +122,6 @@ const EnderecoHospForm: React.FC<EnderecoFormProps> = ({ onEnderecosChange, isMo
 
   return (
     <div className="form-container">
-      <h4>Endereços</h4>
       {localEnderecos.map((endereco, index) => (
         <div key={index} className="forms-sec-container">
           <div>
@@ -179,7 +178,7 @@ const EnderecoHospForm: React.FC<EnderecoFormProps> = ({ onEnderecosChange, isMo
         </div>
 
       ))}
-      {!isEditHospital && (
+      {/* {!isEditHospital && (
         <button
           type="button"
           className="btn-add"
@@ -187,7 +186,7 @@ const EnderecoHospForm: React.FC<EnderecoFormProps> = ({ onEnderecosChange, isMo
           onClick={handleAddEnderecos}>
           Adicionar Novo Endereço
         </button>
-      )}
+      )} */}
     </div>
   );
 

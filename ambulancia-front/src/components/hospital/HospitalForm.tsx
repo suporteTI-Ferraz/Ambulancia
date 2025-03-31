@@ -60,14 +60,13 @@ const HospitalForm: React.FC<hospitalFormProps> = ({ hospital, onSave, onCancel 
     }
   };
 
-  
+
 
   return (
     
     <form onSubmit={handleSubmit}>
       <div>
-      <h4>Hospital</h4>
-        <label>Nome</label>
+        <label>Hospital</label>
         <input
           type="text"
           name="nomeHosp"
@@ -79,9 +78,9 @@ const HospitalForm: React.FC<hospitalFormProps> = ({ hospital, onSave, onCancel 
 
       {/* Componente para adicionar telefones */}
       <EnderecoHospForm  onEnderecosChange={handleEnderecosChange} resetEnderecos={shouldResetEnderecos}  isModal={false} />
-      <div>
-        <ButtonSpinner name="Salvar" isLoading={loading} type="submit"/>
-        <button type="button" onClick={handleCancel}>
+      <div className="div-botoes-hospital">
+        <ButtonSpinner classe="button-salvar-hospital" name="Salvar" isLoading={loading} type="submit"/>
+        <button type="button" className="button-limpar-hospital" onClick={handleCancel}>
           Limpar
         </button>
       </div>
