@@ -107,6 +107,7 @@ const RelatoriosManutencao: React.FC = () => {
 
     // Prepare data for the table with the new "Placa" column
     const tableColumn = [
+      'Id',
       'Criação',
       'Placa',
       'Tipo',
@@ -122,6 +123,7 @@ const RelatoriosManutencao: React.FC = () => {
 
     reportData.data.forEach((manutencao) => {
       const rowData: (string | number)[] = [
+        manutencao.id,
         manutencao.createdAt,
         manutencao.veiculo ? manutencao.veiculo.placaVeic : '',
         manutencao.tipoManutencao,
@@ -163,6 +165,7 @@ const RelatoriosManutencao: React.FC = () => {
     XLSX.utils.sheet_add_aoa(ws, [['Filtro: ' + filters.reportType], ['Período: ' + filters.startDate + ' a ' + filters.endDate]], { origin: 'A3' });
   
     const header = [
+      'Id',
       'Criação',
       'Placa',
       'Tipo',
@@ -178,6 +181,7 @@ const RelatoriosManutencao: React.FC = () => {
   
     // Add maintenance data including vehicle plate
     const dataForExcel = reportData.data.map((manutencao) => [
+      manutencao.id,
       manutencao.createdAt,
       manutencao.veiculo ? manutencao.veiculo.placaVeic : '',
       manutencao.tipoManutencao,
@@ -297,6 +301,7 @@ const RelatoriosManutencao: React.FC = () => {
           <table className="report-table">
             <thead>
               <tr>
+                <th className="report-table-th">ID</th>
                 <th className="report-table-th">Criação</th>
                 <th className="report-table-th">Placa</th>
                 <th className="report-table-th">Tipo</th>
@@ -312,6 +317,7 @@ const RelatoriosManutencao: React.FC = () => {
             <tbody>
               {reportData.data.map((manutencao) => (
                 <tr key={manutencao.id}>
+                  <td className="report-table-td">{manutencao.id}</td>
                   <td className="report-table-td">{manutencao.createdAt}</td>
                   <td className="report-table-td">{manutencao.veiculo ? manutencao.veiculo.placaVeic : ''}</td>
                   <td className="report-table-td">{manutencao.tipoManutencao}</td>
