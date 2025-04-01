@@ -1,64 +1,94 @@
-
-
+/* Estilos para o container principal do dashboard */
 .dashboard-container-relatorios {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  background-image: url('./assets/plano-de-fundo-cidade.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  color: white;
+  text-align: center;
+}
 
-  .dashboard-container-relatorios h1 {
+.dashboard-relatorios {
+  /* background-color: rgba(255, 255, 255, 0.1); */
+  margin-top: 3rem !important;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-bottom: 6rem;
+}
 
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
+/* Título principal */
+.dashboard-container-relatorios h1 {
+  margin-top: 3rem;
+  font-size: 2.5rem;
+}
 
-  .dashboard-container-relatorios p {
+/* Parágrafo que aparece abaixo do título */
+.dashboard-container-relatorios p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
 
-    text-align: center;
-    margin-bottom: 30px;
-    color: #666;
-  }
-  
-  .reports-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  
-  .report-card{
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .invalid{
-    background-color: red;
-  }
-  
-  .report-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .report-card h2 {
-    margin-bottom: 10px;
-    text-align: center;
-    font-size: 1.2em;
-    color: #222;
-  }
-  
-  .report-card p {
-    font-size: 0.9em;
-    color: #555;
-  }
-  
+/* Container para os cards de relatórios */
+.reports-grid {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* Estilo dos cards de relatórios */
+.report-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  max-width: 15%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 1.5rem; /* Aumenta um pouco o padding-base */
+  text-decoration: none;
+  color: white;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  backdrop-filter: blur(15px);
+  box-sizing: border-box;
+  flex: 0 0 auto; /* Impede que os cards se ajustem automaticamente */
+  transition: 0.3s ease;
+  position: relative; /* Necessário para usar o transform */
+}
+
+/* Estilo do título dentro do card */
+.report-card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 3rem;
+  margin-top: 5rem;
+  text-align: left;
+}
+
+/* Estilo do texto dentro dos cards */
+.report-card p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: left;
+}
+
+/* Efeito de hover para aumentar o padding-bottom e sair do card */
+.report-card:hover {
+  background-color: var(--main-color); /* Trocar por cor que deseja */
+  transform: translateY(-5px); /* Faz o card "subir" um pouco */
+}
+
+
+/* Efeito de clique no card */
+.report-card:active {
+  transform: scale(0.95);
+}
+
+/* Estilos para o card "invalid" */
+.report-card.invalid {
+  opacity: 0.5;
+  pointer-events: none; /* Desabilita o clique */
+}

@@ -40,13 +40,13 @@
     padding-right: 4rem;
   }
   
-  .form-user-button button{
+  .button-form-user{
     margin-top: 3rem !important;
     margin-bottom: 3rem !important;
     width: 90%;
     padding: 0.9rem;
     font-size: 1.2rem;
-    color: var(--theme-color);
+    color: var(--bg-color);
     background-color: white;
     border: none;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -67,11 +67,7 @@
     align-self: center;
   }
   
-  button:hover {
-    background-color: var(--theme-color);
-    color: white;
-  }
-  
+
   button:active {
     transform: scale(0.95);
     background-color: var(--sucess-color);
