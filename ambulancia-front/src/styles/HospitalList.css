@@ -1,0 +1,14 @@
+.form-section2-hospitais {
+    background-color: rgb(255, 255, 255, 0.1);
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 70rem;
+    margin-top: 3rem;
+    margin-bottom: 6rem;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Alinhamento vertical */
+    align-items: center;      /* Alinhamento horizontal */
+  }
