@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { Veiculo } from "../../types/veiculo/VeiculoType";
@@ -8,21 +9,23 @@ import ButtonSpinner from "../itens/ButtonSpinner";
 interface VeiculoFormProps {
   onSave: (veiculo: Veiculo) => void;
   onCancel: () => void;
-  vehicleToEdit?: Veiculo | null;
+  onUpdate?: (id: number, veiculo: Veiculo) => void;
+  isModal?: boolean;
+  veiculoToEdit?: Veiculo | null;
 }
 
-const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, vehicleToEdit = null }) => {
+const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, isModal, veiculoToEdit }) => {
   const initialFormData: Veiculo = {
-    id: vehicleToEdit?.id || 0,
-    placaVeic: vehicleToEdit?.placaVeic || "",
-    modeloVeic: vehicleToEdit?.modeloVeic || "",
-    marcaVeic: vehicleToEdit?.marcaVeic || "",
-    anoFabricacao: vehicleToEdit?.anoFabricacao || 0,
-    chassi: vehicleToEdit?.chassi || "",
-    quilometragemAtual: vehicleToEdit?.quilometragemAtual || 0,
-    classe: vehicleToEdit?.classe || "",
-    manutencoes: vehicleToEdit?.manutencoes || [],
-    deletedAt: vehicleToEdit?.deletedAt || null,
+    id: veiculoToEdit?.id || 0,
+    placaVeic: veiculoToEdit?.placaVeic || "",
+    modeloVeic: veiculoToEdit?.modeloVeic || "",
+    marcaVeic: veiculoToEdit?.marcaVeic || "",
+    anoFabricacao: veiculoToEdit?.anoFabricacao || 0,
+    chassi: veiculoToEdit?.chassi || "",
+    quilometragemAtual: veiculoToEdit?.quilometragemAtual || 0,
+    classe: veiculoToEdit?.classe || "",
+    manutencoes: veiculoToEdit?.manutencoes || [],
+    deletedAt: veiculoToEdit?.deletedAt || null,
     createdAt: "",
   };
 
@@ -44,10 +47,15 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, vehicleToEd
     e.preventDefault();
     if (loading) return;
     setLoading(true);
-    const toastKey = handleLoad("Salvando veículo...");
+    const toastKey = handleLoad("Carregando...");
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      onSave(formData);
+      // Se for atualização (modal e veículo para editar) e onUpdate estiver definida, chama onUpdate
+      if (veiculoToEdit && isModal && onUpdate) {
+        onUpdate(veiculoToEdit.id, formData);
+      } else {
+        onSave(formData);
+      }
     } catch (error) {
       console.error("Erro ao salvar veículo:", error);
     } finally {
@@ -89,7 +97,7 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, vehicleToEd
       </Form.Group>
       <Row className="mt-3">
         <Col>
-          <ButtonSpinner name={vehicleToEdit ? "Atualizar" : "Criar"} isLoading={loading} type="submit" classe="btn btn-primary" />
+          <ButtonSpinner name={veiculoToEdit ? "Atualizar" : "Criar"} isLoading={loading} type="submit" classe="btn btn-primary" />
         </Col>
         <Col>
           <Button variant="secondary" type="button" onClick={handleCancel}>

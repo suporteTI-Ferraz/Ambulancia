@@ -129,7 +129,7 @@ const GerenciarVeiculo = () => {
       <Modal isOpen={isEditModalOpen} toggle={toggleModalFornecedor} className="gerenciar">
         <ModalHeader toggle={toggleEditModal}>Editar Veículo</ModalHeader>
         <ModalBody>
-          {editingVeiculo && <VeiculoForm vehicleToEdit={editingVeiculo} onSave={handleSaveVeiculo} onCancel={toggleEditModal}
+          {editingVeiculo && <VeiculoForm veiculoToEdit={editingVeiculo} onSave={handleSaveVeiculo} onCancel={toggleEditModal}
             onUpdate={handleEditVeiculo} isModal={true} />}
         </ModalBody>
       </Modal>

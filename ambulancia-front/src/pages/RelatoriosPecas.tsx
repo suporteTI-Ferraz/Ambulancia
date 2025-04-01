@@ -11,10 +11,9 @@ import { fetchPecaManutencoes } from '../services/api/VeiculoService';
 // Define types for the maintenance parts report data
 interface PecaManutencao {
   id: number;
-  nome: string;
-  descricao: string;
+  nomePeca: string;
   dataManutencao: string;
-  custo: number;
+  custoUnitario: number;
   quantidade: number;
 }
 
@@ -46,13 +45,11 @@ const RelatoriosPecas: React.FC = () => {
     try {
       const response = await fetchPecaManutencoes();
       // Map the API response to the expected format.
-      // Assuming each record contains: id, nome, descricao, dataManutencao, custo, and quantidade.
       const pecas: PecaManutencao[] = response.data.map((peca: any) => ({
         id: peca.id,
-        nome: peca.nome,
-        descricao: peca.descricao,
+        nomePeca: peca.nomePeca,
         dataManutencao: peca.dataManutencao,
-        custo: peca.custo,
+        custoUnitario: peca.custoUnitario,
         quantidade: peca.quantidade,
       }));
 
@@ -99,10 +96,9 @@ const RelatoriosPecas: React.FC = () => {
     reportData.data.forEach((peca) => {
       const rowData: (string | number)[] = [
         peca.id,
-        peca.nome,
-        peca.descricao,
+        peca.nomePeca,
         peca.dataManutencao,
-        peca.custo,
+        peca.custoUnitario,
         peca.quantidade
       ];
       tableRows.push(rowData);
@@ -134,16 +130,15 @@ const RelatoriosPecas: React.FC = () => {
     XLSX.utils.sheet_add_aoa(ws, [['Data: ' + reportData.date]], { origin: 'A2' });
     XLSX.utils.sheet_add_aoa(ws, [['Filtro: ' + filters.reportType], ['Período: ' + filters.startDate + ' a ' + filters.endDate]], { origin: 'A3' });
   
-    const header = ['ID', 'Peça', 'Descrição', 'Data da Manutenção', 'Custo', 'Quantidade'];
+    const header = ['ID', 'Peça', 'Data da Manutenção', 'Custo', 'Quantidade'];
     XLSX.utils.sheet_add_aoa(ws, [header], { origin: 'A5' });
   
     // Add maintenance parts data
     const dataForExcel = reportData.data.map((peca) => [
       peca.id,
-      peca.nome,
-      peca.descricao,
+      peca.nomePeca,
       peca.dataManutencao,
-      peca.custo,
+      peca.custoUnitario,
       peca.quantidade
     ]);
     XLSX.utils.sheet_add_aoa(ws, dataForExcel, { origin: 'A6' });
@@ -252,7 +247,6 @@ const RelatoriosPecas: React.FC = () => {
               <tr>
                 <th className="report-table-th">ID</th>
                 <th className="report-table-th">Peça</th>
-                <th className="report-table-th">Descrição</th>
                 <th className="report-table-th">Data da Manutenção</th>
                 <th className="report-table-th">Custo</th>
                 <th className="report-table-th">Quantidade</th>
@@ -262,10 +256,9 @@ const RelatoriosPecas: React.FC = () => {
               {reportData.data.map((peca) => (
                 <tr key={peca.id}>
                   <td className="report-table-td">{peca.id}</td>
-                  <td className="report-table-td">{peca.nome}</td>
-                  <td className="report-table-td">{peca.descricao}</td>
+                  <td className="report-table-td">{peca.nomePeca}</td>
                   <td className="report-table-td">{peca.dataManutencao}</td>
-                  <td className="report-table-td">{peca.custo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
+                  <td className="report-table-td">{peca.custoUnitario.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                   <td className="report-table-td">{peca.quantidade}</td>
                 </tr>
               ))}
