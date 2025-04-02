@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import { Veiculo } from "../../types/veiculo/VeiculoType";
 import { FiEdit, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
-import { GiAutoRepair, GiMechanicGarage } from "react-icons/gi";
-import DataCriacao from "../itens/DataFormatada";
-import { Fornecedor } from "../../types/veiculo/FornecedorType";
-import Manutencao from "../../types/veiculo/ManutencaoType";
 import PecaManutencao from "../../types/veiculo/PecaManutencaoType";
+import DataCriacao from "../itens/DataFormatada";
 
 interface PecaManutencaoListProps {
   pecaManutencoes: PecaManutencao[];
@@ -52,6 +48,7 @@ const PecaManutencaoList: React.FC<PecaManutencaoListProps> = ({ pecaManutencoes
         <table>
           <thead>
             <tr>
+              <th>Data de criação</th>
               <th>Nome da Peça</th>
               <th>Quantidade</th>
               <th>Custo da Peça</th>
@@ -68,6 +65,10 @@ const PecaManutencaoList: React.FC<PecaManutencaoListProps> = ({ pecaManutencoes
                 <td>{peca.nomePeca}</td>
                 <td>{peca.quantidade}</td>
                 <td>{peca.custoUnitario}</td>
+                {/* Data de teste, substituir por data de entrada da manutenção */}
+                <td>12/09/25</td>
+                <td>{peca.custoUnitario*peca.quantidade}</td>
+
                 <td>{peca.deletedAt ? 'Desativado' : 'Ativo'}</td>
                 <td>
                 <div className="icon-container">

@@ -33,6 +33,16 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
   const { loading, setLoading } = useLoading();
   const { handleLoad, dismissLoading } = useToast();
 
+  // These extra states are used for validation
+  const [placa, setPlaca] = useState<string>(formData.placaVeic);
+  const [chassi, setChassi] = useState<string>(formData.chassi);
+  const [anoFabricacao, setAnoFabricacao] = useState<string>(formData.anoFabricacao ? formData.anoFabricacao.toString() : "");
+  const [errors, setErrors] = useState<{
+    placa?: string;
+    chassi?: string;
+    anoFabricacao?: string;
+  }>({});
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -43,14 +53,57 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
     onCancel();
   };
 
+  const validate = (): boolean => {
+    const newErrors: {
+      placa?: string;
+      chassi?: string;
+      anoFabricacao?: string;
+    } = {};
+
+    // Validate license plate (placa)
+    // Accepts either:
+    //  1) Three letters, one digit, one letter, and two digits (e.g. ABC1D23)
+    //  OR
+    //  2) Three letters followed by four digits (e.g. ABC1234)
+    const placaRegex = /^(?:[A-Z]{3}[0-9][A-Z][0-9]{2}|[A-Z]{3}[0-9]{4})$/;
+    if (!placa) {
+      newErrors.placa = "Placa é obrigatória.";
+    } else if (!placaRegex.test(placa)) {
+      newErrors.placa = "Formato da placa inválido. Use ABC1D23 ou ABC1234.";
+    }
+
+    // Validate chassis (chassi)
+    if (!chassi) {
+      newErrors.chassi = "Chassi é obrigatório.";
+    } else if (chassi.length !== 17) {
+      newErrors.chassi = "Chassi deve ter exatamente 17 caracteres.";
+    }
+
+    // Validate manufacturing year (ano de fabricação)
+    const currentYear = new Date().getFullYear();
+    const anoNum = parseInt(anoFabricacao, 10);
+    if (!anoFabricacao) {
+      newErrors.anoFabricacao = "Ano de fabricação é obrigatório.";
+    } else if (isNaN(anoNum)) {
+      newErrors.anoFabricacao = "Ano de fabricação deve ser um número.";
+    } else if (anoNum < 1900 || anoNum > currentYear + 1) {
+      newErrors.anoFabricacao = `Ano de fabricação deve ser entre 1900 e ${currentYear + 1}.`;
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validate()) {
+      return;
+    }
     if (loading) return;
     setLoading(true);
     const toastKey = handleLoad("Carregando...");
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      // Se for atualização (modal e veículo para editar) e onUpdate estiver definida, chama onUpdate
       if (veiculoToEdit && isModal && onUpdate) {
         onUpdate(veiculoToEdit.id, formData);
       } else {
@@ -69,7 +122,22 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
       <h4>Veículo</h4>
       <Form.Group controlId="placaVeic">
         <Form.Label>Placa</Form.Label>
-        <Form.Control type="text" name="placaVeic" value={formData.placaVeic} onChange={handleInputChange} required />
+        <Form.Control
+          type="text"
+          name="placaVeic"
+          value={formData.placaVeic}
+          onChange={(e) => {
+            const upper = e.target.value.toUpperCase();
+            setPlaca(upper);
+            setFormData({ ...formData, placaVeic: upper });
+          }}
+          isInvalid={!!errors.placa}
+          placeholder="ABC1D23 ou ABC1234"
+          required
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.placa}
+        </Form.Control.Feedback>
       </Form.Group>
       <Form.Group controlId="modeloVeic">
         <Form.Label>Modelo</Form.Label>
@@ -81,11 +149,39 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
       </Form.Group>
       <Form.Group controlId="anoFabricacao">
         <Form.Label>Ano de Fabricação</Form.Label>
-        <Form.Control type="number" name="anoFabricacao" value={formData.anoFabricacao} onChange={handleInputChange} required />
+        <Form.Control 
+          type="number"
+          name="anoFabricacao"
+          value={formData.anoFabricacao ? formData.anoFabricacao.toString() : ""}
+          onChange={(e) => {
+            setAnoFabricacao(e.target.value);
+            setFormData({ ...formData, anoFabricacao: parseInt(e.target.value, 10) || 0 });
+          }}
+          isInvalid={!!errors.anoFabricacao}
+          placeholder={`Ex: ${new Date().getFullYear()}`}
+          required
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.anoFabricacao}
+        </Form.Control.Feedback>
       </Form.Group>
       <Form.Group controlId="chassi">
         <Form.Label>Chassi</Form.Label>
-        <Form.Control type="text" name="chassi" value={formData.chassi} onChange={handleInputChange} required />
+        <Form.Control
+          type="text"
+          name="chassi"
+          value={formData.chassi}
+          onChange={(e) => {
+            setChassi(e.target.value);
+            setFormData({ ...formData, chassi: e.target.value });
+          }}
+          isInvalid={!!errors.chassi}
+          placeholder="17 caracteres"
+          required
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.chassi}
+        </Form.Control.Feedback>
       </Form.Group>
       <Form.Group controlId="quilometragemAtual">
         <Form.Label>Quilometragem Atual</Form.Label>
