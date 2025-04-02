@@ -29,7 +29,7 @@ const ManutencaoList: React.FC<FornecedorListProps> = ({ manutencoes, onEdit, on
     return (
       <div>
         {/* Campo de Pesquisa */}
-        <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
+        <div className="MUDAR AQUI Ó .... E TODO O RESTO">
           <FiSearch style={{ marginRight: "8px", fontSize: "20px", color: "#007BFF" }} />
           <input
             type="text"
