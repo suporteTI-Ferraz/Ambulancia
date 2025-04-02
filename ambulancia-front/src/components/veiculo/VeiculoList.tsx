@@ -3,6 +3,7 @@ import { Veiculo } from "../../types/veiculo/VeiculoType";
 import { FiEdit, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
 import { GiAutoRepair, GiMechanicGarage } from "react-icons/gi";
 import DataCriacao from "../itens/DataFormatada";
+import '../../styles/UserList.css';
 
 interface VeiculoListProps {
   veiculos: Veiculo[];
@@ -11,103 +12,97 @@ interface VeiculoListProps {
   onViewManutencoes: (veiculo: Veiculo) => void;
 }
 
-
 const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManutencoes, onDelete }) => {
-    const [pesquisarVeiculo, setPesquisarVeiculo] = useState('');
+  const [pesquisarVeiculo, setPesquisarVeiculo] = useState('');
 
-    const filteredVeiculos = veiculos.filter(veiculo =>
-      veiculo.placaVeic.toLowerCase().includes(pesquisarVeiculo.toLowerCase())
-    );
+  const filteredVeiculos = veiculos.filter(veiculo =>
+    veiculo.placaVeic.toLowerCase().includes(pesquisarVeiculo.toLowerCase())
+  );
 
-     // Ordenar os usuários pela data de criação ou pelo id (ordem decrescente)
-      const sortedVeiculos = filteredVeiculos.sort((a, b) => {
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
-    
-  
-    return (
-      <div>
-        {/* Campo de Pesquisa */}
-        <div style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-          <FiSearch style={{ marginRight: "8px", fontSize: "20px", color: "#007BFF" }} />
-          <input
-            type="text"
-            placeholder="Pesquisar por Placa de Veículo"
-            value={pesquisarVeiculo}
-            onChange={(e) => setPesquisarVeiculo(e.target.value)}
-            style={{
-              padding: "8px",
-              fontSize: "14px",
-              border: "2px solid #007BFF",
-              borderRadius: "4px",
-              width: "100%",
-              maxWidth: "400px",
-            }}
-          />
-        </div>
-  
-        {/* Tabela de Veículos */}
-        <table>
-          <thead>
-            <tr>
-              <th>Criação</th>
-              <th>Placa</th>
-              <th>Ano de Fabricação</th>
-              <th>Chassi</th>
-              <th>Marca</th>
-              <th>Modelo</th>
-              <th>Quilometragem Atual</th>
-              <th>Classe</th>
-              <th>Status</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedVeiculos.map((veiculo) => (
-              <tr key={veiculo.id} style={{ backgroundColor: veiculo.deletedAt ? '#ffcccc' : 'white' }}>
-                <td><DataCriacao createdAt={veiculo.createdAt} /></td>
-                <td>{veiculo.placaVeic}</td>
-                <td>{veiculo.anoFabricacao}</td>
-                <td>{veiculo.chassi}</td>
-                <td>{veiculo.marcaVeic}</td>
-                <td>{veiculo.modeloVeic}</td>
+  // Ordenar os veículos pela data de criação ou pelo id (ordem decrescente)
+  const sortedVeiculos = filteredVeiculos.sort((a, b) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
 
-                <td>{veiculo.quilometragemAtual}</td>
-                <td>{veiculo.classe}</td>
-                <td>{veiculo.deletedAt ? 'Desativado' : 'Ativo'}</td>
-                <td>
+  return (
+    <div className="form-section2-funcionario">
+      {/* Campo de Pesquisa */}
+      <div className="custom-search-container">
+        <FiSearch className="custom-search-icon-user-list" />
+        <input
+          className="custom-input-search"
+          type="text"
+          placeholder="Pesquisar por Placa de Veículo"
+          value={pesquisarVeiculo}
+          onChange={(e) => setPesquisarVeiculo(e.target.value)}
+        />
+      </div>
+
+      {/* Tabela de Veículos */}
+      <table className="custom-table">
+        <thead>
+          <tr className="custom-th-tr">
+            <th className="custom-th">Criação</th>
+            <th className="custom-th">Placa</th>
+            <th className="custom-th">Ano de Fabricação</th>
+            <th className="custom-th">Chassi</th>
+            <th className="custom-th">Marca</th>
+            <th className="custom-th">Modelo</th>
+            <th className="custom-th">Quilometragem Atual</th>
+            <th className="custom-th">Classe</th>
+            <th className="custom-th">Status</th>
+            <th className="custom-th">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedVeiculos.map((veiculo) => (
+            <tr
+              key={veiculo.id}
+              className="custom-tr"
+              style={{ backgroundColor: veiculo.deletedAt ? '#ffcccc' : 'white' }}
+            >
+              <td className="custom-td"><DataCriacao createdAt={veiculo.createdAt} /></td>
+              <td className="custom-td">{veiculo.placaVeic}</td>
+              <td className="custom-td">{veiculo.anoFabricacao}</td>
+              <td className="custom-td">{veiculo.chassi}</td>
+              <td className="custom-td">{veiculo.marcaVeic}</td>
+              <td className="custom-td">{veiculo.modeloVeic}</td>
+              <td className="custom-td">{veiculo.quilometragemAtual}</td>
+              <td className="custom-td">{veiculo.classe}</td>
+              <td className="custom-td">{veiculo.deletedAt ? 'Desativado' : 'Ativo'}</td>
+              <td className="custom-td">
                 <div className="icon-container">
-                  <FiEdit 
-                  className="icon-action edit" 
-                  title="Editar" 
-                  onClick={() => onEdit(veiculo)} />
+                  <FiEdit
+                    className="custom-icon-action edit"
+                    title="Editar"
+                    onClick={() => onEdit(veiculo)}
+                  />
                   <GiAutoRepair
-                  className="icon-action manutencao" 
+                    className="custom-icon-action manutencao"
                     title="Visualizar Manutenções"
                     onClick={() => onViewManutencoes(veiculo)}
                   />
-              
                   {veiculo.deletedAt ? (
                     <FiRefreshCw
-                      className="icon-action reactivate"
+                      className="custom-icon-action reactivate"
                       title="Reativar"
                       onClick={() => onDelete(veiculo.id, veiculo.deletedAt)}
                     />
                   ) : (
                     <FiTrash
-                      className="icon-action delete"
+                      className="custom-icon-action delete"
                       title="Desativar"
                       onClick={() => onDelete(veiculo.id, null)}
                     />
                   )}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
-  
-  export default VeiculoList;
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default VeiculoList;

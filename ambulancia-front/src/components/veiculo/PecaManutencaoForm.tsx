@@ -80,29 +80,31 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h4>Peças</h4>
+      <h4 style={{ color: 'white' }}>Peças</h4>
       <Form.Group controlId="nomePeca" className="mb-3">
-        <Form.Label>Nome da Peça</Form.Label>
+        <Form.Label style={{ color: 'white' }}>Nome da Peça</Form.Label>
         <Form.Control
           type="text"
           name="nomePeca"
           value={formData.nomePeca}
           onChange={handleInputChange}
           required
+          style={{ color: 'white' }} // Cor da fonte no campo de input
         />
       </Form.Group>
       <Form.Group controlId="quantidade" className="mb-3">
-        <Form.Label>Quantidade</Form.Label>
+        <Form.Label style={{ color: 'white' }}>Quantidade</Form.Label>
         <Form.Control
           type="number"
           name="quantidade"
           value={formData.quantidade}
           onChange={handleInputChange}
           required
+          style={{ color: 'white' }} // Cor da fonte no campo de input
         />
       </Form.Group>
       <Form.Group controlId="custoUnitario" className="mb-3">
-        <Form.Label>Custo da Peça</Form.Label>
+        <Form.Label style={{ color: 'white' }}>Custo da Peça</Form.Label>
         <Form.Control
           type="number"
           step="0.01"
@@ -110,10 +112,11 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
           value={formData.custoUnitario}
           onChange={handleInputChange}
           required
+          style={{ color: 'white' }} // Cor da fonte no campo de input
         />
       </Form.Group>
       <Form.Group controlId="manutencoes" className="mb-3">
-        <Form.Label>Manutenções</Form.Label>
+        <Form.Label style={{ color: 'white' }}>Manutenções</Form.Label>
         <Select
           options={manutencoes.map((m) => ({
             value: m.id,
@@ -130,6 +133,17 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
           onChange={(opt) => {
             if (opt) setIdManu(opt.value);
           }}
+          styles={{
+            control: (provided) => ({
+              ...provided,
+              color: 'white', // Cor da fonte no select
+              borderColor: 'white', // Cor da borda do select
+            }),
+            singleValue: (provided) => ({
+              ...provided,
+              color: 'white', // Cor do valor selecionado no select
+            }),
+          }}
         />
       </Form.Group>
       <Row className="mt-3">
@@ -142,13 +156,17 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
           />
         </Col>
         <Col>
-          <Button variant="secondary" type="button" onClick={handleCancel}>
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={handleCancel}
+          >
             Limpar
           </Button>
         </Col>
       </Row>
     </Form>
   );
-};
+}  
 
 export default PecaManutencaoForm;

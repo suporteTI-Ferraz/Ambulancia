@@ -119,13 +119,16 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h4>Veículo</h4>
+      <h4 style={{ color: 'white' }}>Veículo</h4>
       <Form.Group controlId="placaVeic">
-        <Form.Label>Placa</Form.Label>
+
+        <Form.Label style={{ color: 'white' }}>Placa</Form.Label>
+
         <Form.Control
           type="text"
           name="placaVeic"
           value={formData.placaVeic}
+
           onChange={(e) => {
             const upper = e.target.value.toUpperCase();
             setPlaca(upper);
@@ -134,21 +137,38 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
           isInvalid={!!errors.placa}
           placeholder="ABC1D23 ou ABC1234"
           required
+        style={{ color: 'white' }}
         />
         <Form.Control.Feedback type="invalid">
           {errors.placa}
         </Form.Control.Feedback>
+
       </Form.Group>
       <Form.Group controlId="modeloVeic">
-        <Form.Label>Modelo</Form.Label>
-        <Form.Control type="text" name="modeloVeic" value={formData.modeloVeic} onChange={handleInputChange} required />
+        <Form.Label style={{ color: 'white' }}>Modelo</Form.Label>
+        <Form.Control
+          type="text"
+          name="modeloVeic"
+          value={formData.modeloVeic}
+          onChange={handleInputChange}
+          required
+          style={{ color: 'white' }}
+        />
       </Form.Group>
       <Form.Group controlId="marcaVeic">
-        <Form.Label>Marca</Form.Label>
-        <Form.Control type="text" name="marcaVeic" value={formData.marcaVeic} onChange={handleInputChange} required />
+        <Form.Label style={{ color: 'white' }}>Marca</Form.Label>
+        <Form.Control
+          type="text"
+          name="marcaVeic"
+          value={formData.marcaVeic}
+          onChange={handleInputChange}
+          required
+          style={{ color: 'white' }}
+        />
       </Form.Group>
       <Form.Group controlId="anoFabricacao">
-        <Form.Label>Ano de Fabricação</Form.Label>
+
+        <Form.Label style={{ color: 'white' }}>Ano de Fabricação</Form.Label>
         <Form.Control 
           type="number"
           name="anoFabricacao"
@@ -160,17 +180,20 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
           isInvalid={!!errors.anoFabricacao}
           placeholder={`Ex: ${new Date().getFullYear()}`}
           required
+          style={{ color: 'white' }}
         />
         <Form.Control.Feedback type="invalid">
           {errors.anoFabricacao}
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group controlId="chassi">
-        <Form.Label>Chassi</Form.Label>
+        <Form.Label style={{ color: 'white' }}>Chassi</Form.Label>
+
         <Form.Control
           type="text"
           name="chassi"
           value={formData.chassi}
+
           onChange={(e) => {
             setChassi(e.target.value);
             setFormData({ ...formData, chassi: e.target.value });
@@ -178,30 +201,59 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
           isInvalid={!!errors.chassi}
           placeholder="17 caracteres"
           required
+       style={{ color: 'white' }}
         />
         <Form.Control.Feedback type="invalid">
           {errors.chassi}
         </Form.Control.Feedback>
+
       </Form.Group>
       <Form.Group controlId="quilometragemAtual">
-        <Form.Label>Quilometragem Atual</Form.Label>
-        <Form.Control type="number" name="quilometragemAtual" value={formData.quilometragemAtual} onChange={handleInputChange} required />
+        <Form.Label style={{ color: 'white' }}>Quilometragem Atual</Form.Label>
+        <Form.Control
+          type="number"
+          name="quilometragemAtual"
+          value={formData.quilometragemAtual}
+          onChange={handleInputChange}
+          required
+          style={{ color: 'white' }}
+        />
       </Form.Group>
       <Form.Group controlId="classe">
-        <Form.Label>Classe</Form.Label>
-        <Form.Control type="text" name="classe" value={formData.classe} onChange={handleInputChange} required />
+        <Form.Label style={{ color: 'white' }}>Classe</Form.Label>
+        <Form.Control
+          type="text"
+          name="classe"
+          value={formData.classe}
+          onChange={handleInputChange}
+          required
+          style={{ color: 'white' }}
+        />
       </Form.Group>
-      <Row className="mt-3">
+
+      {/* Botões Veiculo */}
+      <Row className="div-botoes-veiculo">
         <Col>
-          <ButtonSpinner name={veiculoToEdit ? "Atualizar" : "Criar"} isLoading={loading} type="submit" classe="btn btn-primary" />
+          <ButtonSpinner
+            name={veiculoToEdit ? "Atualizar" : "Criar"}
+            isLoading={loading}
+            type="submit"
+            classe="botao-criar-veiculos"
+          />
         </Col>
-        <Col>
-          <Button variant="secondary" type="button" onClick={handleCancel}>
+        <Col >
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={handleCancel}
+            className="botao1234"
+          >
             Limpar
           </Button>
         </Col>
       </Row>
     </Form>
+
   );
 };
 

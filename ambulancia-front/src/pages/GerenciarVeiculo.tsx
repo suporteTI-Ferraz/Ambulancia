@@ -28,7 +28,7 @@ const GerenciarVeiculo = () => {
   return (
     <div className="container-principal-veiculos">
       <div className="container-forms-e-lists">
-        <h3>Gerenciar Veículos, Fornecedores e Manutenções</h3>
+        <h3 className="titulo-GerenciarVeiculos">Gerenciar Veículos, Fornecedores e Manutenções</h3>
 
         {/* Barra de navegação */}
         <Nav tabs>
@@ -66,13 +66,18 @@ const GerenciarVeiculo = () => {
           </NavItem>
         </Nav>
 
+
+
+
+
         {/* Conteúdo das abas */}
         <TabContent activeTab={activeTab}>
+
           {/* Aba de Veículo */}
           <TabPane className="tab-pane-center" tabId="veiculo">
             <div className="form-list-container">
               <div className="form-section2-veiculo">
-                <h4>Criar Veículo</h4>
+                {/* <h4 className="custom-title-table">Criar Veículo</h4> */}
                 <VeiculoForm
                   isModal={false}
                   onSave={handleSaveVeiculo}
@@ -82,7 +87,7 @@ const GerenciarVeiculo = () => {
                 />
               </div>
               <div className="list-section">
-                <h4>Lista de Veículos</h4>
+                {/* <h4>Lista de Veículos</h4> */}
                 <VeiculoList
                   veiculos={veiculos}
                   onEdit={handleEdit}
@@ -93,9 +98,12 @@ const GerenciarVeiculo = () => {
             </div>
           </TabPane>
 
+
+
           {/* Aba de Manutenção */}
-          <TabPane className="tab-pane-center"tabId="manutencao">
-            <h4>Gerenciar Manutenção</h4>
+
+          <TabPane tabId="manutencao">
+            <h4 className="titulo-manutencao-GerenciarVeiculo">Gerenciar Manutenção</h4>
             <ManutencaoForm
               isModal={false}
               onSave={handleSaveManutencao}
@@ -105,36 +113,48 @@ const GerenciarVeiculo = () => {
               fornecedores={fornecedores}
               veiculos={veiculos}
             />
-            <ManutencaoList
-              manutencoes={manutencoes}
-              onEdit={handleEditManu}
-              onDelete={handleDeleteManutencao}
-            />
+            <div className="list-section">
+              <ManutencaoList
+                manutencoes={manutencoes}
+                onEdit={handleEditManu}
+                onDelete={handleDeleteManutencao}
+              />
+            </div>
+
           </TabPane>
 
+
+
           {/* Aba de Peça */}
-          <TabPane tabId="peca">
-            <h4>Criar Peças para Manutenção</h4>
-            <PecaManutencaoForm
-              isModal={false}
-              onSave={handleSavePecaManutencao}
-              onCancel={() => setEditingPecaManutencao(null)}
-              pecaManutencaoToEdit={editingPecaManutencao}
-              onUpdate={handleUpdatePecaManutencao}
-              manutencoes={manutencoes}
-            />
-            <PecaManutencaoList
-              pecaManutencoes={pecaManutencoes}
-              onEdit={handleEditPecaManu}
-              onDelete={handleDeleteVeiculo}
-            />
+          <TabPane className="tab-pane-center" tabId="peca">
+            <div className="form-list-container">
+              <div className="form-section2-veiculo">
+                {/* <h4 className="tituloteste">Criar Peças para Manutenção</h4> */}
+                <PecaManutencaoForm
+                  isModal={false}
+                  onSave={handleSavePecaManutencao}
+                  onCancel={() => setEditingPecaManutencao(null)}
+                  pecaManutencaoToEdit={editingPecaManutencao}
+                  onUpdate={handleUpdatePecaManutencao}
+                  manutencoes={manutencoes}
+                />
+                </div>
+                <div className="list-section">
+                  <PecaManutencaoList
+                    pecaManutencoes={pecaManutencoes}
+                    onEdit={handleEditPecaManu}
+                    onDelete={handleDeleteVeiculo}
+                  />
+              </div>
+            </div>
           </TabPane>
+
+
 
           {/* Aba de Fornecedor */}
           <TabPane className="tab-pane-center" tabId="fornecedor">
             <div className="form-list-container">
               <div className="form-section2-veiculo">
-                <h4>Gerenciar Fornecedores</h4>
                 <FornecedorForm
                   onSave={handleSaveFornecedor}
                   isModal={false}
@@ -154,6 +174,10 @@ const GerenciarVeiculo = () => {
             </div>
           </TabPane>
         </TabContent>
+
+
+
+
 
         {/* Modals */}
         <Modal isOpen={isEditModalOpen} toggle={toggleModalFornecedor} className="gerenciar">

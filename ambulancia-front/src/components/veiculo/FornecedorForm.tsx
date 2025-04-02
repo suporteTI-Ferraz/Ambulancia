@@ -63,19 +63,20 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h4>Fornecedor</h4>
+      <h4 style={{ color: 'white' }}>Fornecedor</h4>
       <Form.Group controlId="nome">
-        <Form.Label>Nome do Fornecedor</Form.Label>
+        <Form.Label style={{ color: 'white' }}>Nome do Fornecedor</Form.Label>
         <Form.Control
           type="text"
           name="nome"
           value={formData.nome}
           onChange={handleInputChange}
           required
+          style={{ color: 'white' }} // Cor da fonte no campo de input
         />
       </Form.Group>
       <Form.Group controlId="cnpj">
-        <Form.Label>CNPJ</Form.Label>
+        <Form.Label style={{ color: 'white' }}>CNPJ</Form.Label>
         <InputMask
           mask="99.999.999/9999-99"
           name="cnpj"
@@ -84,10 +85,11 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
           className="form-control"
           placeholder="00.000.000/0000-00"
           required
+          style={{ color: 'white' }} // Cor da fonte no campo de input
         />
       </Form.Group>
       <Form.Group controlId="telefone">
-        <Form.Label>Telefone</Form.Label>
+        <Form.Label style={{ color: 'white' }}>Telefone</Form.Label>
         <InputMask
           mask="(99) 99999-9999"
           name="telefone"
@@ -96,14 +98,24 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
           className="form-control"
           placeholder="(00) 00000-0000"
           required
+          style={{ color: 'white' }} // Cor da fonte no campo de input
         />
       </Form.Group>
       <Row className="mt-3">
         <Col>
-          <ButtonSpinner name={isModal ? "Atualizar" : "Criar"} isLoading={loading} type="submit" classe="btn btn-primary" />
+          <ButtonSpinner
+            name={isModal ? "Atualizar" : "Criar"}
+            isLoading={loading}
+            type="submit"
+            classe="btn btn-primary"
+          />
         </Col>
         <Col>
-          <Button variant="secondary" type="button" onClick={handleCancel}>
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={handleCancel}
+          >
             Limpar
           </Button>
         </Col>
