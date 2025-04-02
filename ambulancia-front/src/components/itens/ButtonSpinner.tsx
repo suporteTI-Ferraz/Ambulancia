@@ -17,7 +17,6 @@ interface ButtonSpinnerProps {
   }) => {
     return (
       <button
-        className={classe}
         type={type}
         disabled={isLoading}
         onClick={(e) => onClick && onClick(e)} // Passa o evento se necessário
