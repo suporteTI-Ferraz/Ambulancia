@@ -1,82 +1,214 @@
-.tab-pane-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centraliza horizontalmente */
-    justify-content: center; /* Centraliza verticalmente */
-    height: 100%; /* Garante que o conteúdo ocupe toda a altura do TabPane */
-  }
+/* Título */
+.titulo-GerenciarVeiculos, .titulo-manutencao-GerenciarVeiculo {
+  color: white;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  font-size: 2rem;
+}
 
-
-
-/* container-principal-veiculosVeiculo.css */
-
-/* Container principal da página */
+/* Container principal */
 .container-principal-veiculos {
-  background-color: #ac888b;
-  padding: 20px;
+  background-color: #564a4b;
+  padding: 1.2rem;
+  width: 100%;
   font-family: Arial, sans-serif;
 }
 
-/* Título principal */
-.container-principal-veiculos h3 {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
-}
 
-/* Navegação de abas */
+
+
+
+/* Navegação das abas */
 .container-principal-veiculos .nav {
   margin-bottom: 20px;
-  background-color: #f8f9fa;
-  border-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: none;
 }
 
-.container-principal-veiculos .nav-item {
-  margin-right: 10px;
-}
-
-.container-principal-veiculos .nav-link {
-  font-size: 16px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.container-principal-veiculos .nav-link.active {
-  /* background-color: #007bff; */
+.container-principal-veiculos .nav a {
   color: #fff;
+  padding: 1.5rem 6rem;
+  text-decoration: none;
+  font-weight: lighter;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  border: none;
 }
 
-/* Conteúdo das abas */
-.container-principal-veiculos .tab-pane-center {
-  padding: 20px;
+.container-principal-veiculos .nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  cursor: pointer;
+  border-radius: 0 !important;
 }
 
-.container-principal-veiculos .tab-pane-center h4 {
-  font-size: 20px;
-  color: #333;
-  margin-bottom: 20px;
+.container-principal-veiculos .nav a.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-bottom: 3px solid rgb(0, 181, 96);
+  border-radius: 0 !important;
 }
+
+
+
+
 
 /* Formulários */
-.container-principal-veiculos .form-container {
+.form-section2-veiculo input,
+.form-section2-veiculo select,
+.form-section2-veiculo textarea {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid transparent;
+  color: white;
+  margin-bottom: 2rem;
+  border-radius: 0;
+}
+
+.form-section2-veiculo input:focus,
+.form-section2-veiculo select:focus,
+.form-section2-veiculo textarea:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  outline: none;
+  border: 1px solid white;
+  outline: none;
+  box-shadow: none;
+}
+
+.form-section2-veiculo input::placeholder,
+.form-section2-veiculo select::placeholder,
+.form-section2-veiculo textarea::placeholder {
+  color: white;
+}
+
+
+
+
+
+/* Tabela */
+.custom-table {
+  width: 100%;
+  margin: 20px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-spacing: 0;
+}
+
+.container-search-veiculos {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.custom-th, .custom-td-paciente {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.custom-th {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: bold;
+}
+
+.custom-tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Ações da tabela */
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.custom-icon-action {
+  font-size: 18px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.custom-icon-action:hover {
+  transform: scale(1.2);
+}
+
+.custom-icon-action.edit {
+  color: #4CAF50;
+}
+
+.custom-icon-action.delete {
+  color: #F44336;
+}
+
+.custom-icon-action.reactivate {
+  color: #2196F3;
+}
+
+/* Containers */
+.form-container {
   margin-bottom: 30px;
 }
 
-.container-principal-veiculos .form-container input,
-.container-principal-veiculos .form-container select,
-.container-principal-veiculos .form-container textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
+.form-list-container {
+  background-color: none;
+  width: 80rem;
+  align-items: center;
+  justify-items: center;
 }
+
+.container-forms-e-lists {
+  width: 100%;
+  align-self: center;
+  justify-self: center;
+  align-items: center;
+  justify-items: center;
+}
+
+.form-section2-veiculo {
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 40%;
+  padding: 4rem 3rem 2rem;
+  margin-bottom: 3rem;
+}
+
+.div-botoes-veiculo {
+  background-color: none;
+  justify-self: center;
+  align-self: center;
+}
+
+.botao-criar-veiculos {
+  background-color: white;
+  color: var(--bg-color);
+  border: none;
+  padding: 1rem 3rem;
+  justify-self: center;
+  align-self: center;
+}
+
+.botao1234 {
+  background-color: transparent !important;
+  color: white !important;
+  border: 1px solid white !important;
+  padding: 0.99rem 1rem !important;
+  border-radius: 0 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Modal */
 .container-principal-veiculos .modal-header {
-  /* background-color: #007bff; */
   color: #fff;
   border-bottom: none;
 }
@@ -85,150 +217,20 @@
   padding: 20px;
 }
 
-.container-principal-veiculos .modal-body .form-container input,
-.container-principal-veiculos .modal-body .form-container select,
-.container-principal-veiculos .modal-body .form-container textarea {
-  margin-bottom: 15px;
+/* Container de pesquisa */
+.custom-search-container {
+  position: relative;
+  width: 60%;
 }
 
-/* Tabela de fornecedores, veículos e manutenções */
-.container-principal-veiculos .list-container {
-  margin-top: 20px;
-}
-
-.container-principal-veiculos .list-container table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.container-principal-veiculos .list-container th,
-.container-principal-veiculos .list-container td {
-  padding: 10px;
-  text-align: left;
-  border: 1px solid #ddd;
-}
-
-.container-principal-veiculos .list-container th {
-  background-color: #f4f4f4;
-}
-
-.container-principal-veiculos .list-container td button {
-  padding: 5px 10px;
-  margin-right: 5px;
-  border-radius: 5px;
-}
-
-.container-principal-veiculos .list-container td button.edit {
-  background-color: #ffc107;
-  color: #fff;
-}
-
-.container-principal-veiculos .list-container td button.delete {
-  background-color: #dc3545;
-  color: #fff;
-}
-
-.container-principal-veiculos .list-container td button.view {
-  background-color: #28a745;
-  color: #fff;
-}
-
-.container-principal-veiculos .list-container td button:hover {
-  opacity: 0.8;
-}
-
-/* Estilos para o TabContent */
-.container-principal-veiculos .tab-content {
-  margin-top: 20px;
-}
-
-/* Modal de Edição de Veículo */
-.container-principal-veiculos .modal-vehicle {
-  max-width: 800px;
-}
-
-/* Modal de Fornecedores */
-.container-principal-veiculos .modal-fornecedor {
-  max-width: 800px;
-}
-
-/* Modal de Manutenção */
-.container-principal-veiculos .modal-manutencao {
-  max-width: 800px;
-}
-
-/* Ajustes gerais */
-.container-principal-veiculos .modal-body .form-container {
-  margin-top: 10px;
-}
-
-.container-principal-veiculos .modal-body .form-container input,
-.container-principal-veiculos .modal-body .form-container select,
-.container-principal-veiculos .modal-body .form-container textarea {
-  margin-top: 10px;
-}
-
-/* Estilo do container do formulário */
-.form-section2-veiculos {
-  background-color: rgb(255, 255, 255, 0.1);
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.custom-div-form-section2-search {
+  margin-bottom: 3rem !important;
+  padding: 0;
+  border-radius: 8px;
   width: 100%;
   max-width: 70rem;
-  margin-top: 3rem;
-  margin-bottom: 6rem;
-  align-self: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
-/* Estilo do título da tabela */
-.custom-title-table {
-  background-color: rgb(255, 255, 255, 0.1);
-  color: white;
-}
-
-.form-list-container {
-  background-color: #ffc107;
-  align-items: center;
-  justify-items: center;
-}
-
-
-.container-forms-e-lists {
-  width: 90% !important;
-  align-self: center;
-  justify-self: center;
-  align-items: center;
-  justify-items: center;
-  /* background-color: #007bff; */
-}
-
-
-.form-section2-veiculo {
-  background-color: rgba(0, 0, 0, 0.1);
-  width: 70%;
-  padding: 4rem 3rem 2rem 3rem; /*cima direita baixo esquerda*/
-}
-
-.form-section2-veiculo {
-  background-color: pink;
-  width: 70%;
-  padding: 4rem 3rem 2rem 3rem; /*cima direita baixo esquerda*/
-}
-
-
-.list-section {
-  align-items: center;
-  justify-items: center;
-  background-color: green;
-}
-
-
-
-
-
-
-
