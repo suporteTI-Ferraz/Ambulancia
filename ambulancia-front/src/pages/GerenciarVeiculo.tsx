@@ -101,8 +101,18 @@ const GerenciarVeiculo = () => {
 
 
           {/* Aba de Manutenção */}
+
           <TabPane tabId="manutencao">
-            <h4 className="titulo-manutencao-GerenciarVeiculo">Lista de Manutenções</h4>
+            <h4 className="titulo-manutencao-GerenciarVeiculo">Gerenciar Manutenção</h4>
+            <ManutencaoForm
+              isModal={false}
+              onSave={handleSaveManutencao}
+              onCancel={() => setEditingManutencao(null)}
+              manutencaoToEdit={editingManutencao}
+              onUpdate={handleUpdateManutencao}
+              fornecedores={fornecedores}
+              veiculos={veiculos}
+            />
             <div className="list-section">
               <ManutencaoList
                 manutencoes={manutencoes}
@@ -110,6 +120,7 @@ const GerenciarVeiculo = () => {
                 onDelete={handleDeleteManutencao}
               />
             </div>
+
           </TabPane>
 
 

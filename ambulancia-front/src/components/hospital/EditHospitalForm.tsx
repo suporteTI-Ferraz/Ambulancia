@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import HospitalForm from "./HospitalForm";
-import EnderecoHospForm from "./EnderecoHospForm";
-import ButtonSpinner from "../itens/ButtonSpinner";
 import { EnderecoHosp } from "../../types/hospital/EnderecoHospType";
 import { Hospital } from "../../types/hospital/HospitalType";
+import ButtonSpinner from "../itens/ButtonSpinner";
+import EnderecoHospForm from "./EnderecoHospForm";
 interface HospitalFormProps {
   hospital: Hospital; // Para edição, ou null para criação
   onSave: (updatedHospital: Hospital, notUpdatedHospital: Hospital) => void;
@@ -82,7 +81,7 @@ const EdithospitalForm: React.FC<HospitalFormProps> = ({ hospital, onSave }) => 
   enderecosIniciais={hospital?.enderecos || []} // Passando os endereços existentes
 />
       <div className="div-botao-modal-hospital">
-        <ButtonSpinner name="Salvar" isLoading={isLoading} type="submit"/>
+        <ButtonSpinner name="Salvar" isLoading={isLoading} type="submit" classe={""}/>
         {/* <button type="button" onClick={handleCancel}>
           Limpar
         </button> */}

@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Select from "react-select";
 import { useLoading } from "../../contexts/LoadingContext";
@@ -71,6 +72,12 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
     }
   };
 
+  // Helper function to generate the label string
+  const formatManutencaoLabel = (m: Manutencao) =>
+    `${m.tipoManutencao} | ${m.veiculo?.placaVeic} | ${m.dataEntradaManutencao}`;
+
+  const selectedManutencao = manutencoes.find((m) => m.id === idManu);
+
   return (
     <Form onSubmit={handleSubmit}>
       <h4 style={{ color: 'white' }}>Peças</h4>
@@ -111,10 +118,16 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
       <Form.Group controlId="manutencoes" className="mb-3">
         <Form.Label style={{ color: 'white' }}>Manutenções</Form.Label>
         <Select
-          options={manutencoes.map(m => ({ value: m.id, label: m.createdAt }))}
+          options={manutencoes.map((m) => ({
+            value: m.id,
+            label: formatManutencaoLabel(m),
+          }))}
           value={
-            idManu > 0
-              ? { value: idManu, label: manutencoes.find(m => m.id === idManu)?.createdAt || "" }
+            idManu > 0 && selectedManutencao
+              ? {
+                  value: idManu,
+                  label: formatManutencaoLabel(selectedManutencao),
+                }
               : null
           }
           onChange={(opt) => {
