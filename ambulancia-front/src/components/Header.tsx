@@ -77,7 +77,7 @@ const Header: React.FC = () => {
                             <NavLink href="/" className="nav-link hover:bg-pink-500">Início</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/about" className="nav-link">Sobre</NavLink>
+                            <NavLink href="/dashboard-relatorios" className="nav-link">Relatórios</NavLink>
                         </NavItem>
 
                         {isLoggedIn && (

@@ -186,22 +186,13 @@
   align-self: center;
 }
 
-.botao1234 {
+.botao-limpar-veiculos {
   background-color: transparent !important;
   color: white !important;
   border: 1px solid white !important;
   padding: 0.99rem 1rem !important;
   border-radius: 0 !important;
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -233,4 +224,68 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.form-container-manutencao {
+  margin-bottom: 2rem; /* Adiciona uma margem inferior para separar o formulário */
+  padding: 20px;
+  width: 53%;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex; /* Contêiner flex */
+  flex-direction: column; /* Alinha os itens verticalmente */
+  align-self: center;
+  justify-self: center;
+}
+
+.form-container-manutencao h4 {
+  margin-top: 3rem;
+  margin-left: 2.3rem ;
+
+}
+
+.form-container-manutencao input {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  padding: 0.7rem;
+  color: white;
+  width: 30rem;
+}
+
+.form-container-manutencao select {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  padding: 0.7rem;
+  color: white;
+  width: 30rem;
+}
+
+.form-container-manutencao .select div {
+  
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  padding: 0.7rem;
+  color: white;
+  width: 30rem;
+}
+
+
+.div-input-manutencao {
+  align-self: center;
+  justify-self: center;
+  margin-bottom: 2rem;
+  max-width: 480px;
 }

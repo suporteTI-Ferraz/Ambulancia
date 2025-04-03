@@ -48,9 +48,11 @@
   justify-content: center;
   align-items: center;
   width: calc(25% - 0.05rem);
-  transition: transform 0.3s;
+  transition: transform 0.3s !important;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.4s ease-in-out, z-index 0s 0.4s;
+  cursor: pointer;
 }
 
 /* Estilo do ícone dentro do card */
@@ -68,15 +70,13 @@
   margin-top: 1rem;
 }
 
-/* Efeito hover nos cards */
-.card {
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
 
 .card:hover {
-  background-color: var(--main-color) !important;
+  background-color: #801616 !important;
   color: white;
+  transform: scale(1.05); /* Aumenta a escala do elemento */
+  z-index: 10; /* Coloca o elemento na frente dos outros */
+
 }
 
 /* Efeito de clique no botão */

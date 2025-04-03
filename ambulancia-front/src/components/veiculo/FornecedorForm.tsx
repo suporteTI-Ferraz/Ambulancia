@@ -63,7 +63,7 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h4 style={{ color: 'white' }}>Fornecedor</h4>
+      <h4 style={{ color: 'white' }}>Fornecedores</h4>
       <Form.Group controlId="nome">
         <Form.Label style={{ color: 'white' }}>Nome do Fornecedor</Form.Label>
         <Form.Control
