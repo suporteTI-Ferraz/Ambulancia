@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Select from "react-select";
 import { useLoading } from "../../contexts/LoadingContext";
@@ -12,11 +12,14 @@ interface PecaManutencaoFormProps {
   onSave: (pecaManutencao: PecaManutencao, idManu: number) => void;
   onUpdate: (id: number, pecaManutencao: PecaManutencao, idManu: number) => void;
   onCancel: () => void;
-  pecaManutencaoToEdit: PecaManutencao | null; // Para edição, ou null para criação
+  pecaManutencaoToEdit: PecaManutencao | null; // For editing, or null for creation
   isModal: boolean;
   resetPecasManutencoes?: boolean;
   manutencoes: Manutencao[];
 }
+
+// IMPORTANT: Ensure that your PecaManutencao type has an optional field to store the associated manutenção id.
+// For example, in PecaManutencaoType you can add: manutencaoId?: number;
 
 const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
   onSave,
@@ -33,6 +36,8 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
     custoUnitario: pecaManutencaoToEdit?.custoUnitario || 0.0,
     deletedAt: null,
     createdAt: "",
+    // If you add manutencaoId to your type, you might also initialize it here:
+    // manutencaoId: pecaManutencaoToEdit?.manutencaoId || 0,
   };
 
   const [formData, setFormData] = useState<PecaManutencao>(initialFormData);
@@ -40,6 +45,14 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
 
   const { loading, setLoading } = useLoading();
   const { handleLoad, dismissLoading } = useToast();
+
+  // If in edit mode and the peça já possui uma manutenção associada,
+  // initialize idManu so that the select displays the correct value.
+  useEffect(() => {
+    if (pecaManutencaoToEdit && (pecaManutencaoToEdit as any).manutencaoId) {
+      setIdManu((pecaManutencaoToEdit as any).manutencaoId);
+    }
+  }, [pecaManutencaoToEdit]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLElement>) => {
     const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
@@ -72,7 +85,7 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
     }
   };
 
-  // Helper function to generate the label string
+  // Helper function to generate the label string for manutenção options
   const formatManutencaoLabel = (m: Manutencao) =>
     `${m.tipoManutencao} | ${m.veiculo?.placaVeic} | ${m.dataEntradaManutencao}`;
 
@@ -89,7 +102,7 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
           value={formData.nomePeca}
           onChange={handleInputChange}
           required
-          style={{ color: 'white' }} // Cor da fonte no campo de input
+          style={{ color: 'white' }} // Text color in input field
         />
       </Form.Group>
       <Form.Group controlId="quantidade" className="mb-3">
@@ -100,7 +113,7 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
           value={formData.quantidade}
           onChange={handleInputChange}
           required
-          style={{ color: 'white' }} // Cor da fonte no campo de input
+          style={{ color: 'white' }}
         />
       </Form.Group>
       <Form.Group controlId="custoUnitario" className="mb-3">
@@ -112,7 +125,7 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
           value={formData.custoUnitario}
           onChange={handleInputChange}
           required
-          style={{ color: 'white' }} // Cor da fonte no campo de input
+          style={{ color: 'white' }}
         />
       </Form.Group>
       <Form.Group controlId="manutencoes" className="mb-3">
@@ -136,12 +149,12 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
           styles={{
             control: (provided) => ({
               ...provided,
-              color: 'white', // Cor da fonte no select
-              borderColor: 'white', // Cor da borda do select
+              color: 'black', // Text color in select control
+              borderColor: 'white', // Border color
             }),
             singleValue: (provided) => ({
               ...provided,
-              color: 'white', // Cor do valor selecionado no select
+              color: 'white', // Text color for selected value
             }),
           }}
         />
@@ -167,6 +180,6 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
       </Row>
     </Form>
   );
-}  
+};  
 
 export default PecaManutencaoForm;
