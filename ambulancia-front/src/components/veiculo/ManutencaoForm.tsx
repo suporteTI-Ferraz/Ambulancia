@@ -204,7 +204,7 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
       <Form.Group controlId="veiculo" className="mb-3">
         <Form.Label>Veículo:</Form.Label>
         <Select
-          options={veiculos.map(v => ({ value: v.id, label: v.placaVeic }))}
+          options={veiculos.map(v => ({ value: v.id, label: `${v.modeloVeic} | ${v.placaVeic}` }))}
           value={
             idVeic > 0
               ? { value: idVeic, label: veiculos.find(v => v.id === idVeic)?.placaVeic || "" }
