@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
@@ -106,141 +105,163 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <h4>Manutenções</h4>
-      <Form.Group controlId="tipoManutencao" className="mb-3">
-        <Form.Label>Tipo de Manutenção</Form.Label>
-        <Form.Control
-          type="text"
-          name="tipoManutencao"
-          value={formData.tipoManutencao}
-          onChange={handleInputChange}
-          required
-        />
-      </Form.Group>
-      <Form.Group controlId="descricaoProblema" className="mb-3">
-        <Form.Label>Descricao do Problema</Form.Label>
-        <Form.Control
-          type="text"
-          name="descricaoProblema"
-          value={formData.descricaoProblema}
-          onChange={handleInputChange}
-          required
-        />
-      </Form.Group>
-      <Form.Group controlId="servicoRealizado" className="mb-3">
-        <Form.Label>Serviço Realizado</Form.Label>
-        <Form.Control
-          type="text"
-          name="servicoRealizado"
-          value={formData.servicoRealizado}
-          onChange={handleInputChange}
-          required
-        />
-      </Form.Group>
-      <Form.Group controlId="dataEntradaManutencao" className="mb-3">
-        <Form.Label>Data de Entrada da Manutenção</Form.Label>
-        <DatePicker
-          selected={formData.dataEntradaManutencao ? new Date(formData.dataEntradaManutencao) : null}
-          onChange={(date) =>
-            setFormData({ ...formData, dataEntradaManutencao: date?.toISOString().split("T")[0] || "" })
-          }
-          locale="pt-BR"
-          dateFormat="dd/MM/yyyy"
-          showYearDropdown
-          scrollableYearDropdown
-          yearDropdownItemNumber={120}
-          maxDate={new Date()}
-          placeholderText="DD/MM/AAAA"
-          popperPlacement="left-end"
-          className="form-control"
-        />
-      </Form.Group>
-      <Form.Group controlId="dataSaidaManutencao" className="mb-3">
-        <Form.Label>Data de Saída da Manutenção</Form.Label>
-        <DatePicker
-          selected={formData.dataSaidaManutencao ? new Date(formData.dataSaidaManutencao) : null}
-          onChange={(date) =>
-            setFormData({ ...formData, dataSaidaManutencao: date?.toISOString().split("T")[0] || "" })
-          }
-          locale="pt-BR"
-          dateFormat="dd/MM/yyyy"
-          showYearDropdown
-          scrollableYearDropdown
-          yearDropdownItemNumber={120}
-          maxDate={new Date()}
-          placeholderText="DD/MM/AAAA"
-          popperPlacement="left-end"
-          className="form-control"
-        />
-      </Form.Group>
-      <Form.Group controlId="custoManutencao" className="mb-3">
-        <Form.Label>Custo</Form.Label>
-        <Form.Control
-          type="number"
-          step="0.01"
-          name="custoManutencao"
-          value={formData.custoManutencao}
-          onChange={handleInputChange}
-        />
-      </Form.Group>
-      <Form.Group controlId="status" className="mb-3">
-        <Form.Label>Estado</Form.Label>
-        <Form.Control
-          as="select"
-          name="status"
-          value={formData.status}
-          onChange={handleInputChange}
-          required
-        >
-          <option value="" disabled>
-            Selecione o estado da manutenção
-          </option>
-          <option value="PENDENTE">Pendente</option>
-          <option value="EM_ANDAMENTO">Em Andamento</option>
-          <option value="CONCLUIDA">Concluída</option>
-        </Form.Control>
-      </Form.Group>
-      <Form.Group controlId="veiculo" className="mb-3">
-        <Form.Label>Veículo:</Form.Label>
-        <Select
-          options={veiculos.map(v => ({ value: v.id, label: `${v.modeloVeic} | ${v.placaVeic}` }))}
-          value={
-            idVeic > 0
-              ? { value: idVeic, label: veiculos.find(v => v.id === idVeic)?.placaVeic || "" }
-              : null
-          }
-          onChange={(opt) => {
-            if (opt) setIdVeic(opt.value);
-          }}
-        />
-      </Form.Group>
-      <Form.Group controlId="fornecedor" className="mb-3">
-        <Form.Label>Fornecedor:</Form.Label>
-        <Select
-          options={fornecedores.map(f => ({ value: f.id, label: f.nome }))}
-          value={
-            idForn > 0
-              ? { value: idForn, label: fornecedores.find(f => f.id === idForn)?.nome || "" }
-              : null
-          }
-          onChange={(opt) => {
-            if (opt) setIdForn(opt.value);
-          }}
-        />
-      </Form.Group>
-      <Row className="mt-3">
-        <Col>
-          <ButtonSpinner name={isModal ? "Atualizar" : "Criar"} isLoading={loading} type="submit" classe={""} />
-        </Col>
-        <Col>
-          <Button variant="secondary" type="button" onClick={handleCancel}>
-            Limpar
-          </Button>
-        </Col>
-      </Row>
-    </Form>
+    <div>
+      <div className="form-container-manutencao">
+        <Form onSubmit={handleSubmit}>
+          <h4 style={{ color: "white" }}>Manutenções</h4>
+          <Form.Group controlId="tipoManutencao" className="div-input-manutencao">
+            <Form.Label style={{ color: "white" }}>Tipo de Manutenção</Form.Label>
+            <Form.Control
+              type="text"
+              name="tipoManutencao"
+              value={formData.tipoManutencao}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="descricaoProblema" className="div-input-manutencao">
+            <Form.Label style={{ color: "white" }}>Descricao do Problema</Form.Label>
+            <Form.Control
+              type="text"
+              name="descricaoProblema"
+              value={formData.descricaoProblema}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="servicoRealizado" className="div-input-manutencao">
+            <Form.Label style={{ color: "white" }}>Serviço Realizado</Form.Label>
+            <Form.Control
+              type="text"
+              name="servicoRealizado"
+              value={formData.servicoRealizado}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="dataEntradaManutencao" className="div-input-manutencao">
+            <Form.Label style={{ color: "white" }}>Data de Entrada da Manutenção</Form.Label>
+            <DatePicker
+              selected={formData.dataEntradaManutencao ? new Date(formData.dataEntradaManutencao) : null}
+              onChange={(date) =>
+                setFormData({ ...formData, dataEntradaManutencao: date?.toISOString().split("T")[0] || "" })
+              }
+              locale="pt-BR"
+              dateFormat="dd/MM/yyyy"
+              showYearDropdown
+              scrollableYearDropdown
+              yearDropdownItemNumber={120}
+              maxDate={new Date()}
+              placeholderText="DD/MM/AAAA"
+              popperPlacement="left-end"
+              className="form-control"
+            />
+          </Form.Group>
+          <Form.Group controlId="dataSaidaManutencao" className="div-input-manutencao">
+            <Form.Label style={{ color: "white" }}>Data de Saída da Manutenção</Form.Label>
+            <DatePicker
+              selected={formData.dataSaidaManutencao ? new Date(formData.dataSaidaManutencao) : null}
+              onChange={(date) =>
+                setFormData({ ...formData, dataSaidaManutencao: date?.toISOString().split("T")[0] || "" })
+              }
+              locale="pt-BR"
+              dateFormat="dd/MM/yyyy"
+              showYearDropdown
+              scrollableYearDropdown
+              yearDropdownItemNumber={120}
+              maxDate={new Date()}
+              placeholderText="DD/MM/AAAA"
+              popperPlacement="left-end"
+              className="form-control"
+            />
+          </Form.Group>
+          <Form.Group controlId="custoManutencao" className="div-input-manutencao">
+            <Form.Label style={{ color: "white" }}>Custo</Form.Label>
+            <Form.Control
+              type="number"
+              step="0.01"
+              name="custoManutencao"
+              value={formData.custoManutencao}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="status" className="div-input-manutencao">
+            <Form.Label style={{ color: "white" }}>Estado</Form.Label>
+            <Form.Control
+              as="select"
+              name="status"
+              value={formData.status}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="" disabled>
+                Selecione o estado da manutenção
+              </option>
+              <option value="PENDENTE">Pendente</option>
+              <option value="EM_ANDAMENTO">Em Andamento</option>
+              <option value="CONCLUIDA">Concluída</option>
+            </Form.Control>
+          </Form.Group>
+          <Form.Group controlId="veiculo" className="div-input-manutencao">
+            <Form.Label style={{ color: "white" }}>Veículo:</Form.Label>
+            <Form.Control
+              as="select"
+              name="idVeic"
+              value={idVeic}
+              onChange={(e) => {
+                const selectedValue = e.target.value;
+                if (selectedValue) setIdVeic(Number(selectedValue));
+              }}
+              required
+            >
+              <option value="" disabled>
+                Selecione o veículo
+              </option>
+              {veiculos.map((v) => (
+                <option key={v.id} value={v.id}>
+                  {v.placaVeic}
+                </option>
+              ))}
+            </Form.Control>
+
+          </Form.Group>
+          <Form.Group controlId="fornecedor" className="div-input-manutencao">
+            <Form.Label style={{ color: "white" }}>Fornecedor:</Form.Label>
+            <Form.Control
+              as="select"
+              name="idForn"
+              value={idForn}
+              onChange={(e) => {
+                const selectedValue = e.target.value;
+                if (selectedValue) setIdForn(Number(selectedValue));
+              }}
+              required
+            >
+              <option value="" disabled>
+                Selecione o fornecedor
+              </option>
+              {fornecedores.map((f) => (
+                <option key={f.id} value={f.id}>
+                  {f.nome}
+                </option>
+              ))}
+            </Form.Control>
+
+          </Form.Group>
+          <Row className="div-input-manutencao">
+            <Col>
+              <ButtonSpinner name={isModal ? "Atualizar" : "Criar"} isLoading={loading} type="submit" classe={"botao-criar-veiculos"} />
+            </Col>
+            <Col>
+              <Button className="botao-limpar-veiculos" type="button" onClick={handleCancel}>
+                Limpar
+              </Button>
+            </Col>
+          </Row>
+        </Form>
+      </div>
+    </div>
   );
-};
+}
 
 export default ManutencaoForm;

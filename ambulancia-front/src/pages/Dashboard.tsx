@@ -68,7 +68,7 @@ const Dashboard = () => {
 
             <div className="card" onClick={handleVeiculoRoute}>
               <FaAmbulance className="icon" />
-              <h3>Ambulâncias</h3>
+              <h3>Veículos</h3>
             </div>
 
             <div className="card" onClick={handleAgendarDiaRoute}>

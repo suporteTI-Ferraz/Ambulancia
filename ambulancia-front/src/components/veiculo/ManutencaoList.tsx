@@ -12,98 +12,92 @@ interface FornecedorListProps {
   onDelete: (id: number, deletedAt: string | null) => void;
 }
 
-
 const ManutencaoList: React.FC<FornecedorListProps> = ({ manutencoes, onEdit, onDelete }) => {
-    const [pesquisarManutencao, setPesquisarManutencao] = useState('');
+  const [pesquisarManutencao, setPesquisarManutencao] = useState('');
 
-    const filteredManutencoes = manutencoes.filter(manutencao =>
-      manutencao.dataEntradaManutencao.toLowerCase().includes(pesquisarManutencao.toLowerCase())
-    );
+  const filteredManutencoes = manutencoes.filter(manutencao =>
+    manutencao.dataEntradaManutencao.toLowerCase().includes(pesquisarManutencao.toLowerCase())
+  );
 
-     // Ordenar os usuários pela data de criação ou pelo id (ordem decrescente)
-      const sortedManutencoes= filteredManutencoes.sort((a, b) => {
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
-    
-  
-    return (
-      <div>
-        {/* Campo de Pesquisa */}
-        <div className="MUDAR AQUI Ó .... E TODO O RESTO">
-          <FiSearch style={{ marginRight: "8px", fontSize: "20px", color: "#007BFF" }} />
-          <input
-            type="text"
-            placeholder="Pesquisar por Data da Manutenção"
-            value={pesquisarManutencao}
-            onChange={(e) => setPesquisarManutencao(e.target.value)}
-            style={{
-              padding: "8px",
-              fontSize: "14px",
-              border: "2px solid #007BFF",
-              borderRadius: "4px",
-              width: "100%",
-              maxWidth: "400px",
-            }}
-          />
-        </div>
-  
-        {/* Tabela de Veículos */}
-        <table>
-          <thead>
-            <tr>
-              <th>Criação</th>
-              <th>Tipo</th>
-              <th>Data de Entrada da Manutenção</th>
-              <th>Data de Saída da Manutenção</th>
-              <th>Custo</th>
-              <th>Situação</th>
-              <th>Descrição</th>
-              <th>Serviço</th>
-              <th>Status</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedManutencoes.map((manutencao) => (
-              <tr key={manutencao.id} style={{ backgroundColor: manutencao.deletedAt ? '#ffcccc' : 'white' }}>
-                <td><DataCriacao createdAt={manutencao.createdAt} /></td>
-                <td>{manutencao.tipoManutencao}</td>
-                <td><DataCriacao createdAt={manutencao.dataEntradaManutencao} /></td>
-                <td><DataCriacao createdAt={manutencao.dataSaidaManutencao} /></td>
-                <td>{manutencao.custoManutencao}</td>
-                <td>{manutencao.status}</td>
-                <td>{manutencao.descricaoProblema}</td>
-                <td>{manutencao.servicoRealizado}</td>
-                <td>{manutencao.deletedAt ? 'Desativado' : 'Ativo'}</td>
-                <td>
+  // Ordenar os itens pela data de criação ou pelo id (ordem decrescente)
+  const sortedManutencoes = filteredManutencoes.sort((a, b) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+
+  return (
+    <div className="form-section2-funcionario">
+      {/* Campo de Pesquisa */}
+      <div className="custom-search-container">
+        <FiSearch className="custom-search-icon-user-list" />
+        <input
+          className="custom-input-search"
+          type="text"
+          placeholder="Pesquisar por Data da Manutenção"
+          value={pesquisarManutencao}
+          onChange={(e) => setPesquisarManutencao(e.target.value)}
+        />
+      </div>
+
+      {/* Tabela de Manutenções */}
+      <table className="custom-table">
+        <thead>
+          <tr className="custom-th-tr">
+            <th className="custom-th">Criação</th>
+            <th className="custom-th">Tipo</th>
+            <th className="custom-th">Data de Entrada da Manutenção</th>
+            <th className="custom-th">Data de Saída da Manutenção</th>
+            <th className="custom-th">Custo</th>
+            <th className="custom-th">Situação</th>
+            <th className="custom-th">Descrição</th>
+            <th className="custom-th">Serviço</th>
+            <th className="custom-th">Status</th>
+            <th className="custom-th">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedManutencoes.map((manutencao) => (
+            <tr
+              key={manutencao.id}
+              className="custom-tr"
+              style={{ backgroundColor: manutencao.deletedAt ? '#ffcccc' : 'white' }}
+            >
+              <td className="custom-td"><DataCriacao createdAt={manutencao.createdAt} /></td>
+              <td className="custom-td">{manutencao.tipoManutencao}</td>
+              <td className="custom-td"><DataCriacao createdAt={manutencao.dataEntradaManutencao} /></td>
+              <td className="custom-td"><DataCriacao createdAt={manutencao.dataSaidaManutencao} /></td>
+              <td className="custom-td">{manutencao.custoManutencao}</td>
+              <td className="custom-td">{manutencao.status}</td>
+              <td className="custom-td">{manutencao.descricaoProblema}</td>
+              <td className="custom-td">{manutencao.servicoRealizado}</td>
+              <td className="custom-td">{manutencao.deletedAt ? 'Desativado' : 'Ativo'}</td>
+              <td className="custom-td">
                 <div className="icon-container">
-                  <FiEdit 
-                  className="icon-action edit" 
-                  title="Editar" 
-                  onClick={() => onEdit(manutencao)} />
-              
-              
+                  <FiEdit
+                    className="custom-icon-action edit"
+                    title="Editar"
+                    onClick={() => onEdit(manutencao)}
+                  />
                   {manutencao.deletedAt ? (
                     <FiRefreshCw
-                      className="icon-action reactivate"
+                      className="custom-icon-action reactivate"
                       title="Reativar"
                       onClick={() => onDelete(manutencao.id, manutencao.deletedAt)}
                     />
                   ) : (
                     <FiTrash
-                      className="icon-action delete"
+                      className="custom-icon-action delete"
                       title="Desativar"
                       onClick={() => onDelete(manutencao.id, null)}
                     />
                   )}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
-  
-  export default ManutencaoList;
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default ManutencaoList;
