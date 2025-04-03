@@ -226,11 +226,11 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
               handleInputChange(e);
               setValidationState({
                 ...validationState,
-                sus: e.target.value.trim().length > 0
+                sus: e.target.value.trim().length == 15
               });
             }}
             isValid={validationState.sus}
-            isInvalid={!validationState.sus && formData.sus.length > 0}
+            isInvalid={!validationState.sus && formData.sus.length < 15}
             required
           />
           <Form.Control.Feedback type="valid">Número SUS válido!</Form.Control.Feedback>
