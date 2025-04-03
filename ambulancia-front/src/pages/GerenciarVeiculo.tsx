@@ -25,6 +25,8 @@ const GerenciarVeiculo = () => {
     handleUpdatePecaManutencao,
   } = useGerenciarVeiculo();
 
+  const [buttonLabel, setButtonLabel] = useState("Criar");
+
   return (
     <div className="container-principal-veiculos">
       <div className="container-forms-e-lists">
@@ -84,6 +86,7 @@ const GerenciarVeiculo = () => {
                   onCancel={() => setEditingVeiculo(null)}
                   veiculoToEdit={editingVeiculo}
                   onUpdate={handleEditVeiculo}
+                  
                 />
               </div>
               <div className="list-section">
@@ -103,7 +106,6 @@ const GerenciarVeiculo = () => {
           {/* Aba de Manutenção */}
 
           <TabPane tabId="manutencao">
-            <h4 className="titulo-manutencao-GerenciarVeiculo">Gerenciar Manutenção</h4>
             <ManutencaoForm
               isModal={false}
               onSave={handleSaveManutencao}
@@ -120,7 +122,6 @@ const GerenciarVeiculo = () => {
                 onDelete={handleDeleteManutencao}
               />
             </div>
-
           </TabPane>
 
 
@@ -164,7 +165,6 @@ const GerenciarVeiculo = () => {
                 />
               </div>
               <div className="list-section">
-                <h4>Lista de Fornecedores</h4>
                 <FornecedorList
                   fornecedores={fornecedores}
                   onEdit={handleEditForn}

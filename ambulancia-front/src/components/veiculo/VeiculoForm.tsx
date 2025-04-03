@@ -137,7 +137,7 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
           isInvalid={!!errors.placa}
           placeholder="ABC1D23 ou ABC1234"
           required
-        style={{ color: 'white' }}
+          style={{ color: 'white' }}
         />
         <Form.Control.Feedback type="invalid">
           {errors.placa}
@@ -246,7 +246,7 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
             variant="secondary"
             type="button"
             onClick={handleCancel}
-            className="botao1234"
+            className="botao-limpar-veiculos"
           >
             Limpar
           </Button>
