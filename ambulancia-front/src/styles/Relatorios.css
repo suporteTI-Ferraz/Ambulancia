@@ -1,83 +1,166 @@
-
-/* src/styles/Relatorios.css */
+/* Container principal */
 .report-container {
-  background-color: #338152;
-  color: white;
-  padding: 20px;
-  width: 100%; 
+  font-family: 'Arial', sans-serif;
+  background-color: #8e727a;
+  padding: 30px;
+  max-width: 100%;
+  min-height: 100vh; /* Garante que o container tenha pelo menos a altura da tela */
   margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: column; /* Garante que os itens dentro do container sejam organizados em coluna */
 }
 
+/* Card de relatório */
+.div-card-relatorios {
+  width: 80%;
+  margin-top: 6rem;
+  padding: 3rem 5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  align-self: center;
+  justify-self: center;
+}
+
+/* Título principal */
+.report-container h1 {
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  margin-bottom: 5rem;
+  font-weight: bold;
+}
+
+/* Seção de Filtros */
 .filters-section {
   display: flex;
-  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 
 .filter-group {
-  display: flex;
-  flex-direction: column;
+  width: 30%;
+  margin-bottom: 15px;
 }
 
-.report-content {
-  background-color: rgba(255, 255, 255, 0.1);
+.filter-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.filter-group input, .filter-group select {
+  background-color: rgba(255,255,255,0.1);
+  color: white;
   width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
 }
 
-/* Updated report-table styles based on UserList.css */
+.filter-group input:focus, .filter-group select:focus {
+  border-color: none;
+  outline: none;
+}
+
+.botoes-relatorio-gerar {
+  width: 100%;
+  display: flex; /* Torna a div um contêiner flexível */
+  align-items: center; /* Alinha os itens verticalmente no centro */
+  justify-content: center; /* Alinha os itens horizontalmente no centro */
+}
+
+
+
+
+
+/* Seção do Relatório ------------------------------------------------------*/
+.report-content {
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 3rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  flex: 1;
+  overflow-y: auto;
+}
+
+.report-content h2 {
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.report-content p {
+  font-size: 1.1rem;
+  color: white;
+  margin-bottom: 20px;
+}
+
 .report-table {
-  width: 80%;
-  margin: 20px 0;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-spacing: 0;
+  width: 100%;
   border-collapse: collapse;
-  border-radius: 15px;
-  overflow: hidden;
+  margin-top: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .report-table th,
 .report-table td {
-  padding: 12px;
+  padding: 10px;
   text-align: left;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd3f;
 }
 
 .report-table th {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
   color: white;
-  font-weight: bold;
 }
 
-.report-table tr:nth-child(even) {
-  background-color: rgba(255, 255, 255, 0.05);
+.report-table td {
+  background-color: rgba(255, 255, 255, 0.53);
+  color: white;
 }
 
-.report-button {
-  padding: 8px 16px;
-  background-color: #ffffff;
-  color: black;
-  border: none;
+/* Linhas alternadas */
+.report-table tr:nth-child(odd) td {
+  background-color: rgba(0, 0, 0, 0.2); /* Cor para linhas ímpares */
+}
+
+.report-table tr:nth-child(even) td {
+  background-color: rgba(0, 0, 0, 0.1); /* Cor para linhas pares */
+}
+
+.report-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
   cursor: pointer;
 }
 
-.report-button:hover {
-  background-color: #01d556c0;
+.report-table-td {
+  font-size: 1rem;
+  color: var(--bg-color);
 }
 
-@media print {
-  .filters-section,
-  .report-button {
-    display: none; /* Esconde filtros e botões na impressão */
-  }
+.botoes-relatorio-gerado {
+  display: flex;
+  align-items: center; /* Alinha os itens verticalmente no centro */
+  justify-content: center; /* Alinha os itens horizontalmente no centro */
+  gap: 3rem;
+}
+
+.report-button {
+  background-color: white;
+  border: none;
+  display: inline-block;
+  width: auto;
+  margin-top: 3rem;
+  padding: 1.3rem 3rem;
+  cursor: pointer; /* Adicionando o cursor de pointer para indicar que é clicável */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Suavizando a transição de cor e transformação */
+}
+
+.report-button:hover {
+  background-color: rgba(255, 255, 255, 0.55); /* Alterando a cor de fundo quando o botão é hover */
 }

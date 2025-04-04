@@ -101,25 +101,22 @@ const FornecedorForm: React.FC<FornecedorFormProps> = ({ onSave, onUpdate, onCan
           style={{ color: 'white' }} // Cor da fonte no campo de input
         />
       </Form.Group>
-      <Row className="mt-3">
-        <Col>
-          <ButtonSpinner
-            name={isModal ? "Atualizar" : "Criar"}
-            isLoading={loading}
-            type="submit"
-            classe="btn btn-primary"
-          />
-        </Col>
-        <Col>
-          <Button
-            variant="secondary"
-            type="button"
-            onClick={handleCancel}
-          >
-            Limpar
-          </Button>
-        </Col>
-      </Row>
+      <div className="div-botoes-veiculo-fornecedor">
+        <ButtonSpinner
+          name={isModal ? "Atualizar" : "Criar"}
+          isLoading={loading}
+          type="submit"
+          classe="botao-criar-veiculos-fornecedor"
+        />
+
+        <Button
+          type="button"
+          className="botao-limpar-veiculos"
+          onClick={handleCancel}
+        >
+          Limpar
+        </Button>
+      </div>
     </Form>
   );
 };
