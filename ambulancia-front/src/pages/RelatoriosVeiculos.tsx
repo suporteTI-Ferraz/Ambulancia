@@ -1,4 +1,3 @@
-
 import { saveAs } from 'file-saver';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -219,6 +218,7 @@ const RelatoriosVeiculos: React.FC = () => {
 
   return (
     <div className="report-container">
+      <div className='div-card-relatorios'>
       <h1>Gerador de Relatórios de Veículos</h1>
 
       {/* Seção de Filtros */}
@@ -259,6 +259,7 @@ const RelatoriosVeiculos: React.FC = () => {
         <button className="report-button" onClick={generateReport}>
           Gerar Relatório
         </button>
+      </div>
       </div>
 
       {/* Seção do Relatório */}

@@ -188,54 +188,57 @@ const RelatoriosFornecedores: React.FC = () => {
 
   return (
     <div className="report-container">
-      <h1>Gerador de Relatórios de Fornecedores de Peças</h1>
-
-      {/* Filters Section */}
-      <div className="filters-section">
-        <div className="filter-group">
-          <label>Data Inicial:</label>
-          <input
-            type="date"
-            name="startDate"
-            value={filters.startDate}
-            onChange={handleFilterChange}
-          />
+      <div className="div-card-relatorios">
+        <h1>Gerador de Relatórios de Fornecedores</h1>
+  
+        {/* Filters Section */}
+        <div className="filters-section">
+          <div className="filter-group">
+            <label>Data Inicial:</label>
+            <input
+              type="date"
+              name="startDate"
+              value={filters.startDate}
+              onChange={handleFilterChange}
+            />
+          </div>
+  
+          <div className="filter-group">
+            <label>Data Final:</label>
+            <input
+              type="date"
+              name="endDate"
+              value={filters.endDate}
+              onChange={handleFilterChange}
+            />
+          </div>
+  
+          <div className="filter-group">
+            <label>Tipo de Relatório:</label>
+            <select
+              name="reportType"
+              value={filters.reportType}
+              onChange={handleFilterChange}
+            >
+              <option value="general">Geral</option>
+              <option value="detailed">Detalhado</option>
+              <option value="summary">Resumido</option>
+            </select>
+          </div>
+          <div className='botoes-relatorio-gerar'>
+          <button className="report-button" onClick={generateReport}>
+            Gerar Relatório
+          </button>
+          </div>
         </div>
-
-        <div className="filter-group">
-          <label>Data Final:</label>
-          <input
-            type="date"
-            name="endDate"
-            value={filters.endDate}
-            onChange={handleFilterChange}
-          />
-        </div>
-
-        <div className="filter-group">
-          <label>Tipo de Relatório:</label>
-          <select
-            name="reportType"
-            value={filters.reportType}
-            onChange={handleFilterChange}
-          >
-            <option value="general">Geral</option>
-            <option value="detailed">Detalhado</option>
-            <option value="summary">Resumido</option>
-          </select>
-        </div>
-
-        <button className="report-button" onClick={generateReport}>
-          Gerar Relatório
-        </button>
       </div>
-
+  
       {/* Report Section */}
       {reportData && (
         <div ref={reportRef} className="report-content">
-          <h2>{reportData.title}</h2>
+          <h2>Fornecedores</h2>
           <p>Data: {reportData.date}</p>
-
+  
           <table className="report-table">
             <thead>
               <tr>
@@ -256,17 +259,18 @@ const RelatoriosFornecedores: React.FC = () => {
               ))}
             </tbody>
           </table>
-
-          <button className="report-button" onClick={handleExportToPDF}>
-            Exportar para PDF
-          </button>
-          <button className="report-button" onClick={exportToExcel}>
-            Exportar para Excel
-          </button>
+          <div className='botoes-relatorio-gerado'>
+            <button className="report-button" onClick={handleExportToPDF}>
+              Exportar para PDF
+            </button>
+            <button className="report-button" onClick={exportToExcel}>
+              Exportar para Excel
+            </button>
+          </div>
         </div>
       )}
     </div>
   );
-};
+}  
 
 export default RelatoriosFornecedores;

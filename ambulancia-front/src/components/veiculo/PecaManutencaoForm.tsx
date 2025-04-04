@@ -130,54 +130,45 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
       </Form.Group>
       <Form.Group controlId="manutencoes" className="mb-3">
         <Form.Label style={{ color: 'white' }}>Manutenções</Form.Label>
-        <Select
-          options={manutencoes.map((m) => ({
-            value: m.id,
-            label: formatManutencaoLabel(m),
-          }))}
-          value={
-            idManu > 0 && selectedManutencao
-              ? {
-                  value: idManu,
-                  label: formatManutencaoLabel(selectedManutencao),
-                }
-              : null
-          }
-          onChange={(opt) => {
-            if (opt) setIdManu(opt.value);
+        <Form.Control
+          as="select"
+          name="idManu"
+          value={idManu > 0 && selectedManutencao ? idManu : ''}
+          onChange={(e) => {
+            const selectedValue = e.target.value;
+            if (selectedValue) setIdManu(Number(selectedValue));
           }}
-          styles={{
-            control: (provided) => ({
-              ...provided,
-              color: 'black', // Text color in select control
-              borderColor: 'white', // Border color
-            }),
-            singleValue: (provided) => ({
-              ...provided,
-              color: 'white', // Text color for selected value
-            }),
-          }}
-        />
+          required
+          style={{ color: 'white'}} // Texto branco e fundo preto
+        >
+          <option value="" disabled>
+            Selecione a manutenção
+          </option>
+          {manutencoes.map((m) => (
+            <option key={m.id} value={m.id}>
+              {formatManutencaoLabel(m)}
+            </option>
+          ))}
+        </Form.Control>
+
+
+
       </Form.Group>
-      <Row className="mt-3">
-        <Col>
+      <div className="div-botoes-veiculo-fornecedor">
           <ButtonSpinner
             name={isModal ? "Atualizar" : "Criar"}
             isLoading={loading}
             type="submit"
-            classe="btn btn-primary"
+            classe="botao-criar-veiculos-fornecedor"
           />
-        </Col>
-        <Col>
           <Button
-            variant="secondary"
             type="button"
+            className="botao-limpar-veiculos"
             onClick={handleCancel}
           >
             Limpar
           </Button>
-        </Col>
-      </Row>
+        </div>
     </Form>
   );
 };  
