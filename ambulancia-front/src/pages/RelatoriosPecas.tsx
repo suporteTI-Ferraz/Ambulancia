@@ -194,6 +194,7 @@ const RelatoriosPecas: React.FC = () => {
 
   return (
     <div className="report-container">
+      <div className='div-card-relatorios'>
       <h1>Gerador de Relatórios de Peças de Manutenção</h1>
 
       {/* Filters Section */}
@@ -234,6 +235,7 @@ const RelatoriosPecas: React.FC = () => {
         <button className="report-button" onClick={generateReport}>
           Gerar Relatório
         </button>
+      </div>
       </div>
 
       {/* Report Section */}

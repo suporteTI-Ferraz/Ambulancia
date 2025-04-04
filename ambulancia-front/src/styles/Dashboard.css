@@ -25,9 +25,9 @@
   margin-bottom: 5rem;
   text-align: center;
   padding: 5rem;
-  max-width: 70rem;
+  max-width: 90rem;
   width: 100%;
-  background-color: rgb(255, 255, 255, 0.1);
+  background-color: rgb(255, 255, 255, 0);
   box-sizing: border-box;
 }
 
@@ -41,19 +41,25 @@
 
 /* Estilo dos cards */
 .card {
-  background-color: rgb(255, 255, 255, 0.1) !important;
+  background-color: rgb(255, 255, 255, 0.05) !important;
   padding: 3rem;
   border-radius: 0!important;
   display: flex;
   justify-content: center;
   align-items: center;
   width: calc(25% - 0.05rem);
-  transition: transform 0.3s !important;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: transform 0.4s ease-in-out, z-index 0s 0.4s;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, z-index 0s 0.4s;
+  backdrop-filter: blur(13px);
   cursor: pointer;
 }
+
+.card:hover {
+  background-color: #801616 !important;
+  color: white;
+  transform: scale(1.025); /* Aumenta a escala do elemento */
+  z-index: 10; /* Coloca o elemento na frente dos outros */
+}
+
 
 /* Estilo do ícone dentro do card */
 .icon {
@@ -71,13 +77,7 @@
 }
 
 
-.card:hover {
-  background-color: #801616 !important;
-  color: white;
-  transform: scale(1.05); /* Aumenta a escala do elemento */
-  z-index: 10; /* Coloca o elemento na frente dos outros */
 
-}
 
 /* Efeito de clique no botão */
 .card button:active {

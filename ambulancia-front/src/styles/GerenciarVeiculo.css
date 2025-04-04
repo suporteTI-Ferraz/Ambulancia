@@ -64,16 +64,17 @@
   color: white;
   margin-bottom: 2rem;
   border-radius: 0;
+  border: 1px solid white;
 }
 
 .form-section2-veiculo input:focus,
 .form-section2-veiculo select:focus,
 .form-section2-veiculo textarea:focus {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1) !important;
   outline: none;
   border: 1px solid white;
   outline: none;
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .form-section2-veiculo input::placeholder,
@@ -86,7 +87,7 @@
 
 
 
-/* Tabela */
+/* TABLE ---------------------------------------------------------------- */
 .custom-table {
   width: 100%;
   margin: 20px 0;
@@ -198,7 +199,7 @@
 
 
 
-/* Modal */
+/* MODAL ---------------------------------------------------------------- */
 .container-principal-veiculos .modal-header {
   color: #fff;
   border-bottom: none;
@@ -230,15 +231,33 @@
 
 
 
+/* FORNECEDOR ----------------------------------------------------------- */
+.botao-criar-fornecedor-veiculos {
+  background-color: #4CAF50 !important;
+}
+
+.botao-criar-veiculos-fornecedor {
+  background-color: white;
+  color: var(--bg-color);
+  border: none;
+  padding: 1rem 3rem;
+  justify-self: center;
+  align-self: center;
+  margin-right: 1rem;
+}
+
+.div-botoes-veiculo-fornecedor {
+  align-self: center;
+  justify-self: center;
+  margin-bottom: 1rem;
+  max-width: 480px;
+}
 
 
 
 
 
-
-
-
-
+/* MANUTENÇÃO --------------------------------------------------------- */
 .form-container-manutencao {
   margin-bottom: 2rem; /* Adiciona uma margem inferior para separar o formulário */
   padding: 20px;
@@ -288,4 +307,36 @@
   justify-self: center;
   margin-bottom: 2rem;
   max-width: 480px;
+}
+
+
+
+
+
+
+
+
+
+
+/* Estilos para o select */
+.custom-select {
+  background-color: red !important;
+  width: 100%; /* Exemplo de largura */
+  border-radius: 4px;
+}
+
+/* Estilos para as opções dentro do select */
+.custom-select__control {
+  background-color: red !important;
+  border-color: #ddd;
+}
+
+.custom-select__single-value {
+  background-color: red !important;
+  color: #333;
+}
+
+/* Estilos para quando o select estiver em foco */
+.custom-select__control--is-focused {
+  border-color: #5e364d !important;
 }

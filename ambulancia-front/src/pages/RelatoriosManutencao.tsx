@@ -250,6 +250,7 @@ const RelatoriosManutencao: React.FC = () => {
 
   return (
     <div className="report-container">
+      <div className='div-card-relatorios'>
       <h1>Gerador de Relatórios de Manutenção</h1>
 
       {/* Filters section */}
@@ -291,7 +292,7 @@ const RelatoriosManutencao: React.FC = () => {
           Gerar Relatório
         </button>
       </div>
-
+      </div>
       {/* Report section */}
       {reportData && (
         <div ref={reportRef} className="report-content">
