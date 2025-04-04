@@ -204,14 +204,12 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
           </Form.Group>
           <Form.Group controlId="veiculo" className="div-input-manutencao">
             <Form.Label style={{ color: "white" }}>Veículo:</Form.Label>
-            <Form.Control
-              as="select"
-              name="idVeic"
-              value={idVeic}
-              onChange={(e) => {
-                const selectedValue = e.target.value;
-                if (selectedValue) setIdVeic(Number(selectedValue));
-              }}
+            <Form.Control 
+            as="select" 
+            name="idVeic" 
+            value={idVeic > 0 ? idVeic.toString() : ""} 
+            onChange={(e) => { const selectedValue = e.target.value; 
+              if (selectedValue) setIdVeic(Number(selectedValue)); }} 
               required
             >
               <option value="" disabled>
@@ -230,7 +228,7 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
             <Form.Control
               as="select"
               name="idForn"
-              value={idForn}
+              value={idForn > 0? idVeic.toString() : ""}
               onChange={(e) => {
                 const selectedValue = e.target.value;
                 if (selectedValue) setIdForn(Number(selectedValue));
