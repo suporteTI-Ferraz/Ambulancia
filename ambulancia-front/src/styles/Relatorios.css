@@ -1,7 +1,7 @@
 /* Container principal */
 .report-container {
   font-family: 'Arial', sans-serif;
-  background-color: #8e727a;
+  background-color: #386d61;
   padding: 30px;
   max-width: 100%;
   min-height: 100vh; /* Garante que o container tenha pelo menos a altura da tela */
@@ -151,6 +151,8 @@
 }
 
 .report-button {
+  margin-left: 1rem;
+  margin-right: 1rem;
   background-color: white;
   border: none;
   display: inline-block;
@@ -163,4 +165,17 @@
 
 .report-button:hover {
   background-color: rgba(255, 255, 255, 0.55); /* Alterando a cor de fundo quando o botão é hover */
+}
+
+
+.div-botoes-relarotios {
+  align-self: center;
+  justify-self: center;
+}
+
+.div-botoes-relarotio1 {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Alinha horizontalmente no centro */
+  align-items: center; /* Alinha verticalmente no centro */
 }

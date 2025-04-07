@@ -179,8 +179,10 @@ const GerenciarVeiculo = () => {
 
 
 
-        {/* Modals */}
-        <Modal isOpen={isEditModalOpen} toggle={toggleModalFornecedor} className="gerenciar">
+        <Modal
+          isOpen={isEditModalOpen}
+          toggle={toggleEditModal} // Garante que o modal correto será fechado
+          className="gerenciar">
           <ModalHeader toggle={toggleEditModal}>Editar Veículo</ModalHeader>
           <ModalBody>
             {editingVeiculo && (
@@ -192,10 +194,12 @@ const GerenciarVeiculo = () => {
                 isModal={true}
               />
             )}
-          </ModalBody>
-        </Modal>
+        </ModalBody>
+      </Modal>
 
-        <Modal isOpen={isFornecedorModalOpen} toggle={toggleModalFornecedor} className="gerenciar">
+        <Modal isOpen={isFornecedorModalOpen} 
+        toggle={toggleModalFornecedor} 
+        className="gerenciar">
           <ModalHeader toggle={toggleModalFornecedor}>Editar Fornecedor</ModalHeader>
           <ModalBody>
             {editingFornecedor && (
@@ -210,7 +214,8 @@ const GerenciarVeiculo = () => {
           </ModalBody>
         </Modal>
 
-        <Modal isOpen={isManutencaoModalOpen} toggle={toggleModalManutencao} className="gerenciar">
+        <Modal isOpen={isManutencaoModalOpen} 
+        toggle={toggleModalManutencao} className="gerenciar">
           <ModalHeader toggle={toggleModalManutencao}>Editar Manutenção</ModalHeader>
           <ModalBody>
             {editingManutencao && (

@@ -1,25 +1,15 @@
-
 import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
-import Select from "react-select";
-import { useLoading } from "../../contexts/LoadingContext";
-import { useToast } from "../../hooks/useToast";
+import { Form, Button } from "react-bootstrap";
 import ButtonSpinner from "../itens/ButtonSpinner";
 import PecaManutencao from "../../types/veiculo/PecaManutencaoType";
-import Manutencao from "../../types/veiculo/ManutencaoType";
 
 interface PecaManutencaoFormProps {
-  onSave: (pecaManutencao: PecaManutencao, idManu: number) => void;
-  onUpdate: (id: number, pecaManutencao: PecaManutencao, idManu: number) => void;
+  onSave: (pecaManutencao: PecaManutencao) => void;
+  onUpdate: (id: number, pecaManutencao: PecaManutencao) => void;
   onCancel: () => void;
   pecaManutencaoToEdit: PecaManutencao | null; // For editing, or null for creation
   isModal: boolean;
-  resetPecasManutencoes?: boolean;
-  manutencoes: Manutencao[];
 }
-
-// IMPORTANT: Ensure that your PecaManutencao type has an optional field to store the associated manutenção id.
-// For example, in PecaManutencaoType you can add: manutencaoId?: number;
 
 const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
   onSave,
@@ -27,7 +17,6 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
   onUpdate,
   isModal,
   pecaManutencaoToEdit,
-  manutencoes,
 }) => {
   const initialFormData: PecaManutencao = {
     id: pecaManutencaoToEdit?.id || 0,
@@ -36,23 +25,9 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
     custoUnitario: pecaManutencaoToEdit?.custoUnitario || 0.0,
     deletedAt: null,
     createdAt: "",
-    // If you add manutencaoId to your type, you might also initialize it here:
-    // manutencaoId: pecaManutencaoToEdit?.manutencaoId || 0,
   };
 
   const [formData, setFormData] = useState<PecaManutencao>(initialFormData);
-  const [idManu, setIdManu] = useState<number>(0);
-
-  const { loading, setLoading } = useLoading();
-  const { handleLoad, dismissLoading } = useToast();
-
-  // If in edit mode and the peça já possui uma manutenção associada,
-  // initialize idManu so that the select displays the correct value.
-  useEffect(() => {
-    if (pecaManutencaoToEdit && (pecaManutencaoToEdit as any).manutencaoId) {
-      setIdManu((pecaManutencaoToEdit as any).manutencaoId);
-    }
-  }, [pecaManutencaoToEdit]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLElement>) => {
     const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
@@ -66,30 +41,13 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (loading) return;
-    setLoading(true);
-    const toastKey = handleLoad("Carregando...");
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      if (pecaManutencaoToEdit && isModal) {
-        onUpdate(pecaManutencaoToEdit.id ?? 0, formData, idManu);
-      } else {
-        onSave(formData, idManu);
-      }
-    } catch (error) {
-      console.error("Erro ao salvar peça de manutenção:", error);
-    } finally {
-      setLoading(false);
-      dismissLoading(toastKey);
+    const { id, nomePeca, quantidade, custoUnitario } = formData;
+    if (id) {
+      onUpdate(id, formData);
+    } else {
+      onSave(formData);
     }
   };
-
-  // Helper function to generate the label string for manutenção options
-  const formatManutencaoLabel = (m: Manutencao) =>
-    `${m.tipoManutencao} | ${m.veiculo?.placaVeic} | ${m.dataEntradaManutencao}`;
-
-  const selectedManutencao = manutencoes.find((m) => m.id === idManu);
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -128,49 +86,24 @@ const PecaManutencaoForm: React.FC<PecaManutencaoFormProps> = ({
           style={{ color: 'white' }}
         />
       </Form.Group>
-      <Form.Group controlId="manutencoes" className="mb-3">
-        <Form.Label style={{ color: 'white' }}>Manutenções</Form.Label>
-        <Form.Control
-          as="select"
-          name="idManu"
-          value={idManu > 0 && selectedManutencao ? idManu : ''}
-          onChange={(e) => {
-            const selectedValue = e.target.value;
-            if (selectedValue) setIdManu(Number(selectedValue));
-          }}
-          required
-          style={{ color: 'white'}} // Texto branco e fundo preto
-        >
-          <option value="" disabled>
-            Selecione a manutenção
-          </option>
-          {manutencoes.map((m) => (
-            <option key={m.id} value={m.id}>
-              {formatManutencaoLabel(m)}
-            </option>
-          ))}
-        </Form.Control>
 
-
-
-      </Form.Group>
       <div className="div-botoes-veiculo-fornecedor">
-          <ButtonSpinner
-            name={isModal ? "Atualizar" : "Criar"}
-            isLoading={loading}
-            type="submit"
-            classe="botao-criar-veiculos-fornecedor"
-          />
-          <Button
-            type="button"
-            className="botao-limpar-veiculos"
-            onClick={handleCancel}
-          >
-            Limpar
-          </Button>
-        </div>
+        <ButtonSpinner
+          name={isModal ? "Atualizar" : "Criar"}
+          isLoading={false} // Atualize conforme a lógica de carregamento, se necessário
+          type="submit"
+          classe="botao-criar-veiculos-fornecedor"
+        />
+        <Button
+          type="button"
+          className="botao-limpar-veiculos"
+          onClick={handleCancel}
+        >
+          Limpar
+        </Button>
+      </div>
     </Form>
   );
-};  
+};
 
 export default PecaManutencaoForm;

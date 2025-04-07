@@ -256,9 +256,11 @@ const RelatoriosVeiculos: React.FC = () => {
           </select>
         </div>
 
-        <button className="report-button" onClick={generateReport}>
-          Gerar Relatório
-        </button>
+        <div className='botoes-relatorio-gerar'>
+          <button className="report-button" onClick={generateReport}>
+            Gerar Relatório
+          </button>
+        </div>
       </div>
       </div>
 
@@ -299,12 +301,14 @@ const RelatoriosVeiculos: React.FC = () => {
             </tbody>
           </table>
 
-          <button className="report-button" onClick={handleExportToPDF}>
-            Exportar para PDF
-          </button>
-          <button className="report-button" onClick={exportToExcel}>
-            Exportar para Excel
-          </button>
+          <div className='botoes-relatorio-gerado'>
+            <button className="report-button" onClick={handleExportToPDF}>
+              Exportar para PDF
+            </button>
+            <button className="report-button" onClick={exportToExcel}>
+              Exportar para Excel
+            </button>
+          </div>
         </div>
       )}
     </div>
