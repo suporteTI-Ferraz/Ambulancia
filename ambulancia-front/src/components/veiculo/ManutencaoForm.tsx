@@ -228,7 +228,7 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
             <Form.Control
               as="select"
               name="idForn"
-              value={idForn > 0? idVeic.toString() : ""}
+              value={idForn > 0? idForn.toString() : ""}
               onChange={(e) => {
                 const selectedValue = e.target.value;
                 if (selectedValue) setIdForn(Number(selectedValue));

@@ -231,10 +231,11 @@ const RelatoriosPecas: React.FC = () => {
             <option value="summary">Resumido</option>
           </select>
         </div>
-
-        <button className="report-button" onClick={generateReport}>
-          Gerar Relatório
-        </button>
+        <div className='botoes-relatorio-gerar'>
+          <button className="report-button" onClick={generateReport}>
+            Gerar Relatório
+          </button>
+          </div>
       </div>
       </div>
 
@@ -266,13 +267,14 @@ const RelatoriosPecas: React.FC = () => {
               ))}
             </tbody>
           </table>
-
-          <button className="report-button" onClick={handleExportToPDF}>
-            Exportar para PDF
-          </button>
-          <button className="report-button" onClick={exportToExcel}>
-            Exportar para Excel
-          </button>
+          <div className='botoes-relatorio-gerado'>
+            <button className="report-button" onClick={handleExportToPDF}>
+              Exportar para PDF
+            </button>
+            <button className="report-button" onClick={exportToExcel}>
+              Exportar para Excel
+            </button>
+          </div>
         </div>
       )}
     </div>

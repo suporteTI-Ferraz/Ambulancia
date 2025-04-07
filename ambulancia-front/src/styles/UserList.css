@@ -204,3 +204,11 @@
 .custom-icon-action:hover {
   color: #333;
 }
+
+
+
+
+/* Estilo para a linha da tabela quando o usuário é desativado */
+.custom-table .deleted-row {
+  background-color: #ffcccc !important; /* Vermelho claro */
+}
