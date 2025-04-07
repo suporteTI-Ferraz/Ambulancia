@@ -58,8 +58,7 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
           {sortedVeiculos.map((veiculo) => (
             <tr
               key={veiculo.id}
-              className="custom-tr"
-              style={{ backgroundColor: veiculo.deletedAt ? '#ffcccc' : 'white' }}
+              className={`custom-tr ${veiculo.deletedAt ? 'veiculo-desativado' : 'veiculo-ativo'}`}
             >
               <td className="custom-td"><DataCriacao createdAt={veiculo.createdAt} /></td>
               <td className="custom-td">{veiculo.placaVeic}</td>
@@ -69,7 +68,11 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
               <td className="custom-td">{veiculo.modeloVeic}</td>
               <td className="custom-td">{veiculo.quilometragemAtual}</td>
               <td className="custom-td">{veiculo.classe}</td>
-              <td className="custom-td">{veiculo.deletedAt ? 'Desativado' : 'Ativo'}</td>
+              <td className="custom-td">
+                <span className={veiculo.deletedAt ? 'status-desativado' : 'status-ativo'}>
+                  {veiculo.deletedAt ? 'Desativado' : 'Ativo'}
+                </span>
+              </td>
               <td className="custom-td">
                 <div className="icon-container">
                   <FiEdit
