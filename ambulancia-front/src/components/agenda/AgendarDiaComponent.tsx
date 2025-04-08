@@ -1,57 +1,25 @@
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useNavigate } from "react-router-dom";
-import { Agenda } from "../../types/agenda/Agenda";
-import { registerLocale } from "react-datepicker";
-import { ptBR } from "date-fns/locale";
-
-// Registra o idioma português no DatePicker
-registerLocale("pt-BR", ptBR);
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Agenda } from '../../types/agenda/Agenda';
 
 interface AgendaFormProps {
-  agendas: Agenda[];
-  selectedDate: Date | null;
-  onSave: () => void;
-  onSelected: (date: Date | null) => void;
+  onSave: () => Promise<Agenda | null>;
 }
 
-const AgendarDiaComponent: React.FC<AgendaFormProps> = ({ agendas, selectedDate, onSave, onSelected }) => {
-  const parseDate = (dateString: string) => new Date(dateString + "T00:00:00");
+const AgendarDiaComponent: React.FC<AgendaFormProps> = ({ onSave }) => {
   const navigate = useNavigate();
 
-  // Verifica se a data já existe na agenda
-  const agendaExistente = selectedDate
-    ? agendas.find((a) => parseDate(a.dataAgenda).toDateString() === selectedDate.toDateString())
-    : null;
-
-  // Quando o usuário seleciona uma data já existente
-  const handleSelectAgenda = () => {
-    if (agendaExistente) {
-      navigate(`/gerenciar-agendamentos/${agendaExistente.id}`);
+  // Chama onSave() para criar a agenda e redireciona usando o ID retornado.
+  const handleCreateAndRedirect = async () => {
+    const newAgenda = await onSave();
+    if (newAgenda && newAgenda.id) {
+      navigate(`/gerenciar-agendamentos/${newAgenda.id}`);
     }
   };
 
   return (
-    <div className="datepicker-container">
-      <h2>Selecione uma Data</h2>
-      <DatePicker
-        selected={selectedDate}
-        onChange={(date) => onSelected(date)}
-        highlightDates={agendas.map((a) => parseDate(a.dataAgenda))}
-        locale="pt-BR"  // 🔥 Define o idioma para português
-        dateFormat="dd/MM/yyyy"  // 🔥 Formato da data
-        inline
-      />
-
-      {selectedDate && (
-        <div>
-          {agendaExistente ? (
-            <button onClick={handleSelectAgenda}>Ver Agendamentos</button>
-          ) : (
-            <button onClick={onSave}>Criar Agenda</button>
-          )}
-        </div>
-      )}
+    <div className="agenda-container">
+      <button onClick={handleCreateAndRedirect}>Criar Agenda</button>
     </div>
   );
 };

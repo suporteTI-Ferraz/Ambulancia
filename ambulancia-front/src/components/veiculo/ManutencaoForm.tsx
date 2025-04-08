@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
-import Select from "react-select";
-import { Fornecedor } from "../../types/veiculo/FornecedorType";
 import { useLoading } from "../../contexts/LoadingContext";
 import { useToast } from "../../hooks/useToast";
-import ButtonSpinner from "../itens/ButtonSpinner";
-import { Veiculo } from "../../types/veiculo/VeiculoType";
+import { Fornecedor } from "../../types/veiculo/FornecedorType";
 import Manutencao from "../../types/veiculo/ManutencaoType";
+import { Veiculo } from "../../types/veiculo/VeiculoType";
+import ButtonSpinner from "../itens/ButtonSpinner";
 
 interface ManutencaoFormProps {
   onSave: (manutencao: Manutencao, idVeic: number, idForn: number) => void;

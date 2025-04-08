@@ -1,22 +1,23 @@
+
 import { useEffect, useState } from "react";
 import { Agenda } from "../types/agenda/Agenda";
 import { createAgenda, fetchAgenda } from "../services/api/AgendamentoService";
 import { useToast } from "./useToast";
 import { useLoading } from "../contexts/LoadingContext";
+
 const useGerenciarAgenda = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  // Initialize selectedDate with today's date instead of null.
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [agendas, setAgendas] = useState<Agenda[]>([]);
   const { handleError, handleSuccess } = useToast();
-  const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
+  const { loading, setLoading } = useLoading();
     
-  // Buscar agendas no backend
   useEffect(() => {
     const fetchAgendas = async () => {
       setLoading(true);
       try {
         const response = await fetchAgenda();
         setAgendas(response.data);
-        
       } catch (error) {
         console.error("Erro ao buscar agendas:", error);
         handleError("Erro ao carregar agendas: " + error);
@@ -25,12 +26,11 @@ const useGerenciarAgenda = () => {
       }
     };
     fetchAgendas();
-  }, []); 
-
-  // Criar uma nova agenda no backend
+  }, []);
+  
+  // Create a new agenda on the backend, using the always valid selectedDate.
   const handleCreateAgenda = async () => {
     try {
-      if (!selectedDate) return;
       const formattedDate = selectedDate.toISOString().split("T")[0];
       const newAgenda: Agenda = {
         id: 0, 
@@ -38,15 +38,13 @@ const useGerenciarAgenda = () => {
         diaFinalizado: false
       };
       const response = await createAgenda(newAgenda);
-
-      // Atualizar a lista para refletir no DatePicker
       setAgendas((prev) => [...prev, response.data]);
       handleSuccess("Agenda criada com sucesso!");
-      console.log(agendas)
-
+      return response.data;
     } catch (error) {
       console.error("Erro ao criar agenda:", error);
       handleError("Erro ao criar agenda: " + error);
+      return null;
     }
   };
 
