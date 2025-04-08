@@ -10,11 +10,9 @@ const GerenciarAgendarDia = () => {
   return (
     <div >
       <AgendaComponent
-        agendas={agendas}
-        selectedDate={selectedDate}
-        onSelected={setSelectedDate}
         onSave={handleCreateAgenda}
       />
+      
       <CalendarioComponent agendamentos={agendamentos}/>
 
     </div>
