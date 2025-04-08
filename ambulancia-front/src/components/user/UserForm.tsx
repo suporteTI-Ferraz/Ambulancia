@@ -53,7 +53,7 @@ const UserForm: React.FC<UserFormProps> = ({ userToEdit, onSave, onUpdate, isMod
     }
   };
 
-  
+
   return (
     // modal altera aqui:
     <form className="div-form" onSubmit={handleSubmit}> 

@@ -340,3 +340,23 @@
 .custom-select__control--is-focused {
   border-color: #5e364d !important;
 }
+
+
+
+
+
+.meu-modal-customizado input {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.7rem;
+  border: 1px solid white;
+  border-radius: 0;
+  margin-bottom: 2rem;
+}
+
+.meu-modal-customizado input:focus {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: none; /* Remove a sombra */
+  outline: none; /* Remove o contorno */
+  border: 1px solid white; /* Remove a borda */
+}

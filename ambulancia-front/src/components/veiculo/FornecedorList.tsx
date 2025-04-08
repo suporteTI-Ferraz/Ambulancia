@@ -52,14 +52,18 @@ const FornecedorList: React.FC<FornecedorListProps> = ({ fornecedores, onEdit, o
           {sortedFornecedores.map((fornecedor) => (
             <tr
               key={fornecedor.id}
-              className="custom-tr"
-              style={{ backgroundColor: fornecedor.deletedAt ? '#ffcccc' : 'white' }}
+              // Aplica a classe de cor de fundo com base no status do usuário (ativo ou desativado)
+              className={fornecedor.deletedAt ? 'row-deleted' : 'row-active'}
             >
               <td className="custom-td"><DataCriacao createdAt={fornecedor.createdAt} /></td>
               <td className="custom-td">{fornecedor.nome}</td>
               <td className="custom-td">{fornecedor.cnpj}</td>
               <td className="custom-td">{fornecedor.telefone}</td>
-              <td className="custom-td">{fornecedor.deletedAt ? 'Desativado' : 'Ativo'}</td>
+              <td className='custom-td'>
+                <span className={fornecedor.deletedAt ? 'status-desativado' : 'status-ativo'}>
+                  {fornecedor.deletedAt ? 'Desativado' : 'Ativo'}
+                </span>
+              </td>
               <td className="custom-td">
                 <div className="icon-container">
                   <FiEdit
