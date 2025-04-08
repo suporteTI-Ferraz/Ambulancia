@@ -104,7 +104,6 @@ const GerenciarVeiculo = () => {
 
 
           {/* Aba de Manutenção */}
-
           <TabPane tabId="manutencao">
             <ManutencaoForm
               isModal={false}
@@ -182,7 +181,7 @@ const GerenciarVeiculo = () => {
         <Modal
           isOpen={isEditModalOpen}
           toggle={toggleEditModal} // Garante que o modal correto será fechado
-          className="gerenciar">
+          className="meu-modal-customizado">
           <ModalHeader toggle={toggleEditModal}>Editar Veículo</ModalHeader>
           <ModalBody>
             {editingVeiculo && (
