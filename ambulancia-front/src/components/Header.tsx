@@ -57,7 +57,8 @@ const Header: React.FC = () => {
             </div>
 
             <Navbar className="custom-navbar" expand="md">
-                <NavbarBrand href="#" className="navbar-brand">Ambulâncias</NavbarBrand>
+            <NavbarBrand href="/dashboard" className="navbar-brand">g<span>am</span>un</NavbarBrand>
+
                 <NavbarToggler className="hamburguer" onClick={toggleNavbar}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -76,14 +77,11 @@ const Header: React.FC = () => {
                         <NavItem>
                             <NavLink href="/" className="nav-link hover:bg-pink-500">Início</NavLink>
                         </NavItem>
-                        <NavItem>
-                            <NavLink href="/dashboard-relatorios" className="nav-link">Relatórios</NavLink>
-                        </NavItem>
 
                         {isLoggedIn && (
                             <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
                                 <DropdownToggle nav caret className="nav-link">
-                                    Gerenciar
+                                    Atalhos
                                 </DropdownToggle>
                                 <DropdownMenu className='dropdown-menu-dark' end>
                                     <div className="dropdown-grid">
@@ -103,8 +101,9 @@ const Header: React.FC = () => {
                         )}
 
                         <NavItem>
-                            <NavLink href="/contact" className="nav-link">Contato</NavLink>
+                            <NavLink href="/dashboard-relatorios" className="nav-link">Relatórios</NavLink>
                         </NavItem>
+
                         <NavItem>
                             <NavLink href='/' onClick={sair} className="nav-link" >
                                 Sair <LuLogOut />

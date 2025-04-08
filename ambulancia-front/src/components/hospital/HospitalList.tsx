@@ -59,7 +59,7 @@ const HospitalList: React.FC<HospitalListProps> = ({ hospitais, onEdit, onViewEn
 
         <tbody className="custom-body-table">
           {sortedHospitais.map((hospital) => (
-            <tr key={hospital.id} style={{ backgroundColor: hospital.deletedAt ? "#ffcccc" : "white" }}>
+            <tr key={hospital.id} className={hospital.deletedAt ? "row-deleted" : "row-active"}>
               <td className="custom-td"><DataCriacao createdAt={hospital.createdAt} /></td>
               <td className="custom-td">{hospital.nomeHosp}</td>
               <td className="custom-td">{hospital.enderecos.map((endereco) => endereco.cepHosp).join(", ")}</td>
@@ -79,11 +79,7 @@ const HospitalList: React.FC<HospitalListProps> = ({ hospitais, onEdit, onViewEn
                     title="Editar"
                     onClick={() => onEdit(hospital)}
                   />
-                  <FaMapLocationDot
-                    className="custom-icon-action endereco"
-                    title="Visualizar Endereços"
-                    onClick={() => onViewEnderecos(hospital)}
-                  />
+
                   {hospital.deletedAt ? (
                     <FiRefreshCw
                       className="custom-icon-action reactivate"

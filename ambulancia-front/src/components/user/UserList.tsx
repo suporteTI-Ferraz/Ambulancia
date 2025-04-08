@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { User } from '../../types/user/UserType';
-import { FiEdit, FiTrash, FiRefreshCw, FiSearch } from 'react-icons/fi'; // Adicione o ícone de busca
+import { FiEdit, FiTrash, FiRefreshCw, FiSearch } from 'react-icons/fi';
 import DataCriacao from '../itens/DataFormatada';
-import '../../styles/UserList.css'
+import '../../styles/UserList.css';
 
 interface UserListProps {
   users: User[];
@@ -18,7 +18,6 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete }) => {
     const nome = user.nome ? user.nome.toLowerCase() : '';
     const email = user.email ? user.email.toLowerCase() : '';
     const pesquisa = pesquisarUser.toLowerCase();
-  
     return nome.includes(pesquisa) || email.includes(pesquisa);
   });
 
@@ -28,8 +27,7 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete }) => {
   });
 
   return (
-    <div >
-
+    <div>
       {/* Campo de Pesquisa */}
       <div className="custom-div-form-section2-search" style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
         <div className="custom-search-container">
@@ -60,7 +58,8 @@ const UserList: React.FC<UserListProps> = ({ users, onEdit, onDelete }) => {
           {sortedUsers.map((user) => (
             <tr
               key={user.id}
-              style={{ backgroundColor: user.deletedAt ? '#ffcccc' : 'white' }}
+              // Aplica a classe de cor de fundo com base no status do usuário (ativo ou desativado)
+              className={user.deletedAt ? 'row-deleted' : 'row-active'}
             >
               <td className='custom-td'><DataCriacao createdAt={user.createdAt} /></td>
               <td className='custom-td'>{user.nome}</td>

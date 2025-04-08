@@ -28,7 +28,7 @@ const MotoristaList: React.FC<MotoristaListProps> = ({ motoristas, onEdit, onDel
         <FiSearch className="custom-search-icon-user-list-motorista" />
         <input
           type="text"
-          placeholder="Pesquisar por Nome ou CPF"
+          placeholder="Pesquisar por Nome"
           value={pesquisarMotorista}
           onChange={(e) => setPesquisarMotorista(e.target.value)}
           className="custom-input-search-motorista"
@@ -48,8 +48,7 @@ const MotoristaList: React.FC<MotoristaListProps> = ({ motoristas, onEdit, onDel
           {sortedMotoristas.map((motorista) => (
             <tr
               key={motorista.id}
-              style={{ backgroundColor: motorista.deletedAt ? '#ffcccc' : 'white' }} // Cor vermelha se motorista estiver desativado
-              className="custom-tr-motorista"
+              className={motorista.deletedAt ? 'row-deleted' : 'row-active'} // Usando classes para fundo
             >
               <td className="custom-td-motorista"><DataCriacao createdAt={motorista.createdAt} /></td>
               <td className="custom-td-motorista">{motorista.nomeMotorista}</td>

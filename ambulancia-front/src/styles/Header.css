@@ -1,4 +1,3 @@
-
 .header-logo {
     display: flex;
     justify-content: flex-start; /* Alinha à esquerda */
@@ -16,7 +15,7 @@
 }
 
 .custom-navbar {
-    background: var(--bg-color);
+    background: #131313;
     padding: 1.25rem;
     display: flex;
     justify-content: space-between;
@@ -36,11 +35,12 @@
 }
 
 .navbar-brand {
-    color: #fff !important; /* Texto branco */
+    font-size: 1.35rem !important;
+    color: #ff4b4b !important; /* Texto branco */
     padding: 1rem !important;
     margin-left: 2rem !important;
-    
 }
+
 
 /* Remove a borda do NavbarToggler (botão hambúrguer) */
 .hamburguer {

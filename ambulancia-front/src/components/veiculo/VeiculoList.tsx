@@ -58,7 +58,7 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
           {sortedVeiculos.map((veiculo) => (
             <tr
               key={veiculo.id}
-              className={`custom-tr ${veiculo.deletedAt ? 'veiculo-desativado' : 'veiculo-ativo'}`}
+              className={`custom-tr ${veiculo.deletedAt ? 'row-deleted' : 'row-active'}`}
             >
               <td className="custom-td"><DataCriacao createdAt={veiculo.createdAt} /></td>
               <td className="custom-td">{veiculo.placaVeic}</td>
@@ -79,11 +79,6 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
                     className="custom-icon-action edit"
                     title="Editar"
                     onClick={() => onEdit(veiculo)}
-                  />
-                  <GiAutoRepair
-                    className="custom-icon-action manutencao"
-                    title="Visualizar Manutenções"
-                    onClick={() => onViewManutencoes(veiculo)}
                   />
                   {veiculo.deletedAt ? (
                     <FiRefreshCw
