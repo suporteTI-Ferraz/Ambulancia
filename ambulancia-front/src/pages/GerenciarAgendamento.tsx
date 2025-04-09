@@ -1,6 +1,5 @@
-// GerenciarAgendamento.tsx
+
 import React from "react";
-import { useParams } from "react-router-dom";
 import AgendamentoForm from "../components/agenda/AgendamentoForm";
 import AgendamentoList from "../components/agenda/AgendamentoList";
 import useGerenciarPaciente from "../hooks/useGerenciarPaciente";
@@ -12,19 +11,16 @@ import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import EditAgendamentoForm from "../components/agenda/EditAgendamentoForm";
 
 const GerenciarAgendamento: React.FC = () => {
-  const { agendaId } = useParams<{ agendaId: string }>();
   const { agendamentos, editingAgendamento, isEditModalOpen, 
-  handleCreateAgendamento, handleEdit, toggleEditModal, handleUpdateAgendamento } = useGerenciarAgendamento();
+          handleCreateAgendamento, handleEdit, toggleEditModal, handleUpdateAgendamento } = useGerenciarAgendamento();
   const { pacientes } = useGerenciarPaciente();
   const { motoristas } = useGerenciarMotorista();
-  const { hospitais} = useGerenciarHospital();
+  const { hospitais } = useGerenciarHospital();
   const { veiculos } = useGerenciarVeiculo();
   
   return (
     <div>
-    {agendaId ? (
-      // Se o parâmetro existe, renderiza o formulário para criar ou gerenciar o agendamento.
-      <div > 
+      <div> 
         <AgendamentoForm
           pacientes={pacientes}
           motoristas={motoristas}
@@ -32,31 +28,26 @@ const GerenciarAgendamento: React.FC = () => {
           veiculos={veiculos}
           onSave={handleCreateAgendamento}
         />
-        <AgendamentoList agendamentos={agendamentos}  onEdit={handleEdit}/>
+        <AgendamentoList agendamentos={agendamentos} onEdit={handleEdit} />
 
         <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar edit-agendamento-form">
-    <ModalHeader toggle={toggleEditModal}>Editar Agendamento</ModalHeader>
-    <ModalBody>
-      {editingAgendamento && (
-        <EditAgendamentoForm
-          agendamento={editingAgendamento}
-          pacientes={pacientes}
-          motoristas={motoristas}
-          hospitais={hospitais}
-          veiculos={veiculos}
-          onSave={handleUpdateAgendamento}
-        />
-      )}
-    </ModalBody>
-  </Modal>
-
+          <ModalHeader toggle={toggleEditModal}>Editar Agendamento</ModalHeader>
+          <ModalBody>
+            {editingAgendamento && (
+              <EditAgendamentoForm
+                agendamento={editingAgendamento}
+                pacientes={pacientes}
+                motoristas={motoristas}
+                hospitais={hospitais}
+                veiculos={veiculos}
+                onSave={handleUpdateAgendamento}
+              />
+            )}
+          </ModalBody>
+        </Modal>
       </div>
-    ) : (
-      <div>Deu ruim</div>
-    )}
-  </div>
-);
-
+    </div>
+  );
 };
 
 export default GerenciarAgendamento;
