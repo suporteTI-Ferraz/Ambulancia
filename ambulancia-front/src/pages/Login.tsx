@@ -1,89 +1,96 @@
 import { useState } from "react";
-import "../styles/Login.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useLoading } from "../contexts/LoadingContext";
 import { useToast } from "../hooks/useToast";
 import useLogin from "../hooks/useLogin";
 import '../styles/global.css';
+import "../styles/Login.css";
 
 const Login = () => {
-    const {
-      email,
-      senha,
-      setEmail,
-      setSenha,
-      handleLogin,
-    } = useLogin()
-
- 
+  const { email, senha, setEmail, setSenha, handleLogin } = useLogin();
   const navigate = useNavigate();
-  const { checkLoginStatus } = useAuth(); // Use apenas aqui, fora de funções assíncronas
-    const { loading, setLoading } = useLoading(); // Acessa o loading globalmente
-    const { handleLoad, dismissLoading } = useToast(); 
-     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (loading) return; // Impede múltiplos envios enquanto está carregando
-        setLoading(true); // Bloqueia enquanto a requisição está em andamento
-        const toastKey = handleLoad("Carregando...");
-    
-        try {
-          await new Promise((resolve) => setTimeout(resolve, 2000));  //Para testar o spinner
-          const result = handleLogin(); // Chama a função onSave (criação ou edição)
-          if(await result){
-            checkLoginStatus(); // Atualiza o estado de autenticação no contexto
-            navigate("/dashboard", { replace: true }); // Redireciona para a rota protegida
-          }
-        } catch (error) {
-          console.error("Erro ao salvar paciente:", error);
-        } finally {
-          setLoading(false); // Libera o botão após a requisição terminar
-          dismissLoading(toastKey);
-        }
-      };
+  const { checkLoginStatus } = useAuth();
+  const { loading, setLoading } = useLoading();
+  const { handleLoad, dismissLoading } = useToast();
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (loading) return;
+    setLoading(true);
+    const toastKey = handleLoad("Carregando...");
 
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const result = handleLogin();
+      if (await result) {
+        checkLoginStatus();
+        navigate("/dashboard", { replace: true });
+      }
+    } catch (error) {
+      console.error("Erro ao salvar paciente:", error);
+    } finally {
+      setLoading(false);
+      dismissLoading(toastKey);
+    }
+  };
 
   return (
     <>
-    <div className="login-container">
-      
-      {/* Background */}
-      <div className="bg-image-login"></div>
+      <div className="login-container">
 
-      {/* Formulário de Login */}
-      <div className="login-content">
-        <form className="login-form" onSubmit={handleSubmit}>
-          <h1>Bem vindo!</h1>
+        {/* Background */}
+        <div className="bg-image-login"></div>
+        <div className="div-secundaria-login">
 
-          <div className="form-group-login">
-            <label htmlFor="email">E-mail</label>
-            <input
-              id="email"
-              type="text"
-              placeholder="E-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+        {/* Container principal para o conteúdo */}
+        <div className="login-content">
+
+          {/* Formulário de login */}
+          <div className="login-form-container">
+            <form className="login-form" onSubmit={handleSubmit}>
+              <h1>Login</h1>
+              <div className="form-group-login">
+                <label htmlFor="email">E-mail</label>
+                <input
+                  id="email"
+                  type="text"
+                  placeholder="E-mail"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="form-group-login">
+                <label htmlFor="senha">Senha</label>
+                <input
+                  id="senha"
+                  type="password"
+                  placeholder="●●●●●●●"
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
+                />
+              </div>
+              <button className="login-button">
+                Login
+              </button>
+            </form>
+
           </div>
 
-          <div className="form-group-login">
-            <label htmlFor="senha">Senha</label>
-            <input
-              id="senha"
-              type="password"
-              placeholder="●●●●●●●"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-            />
+            {/* Seção de saudação explicativa */}
+            <div className="login-info">
+              <div className="div-imgs-login">
+                <img className="img-login-fatec" src="/assets/fatec-ferraz.png" alt="" />
+                <img className="img-login-prefeitura" src="/assets/logo_horizontal-sem-fundo.png" alt="" />
+              </div>
+              <h2>Bem-vindo ao Gamun!</h2>
+              <p>
+              O Gamun - Gerenciador de Ambulâncias Municipais, ajuda a organizar o trabalho das ambulâncias municipais, facilitando o acompanhamento dos chamados, atendimentos e manutenção, para um serviço mais rápido e eficiente para a população!</p>
+              <p>Entre com sua conta para começar!</p>
+            </div>
           </div>
-
-          <button className="login-button">
-            Login
-          </button>
-        </form>
+        </div>
       </div>
-    </div>
     </>
   );
 };
