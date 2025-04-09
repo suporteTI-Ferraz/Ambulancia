@@ -37,8 +37,8 @@
 .navbar-brand {
     font-size: 1.35rem !important;
     color: #ff4b4b !important; /* Texto branco */
-    padding: 1rem !important;
-    margin-left: 2rem !important;
+    padding: 0 !important;
+    margin-left: 3rem !important;
 }
 
 

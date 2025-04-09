@@ -11,15 +11,15 @@
 /* Imagem de fundo */
 .bg-image-login {
   background-image: url('/assets/ferraz-predio-imagem.jpeg'); /* Caminho da imagem de fundo */
-  background-size: cover;          /* Faz a imagem cobrir toda a área disponível */
-  background-position: center;     /* Centraliza a imagem */
-  background-attachment: fixed;    /* Mantém a imagem fixa enquanto o conteúdo rola */
-  height: 100vh;                   /* Ocupa toda a altura da viewport */
-  width: 100%;                     /* Ocupa toda a largura da tela */
-  position: absolute;              /* Garante que a imagem fique atrás do conteúdo */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100%; /* A imagem ocupa 100% da largura da tela */
+  position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;                     /* Coloca a imagem de fundo atrás de outros elementos */
+  z-index: -1;
 }
 
 .bg-image-login::after {
@@ -29,87 +29,135 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.65); /* Cor preta com 50% de opacidade */
-  z-index: 1; /* Garante que o filtro ficará sobre a imagem */
+  background-color: rgba(0, 0, 0, 0.5); /* Filtro para a imagem com transparência mais suave */
+  z-index: 1;
+}
+
+.div-secundaria-login {
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 /* Conteúdo principal */
 .login-content {
+  display: flex; /* Usar flexbox para organizar o formulário e a explicação */
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 400px;
-  max-height: 500px;
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  text-align: center;
-  border: 1px solid white;
-  align-items: center;
-  align-self: center;
-  justify-content: center;
-  justify-items: center;
+  max-width: 1200px; /* Limita o tamanho máximo para telas grandes */
 }
 
 /* Estilização do formulário */
+.login-form-container {
+  width: 47%; /* Ajuste a largura para 48% para que as divs fiquem mais próximas */
+  background-color: rgba(255, 255, 255, 0.15); /* Transparência mais suave */
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  backdrop-filter: blur(4px); /* Desfoque sutil */
+}
+
 .login-form h1 {
-  font-size: 1.4rem;
-  color: white;
-  margin-top: 2rem;
-  margin-bottom: 2rem;;
+  font-size: 1.6rem; /* Aumenta um pouco o tamanho da fonte */
+  color: #fff;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .form-group-login {
   margin-bottom: 2rem;
   text-align: left;
-  align-items: center;
-  align-self: center;
-  justify-content: center;
-  justify-items: center;
 }
 
 .form-group-login label {
-    color: white;
-    font-size: 1rem;
-    margin-bottom: 0.1rem;
-    margin-left: 1.5rem;
+  color: #e0e0e0; /* Cor mais suave para os rótulos */
+  font-size: 1rem;
+  margin-bottom: 0.1rem;
+  margin-left: 1.5rem;
 }
 
 .form-group-login input {
-  font-size: 1rem;
+  font-size: 0.9rem;
   padding: 1rem;
   width: 100%;
   border: none;
-  backdrop-filter: blur(3px);
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
   outline: none;
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Bordas mais sutis */
 }
-
 
 /* Botão de login */
 .login-button {
-  margin-top: 3.5rem !important;
+  margin-top: 3rem !important;
   margin-bottom: 2rem !important;
   width: 90%;
   padding: 0.9rem;
   font-size: 1.2rem;
-  color: var(--bg-color);
-  background-color: white;
+  color: white;
+  background-color: var(--main-color);
   border: none;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(6px); /* Desfoque suave para o botão */
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Adiciona a transição para transform */
-  display: block;         /* Faz o botão ser tratado como bloco */
-  margin: 0 auto;         /* Centraliza o botão horizontalmente */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: block;
+  margin: 0 auto;
 }
 
 .login-button:active {
-  transform: scale(0.95);  /* O botão encolhe um pouco ao ser pressionado */
+  transform: scale(0.95);
 }
 
-.login-button:hover {
-  background-color: var(--main-color);
-  color: white;
+
+
+
+
+/* Estilização da seção de saudação explicativa -------------------------------------------------------------------------------------------------- */
+.login-info {
+  width: 53%; /* Ajuste a largura para 48% para que as divs fiquem mais próximas */
+  max-width: 500px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.45); /* Transparência mais suave */
+  backdrop-filter: blur(15px); /* Desfoque mais suave */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Sombra suave */
+  
+  /* Adicionando Flexbox para centralização */
+  display: flex;
+  flex-direction: column; /* Organizar os itens em coluna */
+  justify-content: center; /* Alinhar os itens verticalmente no centro */
+  align-items: center; /* Alinhar os itens horizontalmente no centro */
+  text-align: center; /* Garantir que o texto também fique centralizado */
 }
 
+.login-info h2 {
+  font-size: 1.6rem;
+  color: #1e1e1e;
+  margin-bottom: 1.3rem;
+}
+
+.login-info p {
+  font-size: 0.8rem;
+  color: #1e1e1e; /* Cor mais suave */
+  line-height: 1.5;
+}
+
+
+.img-login-prefeitura {
+  width: 12rem;
+  height: 12rem;
+  margin-top: -3rem;
+  align-self: center !important;
+  justify-self: center !important;
+}
+
+.img-login-fatec {
+  margin-right: 1rem;
+  margin-top: -3rem;
+  width: 7rem;
+  height: auto;
+  align-self: center !important;
+  justify-self: center !important;
+}
