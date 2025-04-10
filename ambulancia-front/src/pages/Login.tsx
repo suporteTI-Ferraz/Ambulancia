@@ -85,7 +85,9 @@ const Login = () => {
               </div>
               <h2>Bem-vindo ao Gamun!</h2>
               <p>
-              O Gamun - Gerenciador de Ambulâncias Municipais, ajuda a organizar o trabalho das ambulâncias municipais, facilitando o acompanhamento dos chamados, atendimentos e manutenção, para um serviço mais rápido e eficiente para a população!</p>
+              O <strong>Gamun - Gerenciador de Ambulâncias Municipais</strong>, 
+              ajuda a organizar seu trabalho e facilita o preenchimento das 
+              fichas de chamado, agendamentos e manutenção!</p>
               <p>Entre com sua conta para começar!</p>
             </div>
           </div>

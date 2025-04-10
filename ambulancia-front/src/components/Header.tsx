@@ -48,7 +48,7 @@ const Header: React.FC = () => {
 
     return (
         <>
-            {isLoggedIn && (
+            {/* {isLoggedIn && (
                 <div className="header-logo">
                     <img
                         src="/assets/brasao-uva-horizontal.png"
@@ -56,7 +56,7 @@ const Header: React.FC = () => {
                         className="logo-img"
                     />
                 </div>
-            )}
+            )} */}
 
             {isLoggedIn && (
                 <Navbar className="custom-navbar" expand="md">
