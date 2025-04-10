@@ -119,8 +119,8 @@
 .login-info {
   width: 53%; /* Ajuste a largura para 48% para que as divs fiquem mais próximas */
   max-width: 500px;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.45); /* Transparência mais suave */
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.40); /* Transparência mais suave */
   backdrop-filter: blur(15px); /* Desfoque mais suave */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Sombra suave */
   

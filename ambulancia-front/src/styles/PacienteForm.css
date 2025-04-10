@@ -38,27 +38,6 @@
     margin-bottom: 3rem;
 }
 
-/* Estilo para o DatePicker */
-.form-input-paciente .react-datepicker-wrapper {
-    width: 100%;
-}
-
-.react-datepicker__input-container input {
-    font-size: 1rem;
-    padding: 0.8rem;
-    width: 100%;
-    border: none;
-    backdrop-filter: blur(3px);
-    border-radius: 0;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    outline: none;
-    border: 1px solid white;
-}
-
-.react-datepicker__input-container input::placeholder{
-    color: white;
-}
 
 
 .form-input-paciente input::placeholder{

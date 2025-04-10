@@ -142,36 +142,60 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
             <Form.Control.Feedback type="invalid">Por favor, insira um nome.</Form.Control.Feedback>
           </Form.Group>
         
+          {/* data de nascimento */}
+          <Form.Group controlId="dataNasc" className="form-input-paciente">
+            <Form.Label>Data Nascimento</Form.Label>
+            <br />
+            <input
+              type="text"
+              value={formData.dataNasc}
+              onChange={(e) => {
+                // Obtendo a string digitada
+                let value = e.target.value;
 
-        {/* data de nascimento */}
-        <Form.Group controlId="dataNasc" className="form-input-paciente">
+                // Remover tudo o que não for número
+                value = value.replace(/\D/g, '');
 
-          <Form.Label>Data Nascimento</Form.Label>
-          <br />
-          <DatePicker
-            selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
-            onChange={(date) => {
-              // Validação: data deve existir e não ser futura
-              const isValid = date !== null && date.getTime() <= new Date().getTime();
-              setFormData({ ...formData, dataNasc: date ? date.toISOString().split("T")[0] : "" });
-              setValidationState({
-                ...validationState,
-                dataNasc: isValid
-              });
-            }}
-            className={`form-control ${validationState.dataNasc ? 'is-valid' : ''} ${!validationState.dataNasc && formData.dataNasc ? 'is-invalid' : ''}`}
-            locale="pt-BR"
-            dateFormat="dd/MM/yyyy"
-            showYearDropdown
-            scrollableYearDropdown
-            yearDropdownItemNumber={120}
-            maxDate={new Date()}
-            placeholderText="DD/MM/AAAA"
-            popperPlacement="left-end"
-          />
-          <Form.Control.Feedback type="valid">Data válida!</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">Por favor, selecione uma data válida e não futura.</Form.Control.Feedback>
-        </Form.Group>
+                // Adicionando a formatação dd/mm/aaaa
+                if (value.length <= 2) {
+                  value = value.replace(/(\d{2})/, '$1');
+                } else if (value.length <= 4) {
+                  value = value.replace(/(\d{2})(\d{2})/, '$1/$2');
+                } else {
+                  value = value.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
+                }
+
+                // Atualizar o campo com a formatação visual
+                setFormData({ ...formData, dataNasc: value });
+
+                // Validação: verificar se a data é válida, se o dia é válido para o mês e ano
+                const [day, month, year] = value.split('/').map((v) => parseInt(v, 10));
+                const currentDate = new Date();
+                currentDate.setHours(0, 0, 0, 0);
+                
+                // Verificar se o mês é válido
+                const isMonthValid = month > 0 && month <= 12;
+
+                // Verificar se o dia é válido para o mês e ano
+                const isDayValid = day > 0 && day <= new Date(year, month, 0).getDate(); // 'new Date(year, month, 0)' retorna o último dia do mês
+
+                // Criar a data para validar se ela não é no futuro
+                const inputDate = new Date(year, month - 1, day);
+                const isValid = isDayValid && isMonthValid && year >= 1900 && inputDate <= currentDate;
+
+                // Atualizar o estado de validação
+                setValidationState({
+                  ...validationState,
+                  dataNasc: isValid,
+                });
+              }}
+              className={`form-control ${validationState.dataNasc ? 'is-valid' : ''} ${!validationState.dataNasc && formData.dataNasc ? 'is-invalid' : ''}`}
+              maxLength={10} // Limitar a 10 caracteres (dd/mm/aaaa)
+              placeholder="DD/MM/AAAA"
+            />
+            <Form.Control.Feedback type="valid">Data válida!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Por favor, insira uma data válida e não futura.</Form.Control.Feedback>
+          </Form.Group>
 
 
 
