@@ -11,7 +11,7 @@ export interface Agendamento {
     horarioFim: string; // "HH:mm:ss"
     quilometragemInicial: number;
     quilometragemFinal: number;
-    // Removed agenda property since the backend no longer manages an agenda relation
+    data: string;
     userId: number;
     motorista: Motorista;
     veiculo: Veiculo;
@@ -27,6 +27,7 @@ export interface CreateAgendamentoDTO {
     horarioFim: string;  // "HH:mm:ss"
     quilometragemInicial: number;  
     quilometragemFinal: number;
+    data:string;
     // Removed agendaId property as it's no longer required by the backend
     motoristaId: number;
     veiculoId: number;
@@ -36,6 +37,7 @@ export interface CreateAgendamentoDTO {
 
 export interface EditAgendamentoDTO {
     id: number;
+    data:string;
     servico: string;
     horarioInic: string; // "HH:mm:ss"
     horarioFim: string;  // "HH:mm:ss"

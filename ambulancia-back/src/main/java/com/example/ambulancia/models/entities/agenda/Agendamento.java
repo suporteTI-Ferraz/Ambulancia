@@ -11,6 +11,8 @@ import com.example.ambulancia.models.entities.paciente.Paciente;
 import com.example.ambulancia.models.entities.user.User;
 import com.example.ambulancia.models.entities.veiculo.Veiculo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -37,6 +39,7 @@ public class Agendamento extends BaseEntity {
     private Integer quilometragemInicial; 
     private Integer quilometragemFinal; 
 
+    // @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate data;
     
 
