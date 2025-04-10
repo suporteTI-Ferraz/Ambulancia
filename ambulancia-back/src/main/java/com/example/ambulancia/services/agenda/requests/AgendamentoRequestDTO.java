@@ -1,5 +1,6 @@
 package com.example.ambulancia.services.agenda.requests;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class AgendamentoRequestDTO {
     private LocalTime horarioFim;
     private Integer quilometragemInicial;
     private Integer quilometragemFinal;
+    private LocalDate data;
     private Long agendaId;
     private Long motoristaId;
     private Long veiculoId;
