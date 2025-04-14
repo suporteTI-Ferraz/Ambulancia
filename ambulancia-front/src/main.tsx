@@ -30,10 +30,10 @@ function App() {
 
   return (
     <div>
-      {/* Botão de alternância de tema */}
+      {/* Botão de alternância de tema
       <button onClick={toggleTheme} className="theme-toggle-btn">
         {darkMode ? <FaSun className="icon" /> : <FaMoon className="icon" />}
-      </button>
+      </button> */}
 
       {/* Rotas da aplicação */}
       <AppRoutes />

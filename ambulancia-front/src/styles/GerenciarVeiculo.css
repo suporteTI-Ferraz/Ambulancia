@@ -1,7 +1,7 @@
 /* Título */
 .titulo-GerenciarVeiculos, .titulo-manutencao-GerenciarVeiculo {
   color: white;
-  margin-top: 2rem;
+  margin-top: 5rem;
   margin-bottom: 3rem;
   font-size: 2rem;
 }
@@ -152,7 +152,7 @@
 
 .form-list-container {
   background-color: none;
-  width: 80rem;
+  width: 60rem;
   align-items: center;
   justify-items: center;
 }
@@ -167,7 +167,7 @@
 
 .form-section2-veiculo {
   background-color: rgba(255, 255, 255, 0.1);
-  width: 40%;
+  width: 50%;
   padding: 4rem 3rem 2rem;
   margin-bottom: 3rem;
 }
@@ -260,8 +260,8 @@
 /* MANUTENÇÃO --------------------------------------------------------- */
 .form-container-manutencao {
   margin-bottom: 2rem; /* Adiciona uma margem inferior para separar o formulário */
-  padding: 20px;
-  width: 53%;
+  padding: 1rem;
+  width: 59%;
   background-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex; /* Contêiner flex */
