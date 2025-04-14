@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../services/api/UserService';
-import { LuLogOut, LuPointer } from "react-icons/lu";
+import { LuLogOut } from "react-icons/lu";
 import '../styles/Header.css';
 
 import {
@@ -20,7 +20,7 @@ import {
 } from 'reactstrap';
 
 const Header: React.FC = () => {
-    const { isLoggedIn } = useAuth();  // Verificando se o usuário está logado
+    const { isLoggedIn } = useAuth();
     const navigate = useNavigate();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -28,10 +28,10 @@ const Header: React.FC = () => {
 
     const sair = async () => {
         try {
-            const response = await logout();
+            await logout();
             handleLogout();
         } catch (error) {
-            // Você pode adicionar um tratamento de erro aqui
+            // Tratar erro, se necessário
         }
     };
 
@@ -48,16 +48,6 @@ const Header: React.FC = () => {
 
     return (
         <>
-            {/* {isLoggedIn && (
-                <div className="header-logo">
-                    <img
-                        src="/assets/brasao-uva-horizontal.png"
-                        alt="Logo"
-                        className="logo-img"
-                    />
-                </div>
-            )} */}
-
             {isLoggedIn && (
                 <Navbar className="custom-navbar" expand="md">
                     <NavbarBrand href="/dashboard" className="navbar-brand">
@@ -80,14 +70,14 @@ const Header: React.FC = () => {
                     <Collapse isOpen={isOpen} navbar>
                         <Nav className="ms-auto" navbar>
                             <NavItem>
-                                <NavLink href="/" className="nav-link hover:bg-pink-500">Início</NavLink>
+                                <NavLink href="/" className="nav-link">Início</NavLink>
                             </NavItem>
 
                             <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
                                 <DropdownToggle nav caret className="nav-link">
                                     Atalhos
                                 </DropdownToggle>
-                                <DropdownMenu className='dropdown-menu-dark' end>
+                                <DropdownMenu className="dropdown-menu-dark" end>
                                     <div className="dropdown-grid">
                                         <div>
                                             <DropdownItem onClick={handleUserRoute}>Usuários</DropdownItem>
@@ -108,7 +98,7 @@ const Header: React.FC = () => {
                             </NavItem>
 
                             <NavItem>
-                                <NavLink href='/' onClick={sair} className="nav-link">
+                                <NavLink href="/" onClick={sair} className="nav-link">
                                     Sair <LuLogOut />
                                 </NavLink>
                             </NavItem>

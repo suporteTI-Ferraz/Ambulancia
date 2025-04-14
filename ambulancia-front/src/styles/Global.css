@@ -17,6 +17,7 @@
   --text-color-theme: black;
 }
 
+
 body.dark-mode {
   --bg-color-theme: black;
   --text-color-theme: #bdbdbd;
