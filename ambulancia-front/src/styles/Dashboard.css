@@ -21,7 +21,7 @@
 
 /* Estilo do dashboard */
 .dashboard {
-  margin-top: 5rem;
+  margin-top: 6rem;
   margin-bottom: 5rem;
   text-align: center;
   padding: 5rem;
@@ -67,7 +67,7 @@
 /* Estilo do ícone dentro do card */
 .icon {
   margin-top: 0.8rem;
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin-bottom: 0.5rem;
   color: white;
 }
@@ -75,7 +75,7 @@
 /* Estilo do título dentro do card */
 .card h3 {
   color: white;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   margin-top: 1rem;
 }
 
