@@ -73,7 +73,6 @@ public class AgendamentoService {
         agendamento.setMotorista(motorista);
         agendamento.setQuilometragemInicial(veiculo.getQuilometragemAtual());
         agendamento.setQuilometragemFinal(veiculo.getQuilometragemAtual() + agendamento.getQuilometragemFinal());
-        agendamento.setData(agendamento.getData());
         veiculo.setQuilometragemAtual(agendamento.getQuilometragemFinal());
         veiculo.setUpdatedAt(null);
         veiculo.setUpdatedBy(null);

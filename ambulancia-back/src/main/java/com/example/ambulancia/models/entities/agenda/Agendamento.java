@@ -1,3 +1,4 @@
+
 package com.example.ambulancia.models.entities.agenda;
 
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import com.example.ambulancia.models.entities.veiculo.Veiculo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -39,10 +41,10 @@ public class Agendamento extends BaseEntity {
     private Integer quilometragemInicial; 
     private Integer quilometragemFinal; 
 
-    // @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "data")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate data;
     
-
     @ManyToOne(optional = false) // Um usuário cadastra o agendamento
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -66,21 +68,4 @@ public class Agendamento extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "paciente_id")
     )
     private List<Paciente> pacientes;
-
-
-    
-    
-    
-
-    //Método para juntar o dia de Agenda + a horaInic de Agendamento
-    // @JsonIgnore
-    //     public LocalDateTime getDataHoraInicio() {
-    //     return LocalDateTime.of(agenda.getDataAgenda(), horarioInic);
-    // }
-
-      //Método para juntar o dia de Agenda + a horaFim de Agendamento
-    // @JsonIgnore
-    // public LocalDateTime getDataHoraFim() {
-    //     return LocalDateTime.of(agenda.getDataAgenda(), horarioFim);
-    // }
 }

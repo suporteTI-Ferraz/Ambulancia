@@ -41,6 +41,7 @@ public class AgendamentoController {
         Long userId = Long.valueOf(authenticationService.getUserIdFromToken(request).toString());
         Agendamento novoAgendamento = new Agendamento();
         novoAgendamento.setServico(dto.getServico());
+        novoAgendamento.setData(dto.getData());
         novoAgendamento.setHorarioInic(dto.getHorarioInic());
         novoAgendamento.setHorarioFim(dto.getHorarioFim());
         novoAgendamento.setQuilometragemFinal(dto.getQuilometragemFinal());
@@ -53,6 +54,8 @@ public class AgendamentoController {
             dto.getHospitalId(), 
             dto.getPacientesIds()
         );
+
+        System.out.println("Recebido do front" + dto);
         return ResponseEntity.ok(agendamentoCriado);
     }
 
@@ -64,6 +67,7 @@ public class AgendamentoController {
         Long userId = Long.valueOf(authenticationService.getUserIdFromToken(request).toString());
         Agendamento novoAgendamento = new Agendamento();
         novoAgendamento.setServico(dto.getServico());
+        novoAgendamento.setData(dto.getData());
         novoAgendamento.setHorarioInic(dto.getHorarioInic());
         novoAgendamento.setHorarioFim(dto.getHorarioFim());
         novoAgendamento.setQuilometragemFinal(dto.getQuilometragemFinal());

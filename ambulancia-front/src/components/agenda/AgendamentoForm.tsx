@@ -1,5 +1,4 @@
 
-import "moment/locale/pt-br";
 import React, { useState } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Select from "react-select";
@@ -18,7 +17,7 @@ interface AgendamentoFormProps {
 }
 
 const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas, veiculos, hospitais, onSave }) => {
-
+  // Inicializa data como uma string
   const [formData, setFormData] = useState<CreateAgendamentoDTO>({
     servico: "",
     horarioInic: "",
@@ -32,16 +31,18 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
     pacientesIds: []
   });
 
+  // Atualiza o formData conforme os inputs
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
+  // Ao enviar, converte a data para formato "YYYY-MM-DD"
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Converte o campo data para o formato ISO antes de enviar
     const dto: CreateAgendamentoDTO = { 
-      ...formData, 
-      data: new Date(formData.data).toISOString() 
+      ...formData,
+      data: new Date(formData.data).toISOString().split("T")[0] // passa apenas a data
     };
     onSave(dto);
   };
