@@ -47,8 +47,8 @@ const AppRoutes: React.FC = () => {
           <Route path="/gerenciar-motoristas" element={<><PageTitle /><GerenciarMotorista /></>} />
           <Route path="/gerenciar-ambulancias" element={<><PageTitle /><GerenciarVeiculo /></>} />
           <Route path="/gerenciar-hospitais" element={<><PageTitle /><GerenciarHospital /></>} />
-          <Route path="/gerenciar-agendamentos/:agendaId" element={<><PageTitle /><GerenciarAgendamento /></>} />
-          <Route path="/gerenciar-agendamentos" element={<><PageTitle /><GerenciarAgendarDia /></>} />
+          <Route path="/gerenciar-agendamentos" element={<><PageTitle /><GerenciarAgendamento /></>} />
+          <Route path="/gerenciar-calendario" element={<><PageTitle /><GerenciarAgendarDia /></>} />
           <Route path="/criar-ficha" element={<><PageTitle /><CriarFicha /></>} />
           <Route path="/relatorios-veiculos" element={<><PageTitle /><RelatoriosVeiculos /></>} />
           <Route path="/relatorios-fornecedores" element={<><PageTitle /><RelatoriosFornecedores /></>} />

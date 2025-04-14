@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Agendamento, CreateAgendamentoDTO, EditAgendamentoDTO } from "../types/agenda/Agendamento";
-import { fetchAgendamento, createAgendamento, updateAgendamento } from "../services/api/AgendamentoService";
-import { useToast } from "./useToast";
 import { useLoading } from "../contexts/LoadingContext";
+import { createAgendamento, fetchAgendamento, updateAgendamento } from "../services/api/AgendamentoService";
+import { Agendamento, CreateAgendamentoDTO, EditAgendamentoDTO } from "../types/agenda/Agendamento";
+import { useToast } from "./useToast";
 
   
 
@@ -45,12 +45,11 @@ const useGerenciarAgendamento = () => {
           try {
             // Constrói o objeto que será enviado para o backend.
             // Assumindo que o backend espera um objeto com as relações aninhadas.
-          
       
-            
             const response = await createAgendamento(dto);
             const createdAgendamento = response.data;
             console.log(dto.quilometragemFinal.valueOf());
+            console.log(dto)
             setAgendamentos(prevAgendamentos => [...prevAgendamentos, createdAgendamento]);
             handleSuccess("Agendamento criado com sucesso!");
           } catch (error) {

@@ -1,5 +1,7 @@
 package com.example.ambulancia.controllers.agenda;
+
 import java.util.List;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,23 +20,20 @@ import com.example.ambulancia.services.agenda.AgendamentoService;
 import com.example.ambulancia.services.agenda.requests.AgendamentoRequestDTO;
 import com.example.ambulancia.services.authentication.AuthenticationService;
 
-import jakarta.servlet.http.HttpServletRequest;
-
-
-
 @RestController
 @RequestMapping("/api/agendamento")
 public class AgendamentoController {
+
     @Autowired
     private AgendamentoService service;
+
     @Autowired
-    AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @GetMapping
     public ResponseEntity<List<Agendamento>> findAll(){
         List<Agendamento> list = service.findAll();
         return ResponseEntity.ok().body(list);
-        
     }
 
     @PostMapping
@@ -42,47 +41,53 @@ public class AgendamentoController {
         Long userId = Long.valueOf(authenticationService.getUserIdFromToken(request).toString());
         Agendamento novoAgendamento = new Agendamento();
         novoAgendamento.setServico(dto.getServico());
+        novoAgendamento.setData(dto.getData());
         novoAgendamento.setHorarioInic(dto.getHorarioInic());
         novoAgendamento.setHorarioFim(dto.getHorarioFim());
         novoAgendamento.setQuilometragemFinal(dto.getQuilometragemFinal());
+        // Chama o método do service sem o parâmetro agendaId
         Agendamento agendamentoCriado = service.insertAgendamento(
-            novoAgendamento, dto.getAgendaId(), userId,
-            dto.getMotoristaId(), dto.getVeiculoId(),
-            dto.getHospitalId(), dto.getPacientesIds()
+            novoAgendamento, 
+            userId,
+            dto.getMotoristaId(), 
+            dto.getVeiculoId(),
+            dto.getHospitalId(), 
+            dto.getPacientesIds()
         );
 
+        System.out.println("Recebido do front" + dto);
         return ResponseEntity.ok(agendamentoCriado);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Agendamento> updateAgendamento(
-        @PathVariable Long id,
-        @RequestBody AgendamentoRequestDTO dto,
-        HttpServletRequest request) {
-
-    Long userId = Long.valueOf(authenticationService.getUserIdFromToken(request).toString());
-
-    Agendamento novoAgendamento = new Agendamento();
-    novoAgendamento.setServico(dto.getServico());
-    novoAgendamento.setHorarioInic(dto.getHorarioInic());
-    novoAgendamento.setHorarioFim(dto.getHorarioFim());
-    novoAgendamento.setQuilometragemFinal(dto.getQuilometragemFinal());
-
-    Agendamento agendamentoAtualizado = service.updateAgendamento(
-        id, novoAgendamento, dto.getAgendaId(), userId,
-        dto.getMotoristaId(), dto.getVeiculoId(),
-        dto.getHospitalId(), dto.getPacientesIds()
-    );
-
-    return ResponseEntity.ok(agendamentoAtualizado);
-}
-
+            @PathVariable Long id,
+            @RequestBody AgendamentoRequestDTO dto,
+            HttpServletRequest request) {
+        Long userId = Long.valueOf(authenticationService.getUserIdFromToken(request).toString());
+        Agendamento novoAgendamento = new Agendamento();
+        novoAgendamento.setServico(dto.getServico());
+        novoAgendamento.setData(dto.getData());
+        novoAgendamento.setHorarioInic(dto.getHorarioInic());
+        novoAgendamento.setHorarioFim(dto.getHorarioFim());
+        novoAgendamento.setQuilometragemFinal(dto.getQuilometragemFinal());
+        // Chama o método do service sem o parâmetro agendaId
+        Agendamento agendamentoAtualizado = service.updateAgendamento(
+            id, 
+            novoAgendamento,
+            userId,
+            dto.getMotoristaId(), 
+            dto.getVeiculoId(),
+            dto.getHospitalId(), 
+            dto.getPacientesIds()
+        );
+        return ResponseEntity.ok(agendamentoAtualizado);
+    }
 
     @DeleteMapping("/{agendamentoId}/paciente/{pacienteId}")
     public ResponseEntity<Agendamento> removePacienteFromAgendamento(
-        @PathVariable Long agendamentoId, 
-        @PathVariable Long pacienteId
-    ) {
+            @PathVariable Long agendamentoId, 
+            @PathVariable Long pacienteId) {
         Agendamento updatedAgendamento = service.removePacienteFromAgendamento(agendamentoId, pacienteId);
         return ResponseEntity.ok(updatedAgendamento);
     }
@@ -91,7 +96,6 @@ public class AgendamentoController {
     public ResponseEntity<Agendamento> finalizarAgendamento(
             @PathVariable Long id,
             @RequestBody Integer quilometragemFinal) {
-        
         Agendamento agendamento = service.finalizarAgendamento(id, quilometragemFinal);
         return ResponseEntity.ok().body(agendamento);
     }

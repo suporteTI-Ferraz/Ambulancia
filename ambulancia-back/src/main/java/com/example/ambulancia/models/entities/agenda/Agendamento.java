@@ -1,6 +1,7 @@
+
 package com.example.ambulancia.models.entities.agenda;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -10,14 +11,21 @@ import com.example.ambulancia.models.entities.motorista.Motorista;
 import com.example.ambulancia.models.entities.paciente.Paciente;
 import com.example.ambulancia.models.entities.user.User;
 import com.example.ambulancia.models.entities.veiculo.Veiculo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import jakarta.persistence.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -33,11 +41,10 @@ public class Agendamento extends BaseEntity {
     private Integer quilometragemInicial; 
     private Integer quilometragemFinal; 
 
-
-    @ManyToOne(optional = false) // Cada agendamento pertence a um dia específico
-    @JoinColumn(name = "agenda_id", nullable = false)
-    private Agenda agenda;
-
+    @Column(name = "data")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate data;
+    
     @ManyToOne(optional = false) // Um usuário cadastra o agendamento
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -61,21 +68,4 @@ public class Agendamento extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "paciente_id")
     )
     private List<Paciente> pacientes;
-
-
-    
-    
-    
-
-    //Método para juntar o dia de Agenda + a horaInic de Agendamento
-    @JsonIgnore
-        public LocalDateTime getDataHoraInicio() {
-        return LocalDateTime.of(agenda.getDataAgenda(), horarioInic);
-    }
-
-      //Método para juntar o dia de Agenda + a horaFim de Agendamento
-    @JsonIgnore
-    public LocalDateTime getDataHoraFim() {
-        return LocalDateTime.of(agenda.getDataAgenda(), horarioFim);
-    }
 }

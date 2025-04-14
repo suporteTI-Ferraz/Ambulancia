@@ -2,7 +2,8 @@ import { Hospital } from "../hospital/HospitalType";
 import { Motorista } from "../motorista/MotoristaType";
 import { Paciente } from "../paciente/PacienteType";
 import { Veiculo } from "../veiculo/VeiculoType";
-import { Agenda } from "./Agenda";
+// Removed import of Agenda as it's no longer used in the backend
+
 export interface Agendamento {
     id: number;
     servico: string;
@@ -10,40 +11,41 @@ export interface Agendamento {
     horarioFim: string; // "HH:mm:ss"
     quilometragemInicial: number;
     quilometragemFinal: number;
-    agenda: Agenda;
+    data: string;
     userId: number;
     motorista: Motorista;
     veiculo: Veiculo;
-    hospital: Hospital; // Nome do hospital
+    hospital: Hospital;
     pacientes: Paciente[];
     createdAt: string;
-  }
+}
 
-  export interface CreateAgendamentoDTO {
-    id?: number; // ID opcional
+export interface CreateAgendamentoDTO {
+    id?: number; // optional ID
+    data:string;
     servico: string;
     horarioInic: string; // "HH:mm:ss"
     horarioFim: string;  // "HH:mm:ss"
     quilometragemInicial: number;  
     quilometragemFinal: number;
-    agendaId: number;
+    // Removed agendaId property as it's no longer required by the backend
     motoristaId: number;
     veiculoId: number;
     hospitalId: number;
     pacientesIds: number[];
-  }
+}
 
-  export interface EditAgendamentoDTO {
-    id: number; // ID opcional
+export interface EditAgendamentoDTO {
+    id: number;
+    data:string;
     servico: string;
     horarioInic: string; // "HH:mm:ss"
     horarioFim: string;  // "HH:mm:ss"
     quilometragemInicial: number;  
     quilometragemFinal: number;
-    agendaId: number;
+    // Removed agendaId property as it's no longer required by the backend
     motoristaId: number;
     veiculoId: number;
     hospitalId: number;
     pacientesIds: number[];
-  }
-  
+}
