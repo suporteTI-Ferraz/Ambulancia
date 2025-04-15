@@ -94,6 +94,7 @@ public class AgendamentoService {
                 .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
 
         // Atualiza os campos básicos
+        agendamento.setData(novoAgendamento.getData());
         agendamento.setServico(novoAgendamento.getServico());
         agendamento.setHorarioInic(novoAgendamento.getHorarioInic());
         agendamento.setHorarioFim(novoAgendamento.getHorarioFim());
