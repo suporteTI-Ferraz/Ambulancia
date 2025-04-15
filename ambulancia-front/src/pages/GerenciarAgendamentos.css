@@ -1,0 +1,162 @@
+.container-calendario-agendamentos {
+    padding: 8.5rem 0rem 10rem 0rem;
+    /* background-color: rgb(156, 91, 91); */
+    background-color: #355171;
+}
+/*
+=====================================================
+*/
+
+/* Wrapper geral do calendário */
+.calendario-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* background-color: #571919; */
+  }
+  
+  /* Container centralizado */
+  .calendario-content {
+    width: 100%;
+    max-width: 1200px;
+    min-height: 600px; /* Alterado para min-height */
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #1e1e1e;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0, 0.1);
+    padding: 20px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Título da seção */
+  .calendario-titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #333;
+  }
+  
+  /* Componente de calendário */
+  .calendario-componente {
+    flex-grow: 1; /* Faz o calendário ocupar o espaço restante */
+    min-height: 500px; /* Garante uma altura mínima */
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+
+
+  /* Sobrescreve o estilo do dia de hoje */
+.rbc-today {
+    background-color: #37ada488; /* Altere para a cor que você deseja para o fundo do dia de hoje */
+}
+
+
+
+
+
+
+
+/* Estilos para os eventos agendados */
+.rbc-event {
+    background-color: #d7f5a0; /* Cor de fundo do evento */
+    color: #fff; /* Cor do texto dentro do evento */
+    border-radius: 5px; /* Bordas arredondadas para os eventos */
+    padding: 5px 10px; /* Espaçamento interno */
+    font-size: 14px; /* Tamanho da fonte */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para dar um efeito de profundidade */
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Quando um evento é selecionado */
+.rbc-selected {
+    background-color: #0288d1; /* Altere a cor para destacar o evento selecionado */
+    border: 2px solid #0288d1; /* Borda para o evento selecionado */
+}
+
+/* Quando um evento é hover */
+.rbc-event:hover {
+    background-color: #1565c0; /* Cor do fundo quando o evento é hover */
+}
+
+/* Estilos para o conteúdo do evento (ex: título) */
+.rbc-event-content {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold; /* Deixa o título mais em destaque */
+}
+
+/* Estilo para o rótulo do evento (ex: ícones ou informações adicionais) */
+.rbc-event-label {
+    font-size: 12px;
+    font-weight: normal;
+    color: #f1f1f1;
+}
+
+
+
+
+
+
+
+
+
+.agendamento-form {
+    background-color: #355171;
+    padding-top: 8rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .agendamento-form-form {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: #ffffff25;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .agendamento-form-form h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .agendamento-form-form label {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: #444;
+  }
+  
+  .agendamento-form-form input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .agendamento-form-form .pacientes-select {
+    font-size: 1rem;
+  }
+  
+  .agendamento-form-form button {
+    margin-top: 1rem;
+    padding: 0.7rem;
+    font-size: 1rem;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .agendamento-form-form button:hover {
+    background-color: #005bb5;
+  }
+  

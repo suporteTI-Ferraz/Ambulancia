@@ -48,11 +48,10 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
   };
 
   return (
-    <div className="agendamento-form mt-5 pt-5">
-      {/* Formulário */}
-      <form onSubmit={handleSubmit} style={{ width: "40%" }}>
+    <div className="agendamento-form">
+      <form className="agendamento-form-form" onSubmit={handleSubmit}>
         <h2>Criar Agendamento</h2>
-
+  
         <label>Data do agendamento:</label>
         <input 
           name="data" 
@@ -60,32 +59,31 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
           value={formData.data} 
           onChange={handleChange} 
         />
-
+  
         <label>Serviço:</label>
         <input name="servico" value={formData.servico} onChange={handleChange} />
-
+  
         <label>Horário Início:</label>
         <input name="horarioInic" type="time" value={formData.horarioInic} onChange={handleChange} />
-
+  
         <label>Horário Fim:</label>
         <input name="horarioFim" type="time" value={formData.horarioFim} onChange={handleChange} />
         
         <label>Quilometragem Percorrida:</label>
         <input name="quilometragemFinal" value={formData.quilometragemFinal} onChange={handleChange} />
-
-        {/* Selects */}
+  
         <label>Motoristas:</label>
         <Select 
           options={motoristas.map(m => ({ value: m.id, label: m.nomeMotorista }))}
           onChange={(opt) => setFormData({ ...formData, motoristaId: opt?.value || 0 })}
         />
-
+  
         <label>Veículos:</label>
         <Select 
           options={veiculos.map(v => ({ value: v.id, label: `${v.placaVeic} - ${v.classe}` }))}
           onChange={(opt) => setFormData({ ...formData, veiculoId: opt?.value || 0 })}
         />
-
+  
         <label>Hospitais:</label>
         <Select 
           options={hospitais.map(h => ({
@@ -94,7 +92,7 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
           }))}
           onChange={(opt) => setFormData({ ...formData, hospitalId: opt?.value || 0 })}
         />
-
+  
         <label>Pacientes:</label>
         <Select 
           options={pacientes.map(p => ({ value: p.id, label: `${p.nomePaciente} - ${p.cpf}` }))}
@@ -103,11 +101,12 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
           placeholder="Selecione um ou mais pacientes..."
           onChange={(opts) => setFormData({ ...formData, pacientesIds: opts.map(opt => opt.value) })}
         />
-
+  
         <button type="submit">Criar Agendamento</button>
       </form>
     </div>
   );
+  
 };
 
 export default AgendamentoForm;
