@@ -27,7 +27,7 @@ const RelatoriosDashboard: React.FC = () => {
               <h2>Relatório de Fornecedores de Peças</h2>
               <p>Visualize informações sobre os fornecedores de peças.</p>
             </Link>
-            <Link to="/relatorios/agendamento" className="report-card invalid">
+            <Link to="/relatorios-agendamentos" className="report-card">
               <h2>Relatório de Agendamento</h2>
               <p>Acesse os agendamentos e seus detalhes.</p>
             </Link>

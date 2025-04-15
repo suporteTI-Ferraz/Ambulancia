@@ -20,6 +20,7 @@ import RelatoriosDashboard from '../pages/DashboardRelatorios';
 import RelatoriosFornecedores from '../pages/RelatoriosFornecedores';
 import RelatoriosManutencao from '../pages/RelatoriosManutencao';
 import RelatoriosPecas from '../pages/RelatoriosPecas';
+import RelatoriosAgendamento from '../pages/RelatoriosAgendamento';
 
 const AppRoutes: React.FC = () => {
   // Gerenciamento do tema
@@ -53,6 +54,7 @@ const AppRoutes: React.FC = () => {
           <Route path="/relatorios-veiculos" element={<><PageTitle /><RelatoriosVeiculos /></>} />
           <Route path="/relatorios-fornecedores" element={<><PageTitle /><RelatoriosFornecedores /></>} />
           <Route path="/relatorios-manutencao" element={<><PageTitle /><RelatoriosManutencao /></>} />
+          <Route path="/relatorios-agendamentos" element={<><PageTitle /><RelatoriosAgendamento /></>} />
           <Route path="relatorios-pecas" element={<><PageTitle /><RelatoriosPecas /></>} />
           <Route path="/dashboard-relatorios" element={<><PageTitle /><RelatoriosDashboard /></>} />
         </Route>
@@ -60,7 +62,7 @@ const AppRoutes: React.FC = () => {
         {/* Rota de fallback */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
-      <Footer darkMode={darkMode} /> {/* Passa o estado darkMode para o Footer */}
+      <Footer  /> {/* Passa o estado darkMode para o Footer */}
     </Router>
   );
 };
