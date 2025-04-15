@@ -1,9 +1,8 @@
 import React, { useState } from "react";
+import { FiEdit, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
+import '../../styles/PacienteList.css';
 import { Paciente } from "../../types/paciente/PacienteType";
-import { FiEdit, FiPhone, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
-import { FaMapLocationDot } from "react-icons/fa6";
 import DataCriacao from "../itens/DataFormatada";
-import '../../styles/PacienteList.css'
 
 interface PacienteListProps {
   pacientes: Paciente[];
