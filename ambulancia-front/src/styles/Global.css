@@ -113,91 +113,21 @@ table td {
 
 
 
-/* Estilo para o input do DatePicker */
-.form-input-paciente .react-datepicker-wrapper {
-  width: auto; /* Permite que o campo de input tenha um tamanho mais flexível */
-  max-width: 100%; /* Limita a largura do campo */
-}
-
-.react-datepicker__input-container input {
-  font-size: 1rem;
-  padding: 0.8rem;
-  width: 100%;
-  border: 1px solid #ccc; /* Ajuste o estilo da borda */
-  border-radius: 5px; /* Borda mais suave */
-  background: #fff; /* Fundo branco ou mais sólido */
-  color: #333; /* Cor de texto escuro */
-  outline: none;
-  backdrop-filter: none; /* Removido o efeito de blur */
-}
-
-.react-datepicker__input-container input::placeholder {
-  color: #888; /* Ajuste a cor do placeholder para ser mais visível */
-}
 
 
 
 
-
-/* Estilo para o calendário do DatePicker */
-.react-datepicker {
-  width: auto;
-  font-family: Arial, sans-serif;
-  border-radius: 5px;
-  border: 1px solid #cccccc54;
-  background-color: rgba(255, 255, 255, 0.01);
-  backdrop-filter: blur(100px);
-}
-
-/* Estilo para o container do mês */
-.react-datepicker__month {
-  display: block; /* Mudamos de grid para block para permitir que as semanas controlem o layout */
-  margin: 0;
-  padding: 0;
-}
-
-/* Estilo para cada semana (linha de dias) */
-.react-datepicker__week {
-  display: flex; /* Usa flexbox para alinhar os dias horizontalmente */
-  justify-content: space-between; /* Espaça os dias igualmente */
-  align-items: center;
-}
-
-/* Estilo para os nomes dos dias da semana */
-.react-datepicker__day-name {
-  display: inline-flex;
-  justify-content: center; /* Centraliza o texto */
-  align-items: center;
-  text-align: center;
-  font-weight: bold;
-  font-size: 0.9rem;
+/* Estilo do select */
+.custom-select {
   color: #fff;
-  text-transform: uppercase;
-  width: 40px; /* Define uma largura fixa para consistência */
-  height: 40px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  width: 100%;
 }
 
-/* Estilo para os dias do mês */
-.react-datepicker__day {
-  display: inline-flex;
-  justify-content: center; /* Centraliza os números */
-  align-items: center;
-  width: 40px; /* Largura fixa para cada dia */
-  height: 40px; /* Altura fixa para cada dia */
-  padding: 0;
-  border-radius: 5px;
-}
 
-.react-datepicker__day--outside-month {
-  color: #949494b1;
-}
-
-.react-datepicker__day:hover {
-  background-color: #dddddd28;
-  cursor: pointer;
-}
-
-/* Remove o triângulo da parte inferior do calendário */
-.react-datepicker__triangle {
-  display: none !important;
+/* Estilo das opções dentro do select */
+.custom-select option {
+  background-color: #1e1e1e;
+  color: #fff;
 }

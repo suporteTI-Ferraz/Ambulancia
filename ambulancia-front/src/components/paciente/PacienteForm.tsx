@@ -159,41 +159,23 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
             <Form.Label>Data Nascimento</Form.Label>
             <br />
             <input
-              type="text"
-              value={formData.dataNasc}
+              type="date"
+              name="dataNasc"
+              value={formData.dataNasc || ""}
               onChange={(e) => {
-                // Obtendo a string digitada
-                let value = e.target.value;
+                const value = e.target.value;
 
-                // Remover tudo o que não for número
-                value = value.replace(/\D/g, '');
-
-                // Adicionando a formatação dd/mm/aaaa
-                if (value.length <= 2) {
-                  value = value.replace(/(\d{2})/, '$1');
-                } else if (value.length <= 4) {
-                  value = value.replace(/(\d{2})(\d{2})/, '$1/$2');
-                } else {
-                  value = value.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
-                }
-
-                // Atualizar o campo com a formatação visual
+                // Atualizar o estado com a data no formato ISO
                 setFormData({ ...formData, dataNasc: value });
 
-                // Validação: verificar se a data é válida, se o dia é válido para o mês e ano
-                const [day, month, year] = value.split('/').map((v) => parseInt(v, 10));
+                // Validação: verificar se a data é válida
+                const [year, month, day] = value.split('-').map((v) => parseInt(v, 10));
                 const currentDate = new Date();
                 currentDate.setHours(0, 0, 0, 0);
-                
-                // Verificar se o mês é válido
-                const isMonthValid = month > 0 && month <= 12;
 
-                // Verificar se o dia é válido para o mês e ano
-                const isDayValid = day > 0 && day <= new Date(year, month, 0).getDate(); // 'new Date(year, month, 0)' retorna o último dia do mês
-
-                // Criar a data para validar se ela não é no futuro
+                // Verificar se a data não é no futuro
                 const inputDate = new Date(year, month - 1, day);
-                const isValid = isDayValid && isMonthValid && year >= 1900 && inputDate <= currentDate;
+                const isValid = inputDate <= currentDate && year >= 1900;
 
                 // Atualizar o estado de validação
                 setValidationState({
@@ -202,7 +184,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
                 });
               }}
               className={`form-control ${validationState.dataNasc ? 'is-valid' : ''} ${!validationState.dataNasc && formData.dataNasc ? 'is-invalid' : ''}`}
-              maxLength={10} // Limitar a 10 caracteres (dd/mm/aaaa)
+              max={new Date().toISOString().split("T")[0]} // Limitar a data máxima para não permitir datas futuras
               placeholder="DD/MM/AAAA"
             />
             <Form.Control.Feedback type="valid">Data válida!</Form.Control.Feedback>
