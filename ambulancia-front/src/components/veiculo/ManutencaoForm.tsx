@@ -140,39 +140,44 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
           </Form.Group>
           <Form.Group controlId="dataEntradaManutencao" className="div-input-manutencao">
             <Form.Label style={{ color: "white" }}>Data de Entrada da Manutenção</Form.Label>
-            <DatePicker
-              selected={formData.dataEntradaManutencao ? new Date(formData.dataEntradaManutencao) : null}
-              onChange={(date) =>
-                setFormData({ ...formData, dataEntradaManutencao: date?.toISOString().split("T")[0] || "" })
-              }
-              locale="pt-BR"
-              dateFormat="dd/MM/yyyy"
-              showYearDropdown
-              scrollableYearDropdown
-              yearDropdownItemNumber={120}
-              maxDate={new Date()}
-              placeholderText="DD/MM/AAAA"
-              popperPlacement="left-end"
+            <input
+              type="date"
+              name="dataEntradaManutencao"
+              value={formData.dataEntradaManutencao || ""}
+              onChange={(e) => {
+                // O valor já é no formato ISO (YYYY-MM-DD), então podemos salvar diretamente
+                setFormData({
+                  ...formData,
+                  dataEntradaManutencao: e.target.value, // A data no formato ISO
+                });
+              }}
+              max={new Date().toISOString().split("T")[0]} // Data máxima é a data atual
+              placeholder="DD/MM/AAAA" // O input não usa o placeholder como formato, mas serve como guia visual
               className="form-control"
             />
           </Form.Group>
           <Form.Group controlId="dataSaidaManutencao" className="div-input-manutencao">
             <Form.Label style={{ color: "white" }}>Data de Saída da Manutenção</Form.Label>
-            <DatePicker
-              selected={formData.dataSaidaManutencao ? new Date(formData.dataSaidaManutencao) : null}
-              onChange={(date) =>
-                setFormData({ ...formData, dataSaidaManutencao: date?.toISOString().split("T")[0] || "" })
-              }
-              locale="pt-BR"
-              dateFormat="dd/MM/yyyy"
-              showYearDropdown
-              scrollableYearDropdown
-              yearDropdownItemNumber={120}
-              maxDate={new Date()}
-              placeholderText="DD/MM/AAAA"
-              popperPlacement="left-end"
+
+
+            {/* ----------------------------- mexi aqui ------------------------- */}
+            <input 
+              type="date"
+              name="dataSaidaManutencao"
+              value={formData.dataSaidaManutencao || ""}
+              onChange={(e) => {
+                // Convertendo a data para o formato ISO, como o DatePicker faria
+                setFormData({
+                  ...formData,
+                  dataSaidaManutencao: e.target.value,
+                });
+              }}
+              max={new Date().toISOString().split("T")[0]} // A data máxima será a data atual
+              placeholder="DD/MM/AAAA" // Embora o input tenha o formato nativo, o placeholder pode ser útil para dar um guia visual
               className="form-control"
             />
+
+
           </Form.Group>
           <Form.Group controlId="custoManutencao" className="div-input-manutencao">
             <Form.Label style={{ color: "white" }}>Custo</Form.Label>
@@ -184,10 +189,11 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
               onChange={handleInputChange}
             />
           </Form.Group>
-          <Form.Group controlId="status" className="div-input-manutencao">
-            <Form.Label style={{ color: "white" }}>Estado</Form.Label>
-            <Form.Control
-              as="select"
+
+          <div className="div-input-manutencao">
+            <label style={{ color: "white" }}>Estado</label>
+            <select
+              className="custom-select"  // Adicionando a classe custom-select
               name="status"
               value={formData.status}
               onChange={handleInputChange}
@@ -199,16 +205,20 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
               <option value="PENDENTE">Pendente</option>
               <option value="EM_ANDAMENTO">Em Andamento</option>
               <option value="CONCLUIDA">Concluída</option>
-            </Form.Control>
-          </Form.Group>
-          <Form.Group controlId="veiculo" className="div-input-manutencao">
-            <Form.Label style={{ color: "white" }}>Veículo:</Form.Label>
-            <Form.Control 
-            as="select" 
-            name="idVeic" 
-            value={idVeic > 0 ? idVeic.toString() : ""} 
-            onChange={(e) => { const selectedValue = e.target.value; 
-              if (selectedValue) setIdVeic(Number(selectedValue)); }} 
+            </select>
+          </div>
+
+
+          <div className="div-input-manutencao">
+            <label style={{ color: "white" }}>Veículo:</label>
+            <select
+              className="custom-select"  // Mantendo a classe customizada
+              name="idVeic"
+              value={idVeic > 0 ? idVeic.toString() : ""}
+              onChange={(e) => {
+                const selectedValue = e.target.value;
+                if (selectedValue) setIdVeic(Number(selectedValue));
+              }}
               required
             >
               <option value="" disabled>
@@ -219,15 +229,16 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
                   {v.placaVeic}
                 </option>
               ))}
-            </Form.Control>
+            </select>
+          </div>
 
-          </Form.Group>
-          <Form.Group controlId="fornecedor" className="div-input-manutencao">
-            <Form.Label style={{ color: "white" }}>Fornecedor:</Form.Label>
-            <Form.Control
-              as="select"
+
+          <div className="div-input-manutencao">
+            <label style={{ color: "white" }}>Fornecedor:</label>
+            <select
+              className="custom-select"  // Classe customizada
               name="idForn"
-              value={idForn > 0? idForn.toString() : ""}
+              value={idForn > 0 ? idForn.toString() : ""}
               onChange={(e) => {
                 const selectedValue = e.target.value;
                 if (selectedValue) setIdForn(Number(selectedValue));
@@ -242,9 +253,10 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
                   {f.nome}
                 </option>
               ))}
-            </Form.Control>
+            </select>
+          </div>
 
-          </Form.Group>
+
           <Row className="div-input-manutencao">
             <Col>
               <ButtonSpinner name={isModal ? "Atualizar" : "Criar"} isLoading={loading} type="submit" classe={"botao-criar-veiculos"} />
