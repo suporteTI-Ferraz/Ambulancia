@@ -1,4 +1,3 @@
-
 import React from "react";
 import AgendamentoForm from "../components/agenda/AgendamentoForm";
 import AgendamentoList from "../components/agenda/AgendamentoList";
@@ -9,6 +8,7 @@ import useGerenciarVeiculo from "../hooks/useGerenciarVeiculo";
 import useGerenciarAgendamento from "../hooks/useGerenciarAgendamento";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import EditAgendamentoForm from "../components/agenda/EditAgendamentoForm";
+import { Link } from "react-router-dom";
 
 const GerenciarAgendamento: React.FC = () => {
   const { agendamentos, editingAgendamento, isEditModalOpen, 
@@ -45,6 +45,13 @@ const GerenciarAgendamento: React.FC = () => {
             )}
           </ModalBody>
         </Modal>
+
+        {/* Navigation Button to GerenciarAgendarDia */}
+        <div style={{ marginTop: "20px", textAlign: "center" }}>
+          <Link to="/gerenciar-calendario">
+            <button type="button">Ir para Calendario</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

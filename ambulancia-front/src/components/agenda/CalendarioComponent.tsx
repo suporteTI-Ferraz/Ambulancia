@@ -45,12 +45,12 @@ const CalendarioComponent: React.FC<CalendarioComponentProps> = ({ agendamentos 
 
     // Converter os agendamentos para o formato do calendário, adicionando o id para navegação.
     const eventos = agendamentos.map((agendamento) => {
-        const dataAgenda = new Date(`${agendamento.agenda.dataAgenda}T00:00:00`);
+        const dataAgenda = new Date(`${agendamento.data}T00:00:00`);
         const [horaInic, minInic] = agendamento.horarioInic.split(":").map(Number);
         const [horaFim, minFim] = agendamento.horarioFim.split(":").map(Number);
         
         return {
-            id: agendamento.agenda.id, // Inclui o ID para navegação
+            id: agendamento.id, // Inclui o ID para navegação
             title: `Serviço: ${agendamento.servico} - Hospital: ${agendamento.hospital.enderecos.map(h => `${h.ruaHosp} ${h.numeroHosp}`).join(", ")}`,
             start: new Date(dataAgenda.setHours(horaInic, minInic)),
             end: new Date(dataAgenda.setHours(horaFim, minFim)),

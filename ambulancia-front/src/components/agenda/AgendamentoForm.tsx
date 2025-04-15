@@ -48,7 +48,7 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
   };
 
   return (
-    <div className="agendamento-form">
+    <div className="agendamento-form mt-5 pt-5">
       {/* Formulário */}
       <form onSubmit={handleSubmit} style={{ width: "40%" }}>
         <h2>Criar Agendamento</h2>
