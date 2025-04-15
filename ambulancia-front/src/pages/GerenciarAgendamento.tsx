@@ -19,7 +19,7 @@ const GerenciarAgendamento: React.FC = () => {
   const { veiculos } = useGerenciarVeiculo();
   
   return (
-    <div>
+    <div className="agendamento-form">
       <div> 
         <AgendamentoForm
           pacientes={pacientes}

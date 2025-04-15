@@ -1,17 +1,17 @@
 import useGerenciarAgendamento from "../hooks/useGerenciarAgendamento";
 import CalendarioComponent from "../components/agenda/CalendarioComponent";
 import { Link } from "react-router-dom";
+import "./GerenciarAgendamentos.css";
 
 const GerenciarAgendarDia = () => {
   const { agendamentos } = useGerenciarAgendamento();
 
   return (
-    <div >
-
+    <div className="container-calendario-agendamentos">
       <CalendarioComponent agendamentos={agendamentos} />
-      {/* Navigation Button to GerenciarAgendamento */}
-      <div style={{ marginTop: "20px", textAlign: "center" }}>
-        <Link to="/gerenciar-agendamentos">
+
+      <div className="botao-wrapper">
+        <Link to="/gerenciar-agendamentos" className="botao-navegacao">
           <button type="button">Ir para Gerenciar Agendamentos</button>
         </Link>
       </div>
