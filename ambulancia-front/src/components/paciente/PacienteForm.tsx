@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import { useState } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
 import { useLoading } from "../../contexts/LoadingContext";
@@ -104,20 +105,16 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
     const toastKey = handleLoad("Carregando...");
 
     try {
-      // Converter a data de dd/mm/aaaa para yyyy-mm-dd
-      const [day, month, year] = formData.dataNasc.split('/');
-      const dataNascBackend = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-
-      // Montar o objeto com a data formatada
+      // Uso direto da data, pois o input do tipo date já fornece o formato ISO (yyyy-mm-dd)
       const payload = {
         ...formData,
-        dataNasc: dataNascBackend, // Sobrescreve com o formato que o backend espera
+        dataNasc: formData.dataNasc,
       };
 
       // Simulação de requisição (substitua por fetch/axios se necessário)
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      onSave(payload); // Envia o payload formatado
-      console.log("Enviando:", payload); // Para depuração
+      onSave(payload);
+      console.log("Enviando:", payload);
     } catch (error) {
       console.error("Erro ao salvar paciente:", error);
       setErrorMessage("Erro ao salvar paciente. Tente novamente.");
@@ -164,27 +161,21 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
               value={formData.dataNasc || ""}
               onChange={(e) => {
                 const value = e.target.value;
-
-                // Atualizar o estado com a data no formato ISO
+                // Atualiza o estado com a data em formato ISO
                 setFormData({ ...formData, dataNasc: value });
-
-                // Validação: verificar se a data é válida
+                // Validação: verificar se a data é válida e não futura
                 const [year, month, day] = value.split('-').map((v) => parseInt(v, 10));
                 const currentDate = new Date();
                 currentDate.setHours(0, 0, 0, 0);
-
-                // Verificar se a data não é no futuro
                 const inputDate = new Date(year, month - 1, day);
                 const isValid = inputDate <= currentDate && year >= 1900;
-
-                // Atualizar o estado de validação
                 setValidationState({
                   ...validationState,
                   dataNasc: isValid,
                 });
               }}
               className={`form-control ${validationState.dataNasc ? 'is-valid' : ''} ${!validationState.dataNasc && formData.dataNasc ? 'is-invalid' : ''}`}
-              max={new Date().toISOString().split("T")[0]} // Limitar a data máxima para não permitir datas futuras
+              max={new Date().toISOString().split("T")[0]}
               placeholder="DD/MM/AAAA"
             />
             <Form.Control.Feedback type="valid">Data válida!</Form.Control.Feedback>
@@ -227,7 +218,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
             <Form.Control.Feedback type="invalid">{cpfError || "Por favor, insira um CPF válido."}</Form.Control.Feedback>
           </Form.Group>
 
-          {/* numero do sus */}
+          {/* número do sus */}
           <Form.Group controlId="sus" className="form-input-paciente">
             <Form.Label>SUS</Form.Label>
             <Form.Control
@@ -249,7 +240,7 @@ const PacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave, onCancel 
             <Form.Control.Feedback type="invalid">Por favor, insira um número SUS.</Form.Control.Feedback>
           </Form.Group>
 
-          {/* condicoes especiais */}
+          {/* condições específicas */}
           <Form.Group controlId="condicoesEspecificas" className="form-input-paciente">
             <Form.Label>Condições Específicas</Form.Label>
             <Form.Control
