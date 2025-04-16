@@ -93,7 +93,7 @@
 /* PÁGINA DE CRIAR NOVO AGENDAMENTO ---------------------------------------- */
 .agendamento-form {
   width: 100%;
-  background-color: #c6c6c6;
+  background-color: var(--theme-color);
   padding-top: 4.3rem;
   padding-bottom: 5rem;
   display: flex;
@@ -101,19 +101,19 @@
 }
 
 .agendamento-form-form {
-  width: 100%;
+  width: 80rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 3rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .agendamento-form-form h2 {
   margin-bottom: 1rem;
-  font-size: 1.5rem;
-  color: #a40909;
+  font-size: 1.8rem;
+  color: #fff;
 }
 
 .agendamento-form-grid {
@@ -134,12 +134,13 @@
 .agendamento-form-form label {
   margin-bottom: 0.3rem;
   margin-left: 0.5rem;
-  color: #444;
+  color: #fff;
 }
 
 .agendamento-form-form input,
 .agendamento-form-form select {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
   padding: 0.7rem;
   font-size: 1rem;
   border: 1px solid #cccccc7e;
@@ -147,13 +148,20 @@
 
 /* Customizando o estilo do React-Select com o classNamePrefix "select-ag" */
 .select-ag__control {
-  background-color: #fff !important;
-  color: #1e1e1e !important;
-  border: 1px solid #cccccc7e;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+  border: 1px solid #fff;
   padding: 0.4rem;
   font-size: 1rem;
   min-height: 38px;
   border-radius: 0 !important;
+}
+.select-ag__placeholder {
+  color: #fff !important; /* Cor do placeholder */
+}
+/* Cor do texto quando uma opção está selecionada (para select simples) */
+.select-ag__single-value {
+  color: #fff !important;
 }
 
 .select-ag__control--is-focused {
