@@ -1,7 +1,7 @@
 import useGerenciarAgendamento from "../hooks/useGerenciarAgendamento";
 import CalendarioComponent from "../components/agenda/CalendarioComponent";
 import { Link } from "react-router-dom";
-import "./GerenciarAgendamentos.css";
+import "../styles/GerenciarAgendamentos.css";
 
 const GerenciarAgendarDia = () => {
   const { agendamentos } = useGerenciarAgendamento();
