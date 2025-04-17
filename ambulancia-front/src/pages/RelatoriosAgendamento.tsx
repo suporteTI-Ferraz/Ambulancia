@@ -5,7 +5,6 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 import '../styles/Relatorios.css';
-// Importa a função que busca os agendamentos da API
 import { fetchAgendamento } from '../services/api/AgendamentoService';
 
 interface Motorista {
@@ -37,7 +36,7 @@ interface Agendamento {
   motorista: Motorista | null;
   veiculo: Veiculo | null;
   hospital: Hospital | null;
-  pacientes: Paciente[]; // Lista de pacientes envolvidos
+  pacientes: Paciente[];
 }
 
 interface AgendamentoReportData {
@@ -51,6 +50,7 @@ interface Filters {
   endDate: string;
   reportType: 'general' | 'detailed' | 'summary';
   motorista: string;
+  veiculo: string; // ADICIONADO campo veiculo
 }
 
 const RelatoriosAgendamento: React.FC = () => {
@@ -60,29 +60,29 @@ const RelatoriosAgendamento: React.FC = () => {
     endDate: '',
     reportType: 'general',
     motorista: '',
+    veiculo: '', // ADICIONADO valor inicial
   });
-  // State to hold unique motoristas available in the fetched data
   const [motoristasAvailable, setMotoristasAvailable] = useState<Motorista[]>([]);
+  const [veiculosAvailable, setVeiculosAvailable] = useState<Veiculo[]>([]); // ADICIONADO para armazenar veículos
   const reportRef = useRef<HTMLDivElement>(null);
 
   // Função para gerar o relatório de agendamentos com os filtros aplicados
   const generateReport = async () => {
     try {
       const response = await fetchAgendamento();
-      // Mapeia a resposta da API para o formato esperado
       const agendamentos: Agendamento[] = response.data.map((agendamento: any) => ({
         id: agendamento.id,
         data: agendamento.data,
         servico: agendamento.servico,
         horarioInic: agendamento.horarioInic,
         horarioFim: agendamento.horarioFim,
-        motorista: agendamento.motorista, // Assumindo objeto { id, nomeMotorista }
-        veiculo: agendamento.veiculo,     // Assumindo objeto { id, placaVeic }
-        hospital: agendamento.hospital,     // Assumindo objeto { id, nomeHosp }
-        pacientes: agendamento.pacientes    // Assumindo array de { id, nomePaciente }
+        motorista: agendamento.motorista,
+        veiculo: agendamento.veiculo,
+        hospital: agendamento.hospital,
+        pacientes: agendamento.pacientes,
       }));
-      
-      // Extraindo motoristas únicos dos agendamentos
+
+      // Motoristas únicos
       const uniqueMotoristasMap: Record<number, Motorista> = {};
       agendamentos.forEach(agendamento => {
         if (agendamento.motorista && !uniqueMotoristasMap[agendamento.motorista.id]) {
@@ -91,7 +91,16 @@ const RelatoriosAgendamento: React.FC = () => {
       });
       setMotoristasAvailable(Object.values(uniqueMotoristasMap));
 
-      // Aplica os filtros: data e motorista
+      // Veículos únicos
+      const uniqueVeiculosMap: Record<number, Veiculo> = {};
+      agendamentos.forEach(agendamento => {
+        if (agendamento.veiculo && !uniqueVeiculosMap[agendamento.veiculo.id]) {
+          uniqueVeiculosMap[agendamento.veiculo.id] = agendamento.veiculo;
+        }
+      });
+      setVeiculosAvailable(Object.values(uniqueVeiculosMap));
+
+      // Aplica os filtros: data, motorista e veículo
       const filteredAgendamentos = agendamentos.filter(agendamento => {
         const agendamentoDate = new Date(agendamento.data);
         const passesStartDate = filters.startDate ? agendamentoDate >= new Date(filters.startDate) : true;
@@ -99,7 +108,10 @@ const RelatoriosAgendamento: React.FC = () => {
         const passesMotorista = filters.motorista 
           ? (agendamento.motorista && agendamento.motorista.nomeMotorista === filters.motorista)
           : true;
-        return passesStartDate && passesEndDate && passesMotorista;
+        const passesVeiculo = filters.veiculo
+          ? (agendamento.veiculo && agendamento.veiculo.placaVeic === filters.veiculo)
+          : true;
+        return passesStartDate && passesEndDate && passesMotorista && passesVeiculo;
       });
 
       const report: AgendamentoReportData = {
@@ -129,7 +141,6 @@ const RelatoriosAgendamento: React.FC = () => {
     if (!reportData) return;
     const pdf = new jsPDF('landscape');
 
-    // Cabeçalho do PDF
     pdf.setFontSize(18);
     pdf.text(reportData.title, 14, 22);
     pdf.setFontSize(11);
@@ -137,6 +148,7 @@ const RelatoriosAgendamento: React.FC = () => {
     pdf.text(`Filtro: ${filters.reportType}`, 14, 37);
     pdf.text(`Período: ${filters.startDate} a ${filters.endDate}`, 14, 44);
     pdf.text(`Motorista: ${filters.motorista || 'Todos'}`, 14, 51);
+    pdf.text(`Veículo: ${filters.veiculo || 'Todos'}`, 14, 58); // ADICIONADO filtro veiculo
 
     // Colunas da tabela
     const tableColumn = [
@@ -154,7 +166,6 @@ const RelatoriosAgendamento: React.FC = () => {
     const tableRows: (string | number)[][] = [];
 
     reportData.data.forEach((agendamento) => {
-      // Concatena os nomes dos pacientes, se houver
       const pacientesStr = agendamento.pacientes
         .map(p => p.nomePaciente)
         .join(' | ');
@@ -174,7 +185,7 @@ const RelatoriosAgendamento: React.FC = () => {
     });
 
     autoTable(pdf, {
-      startY: 60,
+      startY: 67, // afastar o cabeçalho para incluir o novo campo
       head: [tableColumn],
       body: tableRows,
       styles: { fontSize: 8 },
@@ -184,17 +195,16 @@ const RelatoriosAgendamento: React.FC = () => {
     pdf.save(`Relatorio_Agendamentos_${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
-  // Exporta o relatório para Excel
+  // Exporta relatório para Excel
   const exportToExcel = () => {
     if (!reportData) return;
 
     const wb = XLSX.utils.book_new();
     const ws = XLSX.utils.json_to_sheet([]);
 
-    // Cabeçalhos customizados
     XLSX.utils.sheet_add_aoa(ws, [[`Relatório: ${reportData.title}`]], { origin: 'A1' });
     XLSX.utils.sheet_add_aoa(ws, [[`Data: ${reportData.date}`]], { origin: 'A2' });
-    XLSX.utils.sheet_add_aoa(ws, [['Filtro: ' + filters.reportType, `Período: ${filters.startDate} a ${filters.endDate}`, `Motorista: ${filters.motorista || 'Todos'}`]], { origin: 'A3' });
+    XLSX.utils.sheet_add_aoa(ws, [['Filtro: ' + filters.reportType, `Período: ${filters.startDate} a ${filters.endDate}`, `Motorista: ${filters.motorista || 'Todos'}`, `Veículo: ${filters.veiculo || 'Todos'}`]], { origin: 'A3' }); // Adiciona Veículo
 
     const header = [
       'ID',
@@ -209,7 +219,6 @@ const RelatoriosAgendamento: React.FC = () => {
     ];
     XLSX.utils.sheet_add_aoa(ws, [header], { origin: 'A5' });
 
-    // Dados dos agendamentos
     const dataForExcel = reportData.data.map((agendamento) => [
       agendamento.id,
       agendamento.data,
@@ -223,7 +232,6 @@ const RelatoriosAgendamento: React.FC = () => {
     ]);
     XLSX.utils.sheet_add_aoa(ws, dataForExcel, { origin: 'A6' });
 
-    // Define larguras das colunas
     ws['!cols'] = [
       { wch: 10 },
       { wch: 12 },
@@ -236,7 +244,6 @@ const RelatoriosAgendamento: React.FC = () => {
       { wch: 30 }
     ];
 
-    // Adiciona a planilha no workbook e dispara o download
     XLSX.utils.book_append_sheet(wb, ws, 'Relatório');
     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     const blob = new Blob([wbout], { type: 'application/octet-stream' });
@@ -275,6 +282,16 @@ const RelatoriosAgendamento: React.FC = () => {
               <option value="">Todos</option>
               {motoristasAvailable.map(m => (
                 <option key={m.id} value={m.nomeMotorista}>{m.nomeMotorista}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="filter-group">
+            <label>Veículo:</label>
+            <select name="veiculo" value={filters.veiculo} onChange={handleFilterChange}>
+              <option value="">Todos</option>
+              {veiculosAvailable.map(v => (
+                <option key={v.id} value={v.placaVeic}>{v.placaVeic}</option>
               ))}
             </select>
           </div>
