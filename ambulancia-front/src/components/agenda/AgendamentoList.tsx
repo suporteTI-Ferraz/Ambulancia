@@ -1,6 +1,6 @@
-
 import { FiEdit } from "react-icons/fi";
 import { Agendamento } from "../../types/agenda/Agendamento";
+
 
 interface AgendamentoListProps {
   agendamentos: Agendamento[];
@@ -41,27 +41,11 @@ const AgendamentoList: React.FC<AgendamentoListProps> = ({ agendamentos, onEdit 
               <td>{agendamento.quilometragemFinal}</td>
               <td>
                 {agendamento.pacientes.map((paciente) => (
-                  <div 
-                    key={paciente.id} 
-                    style={{ 
-                      display: "flex", 
-                      justifyContent: "space-between", 
-                      alignItems: "center", 
-                      borderBottom: "1px solid #ddd",
-                      padding: "5px 0" 
-                    }}
-                  >
+                  <div key={paciente.id} className="paciente-item">
                     <span>{paciente.nomePaciente}</span>
                     <button
                       onClick={() => alert("Exclusão de paciente")}
-                      style={{
-                        cursor: "pointer",
-                        background: "transparent",
-                        border: "none",
-                        color: "red",
-                        fontSize: "14px",
-                        padding: "0 5px"
-                      }}
+                      className="delete-button"
                     >
                       ❌
                     </button>
