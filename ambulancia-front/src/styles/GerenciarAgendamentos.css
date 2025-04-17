@@ -1,8 +1,7 @@
 /* PÁGINA CALENDÁRIO GRANDE ------------------------------------------------- */
 .container-calendario-agendamentos {
-  padding: 8.5rem 0rem 10rem 0rem;
-  /* background-color: rgb(156, 91, 91); */
-  background-color: #c6c6c6;
+  padding: 8.5rem 0rem 10rem 0rem !important;
+  background-color: var(--theme-color);
 }
 
 
@@ -21,8 +20,8 @@
   min-height: 600px; /* Alterado para min-height */
   display: flex;
   flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.2);
-  color: #1e1e1e;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
   border-radius: 12px;
   border: 1px solid rgba(0,0,0, 0.1);
   padding: 20px;
@@ -32,8 +31,11 @@
 /* Título da seção */
 .calendario-titulo {
   font-size: 24px;
-  margin-bottom: 16px;
-  color: #a40909;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  padding-left: 1rem;
+  color: #fff;
+  border-left: 2px solid white;
 }
 
 /* Componente de calendário */
@@ -51,11 +53,11 @@
 
 /* Estilos evento no dia */
 .rbc-event {
-    background-color: #a0f5ab; /* Cor de fundo do evento */
+    background-color: #029b609c; /* Cor de fundo do evento */
     color: #fff; /* Cor do texto dentro do evento */
-    border-radius: 5px; /* Bordas arredondadas para os eventos */
-    padding: 5px 10px; /* Espaçamento interno */
-    font-size: 14px; /* Tamanho da fonte */
+    border-radius: 0; /* Bordas arredondadas para os eventos */
+    padding: auto; /* Espaçamento interno */
+    font-size: 12px; /* Tamanho da fonte */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para dar um efeito de profundidade */
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
@@ -83,8 +85,79 @@
 .rbc-event-label {
     font-size: 12px;
     font-weight: normal;
-    color: #f1f1f1;
+    color: #fff;
 }
+
+
+.container-calendario-agendamentos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.botao-wrapper {
+  margin-top: 2rem;
+}
+
+.botao-navegacao button {
+  background-color: #fff;
+  color: #1e1e1e;
+  padding: 0.75rem 5rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+
+
+/* ---------------- BOTÕES DO CALENDÁRIO ---------------- */
+.rbc-toolbar button {
+  box-shadow: none;
+  outline: none;
+}
+
+/* Botões de navegação e visualização */
+.rbc-toolbar button {
+  margin-bottom: 1rem;
+  background-color: #ffffff13;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.159);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Hover dos botões */
+.rbc-toolbar button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+/* Botão ativo (visualização selecionada: mês, semana, dia) */
+.rbc-toolbar button.rbc-active {
+  background-color: #fff;
+  color: #1e1e1e;
+  box-shadow: none;     /* Remove sombra */
+  outline: none;        /* Remove borda de foco do navegador */
+}
+
+/* Botão desativado (ex: "Hoje" quando já está no dia de hoje) */
+.rbc-toolbar button:disabled {
+  background-color: #bbbbbb43;
+  color: #eeeeee;
+  cursor: not-allowed;
+}
+
+
+
+
+
+
+
 
 
 
@@ -95,7 +168,6 @@
   width: 100%;
   background-color: var(--theme-color);
   padding-top: 4.3rem;
-  padding-bottom: 5rem;
   display: flex;
   justify-content: center;
 }
@@ -143,7 +215,7 @@
   color: white;
   padding: 0.7rem;
   font-size: 1rem;
-  border: 1px solid #cccccc7e;
+  border: 1px solid #ffffff7e;
 }
 
 /* Customizando o estilo do React-Select com o classNamePrefix "select-ag" */
@@ -159,7 +231,6 @@
 .select-ag__placeholder {
   color: #fff !important; /* Cor do placeholder */
 }
-/* Cor do texto quando uma opção está selecionada (para select simples) */
 .select-ag__single-value {
   color: #fff !important;
 }
@@ -190,7 +261,7 @@
 }
 
 .agendamento-form-form button {
-  width: 60%;
+  width: 30%;
   margin-top: 3rem;
   padding: 1rem;
   font-size: 1rem;
@@ -205,4 +276,58 @@
 
 .agendamento-form-form button:hover {
   background-color: #37725e;
+}
+
+.div-botao-agendamento {
+  align-self: center;
+  justify-self: center;
+}
+
+.div-botao-agendamento button {
+  margin-top: 2rem;
+  background-color: white;
+  color: var(--bg-color);
+  border: none;
+  padding: 0.75rem 5rem;
+}
+
+/* Ajustes para a div que envolve o AgendamentoList */
+.agendamento-list-container {  /* Nova classe para garantir que o conteúdo se ajuste corretamente */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 1rem;
+  overflow: visible;  /* Garantir que o conteúdo não seja cortado */
+}
+
+/* Garantir que a lista de agendamentos possa crescer sem limitações */
+.agendamento-list {
+  width: 100%;
+  overflow: visible;  /* Certificando que o conteúdo pode crescer sem ser cortado */
+}
+
+/* Estilos para o item do paciente */
+.paciente-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 5px 0;
+}
+
+/* Estilos para o botão de exclusão */
+.delete-button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 14px;
+  padding: 0 5px;
+}
+
+/* Estilos para o ícone de editar */
+.icon-action.edit {
+  cursor: pointer;
+  color: #4CAF50; /* Cor verde, ou qualquer cor que preferir */
 }
