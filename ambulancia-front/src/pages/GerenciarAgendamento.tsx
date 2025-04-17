@@ -20,40 +20,43 @@ const GerenciarAgendamento: React.FC = () => {
   
   return (
     <div className="agendamento-form">
-      <div> 
-        <AgendamentoForm
-          pacientes={pacientes}
-          motoristas={motoristas}
-          hospitais={hospitais}
-          veiculos={veiculos}
-          onSave={handleCreateAgendamento}
-        />
-        <AgendamentoList agendamentos={agendamentos} onEdit={handleEdit} />
-
-        <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar edit-agendamento-form">
-          <ModalHeader toggle={toggleEditModal}>Editar Agendamento</ModalHeader>
-          <ModalBody>
-            {editingAgendamento && (
-              <EditAgendamentoForm
-                agendamento={editingAgendamento}
-                pacientes={pacientes}
-                motoristas={motoristas}
-                hospitais={hospitais}
-                veiculos={veiculos}
-                onSave={handleUpdateAgendamento}
-              />
-            )}
-          </ModalBody>
-        </Modal>
-
-        {/* Navigation Button to GerenciarAgendarDia */}
-        <div style={{ marginTop: "20px", textAlign: "center" }}>
-          <Link to="/gerenciar-calendario">
-            <button type="button">Ir para Calendario</button>
-          </Link>
-        </div>
-      </div>
+  <div>
+    <AgendamentoForm
+      pacientes={pacientes}
+      motoristas={motoristas}
+      hospitais={hospitais}
+      veiculos={veiculos}
+      onSave={handleCreateAgendamento}
+    />
+    <div className="div-botao-agendamento">
+      <Link to="/gerenciar-calendario">
+        <button type="button">Ir para Calendario</button>
+      </Link>
     </div>
+
+    {/* Container agora envolvido pela classe agendamento-list-container */}
+    <div className="agendamento-list-container">
+      <AgendamentoList agendamentos={agendamentos} onEdit={handleEdit} />
+    </div>
+
+    <Modal isOpen={isEditModalOpen} toggle={toggleEditModal} className="gerenciar edit-agendamento-form">
+      <ModalHeader toggle={toggleEditModal}>Editar Agendamento</ModalHeader>
+      <ModalBody>
+        {editingAgendamento && (
+          <EditAgendamentoForm
+            agendamento={editingAgendamento}
+            pacientes={pacientes}
+            motoristas={motoristas}
+            hospitais={hospitais}
+            veiculos={veiculos}
+            onSave={handleUpdateAgendamento}
+          />
+        )}
+      </ModalBody>
+    </Modal>
+  </div>
+</div>
+
   );
 };
 

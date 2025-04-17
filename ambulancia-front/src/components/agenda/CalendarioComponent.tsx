@@ -52,15 +52,15 @@ const CalendarioComponent: React.FC<CalendarioComponentProps> = ({ agendamentos 
 
         return {
             id: agendamento.id,
-            title: `Serviço: ${agendamento.servico} - Hospital: ${agendamento.hospital.enderecos.map(h => `${h.ruaHosp} ${h.numeroHosp}`).join(", ")}`,
+            title: `Ocorrência`,
             start: new Date(dataAgenda.setHours(horaInic, minInic)),
             end: new Date(dataAgenda.setHours(horaFim, minFim)),
-            desc: `
-            🧑 Pacientes: ${agendamento.pacientes.map(p => p.nomePaciente).join(", ")}  
-            🚗 Motorista: ${agendamento.motorista.nomeMotorista}  
-            🔖 Placa: ${agendamento.veiculo.placaVeic}  
-            🏥 Hospital: ${agendamento.hospital.enderecos.map(h => `${h.ruaHosp} ${h.numeroHosp}`).join(", ")}
-            `
+            // desc: `
+            // 🧑 Pacientes: ${agendamento.pacientes.map(p => p.nomePaciente).join(", ")}  
+            // 🚗 Motorista: ${agendamento.motorista.nomeMotorista}  
+            // 🔖 Placa: ${agendamento.veiculo.placaVeic}  
+            // 🏥 Hospital: ${agendamento.hospital.enderecos.map(h => `${h.ruaHosp} ${h.numeroHosp}`).join(", ")}
+            // `
         };
     });
 
@@ -87,7 +87,7 @@ const CalendarioComponent: React.FC<CalendarioComponentProps> = ({ agendamentos 
                         event: ({ event }) => (
                             <div className="calendario-evento">
                                 <strong className="calendario-evento-titulo">{event.title}</strong>
-                                <p className="calendario-evento-desc">{event.desc}</p>
+                                {/* <p className="calendario-evento-desc">{event.desc}</p> */}
                             </div>
                         )
                     }}
