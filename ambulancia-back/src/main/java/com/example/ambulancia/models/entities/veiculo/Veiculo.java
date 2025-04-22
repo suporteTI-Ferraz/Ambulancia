@@ -27,22 +27,16 @@ import lombok.experimental.SuperBuilder;
 @Table
 public class Veiculo extends BaseEntity {
     private String modeloVeic;
-    private String marcaVeic;
-    private Integer anoFabricacao;
-    private String chassi;
     @Column(nullable = false)
     private String placaVeic;
     @Column(nullable = false)
     private Integer quilometragemAtual; 
-    @Column(nullable = false)
-    private String classe;
     
 
     @Builder.Default
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Manutencao> manutencoes = new ArrayList<>();
 
- 
 
     @JsonIgnore
     @Builder.Default

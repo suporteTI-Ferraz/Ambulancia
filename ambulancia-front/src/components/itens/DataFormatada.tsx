@@ -8,11 +8,27 @@ interface Item {
 const DataCriacao: React.FC<Item> = ({ createdAt, showTime = true }) => {
   if (!createdAt) return <div>Data não disponível</div>;
 
+  // Configura o options de acordo com showTime
   const options: Intl.DateTimeFormatOptions = showTime
-    ? { year: "numeric", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit" }
-    : { year: "numeric", month: "numeric", day: "numeric" };
+    ? {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+        timeZone: "America/Sao_Paulo",
+      }
+    : {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        timeZone: "America/Sao_Paulo",
+      };
 
-  const formattedDate = new Intl.DateTimeFormat("pt-BR", options).format(new Date(createdAt));
+  // Usa a localidade pt-BR e força timezone para America/Sao_Paulo
+  const formattedDate = new Date(createdAt).toLocaleString("pt-BR", options);
 
   return <div>{formattedDate}</div>;
 };

@@ -116,7 +116,7 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
             <Select 
               className="veiculo-select"
               classNamePrefix="select-ag"
-              options={veiculos.map(v => ({ value: v.id, label: `${v.placaVeic} - ${v.classe}` }))}
+              options={veiculos.map(v => ({ value: v.id, label: `${v.placaVeic} - ${v.modeloVeic}` }))}
               onChange={(opt) => setFormData({ ...formData, veiculoId: opt?.value || 0 })}
             />
           </div>

@@ -172,6 +172,7 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
                   dataSaidaManutencao: e.target.value,
                 });
               }}
+              min={formData.dataEntradaManutencao || ""} 
               max={new Date().toISOString().split("T")[0]} // A data máxima será a data atual
               placeholder="DD/MM/AAAA" // Embora o input tenha o formato nativo, o placeholder pode ser útil para dar um guia visual
               className="form-control"

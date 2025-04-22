@@ -59,7 +59,7 @@ const FornecedorModal: React.FC<FornecedorModalProps> = ({
         isModal={true}
         onCancel={toggle}
       />
-      <ButtonSpinner name="Salvar" isLoading={loading} onClick={handleSave} />
+      <ButtonSpinner name="Salvar" isLoading={loading} onClick={handleSave} classe={""} />
       {originalFornecedores.length > 0 ? (
         <ul>
           {originalFornecedores.map((fornecedor, index) => (

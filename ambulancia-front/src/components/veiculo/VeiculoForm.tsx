@@ -19,11 +19,7 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
     id: veiculoToEdit?.id || 0,
     placaVeic: veiculoToEdit?.placaVeic || "",
     modeloVeic: veiculoToEdit?.modeloVeic || "",
-    marcaVeic: veiculoToEdit?.marcaVeic || "",
-    anoFabricacao: veiculoToEdit?.anoFabricacao || 0,
-    chassi: veiculoToEdit?.chassi || "",
     quilometragemAtual: veiculoToEdit?.quilometragemAtual || 0,
-    classe: veiculoToEdit?.classe || "",
     manutencoes: veiculoToEdit?.manutencoes || [],
     deletedAt: veiculoToEdit?.deletedAt || null,
     createdAt: "",
@@ -35,12 +31,8 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
 
   // These extra states are used for validation
   const [placa, setPlaca] = useState<string>(formData.placaVeic);
-  const [chassi, setChassi] = useState<string>(formData.chassi);
-  const [anoFabricacao, setAnoFabricacao] = useState<string>(formData.anoFabricacao ? formData.anoFabricacao.toString() : "");
   const [errors, setErrors] = useState<{
     placa?: string;
-    chassi?: string;
-    anoFabricacao?: string;
   }>({});
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,8 +48,6 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
   const validate = (): boolean => {
     const newErrors: {
       placa?: string;
-      chassi?: string;
-      anoFabricacao?: string;
     } = {};
 
     // Validate license plate (placa)
@@ -72,23 +62,6 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
       newErrors.placa = "Formato da placa inválido. Use ABC1D23 ou ABC1234.";
     }
 
-    // Validate chassis (chassi)
-    if (!chassi) {
-      newErrors.chassi = "Chassi é obrigatório.";
-    } else if (chassi.length !== 17) {
-      newErrors.chassi = "Chassi deve ter exatamente 17 caracteres.";
-    }
-
-    // Validate manufacturing year (ano de fabricação)
-    const currentYear = new Date().getFullYear();
-    const anoNum = parseInt(anoFabricacao, 10);
-    if (!anoFabricacao) {
-      newErrors.anoFabricacao = "Ano de fabricação é obrigatório.";
-    } else if (isNaN(anoNum)) {
-      newErrors.anoFabricacao = "Ano de fabricação deve ser um número.";
-    } else if (anoNum < 1900 || anoNum > currentYear + 1) {
-      newErrors.anoFabricacao = `Ano de fabricação deve ser entre 1900 e ${currentYear + 1}.`;
-    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -155,76 +128,12 @@ const VeiculoForm: React.FC<VeiculoFormProps> = ({ onSave, onCancel, onUpdate, i
           style={{ color: 'white' }}
         />
       </Form.Group>
-      <Form.Group controlId="marcaVeic">
-        <Form.Label style={{ color: 'white' }}>Marca</Form.Label>
-        <Form.Control
-          type="text"
-          name="marcaVeic"
-          value={formData.marcaVeic}
-          onChange={handleInputChange}
-          required
-          style={{ color: 'white' }}
-        />
-      </Form.Group>
-      <Form.Group controlId="anoFabricacao">
-
-        <Form.Label style={{ color: 'white' }}>Ano de Fabricação</Form.Label>
-        <Form.Control 
-          type="number"
-          name="anoFabricacao"
-          value={formData.anoFabricacao ? formData.anoFabricacao.toString() : ""}
-          onChange={(e) => {
-            setAnoFabricacao(e.target.value);
-            setFormData({ ...formData, anoFabricacao: parseInt(e.target.value, 10) || 0 });
-          }}
-          isInvalid={!!errors.anoFabricacao}
-          placeholder={`Ex: ${new Date().getFullYear()}`}
-          required
-          style={{ color: 'white' }}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.anoFabricacao}
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Form.Group controlId="chassi">
-        <Form.Label style={{ color: 'white' }}>Chassi</Form.Label>
-
-        <Form.Control
-          type="text"
-          name="chassi"
-          value={formData.chassi}
-
-          onChange={(e) => {
-            setChassi(e.target.value);
-            setFormData({ ...formData, chassi: e.target.value });
-          }}
-          isInvalid={!!errors.chassi}
-          placeholder="17 caracteres"
-          required
-       style={{ color: 'white' }}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.chassi}
-        </Form.Control.Feedback>
-
-      </Form.Group>
       <Form.Group controlId="quilometragemAtual">
         <Form.Label style={{ color: 'white' }}>Quilometragem Atual</Form.Label>
         <Form.Control
           type="number"
           name="quilometragemAtual"
           value={formData.quilometragemAtual}
-          onChange={handleInputChange}
-          required
-          style={{ color: 'white' }}
-        />
-      </Form.Group>
-      <Form.Group controlId="classe">
-        <Form.Label style={{ color: 'white' }}>Classe</Form.Label>
-        <Form.Control
-          type="text"
-          name="classe"
-          value={formData.classe}
           onChange={handleInputChange}
           required
           style={{ color: 'white' }}
