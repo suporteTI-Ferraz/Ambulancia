@@ -63,7 +63,7 @@ const useGerenciarVeiculo = () =>{
                 const response = await fetchFornecedores();
                 setFornecedores(response.data);
             } catch (error) {
-                handleError("Erro ao carregar Veículos: "+ error);
+                handleError("Erro ao carregar Fornecedores: "+ error);
             }finally{
             setLoading(false);
             }
@@ -74,7 +74,7 @@ const useGerenciarVeiculo = () =>{
               const response = await fetchManutencoes();
               setManutencoes(response.data);
           } catch (error) {
-              handleError("Erro ao carregar Veículos: "+ error);
+              handleError("Erro ao carregar Manutenções: "+ error);
           }finally{
           setLoading(false);
           }
@@ -224,12 +224,12 @@ const useGerenciarVeiculo = () =>{
           setFornecedores((prevFornecedores) => 
             [...prevFornecedores, createdFornecedor]);
           
-          handleSuccess("Manutenções criadas com sucesso!");
+          handleSuccess("Fornecedores criadas com sucesso!");
           
           
         } catch (error) {
             console.log(error)
-          handleError("Falha ao criar Manutenções: "+ error)
+          handleError("Falha ao criar Fornecedores: "+ error)
         } finally {
           //toggleModalManutencao(); // Fecha o modal
         }

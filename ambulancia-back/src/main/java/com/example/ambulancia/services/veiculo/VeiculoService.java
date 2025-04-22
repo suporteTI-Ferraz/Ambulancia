@@ -37,10 +37,6 @@ public class VeiculoService {
     }
     public void updateData(Veiculo entity, Veiculo veiculo){
         entity.setModeloVeic(veiculo.getModeloVeic());
-        entity.setMarcaVeic(veiculo.getMarcaVeic());
-        entity.setAnoFabricacao(veiculo.getAnoFabricacao());
-        entity.setChassi(veiculo.getChassi());
-        entity.setClasse(veiculo.getClasse());
         entity.setPlacaVeic(veiculo.getPlacaVeic());
         
         entity.setQuilometragemAtual(veiculo.getQuilometragemAtual());
