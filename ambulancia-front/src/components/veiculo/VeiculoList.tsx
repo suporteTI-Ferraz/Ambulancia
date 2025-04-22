@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Veiculo } from "../../types/veiculo/VeiculoType";
 import { FiEdit, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
-import { GiAutoRepair, GiMechanicGarage } from "react-icons/gi";
-import DataCriacao from "../itens/DataFormatada";
 import '../../styles/UserList.css';
+import { Veiculo } from "../../types/veiculo/VeiculoType";
+import DataCriacao from "../itens/DataFormatada";
 
 interface VeiculoListProps {
   veiculos: Veiculo[];
@@ -44,12 +43,8 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
           <tr className="custom-th-tr">
             <th className="custom-th">Criação</th>
             <th className="custom-th">Placa</th>
-            <th className="custom-th">Ano de Fabricação</th>
-            <th className="custom-th">Chassi</th>
-            <th className="custom-th">Marca</th>
             <th className="custom-th">Modelo</th>
             <th className="custom-th">Quilometragem Atual</th>
-            <th className="custom-th">Classe</th>
             <th className="custom-th">Status</th>
             <th className="custom-th">Ações</th>
           </tr>
@@ -62,12 +57,8 @@ const VeiculoList: React.FC<VeiculoListProps> = ({ veiculos, onEdit, onViewManut
             >
               <td className="custom-td"><DataCriacao createdAt={veiculo.createdAt} /></td>
               <td className="custom-td">{veiculo.placaVeic}</td>
-              <td className="custom-td">{veiculo.anoFabricacao}</td>
-              <td className="custom-td">{veiculo.chassi}</td>
-              <td className="custom-td">{veiculo.marcaVeic}</td>
               <td className="custom-td">{veiculo.modeloVeic}</td>
               <td className="custom-td">{veiculo.quilometragemAtual}</td>
-              <td className="custom-td">{veiculo.classe}</td>
               <td className="custom-td">
                 <span className={veiculo.deletedAt ? 'status-desativado' : 'status-ativo'}>
                   {veiculo.deletedAt ? 'Desativado' : 'Ativo'}
