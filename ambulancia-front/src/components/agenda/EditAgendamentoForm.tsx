@@ -9,6 +9,7 @@ import { Hospital } from "../../types/hospital/HospitalType";
 import { Motorista } from "../../types/motorista/MotoristaType";
 import { Paciente } from "../../types/paciente/PacienteType";
 import { Veiculo } from "../../types/veiculo/VeiculoType";
+import "../../styles/GerenciarAgendamentos.css"
 
 interface EditAgendamentoFormProps {
   agendamento: Agendamento | null;
@@ -84,79 +85,156 @@ const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({
   };
 
   return (
-    <div className="form-container">
-      {/* Formulário */}
-      <form onSubmit={handleSubmit} style={{ width: "40%" }}>
-        <h2>Criar Agendamento</h2>
+      <form className="agendamento-form-form" onSubmit={handleSubmit}>
+        
 
-        <label>Data</label>
-        <input name="data" type="date" value={formData.data} onChange={handleChange} />
+          <div className="agendamento-form-group">
+            <label>Data:</label>
+            <input
+              name="data"
+              type="date"
+              value={formData.data}
+              onChange={handleChange}
+            />
+          </div>
 
-        <label>Serviço:</label>
-        <input name="servico" value={formData.servico} onChange={handleChange} />
+          <div className="agendamento-form-group">
+            <label>Serviço:</label>
+            <input
+              name="servico"
+              value={formData.servico}
+              onChange={handleChange}
+            />
+          </div>
 
-        <label>Horário Início:</label>
-        <input name="horarioInic" type="time" value={formData.horarioInic} onChange={handleChange} />
+          <div className="agendamento-form-group">
+            <label>Horário Início:</label>
+            <input
+              name="horarioInic"
+              type="time"
+              value={formData.horarioInic}
+              onChange={handleChange}
+            />
+          </div>
 
-        <label>Horário Fim:</label>
-        <input name="horarioFim" type="time" value={formData.horarioFim} onChange={handleChange} />
+          <div className="agendamento-form-group">
+            <label>Horário Fim:</label>
+            <input
+              name="horarioFim"
+              type="time"
+              value={formData.horarioFim}
+              onChange={handleChange}
+            />
+          </div>
 
-        <label>Quilometragem Percorrida:</label>
-        <input
-          name="quilometragemPercorrida"
-          type="number"
-          value={formData.quilometragemFinal}
-          onChange={handleKilometragemChange}
-        />
+          <div className="agendamento-form-group">
+            <label>Quilometragem Percorrida:</label>
+            <input
+              name="quilometragemFinal"
+              type="number"
+              value={formData.quilometragemFinal}
+              onChange={handleKilometragemChange}
+            />
+          </div>
 
-        {/* Selects */}
-        <Select
-          options={motoristas.map((m) => ({ value: m.id, label: m.nomeMotorista }))}
-          value={
-            motoristas.find((m) => m.id === formData.motoristaId)
-              ? { value: formData.motoristaId, label: motoristas.find((m) => m.id === formData.motoristaId)?.nomeMotorista }
-              : null
-          }
-          onChange={(opt) => setFormData({ ...formData, motoristaId: opt?.value || 0 })}
-        />
+          <div className="agendamento-form-group">
+            <label>Motoristas:</label>
+            <Select
+              className="motorista-select"
+              classNamePrefix="select-ag"
+              options={motoristas.map((m) => ({
+                value: m.id,
+                label: m.nomeMotorista
+              }))}
+              value={
+                motoristas.find((m) => m.id === formData.motoristaId)
+                  ? {
+                    value: formData.motoristaId,
+                    label: motoristas.find((m) => m.id === formData.motoristaId)?.nomeMotorista
+                  }
+                  : null
+              }
+              onChange={(opt) =>
+                setFormData({ ...formData, motoristaId: opt?.value || 0 })
+              }
+            />
+          </div>
 
-        <Select
-          options={veiculos.map((v) => ({ value: v.id, label: `${v.placaVeic} - ${v.classe}` }))}
-          value={
-            veiculos.find((v) => v.id === formData.veiculoId)
-              ? { value: formData.veiculoId, label: veiculos.find((v) => v.id === formData.veiculoId)?.placaVeic }
-              : null
-          }
-          onChange={handleVehicleChange}
-        />
+          <div className="agendamento-form-group">
+            <label>Veículos:</label>
+            <Select
+              className="veiculo-select"
+              classNamePrefix="select-ag"
+              options={veiculos.map((v) => ({
+                value: v.id,
+                label: `${v.placaVeic} - ${v.modeloVeic}`
+              }))}
+              value={
+                veiculos.find((v) => v.id === formData.veiculoId)
+                  ? {
+                    value: formData.veiculoId,
+                    label: `${veiculos.find((v) => v.id === formData.veiculoId)?.placaVeic} - ${veiculos.find((v) => v.id === formData.veiculoId)?.modeloVeic}`
+                  }
+                  : null
+              }
+              onChange={(opt) =>
+                setFormData({ ...formData, veiculoId: opt?.value || 0 })
+              }
+            />
+          </div>
 
-        <Select
-          options={hospitais.map((h) => ({
-            value: h.id,
-            label: `${h.nomeHosp} - ${h.enderecos.map((e) => e.ruaHosp).join(" | ")}`,
-          }))}
-          value={
-            hospitais.find((h) => h.id === formData.hospitalId)
-              ? { value: formData.hospitalId, label: hospitais.find((h) => h.id === formData.hospitalId)?.nomeHosp }
-              : null
-          }
-          onChange={(opt) => setFormData({ ...formData, hospitalId: opt?.value || 0 })}
-        />
+          <div className="agendamento-form-group">
+            <label>Hospitais:</label>
+            <Select
+              className="hospital-select"
+              classNamePrefix="select-ag"
+              options={hospitais.map((h) => ({
+                value: h.id,
+                label: `${h.nomeHosp} - ${h.enderecos.map((e) => e.ruaHosp).join(" | ")}`
+              }))}
+              value={
+                hospitais.find((h) => h.id === formData.hospitalId)
+                  ? {
+                    value: formData.hospitalId,
+                    label: hospitais.find((h) => h.id === formData.hospitalId)?.nomeHosp
+                  }
+                  : null
+              }
+              onChange={(opt) =>
+                setFormData({ ...formData, hospitalId: opt?.value || 0 })
+              }
+            />
+          </div>
 
-        <Select
-          options={pacientes.map((p) => ({ value: p.id, label: `${p.nomePaciente} - ${p.cpf}` }))}
-          isMulti
-          className="pacientes-select"
-          placeholder="Selecione um ou mais pacientes..."
-          value={pacientes
-            .filter((p) => formData.pacientesIds.includes(p.id))
-            .map((p) => ({ value: p.id, label: `${p.nomePaciente} - ${p.cpf}` }))}
-          onChange={(opts) => setFormData({ ...formData, pacientesIds: opts.map((opt) => opt.value) })}
-        />
+          <div className="agendamento-form-group full-width">
+            <label>Pacientes:</label>
+            <Select
+              className="pacientes-select"
+              classNamePrefix="select-ag"
+              options={pacientes.map((p) => ({
+                value: p.id,
+                label: `${p.nomePaciente} - ${p.cpf}`
+              }))}
+              isMulti
+              placeholder="Selecione um ou mais pacientes..."
+              value={pacientes
+                .filter((p) => formData.pacientesIds.includes(p.id))
+                .map((p) => ({
+                  value: p.id,
+                  label: `${p.nomePaciente} - ${p.cpf}`
+                }))}
+              onChange={(opts) =>
+                setFormData({
+                  ...formData,
+                  pacientesIds: opts.map((opt) => opt.value)
+                })
+              }
+            />
+          </div>
 
         <button type="submit">Atualizar Agendamento</button>
       </form>
-    </div>
+
   );
 };
 

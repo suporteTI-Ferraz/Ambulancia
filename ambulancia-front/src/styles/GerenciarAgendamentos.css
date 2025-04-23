@@ -1,7 +1,7 @@
 /* PÁGINA CALENDÁRIO GRANDE ------------------------------------------------- */
 .container-calendario-agendamentos {
   padding: 8.5rem 0rem 10rem 0rem !important;
-  background-color: var(--theme-color);
+  background-color: #26486b;
 }
 
 
@@ -166,7 +166,7 @@
 /* PÁGINA DE CRIAR NOVO AGENDAMENTO ---------------------------------------- */
 .agendamento-form {
   width: 100%;
-  background-color: var(--theme-color);
+  background-color: #26486b;
   padding-top: 4.3rem;
   display: flex;
   justify-content: center;
@@ -330,4 +330,106 @@
 .icon-action.edit {
   cursor: pointer;
   color: #4CAF50; /* Cor verde, ou qualquer cor que preferir */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilo geral do modal */
+.modal-editar-agendamento .modal-content {
+  width: 100% !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: none;
+  color: white;
+}
+
+.modal-editar-agendamento form {
+  width: 100% !important;
+}
+
+
+/* Cabeçalho do modal */
+.modal-editar-agendamento .modal-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: transparent;
+}
+
+.modal-editar-agendamento .modal-title {
+  font-size: 1.2rem;
+  color: white;
+}
+
+/* Corpo do modal */
+.modal-editar-agendamento .modal-body {
+  padding: 2rem;
+}
+
+/* Inputs e selects customizados */
+.modal-editar-agendamento input {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.75rem;
+  width: 100%;
+  font-size: 1rem;
+  font-family: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.modal-editar-agendamento label {
+  margin-left: 0.6rem;
+}
+
+/* Botões */
+.modal-editar-agendamento button {
+  background-color: white !important;
+  color: var(--bg-color);
+  border: none;
+  padding: 0.9rem 9rem; /* menor padding para evitar corte */
+  margin-top: 2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+
+
+
+/* Estilo do menu dentro do modal */
+.modal-editar-agendamento .select-ag__menu {
+  background-color: #ffffff !important;  /* Cor de fundo do menu */
+  color: #000000 !important;                /* Cor do texto das opções */
+}
+
+/* Estilo das opções selecionadas dentro do modal */
+.modal-editar-agendamento .select-ag__option--is-selected {
+  background-color: #0066cc !important;  /* Cor de fundo ao selecionar uma opção */
+  color: white !important;               /* Cor do texto da opção selecionada */
+}
+
+/* Estilo do texto dentro da opção selecionada dentro do modal */
+.modal-editar-agendamento .select-ag__single-value {
+  color: #fff !important;  /* Cor do texto da opção selecionada */
+}
+
+/* Estilo do placeholder dentro do modal */
+.modal-editar-agendamento .select-ag__placeholder {
+  color: #fff !important;  /* Cor do texto do placeholder */
 }
