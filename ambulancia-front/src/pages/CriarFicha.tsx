@@ -6,27 +6,29 @@ import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 import '../styles/Relatorios.css';
 import { fetchAgendamento } from '../services/api/AgendamentoService';
+import { EnderecoPac } from '../types/paciente/EnderecoPacType';
+import { TelefonePac } from '../types/paciente/TelefonePacType';
 
-interface Motorista {
-  id: number;
-  nomeMotorista: string;
-}
-
-interface Veiculo {
-  id: number;
-  placaVeic: string;
-}
-
-interface Hospital {
-  id: number;
-  nomeHosp: string;
-}
+// Tipos estendidos para incluir telefones e enderecos.
 
 interface Paciente {
   id: number;
   nomePaciente: string;
+  enderecos?: EnderecoPac[]; // Opcional para compatibilidade no fetch antigo
+  telefones?: TelefonePac[];
 }
-
+interface Motorista {
+  id: number;
+  nomeMotorista: string;
+}
+interface Veiculo {
+  id: number;
+  placaVeic: string;
+}
+interface Hospital {
+  id: number;
+  nomeHosp: string;
+}
 interface Agendamento {
   id: number;
   data: string;
@@ -38,19 +40,15 @@ interface Agendamento {
   hospital: Hospital | null;
   pacientes: Paciente[];
 }
-
 interface AgendamentoReportData {
   title: string;
   date: string;
   data: Agendamento[];
-  placaVeiculo?: string | null; // Placa do primeiro veículo encontrado
+  placaVeiculo?: string | null;
 }
-
 interface Filters {
   startDate: string;
-  // endDate removido
   motorista: string;
-  // veiculo removido
 }
 
 const CriarFicha: React.FC = () => {
@@ -62,7 +60,6 @@ const CriarFicha: React.FC = () => {
   const [motoristasAvailable, setMotoristasAvailable] = useState<Motorista[]>([]);
   const reportRef = useRef<HTMLDivElement>(null);
 
-  // Carregar lista de motoristas assim que a tela abrir
   React.useEffect(() => {
     const loadMotoristas = async () => {
       try {
@@ -83,9 +80,25 @@ const CriarFicha: React.FC = () => {
     loadMotoristas();
   }, []);
 
+  // Função auxiliar para formatar endereço
+  function formatEndereco(enderecos: EnderecoPac[] = []): string {
+    if (!enderecos.length) return '-';
+    const e = enderecos[0];
+    let parts = [e.ruaPac];
+    if (e.numeroPac) parts.push(e.numeroPac);
+    const str = parts.join(', ');
+    if (e.bairroPac) return `${str} - ${e.bairroPac}`;
+    return str;
+  }
+  // Função auxiliar para pegar o primeiro telefone
+  function formatTelefone(telefones: TelefonePac[] = []): string {
+    if (!telefones.length) return '-';
+    return telefones[0].numTel;
+  }
+
   // Geração da ficha (só se motorista estiver selecionado)
   const generateReport = async () => {
-    if (!filters.motorista) return; // Só gera se motorista preenchido
+    if (!filters.motorista) return;
     try {
       const response = await fetchAgendamento();
       const agendamentos: Agendamento[] = response.data.map((agendamento: any) => ({
@@ -97,17 +110,15 @@ const CriarFicha: React.FC = () => {
         motorista: agendamento.motorista,
         veiculo: agendamento.veiculo,
         hospital: agendamento.hospital,
-        pacientes: agendamento.pacientes,
+        pacientes: agendamento.pacientes, // Certifique-se que telefones/enderecos vieram
       }));
 
-      // Apenas agendamentos deste motorista e startDate
       const filteredAgendamentos = agendamentos.filter(agendamento => {
         const passesStartDate = filters.startDate ? new Date(agendamento.data) >= new Date(filters.startDate) : true;
         const passesMotorista = agendamento.motorista && agendamento.motorista.nomeMotorista === filters.motorista;
         return passesStartDate && passesMotorista;
       });
 
-      // Pega placa do primeiro veículo (pode não existir)
       const placaVeiculo =
         filteredAgendamentos.find(ag => ag.veiculo && ag.veiculo.placaVeic)?.veiculo?.placaVeic || null;
 
@@ -123,7 +134,6 @@ const CriarFicha: React.FC = () => {
     }
   };
 
-  // Alterar filtros
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -134,38 +144,31 @@ const CriarFicha: React.FC = () => {
     }));
   };
 
-  // Exportação PDF
   const handleExportToPDF = () => {
     if (!reportData) return;
     const pdf = new jsPDF('landscape');
-
     pdf.setFontSize(18);
     pdf.text(reportData.title, 14, 22);
     pdf.setFontSize(11);
     pdf.text(`Data: ${reportData.date}`, 14, 30);
-
-    // Cabeçalho só motorista e a placa do primeiro veículo
     pdf.text(`Motorista: ${filters.motorista}`, 14, 38);
     pdf.text(`Placa Veículo: ${reportData.placaVeiculo || '-'}`, 14, 46);
-    pdf.text(
-      `A partir de: ${filters.startDate}`,
-      14,
-      54
-    );
+    pdf.text(`A partir de: ${filters.startDate}`, 14, 54);
 
-    // Colunas da ficha
-    const tableColumn = ['Data', 'Pacientes', 'Hospital'];
+    // Alterado: Cabeçalho ajustado com "Horário"
+    const tableColumn = ['Horário', 'Paciente', 'Telefone', 'Endereço', 'Hospital'];
     const tableRows: (string | number)[][] = [];
+
     reportData.data.forEach((agendamento) => {
-      const pacientesStr = agendamento.pacientes
-        .map(p => p.nomePaciente)
-        .join(' | ');
-      const rowData: (string | number)[] = [
-        agendamento.data,
-        pacientesStr,
-        agendamento.hospital ? agendamento.hospital.nomeHosp : '',
-      ];
-      tableRows.push(rowData);
+      (agendamento.pacientes || []).forEach((p) => {
+        tableRows.push([
+          agendamento.horarioInic,
+          p.nomePaciente,
+          formatTelefone(p.telefones),
+          formatEndereco(p.enderecos),
+          agendamento.hospital ? agendamento.hospital.nomeHosp : '',
+        ]);
+      });
     });
 
     autoTable(pdf, {
@@ -179,7 +182,6 @@ const CriarFicha: React.FC = () => {
     pdf.save(`Ficha_Agendamentos_${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
-  // Export para Excel
   const exportToExcel = () => {
     if (!reportData) return;
 
@@ -192,19 +194,29 @@ const CriarFicha: React.FC = () => {
     XLSX.utils.sheet_add_aoa(ws, [[`Placa Veículo: ${reportData.placaVeiculo || '-'}`]], { origin: 'A4' });
     XLSX.utils.sheet_add_aoa(ws, [[`A partir de: ${filters.startDate}`]], { origin: 'A5' });
 
-    const header = ['Data', 'Pacientes', 'Hospital'];
+    // Alterado: Cabeçalho "Horário"
+    const header = ['Horário', 'Paciente', 'Telefone', 'Endereço', 'Hospital'];
     XLSX.utils.sheet_add_aoa(ws, [header], { origin: 'A7' });
 
-    const dataForExcel = reportData.data.map((agendamento) => [
-      agendamento.data,
-      agendamento.pacientes.map(p => p.nomePaciente).join(' | '),
-      agendamento.hospital ? agendamento.hospital.nomeHosp : '',
-    ]);
-    XLSX.utils.sheet_add_aoa(ws, dataForExcel, { origin: 'A8' });
+    const excelRows: (string | number)[][] = [];
+    reportData.data.forEach((agendamento) => {
+      (agendamento.pacientes || []).forEach((p) => {
+        excelRows.push([
+          agendamento.horarioInic,
+          p.nomePaciente,
+          formatTelefone(p.telefones),
+          formatEndereco(p.enderecos),
+          agendamento.hospital ? agendamento.hospital.nomeHosp : '',
+        ]);
+      });
+    });
+    XLSX.utils.sheet_add_aoa(ws, excelRows, { origin: 'A8' });
 
     ws['!cols'] = [
       { wch: 12 },
-      { wch: 30 },
+      { wch: 25 },
+      { wch: 18 },
+      { wch: 35 },
       { wch: 25 }
     ];
 
@@ -218,7 +230,6 @@ const CriarFicha: React.FC = () => {
     <div className="report-container">
       <div className="div-card-relatorios">
         <h1>Criar Ficha de Motorista</h1>
-
         <div className="filters-section">
           <div className="filter-group">
             <label>Data Inicial:</label>
@@ -229,7 +240,6 @@ const CriarFicha: React.FC = () => {
               onChange={handleFilterChange}
             />
           </div>
-
           <div className="filter-group">
             <label>Motorista (obrigatório):</label>
             <select
@@ -244,7 +254,6 @@ const CriarFicha: React.FC = () => {
               ))}
             </select>
           </div>
-
           <div className="botoes-relatorio-gerar">
             <button
               className="report-button"
@@ -256,7 +265,6 @@ const CriarFicha: React.FC = () => {
           </div>
         </div>
       </div>
-
       {reportData && (
         <div ref={reportRef} className="report-content">
           <h2>{reportData.title}</h2>
@@ -264,28 +272,30 @@ const CriarFicha: React.FC = () => {
           <p><b>Motorista:</b> {filters.motorista}</p>
           <p><b>Placa Veículo:</b> {reportData.placaVeiculo || '-'}</p>
           <p><b>A partir de:</b> {filters.startDate}</p>
-
           <table className="report-table">
             <thead>
               <tr>
-                <th className="report-table-th">Data</th>
-                <th className="report-table-th">Pacientes</th>
+                <th className="report-table-th">Horário</th>
+                <th className="report-table-th">Paciente</th>
+                <th className="report-table-th">Telefone</th>
+                <th className="report-table-th">Endereço</th>
                 <th className="report-table-th">Hospital</th>
               </tr>
             </thead>
             <tbody>
-              {reportData.data.map(agendamento => (
-                <tr key={agendamento.id}>
-                  <td className="report-table-td">{agendamento.data}</td>
-                  <td className="report-table-td">
-                    {agendamento.pacientes.map(p => p.nomePaciente).join(' | ')}
-                  </td>
-                  <td className="report-table-td">{agendamento.hospital ? agendamento.hospital.nomeHosp : ''}</td>
-                </tr>
-              ))}
+              {reportData.data.map(agendamento =>
+                (agendamento.pacientes || []).map((p, i) => (
+                  <tr key={agendamento.id + '_' + p.id + '_' + i}>
+                    <td className="report-table-td">{agendamento.horarioInic}</td>
+                    <td className="report-table-td">{p.nomePaciente}</td>
+                    <td className="report-table-td">{formatTelefone(p.telefones)}</td>
+                    <td className="report-table-td">{formatEndereco(p.enderecos)}</td>
+                    <td className="report-table-td">{agendamento.hospital ? agendamento.hospital.nomeHosp : ''}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
-
           <div className="botoes-relatorio-gerado">
             <button className="report-button" onClick={handleExportToPDF}>
               Exportar PDF
