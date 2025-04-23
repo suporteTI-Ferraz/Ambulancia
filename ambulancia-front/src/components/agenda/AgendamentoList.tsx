@@ -43,12 +43,7 @@ const AgendamentoList: React.FC<AgendamentoListProps> = ({ agendamentos, onEdit 
                 {agendamento.pacientes.map((paciente) => (
                   <div key={paciente.id} className="paciente-item">
                     <span>{paciente.nomePaciente}</span>
-                    <button
-                      onClick={() => alert("Exclusão de paciente")}
-                      className="delete-button"
-                    >
-                      ❌
-                    </button>
+
                   </div>
                 ))}
               </td>
