@@ -84,7 +84,8 @@ public class ManutencaoService {
 
     private void updateData(Manutencao entity, Manutencao manutencao, Veiculo veiculo, Fornecedor fornecedor) {
         entity.setTipoManutencao(manutencao.getTipoManutencao());
-        entity.setCustoManutencao(manutencao.getCustoManutencao());
+        entity.setCustoMaoObra(manutencao.getCustoMaoObra());
+        entity.setCustoPecas(manutencao.getCustoPecas());
         entity.setServicoRealizado(manutencao.getServicoRealizado());
         entity.setDataEntradaManutencao(manutencao.getDataEntradaManutencao());
         entity.setDataSaidaManutencao(manutencao.getDataSaidaManutencao());
@@ -112,9 +113,7 @@ public class ManutencaoService {
 
         for (Manutencao manutencaoAtual : manutencoesAtuais) {
             Manutencao novaManutencao = mapaNovasManutencoes.get(manutencaoAtual.getId());
-            if (!Objects.equals(manutencaoAtual.getDescricao(), novaManutencao.getDescricao())) {
-                manutencaoAtual.setDescricao(novaManutencao.getDescricao());
-            }
+            
             if (!Objects.equals(manutencaoAtual.getDataEntradaManutencao(),
                     novaManutencao.getDataEntradaManutencao())) {
                 manutencaoAtual.setDataEntradaManutencao(novaManutencao.getDataEntradaManutencao());
@@ -129,8 +128,11 @@ public class ManutencaoService {
             if (!Objects.equals(manutencaoAtual.getTipoManutencao(), novaManutencao.getTipoManutencao())) {
                 manutencaoAtual.setTipoManutencao(novaManutencao.getTipoManutencao());
             }
-            if (!Objects.equals(manutencaoAtual.getCustoManutencao(), novaManutencao.getCustoManutencao())) {
-                manutencaoAtual.setCustoManutencao(novaManutencao.getCustoManutencao());
+            if (!Objects.equals(manutencaoAtual.getCustoMaoObra(), novaManutencao.getCustoMaoObra())) {
+                manutencaoAtual.setCustoMaoObra(novaManutencao.getCustoMaoObra());
+            }
+            if (!Objects.equals(manutencaoAtual.getCustoPecas(), novaManutencao.getCustoPecas())) {
+                manutencaoAtual.setCustoPecas(novaManutencao.getCustoPecas());
             }
             if (!Objects.equals(manutencaoAtual.getDescricaoProblema(), novaManutencao.getDescricaoProblema())) {
                 manutencaoAtual.setDescricaoProblema(novaManutencao.getDescricaoProblema());
@@ -146,6 +148,13 @@ public class ManutencaoService {
         Manutencao entity = repository.getReferenceById(id);
         entity.setDeletedAt(LocalDateTime.now());
         return repository.save(entity);
+    }
+
+    public void reactivateById(Long id) {
+        Manutencao entity = repository.getReferenceById(id); // Busca o usuário
+        entity.setDeletedAt(null); // Limpa o campo 'deletedAt'
+        entity.setDeletedBy(null); // Limpa o campo 'deletedBy'
+        repository.saveAndFlush(entity); // Salva e atualiza o usuário no banco
     }
 
 }
