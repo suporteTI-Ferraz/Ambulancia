@@ -16,16 +16,12 @@ const RelatoriosDashboard: React.FC = () => {
               <p>Visualize o relatório com informações dos veículos.</p>
             </Link>
             <Link to="/relatorios-manutencao" className="report-card">
-              <h2>Relatório de Manutenção de Veículos</h2>
+              <h2>Relatório de Manutenção</h2>
               <p>Confira as manutenções realizadas nos veículos.</p>
             </Link>
-            <Link to="/relatorios-pecas" className="report-card">
-              <h2>Relatório de Peças</h2>
-              <p>Acompanhe o uso e estoque de peças utilizadas nas manutenções.</p>
-            </Link>
             <Link to="/relatorios-fornecedores" className="report-card">
-              <h2>Relatório de Fornecedores de Peças</h2>
-              <p>Visualize informações sobre os fornecedores de peças.</p>
+              <h2>Relatório de Fornecedores</h2>
+              <p>Visualize informações sobre os fornecedores.</p>
             </Link>
             <Link to="/relatorios-agendamentos" className="report-card">
               <h2>Relatório de Agendamento</h2>

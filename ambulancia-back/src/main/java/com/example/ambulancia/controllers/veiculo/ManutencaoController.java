@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -82,6 +83,11 @@ public class ManutencaoController {
         Manutencao deletado = service.deleteById(id);
         return ResponseEntity.ok().body(convertToDto(deletado));
     }
+    @PatchMapping(value = "/reactivate/{id}")
+    public ResponseEntity<Void> reactivateById(@PathVariable Long id) {
+        service.reactivateById(id);
+        return ResponseEntity.ok().build();  // Retorna 200 OK com corpo vazio
+    }
 
     // Método para converter Manutencao para ManutencaoDTO, incorporando VeiculoDTO
     private ManutencaoDTO convertToDto(Manutencao manutencao) {
@@ -98,14 +104,14 @@ public class ManutencaoController {
         }
         return ManutencaoDTO.builder()
                 .id(manutencao.getId())
-                .descricao(manutencao.getDescricao())
                 .dataEntradaManutencao(manutencao.getDataEntradaManutencao())
                 .dataSaidaManutencao(manutencao.getDataSaidaManutencao())
                 .status(manutencao.getStatus())
                 .tipoManutencao(manutencao.getTipoManutencao())
                 .descricaoProblema(manutencao.getDescricaoProblema())
                 .servicoRealizado(manutencao.getServicoRealizado())
-                .custoManutencao(manutencao.getCustoManutencao())
+                .custoMaoObra(manutencao.getCustoMaoObra())
+                .custoPecas(manutencao.getCustoPecas())
                 .veiculo(veiculoDto)
                 .build();
     }
