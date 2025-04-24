@@ -21,7 +21,6 @@
 
 .navbar-brand {
     font-size: 1.35rem !important;
-    color: #ff4b4b !important; /* Texto branco */
     padding: 0 !important;
     margin-left: 3rem !important;
 }
@@ -65,12 +64,36 @@
     height: auto;
 }
 
-.dropdown-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
+
+.dropdown > div {
+    color: white !important; /* Texto branco */
+    background: rgba(0, 0, 0, 0.911); /* Fundo translúcido */
+    backdrop-filter: blur(10px); /* Valor mais moderado para teste */
+    -webkit-backdrop-filter: blur(10px); /* Compatibilidade */
+    padding: 1rem 0.5rem;
+    margin: 0;
+    border-radius: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute; /* Garante que o dropdown esteja fora do fluxo */
+    z-index: 1000; /* Garante que esteja acima de outros elementos */
+    border: none;
 }
 
-.dropdown-grid div .dropdown-item:hover {
-    background-color: var(--main-color);
+
+.dropdown-item {
+    width: 100%;
+    padding: 1.1rem 3.5rem !important;
+    text-align: left;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    cursor: pointer;
 }
+
+
+/* Remove estilos antigos */
+.dropdown-grid div .dropdown-item:hover {
+    background-color: #911717;
+}
+

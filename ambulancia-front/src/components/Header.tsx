@@ -83,19 +83,20 @@ const Header: React.FC = () => {
                                             <DropdownItem onClick={handleUserRoute}>Usuários</DropdownItem>
                                             <DropdownItem onClick={handlePacienteRoute}>Pacientes</DropdownItem>
                                             <DropdownItem onClick={handleMotoristaRoute}>Motoristas</DropdownItem>
-                                        </div>
-                                        <div>
+
                                             <DropdownItem onClick={handleHospitalRoute}>Hospitais</DropdownItem>
                                             <DropdownItem onClick={handleVeiculoRoute}>Veículos</DropdownItem>
                                             <DropdownItem onClick={handleAgendarDiaRoute}>Agendamento</DropdownItem>
+                                            <DropdownItem onClick={handleAgendarDiaRoute}>Criar ficha</DropdownItem>
+                                            <DropdownItem onClick={handleAgendarDiaRoute}>Relatórios</DropdownItem>
                                         </div>
                                     </div>
                                 </DropdownMenu>
                             </Dropdown>
 
-                            <NavItem>
+                            {/* <NavItem>
                                 <NavLink href="/dashboard-relatorios" className="nav-link">Relatórios</NavLink>
-                            </NavItem>
+                            </NavItem> */}
 
                             <NavItem>
                                 <NavLink href="/" onClick={sair} className="nav-link">
