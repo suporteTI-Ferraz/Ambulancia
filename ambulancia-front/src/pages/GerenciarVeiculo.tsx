@@ -1,28 +1,24 @@
-import { useState } from "react";
-import { TabContent, TabPane, Nav, NavItem, NavLink, Modal, ModalHeader, ModalBody } from "reactstrap";
 import classnames from "classnames";
-import VeiculoForm from "../components/veiculo/VeiculoForm";
-import VeiculoList from "../components/veiculo/VeiculoList";
+import { useState } from "react";
+import { Modal, ModalBody, ModalHeader, Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
 import FornecedorForm from "../components/veiculo/FornecedorForm";
 import FornecedorList from "../components/veiculo/FornecedorList";
-import useGerenciarVeiculo from "../hooks/useGerenciarVeiculo";
 import ManutencaoForm from "../components/veiculo/ManutencaoForm";
 import ManutencaoList from "../components/veiculo/ManutencaoList";
-import PecaManutencaoForm from "../components/veiculo/PecaManutencaoForm";
-import PecaManutencaoList from "../components/veiculo/PecaManutencaoList";
+import VeiculoForm from "../components/veiculo/VeiculoForm";
+import VeiculoList from "../components/veiculo/VeiculoList";
+import useGerenciarVeiculo from "../hooks/useGerenciarVeiculo";
 import '../styles/GerenciarVeiculo.css';
 
 const GerenciarVeiculo = () => {
   const {
     veiculos, isEditModalOpen, isManutencaoModalOpen, selectedManutencoes, editingVeiculo,
     fornecedores, activeTab, manutencoes, editingManutencao, editingFornecedor, isFornecedorModalOpen,
-    editingPecaManutencao, pecaManutencoes,
     handleSaveVeiculo, handleDeleteVeiculo, handleEditVeiculo,
     toggleEditModal, setEditingVeiculo, toggleModalManutencao, handleEdit,
     handleViewManutencoes, handleSaveManutencao, handleSaveFornecedor, handleUpdateManutencao,
     handleEditForn, setEditingFornecedor, handleDeleteFornecedor, setActiveTab, handleUpdateFornecedor, toggleModalFornecedor,
-    handleEditManu, setEditingManutencao, handleDeleteManutencao, handleEditPecaManu, handleSavePecaManutencao, setEditingPecaManutencao,
-    handleUpdatePecaManutencao,
+    handleEditManu, setEditingManutencao, handleDeleteManutencao, 
   } = useGerenciarVeiculo();
 
   const [buttonLabel, setButtonLabel] = useState("Criar");
@@ -56,14 +52,6 @@ const GerenciarVeiculo = () => {
               onClick={() => setActiveTab("manutencao")}
             >
               Manutenção
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: activeTab === "peca" })}
-              onClick={() => setActiveTab("peca")}
-            >
-              Peça
             </NavLink>
           </NavItem>
         </Nav>
@@ -126,28 +114,6 @@ const GerenciarVeiculo = () => {
 
 
           {/* Aba de Peça */}
-          <TabPane className="tab-pane-center" tabId="peca">
-            <div className="form-list-container">
-              <div className="form-section2-veiculo">
-                {/* <h4 className="tituloteste">Criar Peças para Manutenção</h4> */}
-                <PecaManutencaoForm
-                  isModal={false}
-                  onSave={handleSavePecaManutencao}
-                  onCancel={() => setEditingPecaManutencao(null)}
-                  pecaManutencaoToEdit={editingPecaManutencao}
-                  onUpdate={handleUpdatePecaManutencao}
-                  manutencoes={manutencoes}
-                />
-                </div>
-                <div className="list-section">
-                  <PecaManutencaoList
-                    pecaManutencoes={pecaManutencoes}
-                    onEdit={handleEditPecaManu}
-                    onDelete={handleDeleteVeiculo}
-                  />
-              </div>
-            </div>
-          </TabPane>
 
 
 

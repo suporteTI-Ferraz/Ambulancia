@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import ProtectedRoute from './ProtectedRoute';
-import PublicRoute from './PublicRoute';
-import Login from '../pages/Login';
-import Dashboard from '../pages/Dashboard';
-import PageTitle from '../components/PageTitle';
-import GerenciarFuncionario from '../pages/GerenciarFuncionario';
-import GerenciarPaciente from '../pages/GerenciarPaciente';
-import GerenciarMotorista from '../pages/GerenciarMotorista';
-import GerenciarVeiculo from '../pages/GerenciarVeiculo';
-import GerenciarHospital from '../pages/GerenciarHospital';
-import GerenciarAgendarDia from '../pages/GerenciarAgendarDia';
-import GerenciarAgendamento from '../pages/GerenciarAgendamento';
-import Header from '../components/Header';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
+import PageTitle from '../components/PageTitle';
 import CriarFicha from '../pages/CriarFicha';
-import RelatoriosVeiculos from '../pages/RelatoriosVeiculos';
+import Dashboard from '../pages/Dashboard';
 import RelatoriosDashboard from '../pages/DashboardRelatorios';
+import GerenciarAgendamento from '../pages/GerenciarAgendamento';
+import GerenciarAgendarDia from '../pages/GerenciarAgendarDia';
+import GerenciarFuncionario from '../pages/GerenciarFuncionario';
+import GerenciarHospital from '../pages/GerenciarHospital';
+import GerenciarMotorista from '../pages/GerenciarMotorista';
+import GerenciarPaciente from '../pages/GerenciarPaciente';
+import GerenciarVeiculo from '../pages/GerenciarVeiculo';
+import Login from '../pages/Login';
+import RelatoriosAgendamento from '../pages/RelatoriosAgendamento';
 import RelatoriosFornecedores from '../pages/RelatoriosFornecedores';
 import RelatoriosManutencao from '../pages/RelatoriosManutencao';
-import RelatoriosPecas from '../pages/RelatoriosPecas';
-import RelatoriosAgendamento from '../pages/RelatoriosAgendamento';
+import RelatoriosVeiculos from '../pages/RelatoriosVeiculos';
+import ProtectedRoute from './ProtectedRoute';
+import PublicRoute from './PublicRoute';
 
 const AppRoutes: React.FC = () => {
   // Gerenciamento do tema
@@ -55,7 +54,6 @@ const AppRoutes: React.FC = () => {
           <Route path="/relatorios-fornecedores" element={<><PageTitle /><RelatoriosFornecedores /></>} />
           <Route path="/relatorios-manutencao" element={<><PageTitle /><RelatoriosManutencao /></>} />
           <Route path="/relatorios-agendamentos" element={<><PageTitle /><RelatoriosAgendamento /></>} />
-          <Route path="relatorios-pecas" element={<><PageTitle /><RelatoriosPecas /></>} />
           <Route path="/dashboard-relatorios" element={<><PageTitle /><RelatoriosDashboard /></>} />
         </Route>
 

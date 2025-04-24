@@ -1,9 +1,8 @@
-import { API } from "../api";
-import { Veiculo } from "../../types/veiculo/VeiculoType";
-import Manutencao from "../../types/veiculo/ManutencaoType";
 import { AxiosResponse } from "axios";
 import { Fornecedor } from "../../types/veiculo/FornecedorType";
-import PecaManutencao from "../../types/veiculo/PecaManutencaoType";
+import Manutencao from "../../types/veiculo/ManutencaoType";
+import { Veiculo } from "../../types/veiculo/VeiculoType";
+import { API } from "../api";
 
 
 export const fetchVeiculos = (): Promise<AxiosResponse<Veiculo[]>> => API.get('/veiculo');
@@ -22,12 +21,6 @@ export const updateFornecedor = (id: number, fornecedor: Fornecedor) => API.put(
 export const deleteFornecedor = (id: number) => API.delete(`/fornecedor/${id}`);
 export const reactivateFornecedor = (id: number) => API.patch(`/fornecedor/reactivate/${id}`);
 
-export const fetchPecaManutencoes = (): Promise<AxiosResponse<PecaManutencao[]>> => API.get('/manutencao/peca');
-export const createPecaManutencao = (pecaManutencao: PecaManutencao, id: number): Promise<AxiosResponse<PecaManutencao>> =>
-    API.post<PecaManutencao>(`/manutencao/${id}/peca`, pecaManutencao);
-export const updatePecaManutencao = (id: number, pecaManutencao: PecaManutencao, idManu: number): Promise<AxiosResponse<PecaManutencao>>  =>
-    API.put(`/manutencao/${idManu}/peca/${id}`, pecaManutencao);
-
 
 export const createManu = (idVeic: number, idForn: number, manutencao: Manutencao): Promise<AxiosResponse<Manutencao>> =>
     API.post(`/veiculo/${idVeic}/fornecedor/${idForn}/manutencao`, manutencao);
@@ -38,4 +31,4 @@ export const updateManyManu = (id: number, list: Manutencao[]): Promise<AxiosRes
 export const updateManutencao = (id: number, manutencao: Manutencao, idVeic: number, idForn: number): Promise<AxiosResponse<Manutencao>>  =>
     API.put(`/veiculo/${idVeic}/fornecedor/${idForn}/manutencao/${id}`, manutencao);
 export const deleteManutencao = (id: number) => API.delete(`/veiculo/manutencao/${id}`);
-export const reactivateManutencao = (id: number) => API.patch(`/veiculo/manutencao/${id}`);
+export const reactivateManutencao = (id: number) => API.patch(`/veiculo/reactivate/${id}`);

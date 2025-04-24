@@ -18,14 +18,14 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ManutencaoDTO {
     private Long id;
-    private String descricao;
     private LocalDate dataEntradaManutencao;
     private LocalDate dataSaidaManutencao;
     private StatusManutencao status;
     private String tipoManutencao;
     private String descricaoProblema;
     private String servicoRealizado;
-    private Double custoManutencao;
+    private Double custoMaoObra;
+    private Double custoPecas;
     
     // DTO relacionado: possibilita consulta da placa do veículo vinculado a esta manutenção.
     private VeiculoDTO veiculo;
