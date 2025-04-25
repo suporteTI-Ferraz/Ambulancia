@@ -12,11 +12,7 @@ interface Vehicle {
   id: number;
   licensePlate: string;
   model: string;
-  year: number;
   mileage: number;
-  chassi: string;
-  marca: string;
-  classe: string;
   status: string;
 }
 
@@ -108,11 +104,7 @@ const RelatoriosVeiculos: React.FC = () => {
         vehicle.id,
         vehicle.licensePlate,
         vehicle.model,
-        vehicle.year,
         vehicle.mileage,
-        vehicle.chassi,
-        vehicle.marca,
-        vehicle.classe,
         vehicle.status
       ];
       tableRows.push(rowData);
@@ -152,11 +144,7 @@ const RelatoriosVeiculos: React.FC = () => {
       vehicle.id,
       vehicle.licensePlate,
       vehicle.model,
-      vehicle.year,
       vehicle.mileage,
-      vehicle.chassi,
-      vehicle.marca,
-      vehicle.classe,
       vehicle.status
     ]);
     XLSX.utils.sheet_add_aoa(ws, dataForExcel, { origin: 'A6' });
@@ -276,11 +264,7 @@ const RelatoriosVeiculos: React.FC = () => {
                 <th className="report-table-th">ID</th>
                 <th className="report-table-th">Placa</th>
                 <th className="report-table-th">Modelo</th>
-                <th className="report-table-th">Ano</th>
                 <th className="report-table-th">Quilometragem</th>
-                <th className="report-table-th">Chassi</th>
-                <th className="report-table-th">Marca</th>
-                <th className="report-table-th">Classe</th>
                 <th className="report-table-th">Status</th>
               </tr>
             </thead>
@@ -290,11 +274,7 @@ const RelatoriosVeiculos: React.FC = () => {
                   <td className="report-table-td">{vehicle.id}</td>
                   <td className="report-table-td">{vehicle.licensePlate}</td>
                   <td className="report-table-td">{vehicle.model}</td>
-                  <td className="report-table-td">{vehicle.year}</td>
                   <td className="report-table-td">{vehicle.mileage.toLocaleString('pt-BR')}</td>
-                  <td className="report-table-td">{vehicle.chassi}</td>
-                  <td className="report-table-td">{vehicle.marca}</td>
-                  <td className="report-table-td">{vehicle.classe}</td>
                   <td className="report-table-td">{vehicle.status}</td>
                 </tr>
               ))}
