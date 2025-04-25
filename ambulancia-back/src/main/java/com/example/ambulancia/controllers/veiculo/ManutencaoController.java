@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.ambulancia.dto.FornecedorDTO;
 import com.example.ambulancia.dto.ManutencaoDTO;
 import com.example.ambulancia.dto.VeiculoDTO;
+import com.example.ambulancia.models.entities.veiculo.Fornecedor;
 import com.example.ambulancia.models.entities.veiculo.Manutencao;
 import com.example.ambulancia.models.entities.veiculo.Veiculo;
 import com.example.ambulancia.services.veiculo.ManutencaoService;
@@ -102,6 +104,16 @@ public class ManutencaoController {
                     .placaVeic(veiculo.getPlacaVeic())
                     .build();
         }
+        Fornecedor fornecedor = manutencao.getFornecedor();
+        FornecedorDTO fornecedorDTO = null;
+        if(fornecedor != null){
+            fornecedorDTO = FornecedorDTO.builder()
+                        .id(fornecedor.getId())
+                        .nome(fornecedor.getNome())
+                        .cnpj(fornecedor.getCnpj())
+                        .telefone(fornecedor.getTelefone())
+                        .build();
+        }
         return ManutencaoDTO.builder()
                 .id(manutencao.getId())
                 .dataEntradaManutencao(manutencao.getDataEntradaManutencao())
@@ -113,6 +125,7 @@ public class ManutencaoController {
                 .custoMaoObra(manutencao.getCustoMaoObra())
                 .custoPecas(manutencao.getCustoPecas())
                 .veiculo(veiculoDto)
+                .fornecedor(fornecedorDTO)
                 .build();
     }
 }

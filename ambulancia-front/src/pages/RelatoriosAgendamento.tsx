@@ -25,6 +25,7 @@ interface Hospital {
 interface Paciente {
   id: number;
   nomePaciente: string;
+  endereco?: string; // Adicionado campo endereço
 }
 
 interface Agendamento {
@@ -50,7 +51,7 @@ interface Filters {
   endDate: string;
   reportType: 'general' | 'detailed' | 'summary';
   motorista: string;
-  veiculo: string; // ADICIONADO campo veiculo
+  veiculo: string;
 }
 
 const RelatoriosAgendamento: React.FC = () => {
@@ -60,10 +61,10 @@ const RelatoriosAgendamento: React.FC = () => {
     endDate: '',
     reportType: 'general',
     motorista: '',
-    veiculo: '', // ADICIONADO valor inicial
+    veiculo: '',
   });
   const [motoristasAvailable, setMotoristasAvailable] = useState<Motorista[]>([]);
-  const [veiculosAvailable, setVeiculosAvailable] = useState<Veiculo[]>([]); // ADICIONADO para armazenar veículos
+  const [veiculosAvailable, setVeiculosAvailable] = useState<Veiculo[]>([]);
   const reportRef = useRef<HTMLDivElement>(null);
 
   // Função para gerar o relatório de agendamentos com os filtros aplicados
@@ -148,10 +149,10 @@ const RelatoriosAgendamento: React.FC = () => {
     pdf.text(`Filtro: ${filters.reportType}`, 14, 37);
     pdf.text(`Período: ${filters.startDate} a ${filters.endDate}`, 14, 44);
     pdf.text(`Motorista: ${filters.motorista || 'Todos'}`, 14, 51);
-    pdf.text(`Veículo: ${filters.veiculo || 'Todos'}`, 14, 58); // ADICIONADO filtro veiculo
+    pdf.text(`Veículo: ${filters.veiculo || 'Todos'}`, 14, 58);
 
     // Colunas da tabela
-    const tableColumn = [
+    const tableColumnBase = [
       'ID',
       'Data',
       'Serviço',
@@ -162,12 +163,21 @@ const RelatoriosAgendamento: React.FC = () => {
       'Hospital',
       'Pacientes'
     ];
+    // Se relatório detalhado, adiciona endereço
+    const tableColumn = filters.reportType === 'detailed'
+      ? [...tableColumnBase, 'Endereço(s) Paciente']
+      : tableColumnBase;
 
     const tableRows: (string | number)[][] = [];
 
     reportData.data.forEach((agendamento) => {
       const pacientesStr = agendamento.pacientes
         .map(p => p.nomePaciente)
+        .join(' | ');
+
+      // Se detalhado, pega o endereço também
+      const enderecosStr = agendamento.pacientes
+        .map(p => p.endereco || '')
         .join(' | ');
 
       const rowData: (string | number)[] = [
@@ -181,11 +191,15 @@ const RelatoriosAgendamento: React.FC = () => {
         agendamento.hospital ? agendamento.hospital.nomeHosp : '',
         pacientesStr
       ];
+      // Só adiciona coluna endereço no detalhado
+      if (filters.reportType === 'detailed') {
+        rowData.push(enderecosStr);
+      }
       tableRows.push(rowData);
     });
 
     autoTable(pdf, {
-      startY: 67, // afastar o cabeçalho para incluir o novo campo
+      startY: 67,
       head: [tableColumn],
       body: tableRows,
       styles: { fontSize: 8 },
@@ -204,9 +218,9 @@ const RelatoriosAgendamento: React.FC = () => {
 
     XLSX.utils.sheet_add_aoa(ws, [[`Relatório: ${reportData.title}`]], { origin: 'A1' });
     XLSX.utils.sheet_add_aoa(ws, [[`Data: ${reportData.date}`]], { origin: 'A2' });
-    XLSX.utils.sheet_add_aoa(ws, [['Filtro: ' + filters.reportType, `Período: ${filters.startDate} a ${filters.endDate}`, `Motorista: ${filters.motorista || 'Todos'}`, `Veículo: ${filters.veiculo || 'Todos'}`]], { origin: 'A3' }); // Adiciona Veículo
+    XLSX.utils.sheet_add_aoa(ws, [['Filtro: ' + filters.reportType, `Período: ${filters.startDate} a ${filters.endDate}`, `Motorista: ${filters.motorista || 'Todos'}`, `Veículo: ${filters.veiculo || 'Todos'}`]], { origin: 'A3' });
 
-    const header = [
+    const headerBase = [
       'ID',
       'Data',
       'Serviço',
@@ -217,32 +231,47 @@ const RelatoriosAgendamento: React.FC = () => {
       'Hospital',
       'Pacientes'
     ];
+    const header = filters.reportType === 'detailed'
+      ? [...headerBase, 'Endereço(s) Paciente']
+      : headerBase;
+
     XLSX.utils.sheet_add_aoa(ws, [header], { origin: 'A5' });
 
-    const dataForExcel = reportData.data.map((agendamento) => [
-      agendamento.id,
-      agendamento.data,
-      agendamento.servico,
-      agendamento.horarioInic,
-      agendamento.horarioFim,
-      agendamento.motorista ? agendamento.motorista.nomeMotorista : '',
-      agendamento.veiculo ? agendamento.veiculo.placaVeic : '',
-      agendamento.hospital ? agendamento.hospital.nomeHosp : '',
-      agendamento.pacientes.map(p => p.nomePaciente).join(' | ')
-    ]);
+    const dataForExcel = reportData.data.map((agendamento) => {
+      const row = [
+        agendamento.id,
+        agendamento.data,
+        agendamento.servico,
+        agendamento.horarioInic,
+        agendamento.horarioFim,
+        agendamento.motorista ? agendamento.motorista.nomeMotorista : '',
+        agendamento.veiculo ? agendamento.veiculo.placaVeic : '',
+        agendamento.hospital ? agendamento.hospital.nomeHosp : '',
+        agendamento.pacientes.map(p => p.nomePaciente).join(' | ')
+      ];
+      if (filters.reportType === 'detailed') {
+        row.push(agendamento.pacientes.map(p => p.endereco || '').join(' | '));
+      }
+      return row;
+    });
+
     XLSX.utils.sheet_add_aoa(ws, dataForExcel, { origin: 'A6' });
 
-    ws['!cols'] = [
-      { wch: 10 },
-      { wch: 12 },
-      { wch: 20 },
-      { wch: 12 },
-      { wch: 12 },
-      { wch: 18 },
-      { wch: 15 },
-      { wch: 20 },
-      { wch: 30 }
+    let baseCols = [
+      { wch: 10 }, // ID
+      { wch: 12 }, // Data
+      { wch: 20 }, // Serviço
+      { wch: 12 }, // Horário Inic
+      { wch: 12 }, // Horário Fim
+      { wch: 18 }, // Motorista
+      { wch: 15 }, // Veículo
+      { wch: 20 }, // Hospital
+      { wch: 30 }  // Pacientes
     ];
+    if (filters.reportType === 'detailed') {
+      baseCols.push({ wch: 40 }); // Endereço(s) Paciente
+    }
+    ws['!cols'] = baseCols;
 
     XLSX.utils.book_append_sheet(wb, ws, 'Relatório');
     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
@@ -250,6 +279,7 @@ const RelatoriosAgendamento: React.FC = () => {
     saveAs(blob, `Relatorio_Agendamentos_${new Date().toISOString().split('T')[0]}.xlsx`);
   };
 
+  // Renderização (inclui coluna endereço apenas se detalhado)
   return (
     <div className="report-container">
       <div className="div-card-relatorios">
@@ -334,6 +364,9 @@ const RelatoriosAgendamento: React.FC = () => {
                 <th className="report-table-th">Veículo</th>
                 <th className="report-table-th">Hospital</th>
                 <th className="report-table-th">Pacientes</th>
+                {filters.reportType === 'detailed' && (
+                  <th className="report-table-th">Endereço(s) Paciente</th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -350,6 +383,11 @@ const RelatoriosAgendamento: React.FC = () => {
                   <td className="report-table-td">
                     {agendamento.pacientes.map(p => p.nomePaciente).join(' | ')}
                   </td>
+                  {filters.reportType === 'detailed' && (
+                    <td className="report-table-td">
+                      {agendamento.pacientes.map(p => p.endereco || '').join(' | ')}
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
