@@ -43,7 +43,9 @@ const Header: React.FC = () => {
     const handleMotoristaRoute = () => navigate("/gerenciar-motoristas");
     const handleHospitalRoute = () => navigate("/gerenciar-hospitais");
     const handleVeiculoRoute = () => navigate("/gerenciar-ambulancias");
-    const handleAgendarDiaRoute = () => navigate("/gerenciar-agendamentos/");
+    const handleAgendamento = () => navigate("/gerenciar-agendamentos/");
+    const handleCriarFicha = () => navigate("/criar-ficha")
+    const handleRelatorios = () => navigate("/dashboard-relatorios")
     const handleLogout = () => window.location.reload();
 
     return (
@@ -86,9 +88,9 @@ const Header: React.FC = () => {
 
                                             <DropdownItem onClick={handleHospitalRoute}>Hospitais</DropdownItem>
                                             <DropdownItem onClick={handleVeiculoRoute}>Veículos</DropdownItem>
-                                            <DropdownItem onClick={handleAgendarDiaRoute}>Agendamento</DropdownItem>
-                                            <DropdownItem onClick={handleAgendarDiaRoute}>Criar ficha</DropdownItem>
-                                            <DropdownItem onClick={handleAgendarDiaRoute}>Relatórios</DropdownItem>
+                                            <DropdownItem onClick={handleAgendamento}>Agendamento</DropdownItem>
+                                            <DropdownItem onClick={handleCriarFicha}>Criar ficha</DropdownItem>
+                                            <DropdownItem onClick={handleRelatorios}>Relatórios</DropdownItem>
                                         </div>
                                     </div>
                                 </DropdownMenu>
