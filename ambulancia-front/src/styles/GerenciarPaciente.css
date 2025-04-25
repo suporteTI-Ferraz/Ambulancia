@@ -27,3 +27,8 @@
 }
 
 
+  
+  .custom-table th,
+  .custom-table td {
+    border: 1.5px solid #1e1e1e2a; /* Cor da borda das células */
+  }
