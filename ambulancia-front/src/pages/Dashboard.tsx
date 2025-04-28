@@ -48,7 +48,7 @@ const Dashboard = () => {
           <div className="cards-container">
             <div className="card" onClick={handleUserRoute}>
               <FaUser className="icon" />
-              <h3>Funcionários</h3>
+              <h3>Usuários</h3>
             </div>
 
             <div className="card" onClick={handleMotoristaRoute}>

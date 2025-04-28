@@ -262,7 +262,7 @@
 .form-container-manutencao {
   margin-bottom: 2rem; /* Adiciona uma margem inferior para separar o formulário */
   padding: 1rem;
-  width: 59%;
+  width: 50%;
   background-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex; /* Contêiner flex */
@@ -270,11 +270,22 @@
   align-self: center;
   justify-self: center;
 }
+.modal .form-container-manutencao {
+  width: 100%; /* Reduz a largura dentro do modal */
+  background-color: transparent; /* Torna o fundo mais sólido */
+  box-shadow: none;
+  margin-top: -2rem;
+}
+
 
 .form-container-manutencao h4 {
   margin-top: 3rem;
   margin-left: 2.3rem ;
-
+}
+.modal .form-container-manutencao h4 {
+  margin-top: 2rem;
+  margin-left: 1rem ;
+  margin-bottom: 2rem;
 }
 
 .form-container-manutencao input {
@@ -282,7 +293,7 @@
   border-radius: 0;
   padding: 0.7rem;
   color: white;
-  width: 30rem;
+  width: 25rem;
 }
 
 .form-container-manutencao select {
@@ -290,11 +301,10 @@
   border-radius: 0;
   padding: 0.7rem;
   color: white;
-  width: 30rem;
+  width: 25rem;
 }
 
 .form-container-manutencao .select div {
-  
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 0;
   padding: 0.7rem;
@@ -308,6 +318,8 @@
   justify-self: center;
   margin-bottom: 2rem;
   max-width: 480px;
+  display: flex; /* Ativa o Flexbox */
+  flex-direction: column; /* Alinha os itens na vertical (um em cima do outro) */
 }
 
 
@@ -345,4 +357,30 @@
 .gerenciar .modal-content label {
   margin-left: 2rem;
   margin-top: 1rem;
+}
+
+
+
+.gerenciar-manutencao-modal form{
+  background-color: transparent;
+}
+
+
+
+
+
+.botao-container-manutencao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 2rem;
+}
+.modal .botao-container-manutencao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: -2rem;
+  gap: 2rem;
 }

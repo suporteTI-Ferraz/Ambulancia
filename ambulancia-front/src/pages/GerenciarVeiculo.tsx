@@ -111,12 +111,6 @@ const GerenciarVeiculo = () => {
             </div>
           </TabPane>
 
-
-
-          {/* Aba de Peça */}
-
-
-
           {/* Aba de Fornecedor */}
           <TabPane className="tab-pane-center" tabId="fornecedor">
             <div className="form-list-container">
@@ -142,8 +136,7 @@ const GerenciarVeiculo = () => {
 
 
 
-
-
+        {/* Modais para edição ---------------------------------------------------------------------------------- */}
         <Modal
           isOpen={isEditModalOpen}
           toggle={toggleEditModal} // Garante que o modal correto será fechado
@@ -180,7 +173,7 @@ const GerenciarVeiculo = () => {
         </Modal>
 
         <Modal isOpen={isManutencaoModalOpen} 
-        toggle={toggleModalManutencao} className="gerenciar">
+        toggle={toggleModalManutencao} className="gerenciar-manutencao-modal">
           <ModalHeader toggle={toggleModalManutencao}>Editar Manutenção</ModalHeader>
           <ModalBody>
             {editingManutencao && (

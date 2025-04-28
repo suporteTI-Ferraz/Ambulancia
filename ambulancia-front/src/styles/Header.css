@@ -64,22 +64,19 @@
     height: auto;
 }
 
-
 .dropdown > div {
     color: white !important; /* Texto branco */
-    background: rgba(0, 0, 0, 0.911); /* Fundo translúcido */
-    backdrop-filter: blur(10px); /* Valor mais moderado para teste */
-    -webkit-backdrop-filter: blur(10px); /* Compatibilidade */
+    background: rgba(0, 0, 0, 0.85); /* Fundo translúcido */
+    backdrop-filter: blur(8px); /* não funciona :( */
     padding: 1rem 0.5rem;
     margin: 0;
     border-radius: 0;
     flex-direction: column;
     align-items: flex-start;
     position: absolute; /* Garante que o dropdown esteja fora do fluxo */
-    z-index: 1000; /* Garante que esteja acima de outros elementos */
     border: none;
+    z-index: 1000;
 }
-
 
 .dropdown-item {
     width: 100%;
@@ -90,7 +87,6 @@
     font-size: 1rem;
     cursor: pointer;
 }
-
 
 /* Remove estilos antigos */
 .dropdown-grid div .dropdown-item:hover {
