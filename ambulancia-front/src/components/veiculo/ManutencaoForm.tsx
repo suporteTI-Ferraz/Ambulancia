@@ -223,12 +223,26 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
             </select>
           </div>
           <Row className="div-input-manutencao">
-            <Col>
-              <ButtonSpinner name={isModal ? "Atualizar" : "Criar"} isLoading={loading} type="submit" classe={"botao-criar-veiculos"} />
-            </Col>
-            <Col>
-              <Button className="botao-limpar-veiculos" type="button" onClick={handleCancel}>Limpar</Button>
-            </Col>
+          <div className="botao-container-manutencao">
+            <div>
+              <ButtonSpinner 
+                name={isModal ? "Atualizar" : "Criar"} 
+                isLoading={loading} 
+                type="submit" 
+                classe={"botao-criar-veiculos"} 
+              />
+            </div>
+            <div>
+              <Button 
+                className="botao-limpar-veiculos" 
+                type="button" 
+                onClick={handleCancel}
+              >
+                Limpar
+              </Button>
+            </div>
+          </div>
+
           </Row>
         </Form>
       </div>
