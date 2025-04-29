@@ -1,5 +1,6 @@
 /* Container principal para a página */
 .gerenciar-hospital-container {
+    color: white;
     padding: 20px;
     background-color: #31553f;
     display: flex;
@@ -47,6 +48,9 @@
     width: 100%;
     color: white;
 }
+.form-section-hospital label{
+    color: white;
+}
 
 .form-section-hospital input:focus{
     outline: none; 
@@ -91,7 +95,12 @@
 
 .modal-gerenciar-hospital h4 {
     margin-top: 2rem;
+    color: white;
 }
+.modal-gerenciar-hospital label {
+    color: white;
+}
+
 .modal-gerenciar-hospital input{
     background-color: rgba(255, 255, 255, 0.10);
     border: 1px solid white;
