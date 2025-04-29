@@ -6,6 +6,7 @@ import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 import '../styles/Relatorios.css';
 import { fetchAgendamento } from '../services/api/AgendamentoService';
+import { EnderecoPac } from '../types/paciente/EnderecoPacType';
 
 interface Motorista {
   id: number;
@@ -25,7 +26,7 @@ interface Hospital {
 interface Paciente {
   id: number;
   nomePaciente: string;
-  endereco?: string; // Adicionado campo endereço
+  enderecos: EnderecoPac[]; // Adicionado campo endereço
 }
 
 interface Agendamento {
@@ -173,12 +174,12 @@ const RelatoriosAgendamento: React.FC = () => {
     reportData.data.forEach((agendamento) => {
       const pacientesStr = agendamento.pacientes
         .map(p => p.nomePaciente)
-        .join(' | ');
+        .join(' |\n');
 
       // Se detalhado, pega o endereço também
       const enderecosStr = agendamento.pacientes
-        .map(p => p.endereco || '')
-        .join(' | ');
+        .map(p => `${p.enderecos[0].ruaPac}, ${p.enderecos[0].numeroPac} - ${p.enderecos[0].bairroPac}` || '')
+        .join(' |\n');
 
       const rowData: (string | number)[] = [
         agendamento.id,
@@ -250,7 +251,7 @@ const RelatoriosAgendamento: React.FC = () => {
         agendamento.pacientes.map(p => p.nomePaciente).join(' | ')
       ];
       if (filters.reportType === 'detailed') {
-        row.push(agendamento.pacientes.map(p => p.endereco || '').join(' | '));
+        row.push(agendamento.pacientes.map(p => `${p.enderecos[0].ruaPac}, ${p.enderecos[0].numeroPac} - ${p.enderecos[0].bairroPac}` || '').join(' | '));
       }
       return row;
     });
@@ -385,7 +386,13 @@ const RelatoriosAgendamento: React.FC = () => {
                   </td>
                   {filters.reportType === 'detailed' && (
                     <td className="report-table-td">
-                      {agendamento.pacientes.map(p => p.endereco || '').join(' | ')}
+                      {agendamento.pacientes
+                        .map(p =>
+                          p.enderecos && p.enderecos.length
+                            ? `${p.enderecos[0].ruaPac}, ${p.enderecos[0].numeroPac} - ${p.enderecos[0].bairroPac}`
+                            : ''
+                        )
+                        .join(' | ')}
                     </td>
                   )}
                 </tr>
