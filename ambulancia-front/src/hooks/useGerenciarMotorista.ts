@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useToast } from "./useToast";
 import { useLoading } from "../contexts/LoadingContext";
 
+// Agora Motorista inclui telefone, propagado automaticamente
 export const useGerenciarMotorista = () =>{
     const [motoristas, setMotoristas] = useState<Motorista[]>([]);
     const [editingMotorista, setEditingMotorista] = useState<Motorista | null>(null);
@@ -26,7 +27,6 @@ export const useGerenciarMotorista = () =>{
         loadMotoristas();
     },[]);
 
-
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
     const handleEdit = (motorista: Motorista) =>{
@@ -38,8 +38,6 @@ export const useGerenciarMotorista = () =>{
         try {
             const response = await createMotorista(motorista);
             const createdMotorista = response.data;
-/*prevMotoristas: Representa o estado anterior da lista de motoristas. Usa o operador spread (...) para criar um novo array que contém todos os 
- motoristas anteriores (prevMotoristas) e adiciona o novo motorista (createdMotorista) ao final da lista*/
             setMotoristas((prevMotoristas) => [...prevMotoristas, createdMotorista]);
             handleSuccess("Motorista criado com sucesso!");
         } catch (error) {
@@ -77,7 +75,7 @@ export const useGerenciarMotorista = () =>{
                 handleSuccess("Motorista Desativado com sucesso!");
                 setMotoristas((prevMotoristas) => prevMotoristas.map(
                     (motorista) => motorista.id === id ? {
-                        ...motorista, //Cria o novo motorista com o valor abaixo
+                        ...motorista,
                         deletedAt: deletedAt ? null : new Date().toISOString(),
                     } : motorista
                 )
@@ -105,6 +103,4 @@ export const useGerenciarMotorista = () =>{
         handleUpdateMotorista,
         handleDeleteMotorista,
     };
-
-
 }
