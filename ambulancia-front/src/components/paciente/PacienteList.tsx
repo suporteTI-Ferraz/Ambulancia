@@ -77,7 +77,9 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
                   </div>
                 ))}
               </td>
-              <td className="custom-td-paciente">{paciente.deletedAt ? 'Desativado' : 'Ativo' }! O Paciente se encontra falecido ? {paciente.falecido ? 'Sim' : 'Não'}</td>
+              <td className="custom-td-paciente">
+                {paciente.deletedAt ? 'Desativado' : 'Ativo'}
+              </td>
               <td className="custom-td-paciente">
                 <div className="icon-container">
                   <FiEdit

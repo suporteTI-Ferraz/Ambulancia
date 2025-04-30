@@ -128,31 +128,52 @@ const ManutencaoForm: React.FC<ManutencaoFormProps> = ({
               required
             />
           </Form.Group>
+
           <Form.Group controlId="dataEntradaManutencao" className="div-input-manutencao">
-            <Form.Label style={{ color: "white" }}>Data de Entrada da Manutenção</Form.Label>
-            <input
-              type="date"
-              name="dataEntradaManutencao"
-              value={formData.dataEntradaManutencao || ""}
-              onChange={(e) => setFormData({ ...formData, dataEntradaManutencao: e.target.value })}
-              max={new Date().toISOString().split("T")[0]}
-              placeholder="DD/MM/AAAA"
-              className="form-control"
-            />
-          </Form.Group>
-          <Form.Group controlId="dataSaidaManutencao" className="div-input-manutencao">
-            <Form.Label style={{ color: "white" }}>Data de Saída da Manutenção</Form.Label>
-            <input
-              type="date"
-              name="dataSaidaManutencao"
-              value={formData.dataSaidaManutencao || ""}
-              onChange={(e) => setFormData({ ...formData, dataSaidaManutencao: e.target.value })}
-              min={formData.dataEntradaManutencao || ""}
-              max={new Date().toISOString().split("T")[0]}
-              placeholder="DD/MM/AAAA"
-              className="form-control"
-            />
-          </Form.Group>
+  <Form.Label style={{ color: "white" }}>
+    Data de Entrada da Manutenção
+  </Form.Label>
+  <Form.Control
+    type="date"
+    name="dataEntradaManutencao"
+    value={formData.dataEntradaManutencao || ""}
+    onChange={(e) => {
+      const novaDataEntrada = e.target.value;
+      setFormData((prevState) => ({
+        ...prevState,
+        dataEntradaManutencao: novaDataEntrada,
+        // Remove data de saída se for anterior à entrada
+        dataSaidaManutencao:
+          prevState.dataSaidaManutencao &&
+          new Date(prevState.dataSaidaManutencao) < new Date(novaDataEntrada)
+            ? ""
+            : prevState.dataSaidaManutencao,
+      }));
+    }}
+    max={new Date().toISOString().split("T")[0]}
+    className="form-control"
+  />
+</Form.Group>
+
+<Form.Group controlId="dataSaidaManutencao" className="div-input-manutencao">
+  <Form.Label style={{ color: "white" }}>
+    Data de Saída da Manutenção
+  </Form.Label>
+  <Form.Control
+    type="date"
+    name="dataSaidaManutencao"
+    value={formData.dataSaidaManutencao || ""}
+    onChange={(e) =>
+      setFormData({ ...formData, dataSaidaManutencao: e.target.value })
+    }
+    min={formData.dataEntradaManutencao || ""}
+    max={new Date().toISOString().split("T")[0]}
+    className="form-control"
+  />
+</Form.Group>
+
+
+
           <Form.Group controlId="custoMaoObra" className="div-input-manutencao">
             <Form.Label style={{ color: "white" }}>Custo Mão de Obra</Form.Label>
             <Form.Control
