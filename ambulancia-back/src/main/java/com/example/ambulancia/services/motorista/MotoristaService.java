@@ -36,6 +36,7 @@ public class MotoristaService {
     }
     public void updateData(Motorista entity, Motorista motorista){
         entity.setNomeMotorista(motorista.getNomeMotorista());
+        entity.setTelefone(motorista.getTelefone());
     }
 
     public Motorista deleteById(Long id){
