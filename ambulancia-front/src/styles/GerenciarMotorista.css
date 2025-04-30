@@ -87,6 +87,10 @@
 
 
 /* MODAL ESTILIZADO SOZINHO ----------------------------------------------------------*/
+.modal .global-motorista {
+    background-color: transparent;
+}
+
 .modal-form .div-input-motorista {
     display: flex;  /* Usando flexbox */
     flex-direction: column;  /* Alinha os itens em uma coluna */

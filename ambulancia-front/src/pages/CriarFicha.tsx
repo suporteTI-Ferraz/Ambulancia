@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from 'react';
 import { saveAs } from 'file-saver';
 import jsPDF from 'jspdf';
@@ -8,9 +7,10 @@ import '../styles/Relatorios.css';
 import { fetchAgendamento } from '../services/api/AgendamentoService';
 import { EnderecoPac } from '../types/paciente/EnderecoPacType';
 import { TelefonePac } from '../types/paciente/TelefonePacType';
+import ButtonSpinner from '../components/itens/ButtonSpinner';
+
 
 // Tipos estendidos para incluir telefones e enderecos.
-
 interface Paciente {
   id: number;
   nomePaciente: string;
@@ -58,6 +58,7 @@ const CriarFicha: React.FC = () => {
     motorista: ''
   });
   const [motoristasAvailable, setMotoristasAvailable] = useState<Motorista[]>([]);
+  const [loading, setLoading] = useState(false); // Adiciona o estado de carregamento
   const reportRef = useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -144,42 +145,69 @@ const CriarFicha: React.FC = () => {
     }));
   };
 
-  const handleExportToPDF = () => {
+  const handleExportToPDF = async () => {
     if (!reportData) return;
-    const pdf = new jsPDF('landscape');
-    pdf.setFontSize(18);
-    pdf.text(reportData.title, 14, 22);
-    pdf.setFontSize(11);
-    pdf.text(`Data: ${reportData.date}`, 14, 30);
-    pdf.text(`Motorista: ${filters.motorista}`, 14, 38);
-    pdf.text(`Placa Veículo: ${reportData.placaVeiculo || '-'}`, 14, 46);
-    pdf.text(`A partir de: ${filters.startDate}`, 14, 54);
 
-    // Alterado: Cabeçalho ajustado com "Horário"
-    const tableColumn = ['Horário', 'Paciente', 'Telefone', 'Endereço', 'Hospital'];
-    const tableRows: (string | number)[][] = [];
+    setLoading(true); // Ativa o carregamento
 
-    reportData.data.forEach((agendamento) => {
-      (agendamento.pacientes || []).forEach((p) => {
-        tableRows.push([
-          agendamento.horarioInic,
-          p.nomePaciente,
-          formatTelefone(p.telefones),
-          formatEndereco(p.enderecos),
-          agendamento.hospital ? agendamento.hospital.nomeHosp : '',
-        ]);
+    try {
+      const pdf = new jsPDF('landscape');
+  
+      // Carrega a imagem como promise
+      const imageData = await new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new Image();
+        img.src = '/assets/brasao.png';
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error('Erro ao carregar brasao.png'));
       });
-    });
-
-    autoTable(pdf, {
-      startY: 62,
-      head: [tableColumn],
-      body: tableRows,
-      styles: { fontSize: 10 },
-      headStyles: { fillColor: [8, 70, 120] }
-    });
-
-    pdf.save(`Ficha_Agendamentos_${new Date().toISOString().split('T')[0]}.pdf`);
+  
+      const imgWidth = 40;
+      const imgHeight = 40;
+      const marginRight = 10;
+      const marginTop = 10;
+      const pageWidth = pdf.internal.pageSize.getWidth();
+  
+      pdf.addImage(imageData, 'PNG', pageWidth - imgWidth - marginRight, marginTop, imgWidth, imgHeight);
+  
+      // Cabeçalho do relatório
+      pdf.setFontSize(18);
+      pdf.text(reportData.title, 14, 22);
+      pdf.setFontSize(11);
+      pdf.text(`Data: ${reportData.date}`, 14, 30);
+      pdf.text(`Motorista: ${filters.motorista}`, 14, 38);
+      pdf.text(`Placa Veículo: ${reportData.placaVeiculo || '-'}`, 14, 46);
+      pdf.text(`A partir de: ${filters.startDate}`, 14, 54);
+  
+      const tableColumn = ['Horário', 'Paciente', 'Telefone', 'Endereço', 'Hospital'];
+      const tableRows: (string | number)[][] = [];
+  
+      reportData.data.forEach((agendamento) => {
+        (agendamento.pacientes || []).forEach((p) => {
+          tableRows.push([
+            agendamento.horarioInic,
+            p.nomePaciente,
+            formatTelefone(p.telefones),
+            formatEndereco(p.enderecos),
+            agendamento.hospital ? agendamento.hospital.nomeHosp : '',
+          ]);
+        });
+      });
+  
+      autoTable(pdf, {
+        startY: 62,
+        head: [tableColumn],
+        body: tableRows,
+        styles: { fontSize: 10 },
+        headStyles: { fillColor: [8, 70, 120] }
+      });
+  
+      pdf.save(`Ficha_Agendamentos_${new Date().toISOString().split('T')[0]}.pdf`);
+    } catch (err) {
+      console.error(err);
+      alert('Erro ao gerar PDF com logo. Verifique se a imagem brasao.png existe na pasta /public.');
+    } finally {
+      setLoading(false); // Desativa o carregamento após a execução
+    }
   };
 
   const exportToExcel = () => {
@@ -254,16 +282,19 @@ const CriarFicha: React.FC = () => {
               ))}
             </select>
           </div>
-          <div className="botoes-relatorio-gerar">
-            <button
-              className="report-button"
-              onClick={generateReport}
-              disabled={!filters.motorista}
-            >
-              Gerar Ficha
-            </button>
-          </div>
+          
         </div>
+        <div className="div-botoes-relarotios">
+            <div className="div-botoes-relarotio1">
+              <button
+                className="report-button"
+                onClick={generateReport}
+                disabled={!filters.motorista}
+              >
+                Gerar Ficha
+              </button>
+            </div>
+          </div>
       </div>
       {reportData && (
         <div ref={reportRef} className="report-content">
@@ -283,24 +314,27 @@ const CriarFicha: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {reportData.data.map(agendamento =>
-                (agendamento.pacientes || []).map((p, i) => (
-                  <tr key={agendamento.id + '_' + p.id + '_' + i}>
-                    <td className="report-table-td">{agendamento.horarioInic}</td>
-                    <td className="report-table-td">{p.nomePaciente}</td>
-                    <td className="report-table-td">{formatTelefone(p.telefones)}</td>
-                    <td className="report-table-td">{formatEndereco(p.enderecos)}</td>
-                    <td className="report-table-td">{agendamento.hospital ? agendamento.hospital.nomeHosp : ''}</td>
+              {reportData.data.map((agendamento, index) => (
+                agendamento.pacientes.map((paciente, i) => (
+                  <tr key={`${index}-${i}`}>
+                    <td>{agendamento.horarioInic}</td>
+                    <td>{paciente.nomePaciente}</td>
+                    <td>{formatTelefone(paciente.telefones)}</td>
+                    <td>{formatEndereco(paciente.enderecos)}</td>
+                    <td>{agendamento.hospital?.nomeHosp}</td>
                   </tr>
                 ))
-              )}
+              ))}
             </tbody>
           </table>
           <div className="botoes-relatorio-gerado">
-            <button className="report-button" onClick={handleExportToPDF}>
-              Exportar PDF
-            </button>
-            <button className="report-button" onClick={exportToExcel}>
+            <ButtonSpinner 
+              name="Exportar PDF" 
+              isLoading={loading} 
+              onClick={handleExportToPDF}
+              classe={"report-button"} 
+            />
+            <button onClick={exportToExcel} className="report-button">
               Exportar Excel
             </button>
           </div>

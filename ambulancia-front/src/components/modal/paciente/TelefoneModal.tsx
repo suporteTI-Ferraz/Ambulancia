@@ -68,7 +68,7 @@ const TelefoneModal: React.FC<TelefoneModalProps> = ({
         onTelefonesChange={setCurrentTelefones}
         isModal={true}
       />
-      <ButtonSpinner name="Salvar" isLoading={loading} onClick={handleSave} />
+      <ButtonSpinner name="Salvar" isLoading={loading} onClick={handleSave} classe={""} />
       {originalTelefones.length > 0 ? (
         <ul>
           {originalTelefones.map((telefone, index) => (

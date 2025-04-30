@@ -150,10 +150,9 @@ export const useGerenciarPaciente = () => {
             handleSuccess("Paciente reativado com sucesso!");
         } else {
             // Perguntar se o paciente faleceu
-            
-            falecido = window.confirm("O paciente faleceu? Clique em OK para Sim e Cancelar para Não.");
+            falecido = true;
             response = await deletePaciente(id, falecido);
-            handleSuccess(`Paciente ${falecido ? "marcado como falecido e" : ""} desativado com sucesso!`);
+            handleSuccess(`Paciente desativado com sucesso!`);
         }
 
         if (response.status === 200) {

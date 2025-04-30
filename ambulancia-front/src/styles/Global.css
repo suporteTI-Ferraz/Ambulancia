@@ -131,3 +131,18 @@ table td {
   background-color: #1e1e1e;
   color: #fff;
 }
+
+
+
+
+.modal {
+  background-color: rgba(0,0,0,0.7);
+}
+
+
+.modal .modal-header button {
+  background-color: #9e4343 !important;
+  color: white !important;
+  opacity: 1;
+  border-radius: 0px;
+}
