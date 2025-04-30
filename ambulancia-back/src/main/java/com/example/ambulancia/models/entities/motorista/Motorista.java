@@ -29,6 +29,8 @@ public class Motorista extends BaseEntity {
     @Column(nullable = false)
     private String nomeMotorista;
 
+    private String telefone;
+
     // Inicializa a lista de agendamentos como uma lista vazia
     @JsonIgnore
     @Builder.Default

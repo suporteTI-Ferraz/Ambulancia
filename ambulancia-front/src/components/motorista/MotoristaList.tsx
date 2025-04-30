@@ -40,6 +40,7 @@ const MotoristaList: React.FC<MotoristaListProps> = ({ motoristas, onEdit, onDel
           <tr>
             <th className="custom-th-motorista">Criação</th>
             <th className="custom-th-motorista">Nome</th>
+            <th className="custom-th-motorista">Telefone</th>
             <th className="custom-th-motorista">Status</th>
             <th className="custom-th-motorista">Ações</th>
           </tr>
@@ -48,10 +49,11 @@ const MotoristaList: React.FC<MotoristaListProps> = ({ motoristas, onEdit, onDel
           {sortedMotoristas.map((motorista) => (
             <tr
               key={motorista.id}
-              className={motorista.deletedAt ? 'row-deleted' : 'row-active'} // Usando classes para fundo
+              className={motorista.deletedAt ? 'row-deleted' : 'row-active'}
             >
               <td className="custom-td-motorista"><DataCriacao createdAt={motorista.createdAt} /></td>
               <td className="custom-td-motorista">{motorista.nomeMotorista}</td>
+              <td className="custom-td-motorista">{motorista.telefone || '-'}</td>
               <td className="custom-td-motorista">{motorista.deletedAt ? 'Desativado' : 'Ativo'}</td>
               <td className="custom-td-motorista">
                 {/* Ícones de Ações */}
