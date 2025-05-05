@@ -93,7 +93,7 @@ const AgendamentoForm: React.FC<AgendamentoFormProps> = ({ pacientes, motoristas
           </div>
   
           <div className="agendamento-form-group">
-            <label>Quilometragem Percorrida:</label>
+            <label>Quilometragem Final:</label>
             <input 
               name="quilometragemFinal" 
               value={formData.quilometragemFinal} 

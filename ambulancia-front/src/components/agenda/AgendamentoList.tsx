@@ -1,6 +1,25 @@
+
+
 import { FiEdit } from "react-icons/fi";
 import { Agendamento } from "../../types/agenda/Agendamento";
 
+// Função utilitária pega do CriarFicha para padronizar datas (sem bug do dia anterior)
+function formatDateBR(dateString: string): string {
+  if (!dateString) return '';
+  // Lida explicitamente com datas no formato "YYYY-MM-DD"
+  const isoRegex = /^\d{4}-\d{2}-\d{2}$/;
+  let date: Date;
+  if (isoRegex.test(dateString)) {
+    // Trata como data local, não UTC!
+    const parts = dateString.split('-').map(Number);
+    // Mês começa do zero no JS!
+    date = new Date(parts[0], parts[1] - 1, parts[2]);
+  } else {
+    date = new Date(dateString);
+  }
+  if (isNaN(date.getTime())) return dateString;
+  return date.toLocaleDateString('pt-BR');
+}
 
 interface AgendamentoListProps {
   agendamentos: Agendamento[];
@@ -33,7 +52,7 @@ const AgendamentoList: React.FC<AgendamentoListProps> = ({ agendamentos, onEdit 
         <tbody>
           {agendamentos.map((agendamento) => (
             <tr key={agendamento.id}>
-              <td className="report-table-td">{agendamento.data}</td>
+              <td className="report-table-td">{formatDateBR(agendamento.data)}</td>
               <td className="report-table-td">{agendamento.servico}</td>
               <td className="report-table-td">{agendamento.horarioInic}</td>
               <td className="report-table-td">{agendamento.horarioFim}</td>
@@ -43,7 +62,6 @@ const AgendamentoList: React.FC<AgendamentoListProps> = ({ agendamentos, onEdit 
                 {agendamento.pacientes.map((paciente) => (
                   <div key={paciente.id} className="paciente-item">
                     <span>{paciente.nomePaciente}</span>
-
                   </div>
                 ))}
               </td>
@@ -66,3 +84,4 @@ const AgendamentoList: React.FC<AgendamentoListProps> = ({ agendamentos, onEdit 
 };
 
 export default AgendamentoList;
+
