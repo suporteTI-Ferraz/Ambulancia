@@ -72,7 +72,7 @@ public class AgendamentoService {
         agendamento.setUser(user);
         agendamento.setMotorista(motorista);
         agendamento.setQuilometragemInicial(veiculo.getQuilometragemAtual());
-        agendamento.setQuilometragemFinal(veiculo.getQuilometragemAtual() + agendamento.getQuilometragemFinal());
+        agendamento.setQuilometragemFinal(agendamento.getQuilometragemFinal());
         veiculo.setQuilometragemAtual(agendamento.getQuilometragemFinal());
         veiculo.setUpdatedAt(null);
         veiculo.setUpdatedBy(null);
@@ -110,13 +110,12 @@ public class AgendamentoService {
                 .orElseThrow(() -> new RuntimeException("Hospital não encontrado"));
 
         // Atualiza a quilometragem corretamente
-        Integer quilometragemAnterior = agendamento.getQuilometragemFinal();
         Integer quilometragemNova = novoAgendamento.getQuilometragemFinal();
 
         agendamento.setQuilometragemFinal(quilometragemNova);
 
         // Ajusta a quilometragem do veículo com a diferença entre a quilometragem nova e a anterior
-        veiculo.setQuilometragemAtual(veiculo.getQuilometragemAtual() + (quilometragemNova - quilometragemAnterior));
+        veiculo.setQuilometragemAtual(quilometragemNova);
 
         // Busca os pacientes
         List<Paciente> pacientes = pacienteRepository.findAllById(pacientesIds);

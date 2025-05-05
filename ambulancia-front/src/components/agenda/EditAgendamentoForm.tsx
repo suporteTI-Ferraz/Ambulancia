@@ -51,7 +51,7 @@ const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const quilometragemFinalCalculada = formData.quilometragemInicial + formData.quilometragemFinal;
+    const quilometragemFinalCalculada = formData.quilometragemFinal;
 
     onSave({
       ...formData,
@@ -128,7 +128,7 @@ const EditAgendamentoForm: React.FC<EditAgendamentoFormProps> = ({
           </div>
 
           <div className="agendamento-form-group">
-            <label>Quilometragem Percorrida:</label>
+            <label>Quilometragem Final:</label>
             <input
               name="quilometragemFinal"
               type="number"
