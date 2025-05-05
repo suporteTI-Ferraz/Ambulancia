@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from 'react';
 import { saveAs } from 'file-saver';
 import jsPDF from 'jspdf';
@@ -26,7 +25,7 @@ interface Hospital {
 interface Paciente {
   id: number;
   nomePaciente: string;
-  enderecos: EnderecoPac[]; // Adicionado campo endereço
+  enderecos: EnderecoPac[];
 }
 
 interface Agendamento {
@@ -53,6 +52,7 @@ interface Filters {
   reportType: 'general' | 'detailed' | 'summary';
   motorista: string;
   veiculo: string;
+  paciente: string;
 }
 
 const RelatoriosAgendamento: React.FC = () => {
@@ -63,9 +63,11 @@ const RelatoriosAgendamento: React.FC = () => {
     reportType: 'general',
     motorista: '',
     veiculo: '',
+    paciente: '',
   });
   const [motoristasAvailable, setMotoristasAvailable] = useState<Motorista[]>([]);
   const [veiculosAvailable, setVeiculosAvailable] = useState<Veiculo[]>([]);
+  const [pacientesAvailable, setPacientesAvailable] = useState<Paciente[]>([]);
   const reportRef = useRef<HTMLDivElement>(null);
 
   // Função para gerar o relatório de agendamentos com os filtros aplicados
@@ -102,7 +104,18 @@ const RelatoriosAgendamento: React.FC = () => {
       });
       setVeiculosAvailable(Object.values(uniqueVeiculosMap));
 
-      // Aplica os filtros: data, motorista e veículo
+      // Pacientes únicos
+      const uniquePacientesMap: Record<number, Paciente> = {};
+      agendamentos.forEach(agendamento => {
+        agendamento.pacientes.forEach(paciente => {
+          if (paciente && !uniquePacientesMap[paciente.id]) {
+            uniquePacientesMap[paciente.id] = paciente;
+          }
+        });
+      });
+      setPacientesAvailable(Object.values(uniquePacientesMap));
+
+      // Aplica os filtros: data, motorista, veículo e paciente
       const filteredAgendamentos = agendamentos.filter(agendamento => {
         const agendamentoDate = new Date(agendamento.data);
         const passesStartDate = filters.startDate ? agendamentoDate >= new Date(filters.startDate) : true;
@@ -113,7 +126,10 @@ const RelatoriosAgendamento: React.FC = () => {
         const passesVeiculo = filters.veiculo
           ? (agendamento.veiculo && agendamento.veiculo.placaVeic === filters.veiculo)
           : true;
-        return passesStartDate && passesEndDate && passesMotorista && passesVeiculo;
+        const passesPaciente = filters.paciente
+          ? (agendamento.pacientes.some(p => p.nomePaciente === filters.paciente))
+          : true;
+        return passesStartDate && passesEndDate && passesMotorista && passesVeiculo && passesPaciente;
       });
 
       const report: AgendamentoReportData = {
@@ -151,6 +167,7 @@ const RelatoriosAgendamento: React.FC = () => {
     pdf.text(`Período: ${filters.startDate} a ${filters.endDate}`, 14, 44);
     pdf.text(`Motorista: ${filters.motorista || 'Todos'}`, 14, 51);
     pdf.text(`Veículo: ${filters.veiculo || 'Todos'}`, 14, 58);
+    pdf.text(`Paciente: ${filters.paciente || 'Todos'}`, 14, 65);
 
     // Colunas da tabela
     const tableColumnBase = [
@@ -178,7 +195,7 @@ const RelatoriosAgendamento: React.FC = () => {
 
       // Se detalhado, pega o endereço também
       const enderecosStr = agendamento.pacientes
-        .map(p => `${p.enderecos[0].ruaPac}, ${p.enderecos[0].numeroPac} - ${p.enderecos[0].bairroPac}` || '')
+        .map(p => p.enderecos && p.enderecos.length > 0 ? `${p.enderecos[0].ruaPac}, ${p.enderecos[0].numeroPac} - ${p.enderecos[0].bairroPac}` : '')
         .join(' |\n');
 
       const rowData: (string | number)[] = [
@@ -200,7 +217,7 @@ const RelatoriosAgendamento: React.FC = () => {
     });
 
     autoTable(pdf, {
-      startY: 67,
+      startY: 74,
       head: [tableColumn],
       body: tableRows,
       styles: { fontSize: 8 },
@@ -219,7 +236,7 @@ const RelatoriosAgendamento: React.FC = () => {
 
     XLSX.utils.sheet_add_aoa(ws, [[`Relatório: ${reportData.title}`]], { origin: 'A1' });
     XLSX.utils.sheet_add_aoa(ws, [[`Data: ${reportData.date}`]], { origin: 'A2' });
-    XLSX.utils.sheet_add_aoa(ws, [['Filtro: ' + filters.reportType, `Período: ${filters.startDate} a ${filters.endDate}`, `Motorista: ${filters.motorista || 'Todos'}`, `Veículo: ${filters.veiculo || 'Todos'}`]], { origin: 'A3' });
+    XLSX.utils.sheet_add_aoa(ws, [['Filtro: ' + filters.reportType, `Período: ${filters.startDate} a ${filters.endDate}`, `Motorista: ${filters.motorista || 'Todos'}`, `Veículo: ${filters.veiculo || 'Todos'}`, `Paciente: ${filters.paciente || 'Todos'}`]], { origin: 'A3' });
 
     const headerBase = [
       'ID',
@@ -251,7 +268,11 @@ const RelatoriosAgendamento: React.FC = () => {
         agendamento.pacientes.map(p => p.nomePaciente).join(' | ')
       ];
       if (filters.reportType === 'detailed') {
-        row.push(agendamento.pacientes.map(p => `${p.enderecos[0].ruaPac}, ${p.enderecos[0].numeroPac} - ${p.enderecos[0].bairroPac}` || '').join(' | '));
+        row.push(
+          agendamento.pacientes
+            .map(p => p.enderecos && p.enderecos.length > 0 ? `${p.enderecos[0].ruaPac}, ${p.enderecos[0].numeroPac} - ${p.enderecos[0].bairroPac}` : '')
+            .join(' | ')
+        );
       }
       return row;
     });
@@ -323,6 +344,18 @@ const RelatoriosAgendamento: React.FC = () => {
               <option value="">Todos</option>
               {veiculosAvailable.map(v => (
                 <option key={v.id} value={v.placaVeic}>{v.placaVeic}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="filter-group">
+            <label>Paciente:</label>
+            <select name="paciente" value={filters.paciente} onChange={handleFilterChange}>
+              <option value="">Todos</option>
+              {pacientesAvailable.map(p => (
+                <option key={p.id} value={p.nomePaciente}>
+                  {p.nomePaciente}
+                </option>
               ))}
             </select>
           </div>
