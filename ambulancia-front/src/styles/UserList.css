@@ -30,6 +30,10 @@
   text-align: left;
   border: 1px solid #ddd;
 }
+/* Sobrescreva o alinhamento para a 5ª coluna */
+.custom-td:nth-child(5) {
+  text-align: left !important;
+}
 
 .custom-th {
   background-color: rgb(255, 255, 255, 0.1);
@@ -48,11 +52,6 @@
 
 .row-deleted {
   background-color: #ffcccc !important; /* Linha desativada com fundo vermelho claro */
-}
-
-/* Ajustes para a célula de status */
-.custom-td:nth-child(5) {
-  text-align: center;
 }
 
 .custom-search-container {
