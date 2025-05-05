@@ -24,11 +24,10 @@ export interface CreateAgendamentoDTO {
     id?: number; // optional ID
     data:string;
     servico: string;
-    horarioInic: string; // "HH:mm:ss"
-    horarioFim: string;  // "HH:mm:ss"
+    horarioInic: string;
+    horarioFim: string;  
     quilometragemInicial: number;  
     quilometragemFinal: number;
-    // Removed agendaId property as it's no longer required by the backend
     motoristaId: number;
     veiculoId: number;
     hospitalId: number;

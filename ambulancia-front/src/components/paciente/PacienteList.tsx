@@ -1,8 +1,25 @@
+
+
 import React, { useState } from "react";
 import { FiEdit, FiRefreshCw, FiSearch, FiTrash } from "react-icons/fi";
 import '../../styles/PacienteList.css';
 import { Paciente } from "../../types/paciente/PacienteType";
 import DataCriacao from "../itens/DataFormatada";
+
+// Função utilitária igual à dos outros componentes para formatar corretamente (corrige bug do dia anterior)
+function formatDateBR(dateString: string): string {
+  if (!dateString) return '';
+  const isoRegex = /^\d{4}-\d{2}-\d{2}$/;
+  let date: Date;
+  if (isoRegex.test(dateString)) {
+    const parts = dateString.split('-').map(Number);
+    date = new Date(parts[0], parts[1] - 1, parts[2]);
+  } else {
+    date = new Date(dateString);
+  }
+  if (isNaN(date.getTime())) return dateString;
+  return date.toLocaleDateString('pt-BR');
+}
 
 interface PacienteListProps {
   pacientes: Paciente[];
@@ -57,12 +74,12 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
           {sortedPacientes.map((paciente) => (
             <tr
               key={paciente.id}
-              style={{ backgroundColor: paciente.deletedAt ? '#ffcccc' : 'white' }} // Cor vermelha se paciente estiver desativado
+              style={{ backgroundColor: paciente.deletedAt ? '#ffcccc' : 'white' }}
               className="custom-tr"
             >
               <td className="custom-td-paciente"><DataCriacao createdAt={paciente.createdAt} /></td>
               <td className="custom-td-paciente">{paciente.nomePaciente}</td>
-              <td className="custom-td-paciente"><DataCriacao createdAt={paciente.dataNasc} showTime={false} /></td>
+              <td className="custom-td-paciente">{formatDateBR(paciente.dataNasc)}</td>
               <td className="custom-td-paciente">{paciente.cpf}</td>
               <td className="custom-td-paciente">{paciente.sus}</td>
               <td className="custom-td-paciente">
@@ -108,3 +125,4 @@ const PacienteList: React.FC<PacienteListProps> = ({ pacientes, onEdit, onViewTe
 };
 
 export default PacienteList;
+

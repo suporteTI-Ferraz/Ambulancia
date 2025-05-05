@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Paciente } from "../../types/paciente/PacienteType";
-import TelefonePacForm from "./TelefonePacForm";
-import EnderecoPacForm from "./EnderecoPacForm";
-import ButtonSpinner from "../itens/ButtonSpinner";
-import { Form, Button } from "react-bootstrap";
+
+import { useState, useEffect } from 'react';
+import "../../styles/EditPacienteForm.css";
 import { EnderecoPac } from "../../types/paciente/EnderecoPacType";
-import DatePicker from "react-datepicker";
-import "../../styles/EditPacienteForm.css"
+import { Paciente } from "../../types/paciente/PacienteType";
+import ButtonSpinner from "../itens/ButtonSpinner";
+import EnderecoPacForm from "./EnderecoPacForm";
+import TelefonePacForm from "./TelefonePacForm";
 
 interface PacienteFormProps {
   paciente: Paciente;
@@ -32,14 +31,36 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave }) => 
   const [formData, setFormData] = useState<Paciente>(initialFormData);
   const [isLoading, setIsLoading] = useState(false);
   const [currentEnderecos, setCurrentEnderecos] = useState<EnderecoPac[]>([]);
+  // Validation for date of birth
+  const [dateIsValid, setDateIsValid] = useState<boolean>(false);
 
   useEffect(() => {
     setCurrentEnderecos(paciente?.enderecos || []);
   }, [paciente?.enderecos]);
 
+  // Validation for date (not in future and after 1900)
+  const validateDate = (value: string) => {
+    if (!value) return false;
+    const [year, month, day] = value.split('-').map((v) => parseInt(v, 10));
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    const inputDate = new Date(year, month - 1, day);
+    return inputDate <= currentDate && year >= 1900;
+  };
+
+  useEffect(() => {
+    setDateIsValid(validateDate(formData.dataNasc));
+  }, [formData.dataNasc]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setFormData({ ...formData, dataNasc: value });
+    setDateIsValid(validateDate(value));
   };
 
   const handleTelefonesChange = (telefones: Paciente["telefones"]) => {
@@ -54,6 +75,12 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave }) => 
     e.preventDefault();
     if (isLoading) return;
 
+    // Validate date before submit
+    if (!dateIsValid) {
+      alert("Por favor, insira uma data de nascimento válida e não futura.");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -66,10 +93,6 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave }) => 
     }
   };
 
-
-
-
-  
   return (
     <form onSubmit={handleSubmit} className="global-modal-edit-pac">
       <div className="form-modal-pacientes">
@@ -88,23 +111,22 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave }) => 
 
         <div className="form-input-paciente">
           <label className="form-label">Data de Nascimento</label>
-          <DatePicker
-            selected={formData.dataNasc ? new Date(formData.dataNasc) : null}
-            onChange={(date) =>
-              setFormData({
-                ...formData,
-                dataNasc: date?.toISOString().split("T")[0] || "",
-              })
-            }
-            locale="pt-BR"
-            dateFormat="dd/MM/yyyy"
-            showYearDropdown
-            scrollableYearDropdown
-            yearDropdownItemNumber={120}
-            maxDate={new Date()}
-            placeholderText="DD/MM/AAAA"
-            className="form-datepicker"
+          <input
+            type="date"
+            name="dataNasc"
+            value={formData.dataNasc || ""}
+            onChange={handleDateChange}
+            className={`form-control ${dateIsValid ? 'is-valid' : ''} ${!dateIsValid && formData.dataNasc ? 'is-invalid' : ''}`}
+            max={new Date().toISOString().split("T")[0]}
+            placeholder="DD/MM/AAAA"
+            required
           />
+          <div className="invalid-feedback" style={{ display: !dateIsValid && formData.dataNasc ? "block" : "none" }}>
+            Por favor, insira uma data válida e não futura.
+          </div>
+          <div className="valid-feedback" style={{ display: dateIsValid ? "block" : "none" }}>
+            Data válida!
+          </div>
         </div>
 
         <div className="form-input-paciente">
@@ -159,7 +181,7 @@ const EditPacienteForm: React.FC<PacienteFormProps> = ({ paciente, onSave }) => 
       />
 
       <div className="form-group">
-        <ButtonSpinner name="Salvar" isLoading={isLoading} type="submit" />
+        <ButtonSpinner name="Salvar" isLoading={isLoading} type="submit" classe={""} />
       </div>
     </form>
   );
