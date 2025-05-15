@@ -1,4 +1,5 @@
 package com.example.ambulancia.configs;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -36,24 +37,24 @@ public class SecurityConfiguration {
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-            http
-                    .cors(withDefaults())
-                    .csrf(AbstractHttpConfigurer::disable)
-                    .authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URL)
-                            .permitAll()
-                            .requestMatchers("/h2-console/**").permitAll()
+                http
+                                .cors(withDefaults())
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URL)
+                                                .permitAll()
+                                                .requestMatchers("/h2-console/**").permitAll()
 
-                            .anyRequest()
-                            .authenticated())
-                    .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-                    .authenticationProvider(authenticationProvider)
-                    .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                    .logout(logout -> logout.logoutUrl("/api/logout")
-                            .addLogoutHandler(logoutHandler)
-                            .logoutSuccessHandler((request, response,
-                                    authentication) -> SecurityContextHolder
-                                    .clearContext()))
-                    .headers(headers -> headers.frameOptions().disable()); // Desabilitar proteção de frame
+                                                .anyRequest()
+                                                .authenticated())
+                                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
+                                .authenticationProvider(authenticationProvider)
+                                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                                .logout(logout -> logout.logoutUrl("/api/logout")
+                                                .addLogoutHandler(logoutHandler)
+                                                .logoutSuccessHandler((request, response,
+                                                                authentication) -> SecurityContextHolder
+                                                                                .clearContext()))
+                                .headers(headers -> headers.frameOptions().disable()); // Desabilitar proteção de frame
 
                 return http.build();
         }
