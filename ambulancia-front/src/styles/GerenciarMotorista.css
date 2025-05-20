@@ -90,6 +90,8 @@
 /* MODAL ESTILIZADO SOZINHO ----------------------------------------------------------*/
 .modal .global-motorista {
     background-color: transparent;
+    width: 35%;
+    margin-top: 3rem;
 }
 
 .modal-form .div-input-motorista {
